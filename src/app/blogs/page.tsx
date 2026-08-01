@@ -2,12 +2,37 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Calendar, User, Tag, Clock } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import type { Metadata } from "next";
 
 export const dynamic = 'force-dynamic';
 
-export const metadata = {
-  title: "Latest Healthcare Infrastructure Insights & Blogs | MedGenz",
-  description: "Read the latest blogs on Modular OT design, Medical Gas Pipeline Systems, and hospital engineering trends from the experts at MedGenz.",
+export const metadata: Metadata = {
+  title: "Healthcare Infrastructure Blog | Modular OT & MGPS Insights | MedGenz",
+  description: "Read expert insights and trends on Modular Operation Theatre design, Medical Gas Pipeline Systems, hospital engineering, and healthcare infrastructure from MedGenz experts.",
+  keywords: [
+    "Healthcare blog",
+    "Hospital engineering",
+    "Modular OT design",
+    "Medical gas systems",
+    "NABH compliance",
+    "Hospital infrastructure",
+    "Healthcare trends",
+  ],
+  alternates: {
+    canonical: "https://www.medgenz.com/blogs",
+  },
+  openGraph: {
+    type: "website",
+    url: "https://www.medgenz.com/blogs",
+    title: "Healthcare Infrastructure Insights & Blog | MedGenz",
+    description:
+      "Latest blog posts on Modular Operation Theatres, Medical Gas Pipelines, and hospital engineering.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Healthcare Infrastructure Blog | MedGenz",
+    description: "Expert insights on hospital design and medical infrastructure.",
+  },
 };
 
 export default async function BlogListingPage() {

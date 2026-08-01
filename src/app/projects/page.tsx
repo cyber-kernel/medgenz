@@ -2,10 +2,43 @@ import Image from "next/image";
 import Link from "next/link";
 import { MapPin, ArrowRight, ExternalLink, CheckCircle } from "lucide-react";
 import ClientMarquee from "@/components/sections/ClientMarquee";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "Our Landmark Projects & Hospital Case Studies | MedGenz",
-  description: "Explore our successful turnkey hospital installations, including Modular OTs in Delhi, MGPS networks in UP, and high-purity IVF Labs in Punjab.",
+export const metadata: Metadata = {
+  title: "MedGenz Projects | Landmark Hospital Installations & Case Studies",
+  description: "Explore our successful turnkey hospital infrastructure projects including Modular OTs in Delhi, MGPS networks in UP, and high-purity IVF Labs in Punjab.",
+  keywords: [
+    "Hospital projects",
+    "Case studies",
+    "MOT installation",
+    "MGPS implementation",
+    "IVF lab setup",
+    "Hospital construction",
+    "Medical equipment installation",
+  ],
+  alternates: {
+    canonical: "https://www.medgenz.com/projects",
+  },
+  openGraph: {
+    type: "website",
+    url: "https://www.medgenz.com/projects",
+    title: "Our Landmark Hospital Projects | MedGenz",
+    description:
+      "Explore our successful turnkey hospital installations and case studies across India.",
+    images: [
+      {
+        url: "https://www.medgenz.com/images/service assets/mot-page-n-eq-assets/ot-3.webp",
+        width: 1200,
+        height: 630,
+        alt: "MedGenz Projects",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Our Landmark Hospital Projects | MedGenz",
+    description: "Successful turnkey hospital infrastructure installations across India.",
+  },
 };
 
 const projects = [

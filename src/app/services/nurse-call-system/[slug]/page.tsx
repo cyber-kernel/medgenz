@@ -278,8 +278,9 @@ const ncsProducts: Record<string, ProductData> = {
   }
 };
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const data = ncsProducts[params.slug];
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const data = ncsProducts[slug];
   if (!data) return { title: 'Product Not Found' };
   return {
     title: `${data.title} | Nurse Call System | MedGenz`,

@@ -48,6 +48,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const quillRef = useRef<any>(null);
+  const Quill: any = ReactQuill;
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -224,7 +225,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
                   <FileText className="w-3 h-3" /> Content Body
                 </label>
                 <div className="prose prose-slate max-w-none">
-                  <ReactQuill
+                  <Quill
                     ref={quillRef}
                     theme="snow"
                     value={content}

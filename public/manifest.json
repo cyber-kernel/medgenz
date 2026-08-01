@@ -1,0 +1,72 @@
+{
+  "name": "MedGenz - Medical Equipment & Hospital Infrastructure",
+  "short_name": "MedGenz",
+  "description": "Premier manufacturer of Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure in India",
+  "start_url": "/",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#0f172a",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/brand-logo-mg/favicon-png-mg/mg-favicon1.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/brand-logo-mg/favicon-png-mg/mg-favicon1.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/images/brand-logo-mg/medgenz-logo/medgenz-logo1.webp",
+      "sizes": "540x720",
+      "type": "image/webp",
+      "form_factor": "narrow"
+    }
+  ],
+  "categories": ["business", "medical"],
+  "shortcuts": [
+    {
+      "name": "Contact Us",
+      "short_name": "Contact",
+      "description": "Get in touch with MedGenz",
+      "url": "/contact",
+      "icons": [
+        {
+          "src": "/images/brand-logo-mg/favicon-png-mg/mg-favicon1.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Our Services",
+      "short_name": "Services",
+      "description": "Explore our hospital infrastructure services",
+      "url": "/services",
+      "icons": [
+        {
+          "src": "/images/brand-logo-mg/favicon-png-mg/mg-favicon1.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "application/x-www-form-urlencoded",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}

@@ -11,6 +11,7 @@ import {
   Eye,
   Globe,
   Clock,
+  FileText,
   MoreVertical,
   CheckCircle2,
   AlertCircle

@@ -1219,8 +1219,9 @@ const motProducts: Record<string, ProductData> = {
   }
 };
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const data = motProducts[params.slug];
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const data = motProducts[slug];
   if (!data) return { title: 'Product Not Found' };
   return {
     title: `${data.title} | Modular OT Specialists | MedGenz`,
@@ -1248,7 +1249,7 @@ export default async function MOTProductPage({ params }: { params: Promise<{ slu
     "image": data.heroImage,
     "offers": {
       "@type": "Offer",
-      "url": `https://www.medgenz.com/services/modular-operation-theatre/${params.slug}`,
+      "url": `https://www.medgenz.com/services/modular-operation-theatre/${slug}`,
       "availability": "https://schema.org/InStock"
     }
   };

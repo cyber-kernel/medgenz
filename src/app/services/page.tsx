@@ -1,10 +1,47 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ShieldCheck, CheckCircle, ArrowRight, Activity, Layout, Layers, Wind, Settings, Microscope, Scissors } from "lucide-react";
+import type { Metadata } from "next";
+import { getFAQSchema } from "@/lib/structured-data";
 
-export const metadata = {
-  title: "Turnkey Hospital Infrastructure Services | MedGenz",
-  description: "Expert manufacturers of Modular Operation Theatres, Medical Gas Pipeline Systems (MGPS), Pneumatic Tubes, ICU Beds, and IVF Lab setups in India.",
+export const metadata: Metadata = {
+  title: "Turnkey Hospital Infrastructure Services | MedGenz | MOT, MGPS, Hospital Furniture",
+  description: "Expert manufacturers and installers of Modular Operation Theatres (MOT), Medical Gas Pipeline Systems (MGPS), Hospital Furniture, ICU Beds, IVF Labs, and Nurse Call Systems in India.",
+  keywords: [
+    "Modular Operation Theatre",
+    "MOT manufacturer",
+    "Medical Gas Pipeline System",
+    "MGPS supplier",
+    "Hospital furniture",
+    "ICU beds",
+    "IVF lab setup",
+    "Hospital equipment India",
+    "NABH compliant OT",
+  ],
+  alternates: {
+    canonical: "https://www.medgenz.com/services",
+  },
+  openGraph: {
+    type: "website",
+    url: "https://www.medgenz.com/services",
+    title: "Turnkey Hospital Infrastructure Services | MedGenz",
+    description:
+      "Expert manufacturers of Modular Operation Theatres, Medical Gas Pipeline Systems, and complete hospital infrastructure solutions.",
+    images: [
+      {
+        url: "https://www.medgenz.com/images/service-images/modular-ot-product.webp",
+        width: 1200,
+        height: 630,
+        alt: "MedGenz Services",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hospital Infrastructure Services | MedGenz",
+    description:
+      "Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital equipment manufacturing.",
+  },
 };
 
 const serviceCategories = [
@@ -50,6 +87,21 @@ const serviceCategories = [
   }
 ];
 
+const faqs = [
+  {
+    question: "What kind of hospital infrastructure solutions does MedGenz provide?",
+    answer: "MedGenz delivers turnkey solutions for modular operating theatres, medical gas pipeline systems, hospital furniture, nurse call systems, and curtain track systems for healthcare facilities across India.",
+  },
+  {
+    question: "Is MedGenz suitable for new hospital projects and retrofits?",
+    answer: "Yes. MedGenz supports both greenfield hospital projects and retrofit upgrades with compliant infrastructure, installation support, and maintenance-ready systems.",
+  },
+  {
+    question: "Do your systems support infection control and compliance requirements?",
+    answer: "Our products are designed for sterile workflows, durable performance, and healthcare compliance, with a strong focus on safety, hygiene, and long-term reliability.",
+  },
+];
+
 export default function ServicesPage() {
   const jsonLd = {
     "@context": "https://schema.org",
@@ -79,6 +131,10 @@ export default function ServicesPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(getFAQSchema(faqs)) }}
       />
       {/* Hero */}
       <section className="relative py-32 bg-slate-900 text-white overflow-hidden uppercase tracking-tighter">
@@ -132,6 +188,29 @@ export default function ServicesPage() {
                   </Link>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <p className="text-brand-600 font-black uppercase tracking-[0.25em] text-sm mb-4">Common Questions</p>
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 uppercase tracking-tighter mb-6">Answers for hospital buyers and project teams</h2>
+            <p className="text-slate-600 text-lg leading-relaxed">These questions help clarify how MedGenz supports planning, installation, and long-term healthcare infrastructure performance.</p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            {faqs.map((faq, index) => (
+              <details key={index} className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-lg transition-all">
+                <summary className="cursor-pointer list-none text-lg font-black text-slate-900 flex items-center justify-between gap-4">
+                  <span>{faq.question}</span>
+                  <span className="text-brand-600 text-2xl transition-transform group-open:rotate-45">+</span>
+                </summary>
+                <p className="mt-4 text-slate-600 leading-relaxed">{faq.answer}</p>
+              </details>
             ))}
           </div>
         </div>

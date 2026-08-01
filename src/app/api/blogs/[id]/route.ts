@@ -5,7 +5,7 @@ import slugify from "slugify";
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: any
 ) {
   try {
     const blog = await prisma.blog.findUnique({
@@ -24,7 +24,7 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: any
 ) {
   const session = await getServerSession();
 
@@ -76,7 +76,7 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: any
 ) {
   const session = await getServerSession();
 

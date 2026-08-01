@@ -1,0 +1,30 @@
+# MedGenz robots.txt
+# Block admin routes and sensitive paths from search engines
+
+# Default rules for all bots
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /_next/
+Disallow: /public/
+Allow: /public/images/
+Crawl-delay: 1
+
+# Specific rules for Google
+User-agent: Googlebot
+Allow: /
+
+# Specific rules for Bing
+User-agent: Bingbot
+Allow: /
+
+# Block bad bots
+User-agent: MJ12bot
+User-agent: AhrefsBot
+User-agent: SemrushBot
+Disallow: /
+
+# Sitemap
+Sitemap: https://www.medgenz.com/sitemap.xml

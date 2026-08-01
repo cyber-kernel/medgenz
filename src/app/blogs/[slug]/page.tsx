@@ -4,18 +4,52 @@ import Image from "next/image";
 import Link from "next/link";
 import { Calendar, User, ArrowLeft, ArrowRight, Tag, Share2, Facebook, Twitter, Linkedin } from "lucide-react";
 import ECGCTA from "@/components/sections/ECGCTA";
+import type { Metadata } from "next";
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const blog = await prisma.blog.findUnique({
     where: { slug },
   });
 
-  if (!blog) return { title: "Blog Not Found" };
+  if (!blog) return { title: "Blog Post Not Found | MedGenz" };
+
+  const title = blog.metaTitle || blog.title;
+  const description = blog.metaDescription || blog.excerpt || "Read this insightful article from MedGenz about hospital infrastructure and medical equipment.";
 
   return {
-    title: `${blog.metaTitle || blog.title} | MedGenz`,
-    description: blog.metaDescription || blog.excerpt,
+    title: `${title} | MedGenz Blog`,
+    description,
+    keywords: [blog.category, "healthcare", "hospital infrastructure", blog.title],
+    authors: [{ name: blog.authorName }],
+    alternates: {
+      canonical: `https://www.medgenz.com/blogs/${blog.slug}`,
+    },
+    openGraph: {
+      type: "article",
+      url: `https://www.medgenz.com/blogs/${blog.slug}`,
+      title,
+      description,
+      images: blog.coverImage
+        ? [
+            {
+              url: blog.coverImage,
+              width: 1200,
+              height: 630,
+              alt: title,
+            },
+          ]
+        : [],
+      publishedTime: blog.createdAt.toISOString(),
+      modifiedTime: blog.updatedAt.toISOString(),
+      authors: [blog.authorName],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      creator: "@medgenz",
+    },
   };
 }
 

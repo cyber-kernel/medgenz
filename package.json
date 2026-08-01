@@ -1,0 +1,44 @@
+{
+  "name": "medgenz-nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.4.1",
+    "@tailwindcss/typography": "^0.5.20",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/uuid": "^10.0.0",
+    "bcryptjs": "^3.0.3",
+    "clsx": "^2.1.1",
+    "dotenv": "^16.4.7",
+    "framer-motion": "^12.4.7",
+    "lucide-react": "^0.477.0",
+    "next": "^15.1.0",
+    "next-auth": "^4.24.11",
+    "nodemailer": "^9.0.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-quill-new": "^3.8.3",
+    "slugify": "^1.6.9",
+    "tailwind-merge": "^3.0.1",
+    "uuid": "^14.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.5",
+    "@types/nodemailer": "^8.0.1",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.21.0",
+    "eslint-config-next": "^15.1.0",
+    "postcss": "^8.5.3",
+    "prisma": "^6.4.1",
+    "tailwindcss": "^3.4.17",
+    "typescript": "5.3.3"
+  }
+}

@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Blog {
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  content         String   @db.Text
+  excerpt         String?  @db.Text
+  coverImage      String?
+  category        String   @default("Healthcare")
+  authorName      String   @default("MedGenz Admin")
+  readingTime     String?
+  metaTitle       String?
+  metaDescription String?
+  published       Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([slug])
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String   @db.Text
+  image       String?
+  location    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

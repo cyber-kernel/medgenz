@@ -54,10 +54,7 @@ export default function Header() {
       >
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <Link href="/" className="flex items-center">
-            <div className={cn(
-                "relative h-12 md:h-16 w-40 md:w-56 transition-all duration-500",
-                shouldBeSolid ? "brightness-100" : "brightness-0 invert"
-            )}>
+            <div className="relative h-12 md:h-16 w-40 md:w-56 transition-all duration-500">
                 <Image
                     src="/images/brand-logo-mg/medgenz-logo/medgenz-logo1.webp"
                     alt="MedGenz Logo"

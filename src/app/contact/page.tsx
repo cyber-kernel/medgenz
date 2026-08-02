@@ -143,19 +143,19 @@ export default function ContactPage() {
 
               {status === 'success' ? (
                 <div className="py-20 text-center space-y-6 relative z-10 animate-in fade-in zoom-in duration-500">
-                   <div className="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto shadow-lg shadow-green-200">
-                      <CheckCircle2 className="w-12 h-12" />
-                   </div>
-                   <h3 className="text-3xl font-black text-slate-900 uppercase tracking-tighter">Inquiry Sent Successfully!</h3>
-                   <p className="text-slate-500 text-lg font-light max-w-md mx-auto">
-                      Thank you for contacting MedGenz. Our engineering team will review your requirements and get back to you shortly.
-                   </p>
-                   <button
-                     onClick={() => setStatus('idle')}
-                     className="bg-slate-900 text-white px-10 py-5 rounded-2xl font-bold uppercase tracking-widest text-xs hover:bg-brand-600 transition-all shadow-xl"
-                   >
-                     Send Another Message
-                   </button>
+                  <div className="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto shadow-lg shadow-green-200">
+                    <CheckCircle2 className="w-12 h-12" />
+                  </div>
+                  <h3 className="text-3xl font-black text-slate-900 uppercase tracking-tighter">Inquiry Sent Successfully!</h3>
+                  <p className="text-slate-500 text-lg font-light max-w-md mx-auto">
+                    Thank you for contacting MedGenz. Our engineering team will review your requirements and get back to you shortly.
+                  </p>
+                  <button
+                    onClick={() => setStatus('idle')}
+                    className="bg-slate-900 text-white px-10 py-5 rounded-2xl font-bold uppercase tracking-widest text-xs hover:bg-brand-600 transition-all shadow-xl"
+                  >
+                    Send Another Message
+                  </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
@@ -228,8 +228,8 @@ export default function ContactPage() {
 
                   {status === 'error' && (
                     <div className="flex items-center gap-3 p-4 bg-red-50 text-red-600 rounded-xl border border-red-100">
-                        <AlertCircle className="w-5 h-5 shrink-0" />
-                        <p className="text-sm font-bold uppercase tracking-widest">{errorMsg}</p>
+                      <AlertCircle className="w-5 h-5 shrink-0" />
+                      <p className="text-sm font-bold uppercase tracking-widest">{errorMsg}</p>
                     </div>
                   )}
 
@@ -256,10 +256,38 @@ export default function ContactPage() {
       <section className="h-[500px] bg-slate-100 relative">
         <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 font-bold uppercase tracking-widest text-xs gap-4">
           <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md">
-             <MapPin className="w-8 h-8 text-brand-500" />
+            <MapPin className="w-8 h-8 text-brand-500" />
           </div>
-          [Interactive Google Map Integration]
+
         </div>
+        {/* Google Map */}
+        <section className="py-20 bg-slate-100">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="mb-10 text-center">
+              <h2 className="text-4xl font-black uppercase tracking-tight text-slate-900">
+                Visit Our <span className="text-brand-600">Office</span>
+              </h2>
+              <p className="mt-3 text-slate-600 max-w-2xl mx-auto">
+                Locate MedGenz India Pvt. Ltd. easily using the interactive Google Map
+                below. Click the map for directions or navigation.
+              </p>
+            </div>
+
+            <div className="overflow-hidden rounded-[2rem] border border-slate-200 shadow-2xl bg-white">
+              <iframe
+                title="MedGenz India Pvt. Ltd. Location"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28021.90406389576!2d77.01218603389616!3d28.607635499763752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1bbbf3b4af4f%3A0xe6f7e0d396b6f80!2sMedGenz%20India%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1785562016554!5m2!1sen!2sin"
+                width="100%"
+                height="550"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+                className="w-full"
+              />
+            </div>
+          </div>
+        </section>
       </section>
     </div>
   );

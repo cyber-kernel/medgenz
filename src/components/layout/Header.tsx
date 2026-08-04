@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Phone, Mail } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -44,11 +44,36 @@ export default function Header() {
 
   return (
     <>
+      {/* Top Header Bar */}
+      <div
+        className={cn(
+          "fixed top-0 w-full z-[60] bg-slate-900 text-white text-[10px] md:text-xs py-2 transition-all duration-500",
+          isScrolled ? "-translate-y-full" : "translate-y-0"
+        )}
+      >
+        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center font-bold uppercase tracking-widest">
+          <div className="flex gap-4 md:gap-8">
+            <a href="tel:+918130118081" className="flex items-center gap-2 hover:text-brand-500 transition-colors">
+              <Phone className="w-3 h-3 text-brand-500" />
+              <span className="hidden sm:inline">Support:</span> +91 8130118081
+            </a>
+            <a href="mailto:support@medgenz.com" className="flex items-center gap-2 hover:text-brand-500 transition-colors">
+              <Mail className="w-3 h-3 text-brand-500" />
+              <span className="hidden sm:inline">Email:</span> support@medgenz.com
+            </a>
+          </div>
+          <div className="hidden lg:block text-slate-400 font-medium">
+            India's Leading Medical Infrastructure Partner
+          </div>
+        </div>
+      </div>
+
       <nav
         className={cn(
-          'fixed w-full z-50 transition-all duration-500 py-6',
+          'fixed w-full z-50 transition-all duration-500',
+          isScrolled ? 'top-0 py-3' : 'top-8 md:top-10 py-6',
           shouldBeSolid
-            ? 'bg-white/95 backdrop-blur-xl shadow-xl py-3 border-b border-slate-100'
+            ? 'bg-white/95 backdrop-blur-xl shadow-xl border-b border-slate-100'
             : 'bg-transparent border-b border-white/10'
         )}
       >

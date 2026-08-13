@@ -1,8 +1,8 @@
+import { put } from "@vercel/blob";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
-import { writeFile } from "fs/promises";
-import path from "path";
 import { v4 as uuidv4 } from "uuid";
+import path from "path";
 
 export async function POST(request: Request) {
   const session = await getServerSession();
@@ -30,21 +30,18 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "File too large. Max size is 5MB." }, { status: 400 });
     }
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-
     const ext = path.extname(file.name) || ".webp";
-    const filename = `${uuidv4()}${ext}`;
-    const uploadDir = path.join(process.cwd(), "public/uploads");
-    const filePath = path.join(uploadDir, filename);
+    const filename = `uploads/${uuidv4()}${ext}`;
 
-    await writeFile(filePath, buffer);
+    // Upload to Vercel Blob with public access
+    const blob = await put(filename, file, {
+      access: 'public',
+      addRandomSuffix: false, // We already use UUID
+    });
 
-    const url = `/uploads/${filename}`;
-
-    return NextResponse.json({ url });
+    return NextResponse.json({ url: blob.url });
   } catch (error) {
     console.error("Upload error:", error);
-    return NextResponse.json({ error: "Failed to upload file" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to upload file to storage" }, { status: 500 });
   }
 }

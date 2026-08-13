@@ -4,27 +4,60 @@ import bcrypt from "bcryptjs";
 
 export async function GET() {
   try {
-    const adminCount = await prisma.admin.count();
+    const email = process.env.ADMIN_EMAIL;
+    const plainPassword = process.env.ADMIN_PASSWORD;
 
-    if (adminCount > 0) {
-      return NextResponse.json({ message: "Admin already exists" }, { status: 400 });
+    // Never fall back to default credentials in production
+    if (!email || !plainPassword) {
+      return NextResponse.json(
+        {
+          error:
+            "ADMIN_EMAIL and ADMIN_PASSWORD environment variables are required",
+        },
+        { status: 500 }
+      );
     }
-
-    const email = process.env.ADMIN_EMAIL || "admin@medgenz.com";
-    const plainPassword = process.env.ADMIN_PASSWORD || "admin123";
 
     const hashedPassword = await bcrypt.hash(plainPassword, 12);
 
-    await prisma.admin.create({
+    const existingAdmin = await prisma.admin.findFirst();
+
+    // Create admin if none exists
+    if (!existingAdmin) {
+      const admin = await prisma.admin.create({
+        data: {
+          email,
+          password: hashedPassword,
+        },
+      });
+
+      return NextResponse.json({
+        message: "Admin created successfully",
+        email: admin.email,
+      });
+    }
+
+    // Update existing admin
+    const admin = await prisma.admin.update({
+      where: {
+        id: existingAdmin.id,
+      },
       data: {
         email,
         password: hashedPassword,
       },
     });
 
-    return NextResponse.json({ message: "Admin created successfully", email });
+    return NextResponse.json({
+      message: "Admin credentials updated successfully",
+      email: admin.email,
+    });
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Setup failed" }, { status: 500 });
+    console.error("Admin setup error:", error);
+
+    return NextResponse.json(
+      { error: "Admin setup failed" },
+      { status: 500 }
+    );
   }
 }

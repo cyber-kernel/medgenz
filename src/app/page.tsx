@@ -82,10 +82,10 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       {/* Massive Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-20">
+      <section className="relative min-h-screen flex items-center pt-32 md:pt-40">
         <HomeSlider />
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10 w-full text-center md:text-left">
+        <div className="max-w-7xl mx-auto px-6 relative z-10 w-full text-center md:text-left mt-10 md:mt-0">
           <div className="max-w-4xl">
             <span className="inline-block px-4 py-1.5 rounded-full bg-brand-600/20 text-brand-300 border border-brand-400/30 text-[10px] md:text-sm font-bold uppercase tracking-widest mb-6 backdrop-blur-sm">
               India's Trusted Infrastructure Partner

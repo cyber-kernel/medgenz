@@ -33,13 +33,16 @@ export async function POST(request: Request) {
     const ext = path.extname(file.name) || ".webp";
     const filename = `uploads/${uuidv4()}${ext}`;
 
-    // Upload to Vercel Blob with public access
+    // Upload to Vercel Blob with PRIVATE access (as required by your store)
     const blob = await put(filename, file, {
-      access: 'public',
+      access: 'private',
       addRandomSuffix: false, // We already use UUID
     });
 
-    return NextResponse.json({ url: blob.url });
+    // Return the proxy URL instead of direct blob URL so it can be viewed publicly
+    const proxyUrl = `/api/blob?url=${encodeURIComponent(blob.url)}`;
+
+    return NextResponse.json({ url: proxyUrl });
   } catch (error) {
     console.error("Upload error:", error);
     return NextResponse.json({ error: "Failed to upload file to storage" }, { status: 500 });

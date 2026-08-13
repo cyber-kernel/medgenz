@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
     return new NextResponse(result.stream, {
       headers: {
         "Cache-Control": "public, max-age=31536000, immutable", // Let the browser cache it
-        "Content-Type": result.blob.contentType,
+        "Content-Type": result.blob.contentType || "application/octet-stream",
         "X-Content-Type-Options": "nosniff",
       },
     });

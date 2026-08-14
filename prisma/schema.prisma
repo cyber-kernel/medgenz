@@ -35,11 +35,23 @@ model Blog {
 }
 
 model Project {
-  id          String   @id @default(cuid())
-  title       String
-  description String   @db.Text
-  image       String?
-  location    String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  subtitle        String?
+  service         String?
+  location        String?
+  heroImage       String?
+  brief           String?  @db.Text
+  challenge       String?  @db.Text
+  solution        String?  @db.Text
+  highlights      Json?    // Array of strings
+  specs           Json?    // Array of {label, value}
+  metaTitle       String?
+  metaDescription String?
+  published       Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([slug])
 }

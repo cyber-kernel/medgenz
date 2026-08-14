@@ -22,7 +22,7 @@ export default function ClientMarquee() {
         <div className="marquee-container group relative flex overflow-hidden">
             <div className="flex gap-12 animate-marquee whitespace-nowrap py-10">
                 {[...clientLogos, ...clientLogos].map((logo, i) => (
-                    <div key={i} className="w-40 h-24 relative flex-shrink-0 grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100">
+                    <div key={i} className="w-40 h-24 relative flex-shrink-0 transition-all opacity-80 hover:opacity-100">
                         <Image
                             src={`/images/hospital-logos/${logo}`}
                             alt={`Hospital Client ${i + 1}`}

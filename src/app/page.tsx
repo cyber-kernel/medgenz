@@ -9,8 +9,8 @@ import ECGCTA from '@/components/sections/ECGCTA';
 const stats = [
   { label: "Projects Done", value: "150+" },
   { label: "Years Experience", value: "12+" },
-  { label: "Client Base", value: "100+" },
-  { label: "Staff Members", value: "500+" },
+  { label: "Client Base", value: "150+" },
+  { label: "Staff Members", value: "100+" },
 ];
 
 const expertise = [
@@ -82,44 +82,18 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       {/* Massive Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-32 md:pt-40">
+      <section className="relative min-h-screen flex items-center pt-44 md:pt-56">
         <HomeSlider />
-
-        <div className="max-w-7xl mx-auto px-6 relative z-10 w-full text-center md:text-left mt-10 md:mt-0">
-          <div className="max-w-4xl">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-brand-600/20 text-brand-300 border border-brand-400/30 text-[10px] md:text-sm font-bold uppercase tracking-widest mb-6 backdrop-blur-sm">
-              India's Trusted Infrastructure Partner
-            </span>
-
-            <h1 className="text-4xl sm:text-6xl md:text-8xl font-black text-white leading-[1.1] mb-6 tracking-tight">
-              Modular Operation Theatre <br />
-              <span className="text-brand-500 drop-shadow-2xl">Manufacturers.</span>
-            </h1>
-
-            <p className="text-slate-200 text-sm md:text-2xl mb-10 max-w-3xl font-light leading-relaxed">
-              We design, manufacture, and install world-class, clean-room compliant operation theatres and MGPS systems.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center md:justify-start">
-              <Link href="/services" className="bg-brand-600 text-white px-10 py-5 rounded-2xl font-bold text-base uppercase tracking-widest shadow-xl shadow-brand-600/40 hover:bg-brand-500 transition-all flex items-center justify-center gap-2 transform hover:-translate-y-1">
-                Our Services <ArrowRight className="w-5 h-5" />
-              </Link>
-              <a href="#contact-form" className="border-2 border-white/30 text-white hover:bg-white hover:text-slate-900 transition-all px-10 py-5 rounded-2xl font-bold text-base uppercase tracking-widest backdrop-blur-md flex items-center justify-center">
-                Get a Quote
-              </a>
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 md:py-24 bg-slate-50 border-b border-slate-100">
+      <section className="py-12 md:py-20 bg-slate-50 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((s, i) => (
               <div key={i} className="text-center">
-                <div className="text-4xl md:text-6xl font-black text-brand-600 mb-2">{s.value}</div>
-                <div className="text-slate-500 uppercase text-[10px] md:text-sm tracking-widest font-bold">{s.label}</div>
+                <div className="text-3xl md:text-5xl font-black text-brand-600 mb-2">{s.value}</div>
+                <div className="text-slate-500 uppercase text-[9px] md:text-xs tracking-widest font-bold">{s.label}</div>
               </div>
             ))}
           </div>
@@ -127,7 +101,7 @@ export default function Home() {
       </section>
 
       {/* Deep About Section */}
-      <section className="py-24 bg-white overflow-hidden">
+      <section className="py-20 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
           <div className="relative group">
             <div className="aspect-[4/5] bg-slate-100 rounded-[2.5rem] overflow-hidden relative shadow-2xl">
@@ -138,29 +112,29 @@ export default function Home() {
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
               />
             </div>
-            <div className="absolute -bottom-8 -right-8 bg-brand-600 text-white p-8 md:p-10 rounded-[2rem] z-20 shadow-2xl transform hover:scale-110 transition-transform cursor-default">
-              <div className="text-4xl md:text-6xl font-black">12+</div>
-              <div className="text-xs md:text-sm font-bold uppercase tracking-wider text-brand-100">Years of Legacy</div>
+            <div className="absolute -bottom-6 -right-6 bg-brand-600 text-white p-6 md:p-8 rounded-[2rem] z-20 shadow-2xl transform hover:scale-110 transition-transform cursor-default">
+              <div className="text-3xl md:text-5xl font-black">12+</div>
+              <div className="text-[9px] md:text-xs font-bold uppercase tracking-wider text-brand-100">Years of Legacy</div>
             </div>
           </div>
 
           <div className="space-y-8">
-            <span className="text-brand-600 font-bold uppercase tracking-widest text-sm block">Who We Are</span>
-            <h2 className="text-3xl md:text-5xl font-black text-slate-900 leading-tight">Premier Manufacturer of <span className="text-brand-600">Hospital Infrastructure</span></h2>
-            <p className="text-slate-600 text-lg leading-relaxed">
+            <span className="text-brand-600 font-bold uppercase tracking-widest text-xs block">Who We Are</span>
+            <h2 className="text-2xl md:text-4xl font-black text-slate-900 leading-tight uppercase tracking-tighter">Premier Manufacturer of <br /><span className="text-brand-600">Hospital Infrastructure</span></h2>
+            <p className="text-slate-600 text-base md:text-lg leading-relaxed font-light">
               Welcome to MedGenz. We are an ISO 9001:2015, ISO 13485:2016, and CE Certified organization engaged in Manufacturing, Supplying, and Exporting a wide array of Medical Gas Pipeline Systems (MGPS), Modular Operation Theatres, ICU Pendants, and Nurse Call Systems.
             </p>
             <div className="space-y-4">
               {["Turnkey Hospital Projects", "Certified Quality Management", "In-house Manufacturing & R&D"].map((item, i) => (
                 <div key={i} className="flex items-center gap-4">
-                  <div className="w-6 h-6 rounded-full bg-brand-100 flex items-center justify-center shrink-0">
-                    <CheckCircle className="w-4 h-4 text-brand-600" />
+                  <div className="w-5 h-5 rounded-full bg-brand-100 flex items-center justify-center shrink-0">
+                    <CheckCircle className="w-3 h-3 text-brand-600" />
                   </div>
-                  <span className="text-slate-700 font-bold">{item}</span>
+                  <span className="text-slate-700 font-bold text-sm">{item}</span>
                 </div>
               ))}
             </div>
-            <Link href="/about" className="inline-flex bg-slate-900 text-white px-8 py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-brand-600 transition-colors shadow-lg shadow-slate-900/20">
+            <Link href="/about" className="inline-flex bg-slate-900 text-white px-6 py-3.5 rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-brand-600 transition-colors shadow-lg shadow-slate-900/20">
               Read Our Full Story
             </Link>
           </div>
@@ -170,38 +144,38 @@ export default function Home() {
       <ClientMarquee />
 
       {/* Core Expertise Grid */}
-      <section className="py-24 bg-slate-50 border-y border-slate-100">
+      <section className="py-20 bg-slate-50 border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-4">Core <span className="text-brand-600">Expertise</span></h2>
-            <div className="w-20 h-1.5 bg-brand-600 mx-auto rounded-full" />
-            <p className="mt-8 text-slate-500 text-lg max-w-2xl mx-auto">Providing a comprehensive range of turnkey healthcare solutions tailored to complex medical requirements.</p>
+            <h2 className="text-2xl md:text-4xl font-black text-slate-900 mb-4 uppercase tracking-tighter">Core <span className="text-brand-600">Expertise</span></h2>
+            <div className="w-16 h-1 bg-brand-600 mx-auto rounded-full" />
+            <p className="mt-8 text-slate-500 text-base md:text-lg max-w-2xl mx-auto font-light">Providing a comprehensive range of turnkey healthcare solutions tailored to complex medical requirements.</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-10">
+          <div className="grid md:grid-cols-3 gap-8">
             {expertise.map((item, i) => (
-              <div key={i} className="group bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 hover:shadow-2xl transition-all duration-500 flex flex-col h-full">
-                <div className="h-64 relative overflow-hidden flex-shrink-0">
+              <Link href={item.link} key={i} className="group bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 hover:shadow-2xl transition-all duration-500 flex flex-col h-full">
+                <div className="h-56 relative overflow-hidden flex-shrink-0">
                   <Image src={item.image} alt={item.title} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
                 </div>
-                <div className="p-10 flex-grow flex flex-col">
-                  <div className="w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center text-brand-600 mb-8 group-hover:bg-brand-600 group-hover:text-white transition-colors flex-shrink-0">
-                    <item.icon className="w-7 h-7" />
+                <div className="p-8 flex-grow flex flex-col">
+                  <div className="w-12 h-12 bg-brand-50 rounded-2xl flex items-center justify-center text-brand-600 mb-6 group-hover:bg-brand-600 group-hover:text-white transition-colors flex-shrink-0">
+                    <item.icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-2xl font-black text-slate-900 mb-4 line-clamp-1">{item.title}</h3>
-                  <p className="text-slate-600 leading-relaxed mb-8 flex-grow line-clamp-3">{item.desc}</p>
+                  <h3 className="text-xl font-black text-slate-900 mb-4 line-clamp-1 uppercase tracking-tighter">{item.title}</h3>
+                  <p className="text-slate-600 leading-relaxed mb-8 flex-grow line-clamp-3 text-sm font-light">{item.desc}</p>
                   <div className="mt-auto">
-                    <Link href={item.link} className="text-brand-600 font-bold uppercase tracking-widest text-xs flex items-center gap-2 hover:gap-4 transition-all">
-                      Explore Service <ArrowRight className="w-4 h-4" />
-                    </Link>
+                    <div className="text-brand-600 font-bold uppercase tracking-widest text-[10px] flex items-center gap-2 group-hover:gap-4 transition-all">
+                      Explore Service <ArrowRight className="w-3.5 h-3.5" />
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 
-          <div className="text-center mt-20">
-            <Link href="/services" className="inline-block bg-slate-900 text-white px-10 py-5 rounded-2xl font-bold uppercase tracking-widest hover:bg-brand-600 transition-all shadow-xl shadow-slate-900/20 transform hover:-translate-y-1">
+          <div className="text-center mt-16">
+            <Link href="/services" className="inline-block bg-slate-900 text-white px-8 py-4 rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-brand-600 transition-all shadow-xl shadow-slate-900/20 transform hover:-translate-y-1">
               Explore All Services
             </Link>
           </div>
@@ -209,26 +183,28 @@ export default function Home() {
       </section>
 
       {/* Swipeable Testimonials */}
-      <section className="py-24 bg-brand-50 relative overflow-hidden">
+      <section className="py-20 bg-brand-50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-brand-600 font-bold uppercase tracking-widest text-sm mb-2 block">Client Stories</span>
-            <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-4">Trusted by <span className="text-brand-600">Medical Professionals</span></h2>
-            <div className="w-20 h-1.5 bg-brand-600 mx-auto rounded-full" />
+            <span className="text-brand-600 font-bold uppercase tracking-widest text-xs mb-2 block">Client Stories</span>
+            <h2 className="text-2xl md:text-4xl font-black text-slate-900 mb-4 uppercase tracking-tighter">Trusted by <span className="text-brand-600">Professionals</span></h2>
+            <div className="w-16 h-1 bg-brand-600 mx-auto rounded-full" />
           </div>
 
-          <div className="flex overflow-x-auto gap-8 pb-12 snap-x snap-mandatory hide-scrollbar">
+          <div className="flex overflow-x-auto gap-6 pb-12 snap-x snap-mandatory hide-scrollbar">
             {testimonials.map((t, i) => (
-              <div key={i} className="min-w-[85vw] md:min-w-[450px] bg-white rounded-3xl p-10 shadow-lg border border-slate-100 snap-center relative group hover:-translate-y-2 transition-transform duration-300">
+              <div key={i} className="min-w-[85vw] md:min-w-[400px] bg-white rounded-3xl p-8 shadow-lg border border-slate-100 snap-center relative group hover:-translate-y-2 transition-transform duration-300">
                 <div className="flex text-yellow-400 mb-6">
-                  {[...Array(5)].map((_, i) => <Zap key={i} className="w-5 h-5 fill-current" />)}
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="fill-current"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  ))}
                 </div>
-                <p className="text-slate-600 text-lg italic leading-relaxed mb-8">"{t.text}"</p>
+                <p className="text-slate-600 text-base italic leading-relaxed mb-8 font-light">"{t.text}"</p>
                 <div className="flex items-center gap-4 pt-6 border-t border-slate-50">
-                  <div className="w-12 h-12 rounded-full bg-brand-100 flex items-center justify-center font-bold text-brand-600 text-xl">{t.name[0]}</div>
+                  <div className="w-10 h-10 rounded-full bg-brand-100 flex items-center justify-center font-bold text-brand-600 text-lg">{t.name[0]}</div>
                   <div>
-                    <h4 className="font-bold text-slate-900">{t.name}</h4>
-                    <p className="text-slate-500 text-sm font-medium">{t.role}</p>
+                    <h4 className="font-bold text-slate-900 text-sm">{t.name}</h4>
+                    <p className="text-slate-500 text-xs font-medium">{t.role}</p>
                   </div>
                 </div>
               </div>

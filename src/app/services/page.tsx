@@ -157,37 +157,36 @@ export default function ServicesPage() {
       </section>
 
       {/* Deep Service Grid */}
-      <section className="py-24 bg-white">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {serviceCategories.map((cat, i) => (
-              <div key={i} className="group flex flex-col bg-slate-50 rounded-[3rem] border border-slate-100 overflow-hidden hover:bg-white hover:shadow-2xl transition-all duration-500">
-                <div className="relative h-80 overflow-hidden">
+              <Link href={`/services/${cat.slug}`} key={i} className="group flex flex-col bg-slate-50 rounded-[2.5rem] border border-slate-100 overflow-hidden hover:bg-white hover:shadow-2xl transition-all duration-500 h-full">
+                <div className="relative h-72 overflow-hidden">
                   <Image src={cat.image} alt={cat.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-8 left-10">
-                      <h3 className="text-3xl font-black text-white uppercase tracking-tighter leading-tight">{cat.title}</h3>
+                  <div className="absolute bottom-6 left-8">
+                      <h3 className="text-2xl font-black text-white uppercase tracking-tighter leading-tight">{cat.title}</h3>
                   </div>
                 </div>
-                <div className="p-10 flex flex-col flex-grow">
-                  <p className="text-slate-600 text-lg leading-relaxed mb-8 flex-grow">{cat.desc}</p>
+                <div className="p-8 flex flex-col flex-grow">
+                  <p className="text-slate-600 text-base leading-relaxed mb-8 flex-grow font-light">{cat.desc}</p>
 
-                  <ul className="grid grid-cols-2 gap-y-4 gap-x-6 mb-12">
+                  <ul className="grid grid-cols-2 gap-y-3 gap-x-6 mb-10">
                     {cat.features.map((f, fi) => (
-                      <li key={fi} className="flex items-center gap-3 text-sm font-black text-slate-800 uppercase tracking-widest">
-                        <CheckCircle className="w-4 h-4 text-brand-600 shrink-0" /> {f}
+                      <li key={fi} className="flex items-center gap-2.5 text-xs font-black text-slate-800 uppercase tracking-widest">
+                        <CheckCircle className="w-3.5 h-3.5 text-brand-600 shrink-0" /> {f}
                       </li>
                     ))}
                   </ul>
 
-                  <Link
-                    href={`/services/${cat.slug}`}
-                    className="bg-slate-900 text-white py-5 px-10 rounded-2xl font-black uppercase tracking-widest text-sm flex items-center justify-center gap-3 hover:bg-brand-600 transition-all w-full md:w-fit shadow-xl shadow-slate-900/20"
+                  <div
+                    className="bg-slate-900 text-white py-4 px-8 rounded-xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 hover:bg-brand-600 transition-all w-full md:w-fit shadow-xl shadow-slate-900/20"
                   >
-                    Explore System <ArrowRight className="w-5 h-5" />
-                  </Link>
+                    Explore System <ArrowRight className="w-4 h-4" />
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

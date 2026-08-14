@@ -47,32 +47,32 @@ export default function Header() {
       {/* Top Header Bar - Always Visible */}
       <div
         className={cn(
-          "fixed top-0 w-full z-[60] bg-slate-950 text-white text-[9px] md:text-[11px] py-3 border-b border-white/5 shadow-2xl transition-all duration-500"
+          "fixed top-0 w-full z-[60] bg-slate-950 text-white text-[10px] md:text-[12px] py-4 border-b border-white/5 shadow-2xl transition-all duration-500"
         )}
       >
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-2 md:gap-0 font-black uppercase tracking-widest">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-3 md:gap-0 font-black uppercase tracking-[0.15em]">
           {/* Sales Side */}
-          <div className="flex gap-4 md:gap-8">
+          <div className="flex gap-4 md:gap-10">
             <span className="text-brand-500 hidden sm:inline">Sales:</span>
-            <a href="tel:+919716412630" className="flex items-center gap-2 hover:text-brand-500 transition-colors">
-              <Phone className="w-3 h-3 text-brand-500" />
+            <a href="tel:+919716412630" className="flex items-center gap-2.5 hover:text-brand-400 transition-colors">
+              <Phone className="w-3.5 h-3.5 text-brand-500" />
               +91 9716412630
             </a>
-            <a href="mailto:sales@medgenz.com" className="flex items-center gap-2 hover:text-brand-500 transition-colors">
-              <Mail className="w-3 h-3 text-brand-500" />
+            <a href="mailto:sales@medgenz.com" className="flex items-center gap-2.5 hover:text-brand-400 transition-colors">
+              <Mail className="w-3.5 h-3.5 text-brand-500" />
               sales@medgenz.com
             </a>
           </div>
 
           {/* Support Side */}
-          <div className="flex gap-4 md:gap-8 border-t border-white/10 pt-2 md:pt-0 md:border-none w-full md:w-auto justify-center">
+          <div className="flex gap-4 md:gap-10 border-t border-white/10 pt-3 md:pt-0 md:border-none w-full md:w-auto justify-center">
             <span className="text-brand-500 hidden sm:inline">Support:</span>
-            <a href="tel:+918130118081" className="flex items-center gap-2 hover:text-brand-500 transition-colors">
-              <Phone className="w-3 h-3 text-brand-500" />
+            <a href="tel:+918130118081" className="flex items-center gap-2.5 hover:text-brand-400 transition-colors">
+              <Phone className="w-3.5 h-3.5 text-brand-500" />
               +91 8130118081
             </a>
-            <a href="mailto:support@medgenz.com" className="flex items-center gap-2 hover:text-brand-500 transition-colors">
-              <Mail className="w-3 h-3 text-brand-500" />
+            <a href="mailto:support@medgenz.com" className="flex items-center gap-2.5 hover:text-brand-400 transition-colors">
+              <Mail className="w-3.5 h-3.5 text-brand-500" />
               support@medgenz.com
             </a>
           </div>
@@ -82,7 +82,7 @@ export default function Header() {
       <nav
         className={cn(
           'fixed w-full z-50 transition-all duration-500',
-          isScrolled ? 'top-[74px] md:top-[44px] py-3' : 'top-[74px] md:top-[44px] py-6',
+          isScrolled ? 'top-[96px] md:top-[60px] py-3' : 'top-[96px] md:top-[60px] py-6',
           shouldBeSolid
             ? 'bg-white/95 backdrop-blur-xl shadow-xl border-b border-slate-100'
             : 'bg-transparent border-b border-white/10'
@@ -90,7 +90,7 @@ export default function Header() {
       >
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <Link href="/" className="flex items-center">
-            <div className="relative h-12 md:h-16 w-40 md:w-56 transition-all duration-500">
+            <div className="relative h-10 md:h-14 w-32 md:w-48 transition-all duration-500">
                 <Image
                     src="/images/brand-logo-mg/medgenz-logo/medgenz-logo1.webp"
                     alt="MedGenz Logo"

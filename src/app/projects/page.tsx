@@ -1,8 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { MapPin, ArrowRight, ExternalLink, CheckCircle } from "lucide-react";
+import { MapPin, ArrowRight, FolderKanban } from "lucide-react";
 import ClientMarquee from "@/components/sections/ClientMarquee";
 import type { Metadata } from "next";
+import { prisma } from "@/lib/prisma";
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: "MedGenz Projects | Landmark Hospital Installations & Case Studies",
@@ -41,34 +44,12 @@ export const metadata: Metadata = {
   },
 };
 
-const projects = [
-  {
-    title: "Class 100 Modular OT Excellence",
-    slug: "modular-ot-delhi-hospital",
-    location: "New Delhi",
-    desc: "A premier turnkey installation for a leading super-specialty hospital in Delhi NCR, featuring hermetically sealed SS-304 panels and Class 100 Laminar Airflow.",
-    image: "/images/service assets/mot-page-n-eq-assets/ot-3.webp",
-    service: "Modular OT"
-  },
-  {
-    title: "State-Wide MGPS Infrastructure",
-    slug: "mgps-up-healthcare-network",
-    location: "Uttar Pradesh",
-    desc: "Complete end-to-end engineering of a high-capacity Medical Gas Pipeline System for a 500-bed facility, including automatic oxygen manifolds.",
-    image: "/images/service-images/mgps-product.webp",
-    service: "MGPS"
-  },
-  {
-    title: "High-Purity IVF Cleanroom Setup",
-    slug: "ivf-lab-punjab-clinic",
-    location: "Punjab",
-    desc: "Precision setup of a Class 10,000 cleanroom environment for a leading IVF clinic, ensuring zero VOC contamination and ISO 5 air quality.",
-    image: "/images/about-us/about-us-assets/ivf-about.webp",
-    service: "IVF Lab"
-  }
-];
+export default async function ProjectsPage() {
+  const projects = await prisma.project.findMany({
+    where: { published: true },
+    orderBy: { createdAt: "desc" },
+  });
 
-export default function ProjectsPage() {
   return (
     <div className="pt-20 font-inter">
       {/* 1. HERO SECTION */}
@@ -95,41 +76,58 @@ export default function ProjectsPage() {
       {/* 2. PROJECTS GRID */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12">
-            {projects.map((p, i) => (
-              <div key={i} className="group flex flex-col h-full bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500">
-                <div className="aspect-[4/3] relative overflow-hidden flex-shrink-0">
-                  <Image src={p.image} alt={p.title} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
-                  <div className="absolute top-6 left-6 flex flex-col gap-2">
-                    <span className="w-fit bg-brand-600 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-lg">
-                      {p.service}
-                    </span>
-                    <span className="w-fit bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-widest flex items-center gap-1.5 shadow-lg">
-                      <MapPin className="w-3 h-3 text-brand-500" /> {p.location}
-                    </span>
-                  </div>
+          {projects.length === 0 ? (
+            <div className="py-20 text-center space-y-6 bg-slate-50 rounded-[3rem] border border-slate-100">
+                <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto shadow-sm">
+                    <FolderKanban className="w-10 h-10 text-slate-200" />
                 </div>
-
-                <div className="p-10 flex-grow flex flex-col">
-                  <h3 className="text-2xl font-black text-slate-900 mb-4 group-hover:text-brand-600 transition-colors uppercase tracking-tighter line-clamp-1">
-                    {p.title}
-                  </h3>
-                  <p className="text-slate-500 leading-relaxed mb-8 flex-grow font-light line-clamp-3">
-                    {p.desc}
-                  </p>
-
-                  <div className="pt-8 border-t border-slate-50 mt-auto">
-                    <Link
-                      href={`/projects/${p.slug}`}
-                      className="inline-flex items-center gap-3 text-brand-600 font-black text-xs uppercase tracking-widest hover:gap-5 transition-all"
-                    >
-                      Read Case Study <ArrowRight className="w-4 h-4" />
-                    </Link>
+                <h3 className="text-2xl font-bold text-slate-400 uppercase tracking-widest">No case studies published yet.</h3>
+                <p className="text-slate-400 font-light max-w-sm mx-auto">Our engineering portfolio is being updated. Check back soon for our latest turnkey installations.</p>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12">
+              {projects.map((p) => (
+                <Link href={`/projects/${p.slug}`} key={p.id} className="group flex flex-col h-full bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500">
+                  <div className="aspect-[4/3] relative overflow-hidden flex-shrink-0">
+                    {p.heroImage ? (
+                      <Image src={p.heroImage} alt={p.title} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
+                    ) : (
+                      <div className="absolute inset-0 bg-slate-100 flex items-center justify-center">
+                        <FolderKanban className="w-12 h-12 text-slate-200" />
+                      </div>
+                    )}
+                    <div className="absolute top-6 left-6 flex flex-col gap-2">
+                      {p.service && (
+                        <span className="w-fit bg-brand-600 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-lg">
+                          {p.service}
+                        </span>
+                      )}
+                      {p.location && (
+                        <span className="w-fit bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-widest flex items-center gap-1.5 shadow-lg">
+                          <MapPin className="w-3 h-3 text-brand-500" /> {p.location}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))}
-          </div>
+
+                  <div className="p-10 flex-grow flex flex-col">
+                    <h3 className="text-2xl font-black text-slate-900 mb-4 group-hover:text-brand-600 transition-colors uppercase tracking-tighter line-clamp-1">
+                      {p.title}
+                    </h3>
+                    <p className="text-slate-500 leading-relaxed mb-8 flex-grow font-light line-clamp-3">
+                      {p.brief}
+                    </p>
+
+                    <div className="pt-8 border-t border-slate-50 mt-auto">
+                      <div className="inline-flex items-center gap-3 text-brand-600 font-black text-xs uppercase tracking-widest group-hover:gap-5 transition-all">
+                        Read Case Study <ArrowRight className="w-4 h-4" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

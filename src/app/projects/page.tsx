@@ -54,7 +54,7 @@ export default async function ProjectsPage() {
     <div className="pt-20 font-inter">
       {/* 1. HERO SECTION */}
       <section className="relative py-24 md:py-32 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
-        <div className="absolute inset-0 z-0 opacity-40">
+        <div className="absolute inset-0 z-0 opacity-60">
            <Image
              src="/images/about-us/about-us-home/about-us.webp"
              alt="MedGenz Projects"
@@ -62,12 +62,12 @@ export default async function ProjectsPage() {
              className="object-cover"
              priority
            />
-           <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/80 to-slate-950/60" />
+           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-transparent" />
         </div>
         <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
           <span className="inline-block px-4 py-1.5 rounded-full bg-brand-600/20 text-brand-400 border border-brand-500/30 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-6">Case Studies</span>
-          <h1 className="text-4xl md:text-7xl font-black text-white mb-8 tracking-tighter leading-tight">Proven <span className="text-brand-500">Installations</span></h1>
-          <p className="text-slate-300 text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed normal-case tracking-normal font-light">
+          <h1 className="text-3xl md:text-6xl font-black text-white mb-6 tracking-tighter leading-tight">Proven <span className="text-brand-500">Installations</span></h1>
+          <p className="text-slate-300 text-base md:text-xl max-w-3xl mx-auto leading-relaxed normal-case tracking-normal font-light">
             Transforming bare healthcare shells into world-class, NABH-compliant surgical and support environments across India.
           </p>
         </div>

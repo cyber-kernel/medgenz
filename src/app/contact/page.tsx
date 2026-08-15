@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Phone, Mail, MapPin, MessageSquare, Clock, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 
 export default function ContactPage() {
@@ -106,10 +107,20 @@ export default function ContactPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <section className="py-24 bg-slate-900 text-white">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 uppercase tracking-tighter leading-tight">Get In <span className="text-brand-500">Touch</span></h1>
-          <p className="text-slate-300 text-lg md:text-2xl max-w-2xl mx-auto font-light">
+      <section className="relative py-24 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
+        <div className="absolute inset-0 z-0 opacity-60">
+          <Image
+            src="/images/about-us/about-us-home/about-us.webp"
+            alt="Contact MedGenz"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-transparent" />
+        </div>
+        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight">Get In <span className="text-brand-500">Touch</span></h1>
+          <p className="text-slate-300 text-base md:text-xl max-w-2xl mx-auto font-light normal-case tracking-normal">
             Ready to start your next healthcare project? Our experts are here to help you build the best medical infrastructure.
           </p>
         </div>

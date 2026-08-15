@@ -137,20 +137,20 @@ export default function ServicesPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(getFAQSchema(faqs)) }}
       />
       {/* Hero */}
-      <section className="relative py-32 bg-slate-900 text-white overflow-hidden uppercase tracking-tighter">
-        <div className="absolute inset-0 z-0 opacity-40">
+      <section className="relative py-32 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
+        <div className="absolute inset-0 z-0 opacity-60">
            <Image
              src="/images/service-images/modular-ot-product.webp"
              alt="MedGenz Services"
              fill
              className="object-cover"
            />
-           <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 to-slate-900/60" />
+           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-transparent" />
         </div>
         <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
-          <span className="text-brand-400 font-bold uppercase tracking-[0.2em] text-sm mb-4 block">Our Expertise</span>
-          <h1 className="text-4xl md:text-8xl font-black text-white mb-8">Turnkey <br /> <span className="text-brand-500">Solutions</span></h1>
-          <p className="text-slate-300 text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed normal-case tracking-normal font-light">
+          <span className="text-brand-400 font-bold uppercase tracking-[0.2em] text-xs mb-4 block">Our Expertise</span>
+          <h1 className="text-3xl md:text-6xl font-black text-white mb-6">Turnkey <br /> <span className="text-brand-500">Solutions</span></h1>
+          <p className="text-slate-300 text-base md:text-xl max-w-3xl mx-auto leading-relaxed normal-case tracking-normal font-light">
             MedGenz provides end-to-end hospital infrastructure services, from planning and design to manufacturing, installation, and maintenance.
           </p>
         </div>

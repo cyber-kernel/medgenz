@@ -18,8 +18,8 @@ const architecture = [
     items: [
       { name: "Modular Wall Panels (SS-304/PUF)", slug: "wall-panels" },
       { name: "Seamless OT Ceiling Systems", slug: "ceiling-systems" },
-      { name: "Hermetically Sealed OT Doors", slug: "doors" },
-      { name: "Anti-Static Vinyl Flooring", slug: "flooring" }
+      { name: "Hermetically Sealed OT Doors", slug: "hermetic-doors" },
+      { name: "Anti-Static Vinyl Flooring", slug: "flooring-systems" }
     ]
   },
   {
@@ -37,7 +37,7 @@ const architecture = [
     category: "Smart Control & Electrical",
     badge: "Integrated Commands",
     items: [
-      { name: "Digital Surgeon Control Panel", slug: "control-panel" },
+      { name: "Digital Surgeon Control Panel", slug: "surgeon-control-panel" },
       { name: "Peripheral LED Room Lighting", slug: "room-lighting" },
       { name: "Temperature & Pressure Monitoring", slug: "environment-monitoring" }
     ]

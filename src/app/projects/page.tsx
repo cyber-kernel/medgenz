@@ -64,7 +64,7 @@ export default async function ProjectsPage() {
            />
            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-transparent" />
         </div>
-        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
+        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center pt-24 md:pt-32">
           <span className="inline-block px-4 py-1.5 rounded-full bg-brand-600/20 text-brand-400 border border-brand-500/30 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-6">Case Studies</span>
           <h1 className="text-3xl md:text-6xl font-black text-white mb-6 tracking-tighter leading-tight">Proven <span className="text-brand-500">Installations</span></h1>
           <p className="text-slate-300 text-base md:text-xl max-w-3xl mx-auto leading-relaxed normal-case tracking-normal font-light">

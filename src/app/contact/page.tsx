@@ -118,7 +118,7 @@ export default function ContactPage() {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-transparent" />
         </div>
-        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
+        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center pt-24 md:pt-32">
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight">Get In <span className="text-brand-500">Touch</span></h1>
           <p className="text-slate-300 text-base md:text-xl max-w-2xl mx-auto font-light normal-case tracking-normal">
             Ready to start your next healthcare project? Our experts are here to help you build the best medical infrastructure.

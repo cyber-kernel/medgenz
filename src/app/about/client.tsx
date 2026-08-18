@@ -118,7 +118,7 @@ export default function AboutClient() {
   return (
     <div className="bg-white overflow-x-hidden font-inter">
       {/* 1. HERO SECTION */}
-      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 bg-slate-950 overflow-hidden uppercase tracking-tighter">
+      <section className="relative pt-64 pb-20 md:pt-[280px] md:pb-32 bg-slate-950 overflow-hidden uppercase tracking-tighter">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.6 }} // BRIGHTER BACKGROUND (Increased from 0.4)

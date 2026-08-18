@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, CheckCircle, ShieldCheck, Activity, Phone, Mail, MapPin, Layout, Wind, Settings, Zap } from 'lucide-react';
+import { ArrowRight, CheckCircle, ShieldCheck, Activity, Phone, Mail, MapPin, Layout, Wind, Settings, Star } from 'lucide-react';
 import HomeSlider from '@/components/HomeSlider';
 import ClientMarquee from '@/components/sections/ClientMarquee';
 import ECGCTA from '@/components/sections/ECGCTA';
@@ -61,7 +61,7 @@ export default function Home() {
     "@type": "Organization",
     "name": "MedGenz",
     "url": "https://www.medgenz.com",
-    "logo": "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz-logo1.webp",
+    "logo": "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/og-medgenz-logo-2-transparent.webp",
     "description": "Premier ISO certified manufacturer of Modular Operation Theatres (MOT), Medical Gas Pipeline Systems (MGPS), and turnkey hospital infrastructure in India.",
     "address": {
       "@type": "PostalAddress",
@@ -81,12 +81,13 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      {/* Massive Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-44 md:pt-56">
+
+      {/* 1. HERO SECTION - Integrated Slider */}
+      <section className="relative min-h-screen flex items-center pt-48 md:pt-56">
         <HomeSlider />
       </section>
 
-      {/* Stats Section */}
+      {/* 2. STATS SECTION - Scaled Down */}
       <section className="py-12 md:py-20 bg-slate-50 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -100,7 +101,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Deep About Section */}
+      {/* 3. DEEP ABOUT SECTION - Scaled Down */}
       <section className="py-20 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
           <div className="relative group">
@@ -143,7 +144,7 @@ export default function Home() {
 
       <ClientMarquee />
 
-      {/* Core Expertise Grid */}
+      {/* 4. CORE EXPERTISE GRID - Scaled Down & Clickable */}
       <section className="py-20 bg-slate-50 border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
@@ -182,7 +183,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Swipeable Testimonials */}
+      {/* 5. TESTIMONIALS - Star Icons & Scaled Down */}
       <section className="py-20 bg-brand-50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
@@ -193,10 +194,10 @@ export default function Home() {
 
           <div className="flex overflow-x-auto gap-6 pb-12 snap-x snap-mandatory hide-scrollbar">
             {testimonials.map((t, i) => (
-              <div key={i} className="min-w-[85vw] md:min-w-[400px] bg-white rounded-3xl p-8 shadow-lg border border-slate-100 snap-center relative group hover:-translate-y-2 transition-transform duration-300">
+              <div key={i} className="min-w-[85vw] md:min-w-[450px] bg-white rounded-3xl p-8 shadow-lg border border-slate-100 snap-center relative group hover:-translate-y-2 transition-transform duration-300">
                 <div className="flex text-yellow-400 mb-6">
                   {[...Array(5)].map((_, i) => (
-                    <svg key={i} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="fill-current"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <Star key={i} className="w-5 h-5 fill-current" />
                   ))}
                 </div>
                 <p className="text-slate-600 text-base italic leading-relaxed mb-8 font-light">"{t.text}"</p>

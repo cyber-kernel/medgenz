@@ -52,7 +52,7 @@ export default async function BlogListingPage() {
       "name": "MedGenz",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz-logo1.webp"
+        "url": "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/og-medgenz-logo-2.jpg"
       }
     },
     "blogPost": blogs.map(post => ({

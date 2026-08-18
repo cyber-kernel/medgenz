@@ -58,8 +58,8 @@ export const metadata: Metadata = {
     address: false,
   },
   icons: {
-    icon: "/images/brand-logo-mg/favicon-png-mg/mg-favicon1.png",
-    apple: "/images/brand-logo-mg/favicon-png-mg/mg-favicon1.png",
+    icon: "/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
+    apple: "/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
   },
   manifest: "/manifest.json",
   openGraph: {
@@ -72,7 +72,7 @@ export const metadata: Metadata = {
       "ISO certified manufacturer of Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure in India.",
     images: [
       {
-        url: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz-logo1.webp",
+        url: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
         width: 1200,
         height: 630,
         alt: "MedGenz Logo",
@@ -116,15 +116,31 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Google Tag Manager */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-MJN9R5MV');`,
+          }}
+        />
+        {/* End Google Tag Manager */}
+
         {/* Structured Data - Organization & Website */}
         <script
+          key="org-schema"
           type="application/ld+json"
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(organizationSchema),
           }}
         />
         <script
+          key="site-schema"
           type="application/ld+json"
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(websiteSchema),
           }}
@@ -141,6 +157,17 @@ export default function RootLayout({
           "font-inter bg-white text-slate-900 antialiased"
         )}
       >
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-MJN9R5MV"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          ></iframe>
+        </noscript>
+        {/* End Google Tag Manager (noscript) */}
+
         <Header />
         <main>{children}</main>
         <Footer />

@@ -12,7 +12,7 @@ export const getOrganizationSchema = (): SchemaOrgType => ({
   "@type": "Organization",
   name: "MedGenz",
   url: "https://www.medgenz.com",
-  logo: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz-logo1.webp",
+  logo: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
   description:
     "Premier ISO certified manufacturer of Modular Operation Theatres (MOT), Medical Gas Pipeline Systems (MGPS), and turnkey hospital infrastructure in India.",
   foundingDate: "2012",
@@ -50,7 +50,7 @@ export const getLocalBusinessSchema = (): SchemaOrgType => ({
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: "MedGenz",
-  image: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz-logo1.webp",
+  image: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
   description:
     "Leading manufacturer of Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure.",
   address: {
@@ -89,7 +89,7 @@ export const getServiceSchema = (
     "@type": "Organization",
     name: "MedGenz",
     url: "https://www.medgenz.com",
-    logo: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz-logo1.webp",
+    logo: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
   },
   areaServed: {
     "@type": "Country",
@@ -174,7 +174,7 @@ export const getArticleSchema = (article: ArticleData): SchemaOrgType => ({
     name: "MedGenz",
     logo: {
       "@type": "ImageObject",
-      url: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz-logo1.webp",
+      url: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
     },
   },
   articleBody: article.articleBody,

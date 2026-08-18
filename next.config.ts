@@ -69,6 +69,16 @@ const nextConfig: NextConfig = {
       // Redirect www to non-www if needed
     ];
   },
+
+  /* Rewrites */
+  rewrites: async () => {
+    return [
+      {
+        source: "/modular-operation-theatre-services",
+        destination: "/modular-operation-theatre-services/index.html",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

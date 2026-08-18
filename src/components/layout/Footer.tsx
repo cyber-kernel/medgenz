@@ -33,13 +33,13 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-10 md:gap-12 mb-12 md:mb-20">
         <div className="col-span-2">
           <div className="flex items-center gap-2 mb-6">
-            <div className="bg-white p-2 rounded">
+            <div className="bg-white p-2 rounded shadow-sm">
               <Image
-                src="/images/brand-logo-mg/medgenz-logo/medgenz-logo1.webp"
+                src="/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp"
                 alt="MedGenz Footer Logo"
-                width={180}
-                height={60}
-                className="h-10 w-auto object-contain"
+                width={360}
+                height={160}
+                className="h-20 md:h-24 w-auto object-contain"
               />
             </div>
           </div>

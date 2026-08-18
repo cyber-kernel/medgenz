@@ -63,98 +63,146 @@ const motProducts: Record<string, ProductData> = {
   'wall-panels': {
     title: "Modular OT Wall Panels",
     tagline: "Infection-Free Infrastructure",
-    heroDesc: "In a sterile environment, walls are your primary defense. Traditional walls have pores and cracks that harbor bacteria. We manufacture hermetically sealed, anti-bacterial SS-304 and PPGI wall panels engineered strictly for Class 100 cleanrooms and NABH-compliance.",
+    heroDesc: "In a sterile environment, walls are your primary defense against contamination. Traditional tiled or painted brick walls develop microscopic cracks that harbor dangerous bacteria. Whether you are executing a full modular ot wall panel setup or a specialized operating room wall panel setup, we manufacture hermetically sealed, anti-bacterial wall surfaces engineered strictly for Class 100 cleanrooms and complete NABH-compliance.",
     atAGlance: ["SS-304 & PPGI Options", "High-Density PUF Core", "Seamless RTV Joints", "Class 100 / NABH Compliant"],
     configurations: [
       {
         title: "SS-304 Stainless Steel Panels",
-        desc: ["The gold standard for world-class surgical facilities. SS-304 provides an ultra-hard, non-porous surface immune to rust and harsh chemical disinfectants.", "expertly sealed with antibacterial silicone for a monolithic finish, ideally for primary OTs and Cath Labs."],
+        desc: [
+          "The gold standard for world-class surgical facilities. Stainless Steel 304 provides an ultra-hard, completely non-porous surface that is inherently immune to rust, corrosion, and the harshest chemical disinfectants used by hospital cleaning staff.",
+          "The joints are perfectly sealed with antibacterial silicone for a monolithic finish, recommended for primary Operation Theatres, Cath Labs, and environments where absolute longevity and zero-particle shedding are the highest priorities."
+        ],
         image: "/images/mot-product-page-images/wall-panel-images/ss-304-wall-panel.webp"
       },
       {
         title: "PPGI Modular Wall Panels",
-        desc: ["Pre-Painted Galvanized Iron (PPGI) panels are a cost-effective choice for NABH-compliant setups. Coated with anti-microbial paint.", "Ideal for budget-conscious OT projects, ICUs, and sterile corridors with high structural rigidity and easy sanitization."],
+        desc: [
+          "PPGI Modular Wall Panels (Pre-Painted Galvanized Iron) remain the industry standard and most cost-effective choice for modern NABH-compliant setups across India. These high-strength panels provide a beautiful, structurally rigid inner skin for the operation theatre.",
+          "Ideal for budget-conscious OT projects, Intensive Care Units (ICUs), scrub areas, and sterile corridors. The coating repels bacteria and allows for easy, wipe-down sanitization between surgical procedures."
+        ],
         image: "/images/mot-product-page-images/wall-panel-images/ppgi-wall-panel.webp"
+      },
+      {
+        title: "High-Density PUF Core Insulation",
+        desc: [
+          "Whether you choose SS-304 or PPGI, the outer metal sheets are just the skin. The true engineering lies inside. The panels are injected with high-density Polyurethane Foam (PUF) under immense pressure.",
+          "The PUF core provides massive structural rigidity, making the walls impact-resistant. More importantly, it acts as a superior thermal barrier to lock in the AHU's cooling, and provides excellent acoustic dampening, keeping the OT completely silent."
+        ],
+        image: "/images/mot-product-page-images/wall-panel-images/puff-of-wall-panel.webp"
+      },
+      {
+        title: "Lead-Lined Radiation Panels",
+        desc: [
+          "Modern surgical procedures frequently involve live imaging, utilizing C-Arms and specialized X-Ray equipment directly over the operating table. This exposes the surgical staff in adjacent rooms to dangerous scatter radiation.",
+          "We manufacture specialized panels integrated with a 1mm to 2mm thick continuous lead sheet embedded within the core. This creates a highly effective, invisible radiation shield, ensuring absolute safety for the doctors and nurses outside the OT."
+        ],
+        image: "/images/mot-product-page-images/wall-panel-images/lead-lined-radtiation-panel.webp"
       }
     ],
     engineering: [
       {
         title: "3D Corner Coving",
-        desc: "We completely eliminate 90-degree angles where dust accumulates using specialized curved aluminum or SS-304 coving.",
+        desc: "We completely eliminate 90-degree angles where dust accumulates. We use specialized curved aluminum or SS-304 coving at all wall-to-wall, wall-to-ceiling, and wall-to-floor junctions, ensuring a 100% easily washable, bowl-like room surface.",
         bullets: ["Eliminates Dead Corners", "Rapid Room Sterilization"]
       },
       {
         title: "Anti-Bacterial Coating",
-        desc: "PPGI variants are electrostatically coated with silver-ion technology that actively disrupts bacterial cellular division.",
+        desc: "PPGI variants are electrostatically powder-coated with an epoxy-polyester resin. This specialized paint is infused with silver-ion technology that actively disrupts the cellular division of bacteria, fungi, and mold upon contact.",
         bullets: ["Active Microbial Resistance", "Scratch & Dent Resistant"]
       },
       {
         title: "RTV Silicone Sealing",
-        desc: "Interlocking panels are flush-filled with medical-grade RTV silicone, guaranteeing zero air leakage and positive pressure.",
+        desc: "After the interlocking panels are erected, every single micro-gap is flush-filled with Room Temperature Vulcanizing (RTV) medical-grade silicone. This guarantees the OT maintains its positive pressure seal without any air leakage.",
         bullets: ["Hermetic Airtight Seal", "Anti-Fungal Properties"]
       }
     ],
     applications: [
       { title: "Modular Operation Theatres", image: "/images/service-images/modular-ot-product.webp" },
       { title: "Intensive Care Units (ICU)", image: "/images/key-application-images/icu.webp" },
-      { title: "Hybrid Cath Labs", image: "/images/key-application-images/cath-lab.webp" },
-      { title: "CSSD & Processing", image: "/images/key-application-images/cssd.webp" }
+      { title: "Hybrid Cath Labs & OTs", image: "/images/key-application-images/cath-lab.webp" },
+      { title: "CSSD & Sterile Corridors", image: "/images/key-application-images/cssd.webp" }
     ],
     whyChoose: [
-      { title: "Turnkey Solutions", desc: "From sub-base grinding to final panel integration, we handle the entire cleanroom floor execution.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
+      { title: "Turnkey Solutions", desc: "By providing End to End Wall Panel solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
       { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Overcoming OT Contamination in a Legacy Hospital",
-      context: "A 20-year-old hospital faced recurring infections. Audit revealed porous brick walls harboring fungal spores in microscopic cracks.",
-      solution: "Erected a self-supporting shell of SS-304 Modular Wall Panels. Microbes reduced by 99.9%, instantly securing NABH certification."
+      context: "A 20-year-old hospital was experiencing an unacceptable rate of post-operative infections. Air quality audits revealed that their traditional painted brick walls were harboring deep-seated fungal spores inside microscopic cracks, entirely compromising their new HVAC system's efforts.",
+      solution: "We performed a rapid, dry-construction retrofit. Without demolishing the existing structure, we erected a self-supporting shell of SS-304 Modular Wall Panels inside the room. The corners were finished with smooth aluminum coving, and the joints sealed with antibacterial silicone. Post-installation swabs showed a 99.9% reduction in surface microbes, instantly securing their cleanroom certification."
     },
     specs: [
       { label: "Panel Construction", value: "SS-304, PPGI, or EGP PUF Sandwich Panels" },
-      { label: "Standard Dimensions", value: "Custom heights (up to 3000mm) x 1200mm widths" },
-      { label: "Surface Coating", value: "Anti-microbial epoxy polyester powder (50-70 microns)" },
-      { label: "Corner Transitions", value: "Aluminum/SS coving with 3D corner pieces" }
+      { label: "Standard Dimensions", value: "Custom heights (up to 3000mm) x Standard widths (1200mm)" },
+      { label: "Surface Coating", value: "Anti-microbial, anti-fungal epoxy polyester powder coating (50-70 microns)" },
+      { label: "Corner Transitions", value: "Aluminum/SS coving with 3D corner pieces (No 90-degree angles)" },
+      { label: "Optional Upgrades", value: "AERB-compliant Lead Lining (1mm - 2mm), Acoustic Insulation" }
     ],
     faqs: [
-      { q: "Why can't standard brick walls be used in an OT?", a: "Brick walls have pores, crack, and have corners that breed bacteria. Modular panels are non-porous and seamless." },
-      { q: "What is the difference between SS-304 and PPGI?", a: "SS-304 is the highest tier, completely rust-proof. PPGI is a cost-effective durable alternative with antibacterial paint." },
-      { q: "How are joints sealed?", a: "Using medical-grade RTV silicone sealant to create a 100% airtight and flush surface." }
+      { q: "Why can't standard brick and painted walls be used in an Operation Theatre?", a: "Brick walls have microscopic pores, crack over time, and feature 90-degree corners. These imperfections act as breeding grounds for bacteria and fungus. Modular panels create a completely flush, non-porous, and seamless environment that is perfectly sterile." },
+      { q: "What is the difference between SS-304 and PPGI wall panels?", a: "SS-304 (Stainless Steel) is the absolute highest grade, completely rust-proof, and highly resistant to harsh surgical chemicals. PPGI (Pre-Painted Galvanized Iron) is a highly durable, cost-effective alternative coated with antibacterial paint, suitable for many cleanroom applications." },
+      { q: "Can you install modular panels over existing brick walls?", a: "Yes, our modular wall panel setups are designed for both new constructions and retrofitting. We create an independent, structurally sound inner skin that covers existing brick or tiled walls without requiring major demolition." },
+      { q: "How are the panel joints sealed to prevent bacteria?", a: "We leave a precise 3mm to 5mm gap between panels during installation. This gap is then flush-filled with a medical-grade, anti-fungal Room Temperature Vulcanizing (RTV) silicone sealant, creating a 100% seamless and airtight surface." },
+      { q: "Is the coating scratch resistant?", a: "Yes, our panels are electrostatically powder-coated with an epoxy-polyester resin that is scratch and dent resistant." },
+      { q: "Do you provide lead-lined panels?", a: "Yes, we manufacture specialized panels integrated with a 1mm to 2mm thick continuous lead sheet embedded within the core for radiation protection." }
     ],
     heroImage: "/images/mot-product-page-images/wall-panel-images/ss-304-wall-panel.webp"
   },
   'ceiling-systems': {
     title: "Seamless OT Ceiling Systems",
     tagline: "Infection-Free Infrastructure",
-    heroDesc: "In an Operation Theatre, the ceiling is the core of air management. Traditional ceilings with joints act as breeding grounds for micro-bacteria. We manufacture hermetically sealed, jointless ceilings engineered for Class 100 cleanrooms and NABH-compliance.",
+    heroDesc: "In an Operation Theatre, the ceiling is more than a roof—it’s the core of air management. Traditional ceilings with joints act as breeding grounds for micro-bacteria. Whether you are executing a full modular ot ceiling setup or a specialized operating room ceiling setup, we manufacture hermetically sealed, jointless ceilings engineered specifically for Class 100 cleanrooms and NABH-compliance.",
     atAGlance: ["100% Hermetically Sealed", "SS-304 & PPGI Options", "Precision LAF Integration", "Anti-Bacterial Coating"],
     configurations: [
       {
         title: "SS-304 Stainless Steel Ceilings",
-        desc: ["The premium standard for high-end surgical facilities. Matched durability and highest sterility. Naturally non-porous to prevent colonization.", "expertly TIG welded or sealed with anti-fungal silicone for a flawless monolithic finish."],
+        desc: [
+          "The absolute premium standard for high-end surgical environments. Our modular ot SS-304 Steel Ceilings offer unmatched durability, extreme rust resistance, and the highest level of sterility available in modern medical engineering. Because stainless steel is naturally non-porous, it entirely prevents microbial colonization on its surface.",
+          "During installation, the panels are expertly TIG welded or sealed with high-grade, anti-fungal silicone to create a flawless, monolithic finish. This ensures the ceiling can withstand harsh hospital-grade chemical disinfectants and daily fumigation processes without degrading or staining over decades of use."
+        ],
         image: "/images/mot-product-page-images/ot-ceiling-images/ss-304-ceiling.webp"
       },
       {
+        title: "PPGI Modular Ceilings",
+        desc: [
+          "PPGI Modular Ceilings (Pre-Painted Galvanized Iron) are the most popular and cost-effective choice for modern NABH-compliant setups across India. These panels provide exceptional structural rigidity while remaining relatively lightweight, making them perfect for standard multi-specialty hospital wards and operation theatres.",
+          "Each PPGI panel is factory-coated with a 50-70 micron layer of anti-bacterial epoxy polyester powder resin. This specialized coating creates a scratch-resistant, ultra-smooth surface that actively repels bacterial growth and particulate accumulation, serving as a highly reliable foundation for Class 100 cleanroom environments."
+        ],
+        image: "/images/mot-product-page-images/ot-ceiling-images/ppgi-ceiling.webp"
+      },
+      {
         title: "Aluminum Powder-Coated Ceilings",
-        desc: ["Perfect for retrofitting with weight limitations. Lightweight yet structurally rigid over long spans without sagging.", "Naturally non-corrosive and malleable for precise factory-finished cutouts for LAF and pendants."],
+        desc: [
+          "Ideal for older hospital buildings or retrofitting projects with strict dead-load (weight) limitations on the existing roof structure. Our modular ot Aluminum Powder-Coated Ceilings are incredibly lightweight yet maintain excellent structural integrity over long spans without sagging.",
+          "Beyond being naturally non-corrosive, aluminum is highly malleable. This characteristic allows our engineering team to create extremely precise, factory-finished cutouts for specialized surgical dome lights, Laminar Air Flow (LAF) HEPA terminals, and heavy anesthesia pendants without compromising the room's hermetic seal or positive air pressure."
+        ],
         image: "/images/mot-product-page-images/ot-ceiling-images/aluminum-powder-coated-ceiling.webp"
+      },
+      {
+        title: "EGP PUF Insulated Panels",
+        desc: [
+          "For operation theatres situated directly below open terraces, unconditioned floors, or tin roofs, environmental control becomes a major challenge. Using modular ot EGP PUF Insulated Panels is critical in these exact scenarios to maintain surgical standards.",
+          "The high-density PUF core provides exceptional thermal insulation, preventing the transfer of external heat into the OT. More importantly, this insulation eliminates the risk of condensation (sweating) on the ceiling surface, keeping the OT climate perfectly regulated, preventing mold growth, and significantly easing the load on your HVAC system."
+        ],
+        image: "/images/mot-product-page-images/wall-panel-images/puff-of-wall-panel.webp"
       }
     ],
     engineering: [
       {
         title: "Medical Grade Sealants",
-        desc: "We utilize specialized RTV silicone sealants that are inherently anti-fungal and create an impenetrable, flush barrier.",
+        desc: "The joints between the ceiling panels are the most vulnerable points. We utilize specialized medical-grade RTV silicone sealants that are inherently anti-fungal and create an impenetrable, flush barrier, guaranteeing 0% air leakage.",
         bullets: ["Zero Air Leakage", "Anti-Fungal RTV Silicone"]
       },
       {
         title: "Precision LAF Cutouts",
-        desc: "We CNC-machine exact apertures for LAF units and heavy surgical lights, ensuring a gap-free precision fit.",
+        desc: "We CNC-machine exact apertures into the panels at our manufacturing facility. This ensures that when the Laminar Airflow (LAF) unit and heavy surgical lights are installed, they fit with absolute, gap-free precision into the ceiling grid.",
         bullets: ["Flawless LAF Integration", "Custom Pendant Cutouts"]
       },
       {
         title: "Structural Grid System",
-        desc: "Behind panels lies a heavy-duty extruded aluminum suspension grid firmly anchored to the true concrete slab.",
+        desc: "Behind the seamless panels lies a heavy-duty extruded aluminum suspension grid. This hidden skeleton is firmly anchored to the true concrete slab above, preventing the ceiling from sagging even when loaded with heavy medical infrastructure.",
         bullets: ["Heavy-Duty Aluminum Grid", "Zero Sagging Guarantee"]
       }
     ],
@@ -165,119 +213,176 @@ const motProducts: Record<string, ProductData> = {
       { title: "CSSD & Sterile Corridors", image: "/images/key-application-images/cssd.webp" }
     ],
     whyChoose: [
-      { title: "Turnkey Solutions", desc: "From design to final integration, we provide End to End ceiling systems for hospital cleanrooms.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
-      { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015 standards.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
-      { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our teams travel to your site anywhere in the country.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "We provide comprehensive maintenance support after project handover.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "Turnkey Solutions", desc: "By providing End to End panels and ceilings system solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
+      { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
+      { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
+      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Solving Infection Rates in a Bihar Hospital",
-      context: "A 200-bed hospital faced infection spikes. Audit showed a traditional false ceiling had cracks pulling in contaminated air.",
-      solution: "Deployed a custom Seamless PPGI Ceiling System with laser-cut apertures. Infection rate dropped to 0% immediately."
+      context: "Recently, a prominent 200-bed multispecialty hospital in Bihar contacted us. Despite rigorous cleaning protocols, their surgical wing was facing recurring post-operative infection spikes. During our site audit, the culprit was obvious: their traditional false ceiling had micro-cracks and unsealed joints around the AC vents, allowing contaminated air from the plenum to bypass the filters.",
+      solution: "Our engineering team rapidly deployed a custom-fabricated Seamless PPGI Ceiling System. We laser-cut exact apertures for their new Laminar Air Flow system and surgical pendants, sealing the entire grid with medical-grade, anti-fungal silicone. The result was an immediate drop to a 0% infection rate and a swift NABH clearance for their facility."
     },
     specs: [
-      { label: "Panel Core Options", value: "SS-304, PPGI, Aluminum, or PUF Insulated" },
-      { label: "Panel Thickness", value: "0.8mm to 1.2mm (Metal) / 50mm - 80mm (PUF)" },
-      { label: "Surface Coating", value: "Anti-microbial epoxy polyester powder (50-70 microns)" },
-      { label: "Joint Sealing", value: "Medical-grade Room Temperature Vulcanizing (RTV) Silicone" }
+      { label: "Panel Core Options", value: "SS-304, PPGI, Aluminum, or PUF (Polyurethane Foam) Insulated" },
+      { label: "Panel Thickness", value: "Customizable from 0.8mm to 1.2mm (Metal) / 50mm - 80mm (PUF)" },
+      { label: "Surface Coating", value: "Anti-microbial, anti-fungal epoxy polyester powder coating (50-70 microns)" },
+      { label: "Joint Sealing", value: "Medical-grade Room Temperature Vulcanizing (RTV) Silicone Sealant" },
+      { label: "System Integrations", value: "Pre-engineered cutouts for LAF, Peripheral Lights, and Surgical Pendants" }
     ],
     faqs: [
-      { q: "What materials are used?", a: "Premium SS-304, PPGI, and Aluminum coated with anti-bacterial epoxy paint." },
-      { q: "Can the ceiling integrate with LAF?", a: "Yes, custom-engineered precision cutouts perfectly house LAF units and pendants." },
-      { q: "Why is a seamless ceiling important?", a: "To prevent joints and crevices from becoming breeding grounds for bacteria and dust." }
+      { q: "What materials are used in your Seamless OT Ceilings?", a: "We manufacture OT ceilings using premium SS-304 (Stainless Steel), PPGI (Pre-Painted Galvanized Iron), and Aluminum. All materials are coated with anti-bacterial, anti-fungal epoxy paint to ensure absolute sterility." },
+      { q: "Can the ceiling integrate with Laminar Air Flow (LAF) systems?", a: "Yes. Our seamless ceilings are custom-engineered with precision cutouts to perfectly house Laminar Air Flow (LAF) units, surgical lighting, and anesthesia pendants without compromising the hermetic seal." },
+      { q: "Why is a seamless ceiling important for an Operation Theatre?", a: "In a surgical environment, joints and crevices are breeding grounds for bacteria and dust. A seamless, gap-free ceiling prevents microbial accumulation, ensuring the OT remains a Class 100, NABH-compliant sterile zone." }
     ],
     heroImage: "/images/mot-product-page-images/ot-ceiling-images/ss-304-ceiling.webp"
   },
-  'doors': {
+  'hermetic-doors': {
     title: "Operation Theatre Doors",
     tagline: "100% Sealed Infrastructure",
-    heroDesc: "If an OT door leaks, positive pressure drops and airborne bacteria flood in. We manufacture hermetically sealed sliding and swing doors in PPGI, HPL, and SS-304, guaranteeing a sterile, NABH-compliant environment.",
+    heroDesc: "If an Operation Theatre door leaks even 1% of its air, the positive pressure drops and airborne bacteria flood in. Whether you need a standard modular ot door setup using highly durable PPGI and HPL materials, or a fully automated hermetic sealing mechanism, our hospital cleanroom doors guarantee a sterile, NABH-compliant environment.",
     atAGlance: ["100% Hermetic Seal", "Touchless Sensor Entry", "SS-304 / PPGI / HPL Cores", "AERB Lead-Lined Options"],
     configurations: [
       {
         title: "Automatic Hermetic Sliding Doors",
-        desc: ["Touchless infection control with micro-processor controlled motors. Features elbow/radar sensors for maximum hygiene.", "3-axis track system drops door down and inward upon closing to create an absolute vacuum seal."],
+        desc: [
+          "The absolute pinnacle of touchless infection control for modern OTs. Equipped with ultra-quiet, heavy-duty micro-processor controlled motors and highly sensitive radar/elbow sensors, surgeons can enter the sterile zone without ever touching a surface. This hospital automatic cleanroom door setup ensures maximum hygiene and minimizes cross-contamination risks.",
+          "These doors utilize our signature 3-axis track system. The moment the door slides shut, the mechanism physically drops the door down by 5mm and pushes it inward, crushing the heavy-duty neoprene rubber gaskets seamlessly against the frame and floor to create an absolute 100% vacuum seal, fully compliant with NABH guidelines for positive pressure retention."
+        ],
         image: "/images/mot-product-page-images/ot-doors-images/automatic-hermatic-sliding-door.webp"
       },
       {
         title: "Manual Hermetic Sliding Doors",
-        desc: ["Robust, low-maintenance alternative for ICUs and CSSD. Exact same 3-axis seal as automated versions.", "Ergonomic lever handle breaks vacuum seal mechanically for effortless gliding on precision rollers."],
+        desc: [
+          "A highly robust, low-maintenance hospital door alternative perfect for secondary cleanrooms, ICU isolation wards, and CSSD areas. These manual sliding operation theatre doors feature the exact same 3-axis drop-down track sealing mechanism as our automated versions, guaranteeing identical positive pressure retention without the need for electrical components.",
+          "To ensure effortless operation despite the heavy airtight seal, they are fitted with a specialized, ergonomically designed lever handle. A slight downward push of the handle mechanically breaks the vacuum seal, allowing the heavy door to glide open smoothly on its precision nylon rollers, making it a highly reliable and cost-effective cleanroom door solution."
+        ],
         image: "/images/mot-product-page-images/ot-doors-images/manual-hermatic-sliding-door.webp"
       },
       {
+        title: "Hermetic Swing Doors (Single & Double)",
+        desc: [
+          "Designed specifically for hospital corridors and operating theatres where adjacent wall space is too narrow to accommodate the track of a sliding door. Our hospital swing doors are engineered to maximize clear opening width in tight architectural constraints, providing an excellent space-saving cleanroom door option.",
+          "Hung on heavy-duty, concealed stainless steel hinges, these doors utilize a multi-point locking mechanism that tightly compresses perimeter silicon gaskets against the customized flush frame, preventing any sterile air leakage. Available in both single leaf and double leaf OT door configurations, they offer versatile positive pressure retention for any layout."
+        ],
+        image: "/images/mot-product-page-images/ot-doors-images/hermatic-swing-door-single-leaf.webp"
+      },
+      {
+        title: "PPGI Modular OT Doors",
+        desc: [
+          "Pre-Painted Galvanized Iron (PPGI) doors are the industry standard for NABH-compliant setups across India. These cost-effective hospital doors provide exceptional structural rigidity, utilizing a high-density PUF (polyurethane foam) core for superior thermal and acoustic insulation inside the operating room.",
+          "Our PPGI cleanroom doors are coated with a specialized anti-bacterial epoxy polyester powder finish. This creates an ultra-smooth, scratch-resistant surface that actively repels bacterial growth and particulate accumulation, making these rust-resistant operation theatre doors ideal for rapid chemical wipe-downs between surgical procedures."
+        ],
+        image: "/images/mot-product-page-images/ot-doors-images/ppgi-modular-ot-door.webp"
+      },
+      {
         title: "HPL (High-Pressure Laminate) Doors",
-        desc: ["Ultimate durability against heavy impacts from stretchers and trolleys. Extremely scratch and moisture resistant.", "Laminate sheets over aluminum frame and PUF core. High-end aesthetic finish for surgical wings."],
+        desc: [
+          "For hospital corridors and operating rooms experiencing extreme traffic and heavy impacts from stretchers, trolleys, and medical equipment, HPL hospital doors are the ultimate solution. They provide unparalleled durability without compromising on clinical hygiene.",
+          "Constructed from compact High-Pressure Laminate sheets pressed over an aluminum framework and PUF core, these premium laminate cleanroom doors are virtually indestructible. They offer extreme scratch, dent, and moisture resistance, ensuring these impact-resistant medical doors maintain a beautiful, high-end aesthetic finish that elevates the entire surgical wing for decades."
+        ],
         image: "/images/mot-product-page-images/ot-doors-images/hpl-door.webp"
+      },
+      {
+        title: "SS-304 Stainless Steel Doors",
+        desc: [
+          "The premium choice for environments requiring absolute maximum sterility, such as advanced organ transplant OTs, burn units, or highly corrosive environments. Our stainless steel hospital doors represent the highest tier of medical infrastructure.",
+          "Manufactured from high-grade SS-304 stainless steel, these hygienic SS-304 OT doors are naturally non-porous and completely rust-proof. These corrosion-resistant cleanroom doors easily withstand the harshest medical-grade cleaning agents and aggressive daily fumigation cycles without any surface degradation, peeling, or staining over their lifetime."
+        ],
+        image: "/images/mot-product-page-images/ot-doors-images/stainless-steel-door.webp"
+      },
+      {
+        title: "Lead-Lined Radiation Proof Doors",
+        desc: [
+          "For Hybrid Operation Theatres, Orthopedic Centers, and Cath Labs operating heavy C-Arm machines or intraoperative CT scanners, standard doors pose a severe radiation risk to staff. We manufacture specialized lead-lined radiation proof doors to block harmful X-rays while perfectly maintaining the room's sterile hermetic seal.",
+          "Available in both categories (Manual and Automatic), these doors feature a continuous 1mm to 2mm sheet of high-purity lead sandwiched within the core, paired with lead-glass vision panels for 100% AERB-compliant radiation shielding. The Automatic variant utilizes a heavy-duty motor specifically calibrated to handle the extreme weight of the lead without straining, ensuring smooth touchless entry."
+        ],
+        image: "/images/mot-product-page-images/ot-doors-images/lead-lined-radiation-proof-door.webp"
       }
     ],
     engineering: [
       {
         title: "3-Axis Drop-Down Track",
-        desc: "The secret to true hermetic sealing: it physically drops the door down and inward, crushing gaskets perfectly flush.",
+        desc: "The secret to a true hermetic seal. When the door closes, the specialized track physically drops the heavy door downwards and pushes it inward, crushing the perimeter gaskets perfectly flush against the frame and the floor.",
         bullets: ["100% Vacuum Seal", "Positive Pressure Retention"]
       },
       {
         title: "Micro-Processor Motors",
-        desc: "Driven by ultra-quiet brushless DC motors with obstacle detection to automatically reverse and prevent injury.",
+        desc: "Our automatic variants are driven by heavy-duty, ultra-quiet brushless DC motors. They feature intelligent micro-processors that detect obstacles, automatically reversing the door to prevent injury to staff or damage to medical equipment.",
         bullets: ["Silent Operation", "Intelligent Auto-Reverse"]
       },
       {
         title: "High-Density PUF Core",
-        desc: "Injected under pressure for structural rigidity against stretcher impacts and superior acoustic dampening.",
+        desc: "The core of the door panel is injected with high-density Polyurethane Foam (PUF). This provides massive structural rigidity to withstand stretcher impacts, while acting as a superior thermal and acoustic barrier for the OT.",
         bullets: ["Excellent Acoustic Dampening", "High Impact Resistance"]
       }
     ],
     applications: [
       { title: "Modular Operation Theatres", image: "/images/service-images/modular-ot-product.webp" },
-      { title: "Hybrid Cath Labs", image: "/images/key-application-images/cath-lab.webp" },
+      { title: "Hybrid Cath Labs (Lead-Lined)", image: "/images/key-application-images/cath-lab.webp" },
       { title: "Isolation Wards & ICUs", image: "/images/key-application-images/icu.webp" },
       { title: "CSSD & Sterile Corridors", image: "/images/key-application-images/cssd.webp" }
     ],
     whyChoose: [
-      { title: "Turnkey Solutions", desc: "We handle the entire panel and door setup, eliminating third-party errors and delays.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
-      { title: "ISO & CE Certified", desc: "Our doors strictly adhere to international medical-grade outcomes and ISO certifications.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
-      { title: "Pan-India Execution", desc: "Expert engineering teams travel directly to your hospital site anywhere in India.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Comprehensive lifetime maintenance and spare parts support for all door systems.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "Turnkey Solutions", desc: "By providing End to End panel and door solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
+      { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
+      { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
+      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Securing Positive Pressure in a UP Clinic",
-      context: "A clinic failed NABH inspection because sterile air escaped through standard wooden swing door gaps.",
-      solution: "Installed Automatic Hermetic Sliding Doors. 3-axis seal achieved perfect positive pressure in 10 minutes."
+      context: "A newly built multi-specialty surgical clinic in Uttar Pradesh was on the verge of failing their critical NABH inspection. Despite having a state-of-the-art Laminar Air Flow system, the HVAC engineers could not maintain the required positive pressure in the OT. The sterile air was rapidly escaping through the gaps of their standard wooden swing doors.",
+      solution: "Our engineering team rapidly dismantled the outdated frames and installed our Automatic Hermetic Sliding Doors with high-impact HPL finish. The moment our 3-axis drop-down seal engaged, the room achieved perfect positive pressure within 10 minutes, securing their compliance certification."
     },
     specs: [
-      { label: "Outer Skin Materials", value: "PPGI, HPL (High-Pressure Laminate), or SS-304" },
-      { label: "Door Core Material", value: "High-density injected PUF for insulation" },
-      { label: "Sealing Mechanism", value: "3-Axis drop-down track with Neoprene gaskets" },
-      { label: "Automation Sensors", value: "Touchless magic switch, radar, or elbow push pads" }
+      { label: "Outer Skin Materials", value: "PPGI (Pre-Painted Galvanized Iron), HPL (High-Pressure Laminate), or SS-304" },
+      { label: "Door Core Material", value: "High-density injected PUF (Polyurethane Foam) for thermal & acoustic insulation" },
+      { label: "Hermetic Sealing Mechanism", value: "3-Axis drop-down track with continuous Neoprene/Silicone gaskets" },
+      { label: "Automation Sensors", value: "Touchless magic switch, radar foot sensors, or elbow push pads" },
+      { label: "Vision Panel", value: "Double-glazed flush view window (Lead-glass available for X-Ray)" }
     ],
     faqs: [
-      { q: "Difference between PPGI and HPL?", a: "PPGI offers rigidity; HPL provides extreme impact resistance against stretchers and trolleys." },
-      { q: "What makes a door 'Hermetic'?", a: "A 3-axis track that drops the door down and in, creating a 100% airtight vacuum seal." },
-      { q: "Are lead-lined doors available?", a: "Yes, 1mm-2mm lead shielding can be integrated for AERB radiation compliance." }
+      { q: "What is the difference between PPGI and HPL OT doors?", a: "PPGI doors are made of Pre-Painted Galvanized Iron, offering excellent rigidity and a smooth, anti-bacterial metal finish. HPL doors use High-Pressure Laminate, which provides extreme impact and scratch resistance, making them highly durable against stretcher and trolley collisions." },
+      { q: "What makes an OT door 'Hermetically Sealed'?", a: "A hermetic seal refers to the mechanism, not the material. Our hermetic sliding doors use a 3-axis track that drops the door down and inward as it closes, crushing the rubber gaskets against the frame and floor to create a 100% airtight vacuum seal." },
+      { q: "Do you provide lead-lined doors for X-Ray rooms?", a: "Yes, we integrate 1mm to 2mm thick lead shielding into both our PPGI and HPL door cores for Cath Labs and Orthopedic Operation Theatres to ensure full AERB radiation compliance." }
     ],
     heroImage: "/images/mot-product-page-images/ot-doors-images/automatic-hermatic-sliding-door.webp"
   },
-  'flooring': {
+  'flooring-systems': {
     title: "Modular OT Flooring Systems",
-    tagline: "Infection-Free Foundation",
-    heroDesc: "An OT is only as sterile as its foundation. We execute perfectly leveled, monolithic flooring systems for Class 100 cleanrooms. From Conductive ESD Vinyl to Heavy-Duty Self-Leveling Compounds, we ensure 100% compliance.",
+    tagline: "Infection-Free Infrastructure",
+    heroDesc: "A Modular Operation Theatre is only as sterile as its foundation. We supply and execute perfectly leveled, monolithic flooring systems engineered strictly for Class 100 cleanrooms. From Conductive ESD Vinyl for Cath Labs to Heavy-Duty Self-Leveling Compound Flooring for Orthopedics, we ensure 100% NABH-compliance.",
     atAGlance: ["Self-Leveling Compound Base", "Anti-Static (ESD) Integration", "Heat-Welded Seamless Joints", "High Chemical Resistance"],
     configurations: [
       {
         title: "Conductive ESD Vinyl Flooring",
-        desc: ["Infused with carbon compounds and laid over a copper tape grid wired to earthing. Drains static electricity generated by movement.", "Protects sensitive micro-electronics in anesthesia workstations. Essential for Super-Specialty OTs and Cath Labs."],
+        desc: [
+          "The absolute gold standard for advanced, high-tech modular OTs. This system features a 2mm thick homogeneous vinyl sheet infused with carbon compounds.",
+          "During installation, a network of conductive copper tape grids is laid underneath the sheets and connected to the building's central earthing system. It continuously drains static electricity generated by staff movement, protecting sensitive micro-electronics in anesthesia workstations and patient monitors from calibration errors or damage. This makes it the absolute best choice for Super-Specialty OTs, Cardiac Wings, & Cath Labs."
+        ],
         image: "/images/mot-product-page-images/ot-flooring-images/conductive-vinyl-flooring.webp"
       },
       {
+        title: "Standard Homogeneous Vinyl",
+        desc: [
+          "Manufactured from the exact same surgical-grade, 2mm thick PVC composition as our ESD lines, but without the underlying copper grid or internal conductive fibers.",
+          "Because the material is completely dense and smooth, we heat-weld the seams together using matching PVC rods to form an unbroken, fluid-tight surface across the entire room. It offers identical resistance to blood, iodine, and heavy cleaning chemicals, making it the most cost-effective and reliable solution for spaces where high-frequency static discharge is not a critical risk. This makes it the absolute best choice for General Surgery OTs, Scrub Stations, & Recovery Rooms."
+        ],
+        image: "/images/mot-product-page-images/ot-flooring-images/standard-homogeneous-vinyl.webp"
+      },
+      {
         title: "Self-Leveling Compound Flooring",
-        desc: ["Poured liquid matrix that cures into a 3mm-4mm dense, joint-free monolithic slab. Absolute 100% fluid-tight surface.", "Immense impact resistance against rolling loads. Best for Orthopedic OTs and Heavy-Traction Rooms."],
+        desc: [
+          "While vinyl is highly resilient, it can occasionally tear, indent, or buckle under the extreme localized point-loads of heavy surgical equipment. For these specific environments, we install poured self-leveling compound systems.",
+          "This is a specialized liquid matrix poured directly over the mechanically prepared sub-base on-site. It chemically cures into a dense, 3mm to 4mm thick seamless slab. Having absolute zero joints or weld-lines anywhere in the room, it is 100% monolithic, completely impervious to fluids, and boasts immense structural impact resistance against rolling loads. This makes it the absolute best choice for Orthopedic OTs, Heavy-Traction Rooms, & Trauma Bays."
+        ],
         image: "/images/mot-product-page-images/ot-flooring-images/self-leveling-modular-ot.webp"
       }
     ],
     engineering: [
       {
         title: "Seamless 4-Inch Coving",
-        desc: "We curve the flooring up walls to connect smoothly with modular panels, eliminating 90-degree corners where bacteria hide.",
+        desc: "To maintain absolute NABH compliance and a true cleanroom environment, every flooring variant we install features a seamless 4-inch wall cove. We physically curve the vinyl or compound flooring up the edges of the room to connect smoothly with our modular wall panels.",
         bullets: ["Eliminates Dead Corners", "Absolute NABH Compliance"]
       },
       {
@@ -298,10 +403,10 @@ const motProducts: Record<string, ProductData> = {
       { title: "CSSD & Scrub Stations", image: "/images/key-application-images/cssd.webp" }
     ],
     whyChoose: [
-      { title: "Turnkey Execution", desc: "From sub-base grinding to final coving, we handle the entire cleanroom floor project.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
-      { title: "NABH Certified", desc: "Our materials and installation processes strictly adhere to NABH norms for sterile medical facilities.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
-      { title: "Pan-India Teams", desc: "Headquartered in Delhi NCR, our specialized teams travel directly to your hospital site.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "We provide comprehensive maintenance and AMC support after project handover.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "Turnkey Solutions", desc: "From sub-base grinding to final panel integration, we handle the entire cleanroom floor execution.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
+      { title: "ISO & NABH Certified", desc: "Our materials and installation processes strictly adhere to NABH norms for sterile medical facilities.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
+      { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
+      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Protecting Sensitive Equipment in Mumbai",
@@ -309,278 +414,345 @@ const motProducts: Record<string, ProductData> = {
       solution: "Installed Conductive ESD Vinyl with copper grid earthing. Interference vanished instantly, ensuring surgical precision."
     },
     specs: [
-      { label: "Material Thickness", value: "Vinyl: 2.0mm | Compound: 3.0mm - 4.0mm" },
-      { label: "Seam / Joint Profile", value: "Heat-Welded PVC Rods or Monolithic Poured" },
-      { label: "Chemical Resistance", value: "Resistant to Betadine, Iodine, and Hospital Detergents" },
-      { label: "Wall Integration", value: "Continuous 4-Inch wall coving for easy cleaning" }
+      { label: "Material Thickness", value: "Vinyl Sheets: 2.0mm | Compound Flooring: 3.0mm - 4.0mm" },
+      { label: "Seam / Joint Profile", value: "Vinyl: 100% Heat-Welded PVC Rods | Compound Flooring: Joint-Free Monolithic" },
+      { label: "Chemical Resistance", value: "Resistant to Betadine, blood, iodine, and hospital-grade detergents" },
+      { label: "ESD System Integration", value: "Carbon-infused layers with full copper grid earthing network" },
+      { label: "Wall Integration", value: "Continuous 4-Inch wall coving seamlessly mating with modular panels" }
     ],
     faqs: [
-      { q: "Can it be applied over old tiles?", a: "Yes, we mechanically grind the surface and pour a self-leveling base to ensure a flat, foundation." },
-      { q: "What is best for Orthopedics?", a: "Heavy-Duty Self-Leveling Compound is recommended as it won't indent under extreme table point-loads." },
-      { q: "How is ESD Vinyl grounded?", a: "Via a copper tape grid laid under the sheets and wired to the building's central earthing." }
+      { q: "Can new vinyl or compound flooring be applied over our existing hospital tiles?", a: "Yes, but surface preparation is critical. We do not lay flooring directly over old tiles. Our engineers mechanically grind the existing surface and pour a specialized self-leveling base compound to ensure the floor is perfectly flat and porous before installing the final vinyl topcoat or compound flooring." },
+      { q: "What happens if an orthopedic surgery table rolls over the flooring?", a: "For standard OTs, our 2mm heat-welded homogeneous vinyl easily supports general surgical equipment. However, for heavily loaded Orthopedic or Trauma tables, we strongly recommend our 3mm-4mm Heavy-Duty Self-Leveling Compound Flooring, as it will not indent, tear, or buckle under extreme point-loads." },
+      { q: "How is the ESD Vinyl actually grounded?", a: "Before laying the conductive vinyl, we install a highly conductive copper tape grid in a specific layout across the subfloor. This grid is then wired directly into a dedicated earth pit in the hospital's electrical grounding system, ensuring all static is safely dissipated away from sensitive machines." }
     ],
     heroImage: "/images/mot-product-page-images/ot-flooring-images/standard-homogeneous-vinyl.webp"
   },
   'laminar-airflow': {
     title: "Laminar Air Flow (LAF) Systems",
-    tagline: "The Core of Sterility",
-    heroDesc: "LAF systems are the most critical component for achieving Class 100 sterility. By pushing HEPA-filtered air in a vertical, unidirectional piston effect, we wash away contaminants from the surgical field. We manufacture SS-304 and Aluminum plenums engineered for absolute surgical safety.",
-    atAGlance: ["Class 100 / ISO 5 Air", "Vertical Unidirectional Flow", "SS-304 / Aluminum Body", "Tightly Sealed Filter Banks"],
+    tagline: "Class 100 / ISO 5 Sterile Zones",
+    heroDesc: "Surgical Site Infections (SSI) are largely caused by airborne bacteria settling on the sterile field. A hospital laminar air flow system prevents this by flooding the operating table with a continuous, unidirectional downward flow of ultra-pure, HEPA-filtered air. We manufacture and install the complete LAF plenum architecture to guarantee absolute NABH-compliance.",
+    atAGlance: ["ISO 5 / Class 100 OT", "Unidirectional Piston Flow", "H14 HEPA Filtration", "Aluminum CG Diffusers"],
     configurations: [
       {
-        title: "SS-304 LAF Plenum",
-        desc: ["High-grade stainless steel construction for maximum durability and chemical resistance. Features double-layered CG screen for uniform velocity.", "Recommended for Transplant OTs and Joint Replacement surgeries requiring absolute sterile airflow."],
-        image: "/images/mot-product-page-images/ot-laf-images/laminar-airflow-2.webp"
-      },
-      {
-        title: "Aluminum Powder-Coated LAF",
-        desc: ["Lightweight solution with excellent corrosion resistance. Factory-coated with antibacterial epoxy resin.", "Aerodynamic design ensures quiet operation and perfect integration with modular ceiling grids."],
+        title: "Vertical Laminar Air Flow (VLAF) Systems",
+        desc: [
+          "In high-acuity healthcare infrastructure, ceiling-mounted Vertical Laminar Air Flow (VLAF) systems are the absolute standard. We manufacture these units to integrate flawlessly into your modular OT ceiling, suspended directly above the surgical table.",
+          "The VLAF plenum pushes H14 HEPA-filtered air straight down in a clean, unidirectional \"piston effect.\" This instantly washes away aerosolized bacteria and surgical dust, forcing contaminants toward the floor where they are safely extracted by corner Return Air Risers."
+        ],
         image: "/images/mot-product-page-images/ot-laf-images/laminar-airflow-1.webp"
+      },
+      {
+        title: "SS-304 / Aluminum LAF Plenums",
+        desc: [
+          "Our plenums are constructed in either medical-grade SS-304 stainless steel or heavy-duty powder-coated aluminum to suit the hospital's specific environmental conditions. Both materials are entirely non-corrosive and designed to withstand the high static pressure generated by the AHU.",
+          "Each unit features a micro-perforated CG screen that ensures the air exits the plenum in a perfectly vertical column with zero turbulence, maintaining the critical 'Laminar' state required for Class 100 sterility."
+        ],
+        image: "/images/mot-product-page-images/ot-laf-images/laminar-airflow-2.webp"
       }
     ],
     engineering: [
       {
-        title: "Piston-Effect Velocity",
-        desc: "Air is pushed at a constant ~0.30 m/s velocity, creating a downward pressure curtain that prevents non-sterile air from rising.",
-        bullets: ["Uniform Air Distribution", "Prevents Turbulence"]
+        title: "H14 HEPA Filter Banks",
+        desc: "The core purification engine. We integrate medical-grade H14 Terminal HEPA filters that actively eliminate 99.995% of airborne particles down to 0.3 microns. They include built-in DOP/PAO ports for annual validation testing without dismantling the ceiling.",
+        bullets: ["99.995% Efficiency Rating", "Integrated DOP Testing Ports"]
       },
       {
-        title: "CG Screen Technology",
-        desc: "Specialized double-layered mesh screens ensure the air exits the plenum in a perfectly vertical, non-turbulent column.",
-        bullets: ["Laminar Flow Perfection", "Easy-Clean Mesh"]
+        title: "CG Diffuser Screens",
+        desc: "To prevent \"dumping\" high-velocity air directly onto the surgical site, the LAF uses a micro-perforated Computer Graphics (CG) screen. Made from SS-304 or Aluminum, it perfectly distributes the air to create the smooth, unidirectional \"Laminar\" flow.",
+        bullets: ["Zero Air Turbulence", "Micro-Perforated Aluminum/SS"]
       },
       {
-        title: "Airtight HEPA Seals",
-        desc: "Filter housings feature fluid or gasket seals to ensure 100% of the air passes through the HEPA media before entering the OT.",
-        bullets: ["Zero Bypass Risk", "Secure Filter Clamping"]
-      }
-    ],
-    applications: [
-      { title: "Orthopedic OTs", image: "/images/service-images/modular-ot-product.webp" },
-      { title: "Cardiac Surgery", image: "/images/key-application-images/cath-lab.webp" },
-      { title: "Neurosurgery Units", image: "/images/key-application-images/icu.webp" },
-      { title: "IVF Embryology Labs", image: "/images/about-us/about-us-assets/ivf-about.webp" }
-    ],
-    whyChoose: [
-      { title: "Expert Fabrication", desc: "Our plenums are precision-manufactured in-house to ensure zero air leakage and perfect velocity.", icon: "/images/why-choose-medgenz-symbols/in-house-assemble.webp" },
-      { title: "Certified Performance", desc: "Every LAF system undergoes rigorous smoke flow and velocity testing prior to handover.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
-      { title: "Pan-India Support", desc: "Headquartered in Delhi, our teams provide onsite installation and testing nationwide.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime AMC", desc: "We provide comprehensive support including HEPA validation and filter replacement services.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
-    ],
-    caseStudy: {
-      title: "Eliminating Post-Op Infections in Patna",
-      context: "A hospital faced recurring infections. Smoke tests showed their old LAF was creating turbulent vortices over the patient.",
-      solution: "Retrofitted with MedGenz SS-304 LAF Plenum featuring CG screens. Unidirectional flow restored, infection rates dropped to zero."
-    },
-    specs: [
-      { label: "Plenum Material", value: "SS-304 (1.2mm) / Powder Coated Aluminum" },
-      { label: "Air Velocity Standard", value: "90 fpm ± 20% (0.25 - 0.45 m/s)" },
-      { label: "Filtration Grade", value: "Terminal H14 HEPA Filters (99.997% efficiency)" },
-      { label: "CG Screen", value: "Removable Double-Layer Monofilament Mesh" }
-    ],
-    faqs: [
-      { q: "What is 'Laminar' flow?", a: "Air moving in parallel layers at the same speed, creating a piston effect that pushes contaminants away." },
-      { q: "Why use SS-304 for the plenum?", a: "For maximum sterility, rust resistance, and ability to withstand aggressive disinfectants." },
-      { q: "How often are filters tested?", a: "NABH mandates validation every 6 months to ensure Class 100 air quality." }
-    ],
-    heroImage: "/images/mot-product-page-images/ot-laf-images/laminar-airflow-2.webp"
-  },
-  'hepa-filtration': {
-    title: "Terminal HEPA & ULPA Filtration",
-    tagline: "Absolute Air Purity",
-    heroDesc: "HEPA filters are the final defense against airborne pathogens. Trapping 99.997% of particles down to 0.3 microns, they are the only way to achieve true Class 100 sterile conditions. We supply and install certified H14 grade terminal units for high-risk surgical zones.",
-    atAGlance: ["99.997% Efficiency", "H14 Grade H-14 Standard", "0.3 Micron Trap Rating", "Leak-Proof Housing"],
-    configurations: [
-      {
-        title: "Terminal HEPA Modules",
-        desc: ["Flush-mounted ceiling modules providing final air purification directly at the room inlet. Essential for ICUs and sterile corridors.", "Features integrated dampers and pressure test ports for easy validation without breaking ceiling seals."],
-        image: "/images/service assets/mot-page-n-eq-assets/hepa-filter.webp"
-      },
-      {
-        title: "ULPA Filter Modules (U15)",
-        desc: ["The absolute apex of air purification. Traps 99.9995% of particles down to 0.12 microns.", "Deployed in high-purity zones like organ transplant suites and IVF embryology labs."],
-        image: "/images/mot-product-page-images/ot-hepa-filter/hepa-filter-setup.webp"
-      }
-    ],
-    engineering: [
-      {
-        title: "Deep-Pleat Technology",
-        desc: "Our filters use high-surface-area glass fiber media folded into deep pleats, ensuring low pressure drop and extended filter life.",
-        bullets: ["Low Static Resistance", "Long Operational Life"]
-      },
-      {
-        title: "Scan-Tested Reliability",
-        desc: "Every filter is factory scan-tested for leaks (DOP test) to ensure zero bypass at the pleat edges or the frame gasket.",
-        bullets: ["100% Leak-Free Guarantee", "Certified H14 Efficiency"]
-      },
-      {
-        title: "Fluid Seal Housings",
-        desc: "Utilizes a gel-filled channel to create an airtight seal between the filter and the housing, eliminating gasket bypass.",
-        bullets: ["Superior Airtight Seal", "Easy Filter Replacement"]
+        title: "Extruded Housing",
+        desc: "The entire unit is housed in a heavy-duty extruded aluminum or SS-304 plenum box. It is rigorously leak-tested and sealed with polyurethane potting to ensure zero untreated air can bypass the HEPA filters and enter the OT.",
+        bullets: ["100% Leak-Proof Housing", "Heavy-Duty Extruded Frame"]
       }
     ],
     applications: [
       { title: "Modular Operation Theatres", image: "/images/service-images/modular-ot-product.webp" },
-      { title: "Intensive Care Units", image: "/images/key-application-images/icu.webp" },
-      { title: "Isolation Wards", image: "/images/about-us/about-us-assets/hospital-ward-about.webp" },
-      { title: "IVF & Stem Cell Labs", image: "/images/about-us/about-us-assets/ivf-about.webp" }
+      { title: "IVF & Embryology Labs", image: "/images/about-us/about-us-assets/ivf-about.webp" },
+      { title: "Hybrid Cath Labs", image: "/images/key-application-images/cath-lab.webp" }
     ],
     whyChoose: [
-      { title: "Certified Grades", desc: "We exclusively supply EN 1822 certified H14 grade HEPA filters for medical applications.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
-      { title: "In-House Testing", desc: "Our teams perform onsite DOP leak testing to ensure absolute cleanroom compliance.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
-      { title: "Pan-India Supply", desc: "We stock and supply replacement filters for all hospital sites across the country.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Validation Support", desc: "We provide complete documentation and validation certificates for hospital accreditation.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "Turnkey Solutions", desc: "By providing End to End laminar airflow solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
+      { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
+      { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
+      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
-      title: "Rectifying Air Quality in a Pune IVF Lab",
-      context: "An embryology lab faced poor success rates. Air audits revealed they were using standard AC filters instead of medical HEPA.",
-      solution: "Installed Terminal H14 HEPA Modules. Air particle count dropped from 1,00,000 to < 100 instantly, restoring success rates."
+      title: "Eliminating Surgical Infections in a Punjab Neurosurgery Center",
+      context: "A newly commissioned neurosurgery and spine center in Punjab was facing a severe crisis. Despite a rigorous cleaning schedule, they were experiencing unacceptable rates of post-operative surgical site infections (SSI). An air-quality audit revealed that standard ceiling AC vents were causing turbulent air to swirl contaminated floor dust directly over the surgical bed.",
+      solution: "We retrofitted their OT with a custom Aluminum Powder-Coated LAF Plenum equipped with deep-pleat H14 HEPA filters and a precise CG diffuser screen. We also installed four heavy-duty Return Air Risers near the floor to extract the contaminated air. The unidirectional piston-effect of the new LAF system immediately established a Class 100 sterile zone, permanently eliminating the airborne infection risks."
     },
     specs: [
-      { label: "Filter Grade", value: "EN 1822 H14 (99.995% Efficiency)" },
-      { label: "Particle Size", value: "0.3 Microns" },
-      { label: "Frame Material", value: "Anodized Aluminum / SS-304" },
-      { label: "Face Velocity", value: "100 fpm (Nominal)" }
+      { label: "Plenum Material Options", value: "SS-304 Stainless Steel / Heavy-Duty Extruded Aluminum" },
+      { label: "Cleanroom Standard", value: "Class 100 (US FED STD 209E) / ISO Class 5" },
+      { label: "Air Velocity", value: "90 ± 20 FPM (Feet Per Minute) / 0.45 m/s" },
+      { label: "HEPA Filtration Level", value: "H14 Grade (99.997% efficiency at 0.3 micron particle size)" },
+      { label: "Operating Noise Level", value: "Less than 60 decibels (Quiet operational threshold)" }
     ],
     faqs: [
-      { q: "What does H14 grade mean?", a: "It is the highest standard of HEPA, trapping nearly 100% of sub-micron pathogens." },
-      { q: "How often should HEPA be replaced?", a: "Typically every 1-2 years, depending on pre-filter maintenance and room demand." },
-      { q: "What is a DOP test?", a: "Dispersed Oil Particulate testing to check for leaks in the filter media or seal." }
+      { q: "What is the function of a Laminar Air Flow (LAF) system in an OT?", a: "The LAF system provides a continuous, unidirectional downward flow of ultra-clean, HEPA-filtered air directly over the operating table. This washes away airborne particles and bacteria, preventing them from settling on the surgical wound or sterile instruments." },
+      { q: "What is the difference between an AHU and a LAF plenum?", a: "The Air Handling Unit (AHU) conditions, cools, and pushes the air through the ducting. The LAF plenum is the terminal unit located directly inside the OT ceiling. It houses the final HEPA filters and the diffuser screen that actually creates the smooth, non-turbulent 'laminar' flow." },
+      { q: "Why are Return Air Risers installed near the floor?", a: "Since the clean air from the LAF pushes downward over the surgical table, the contaminated air carrying dust, skin flakes, and bacteria is forced toward the floor. Return Air Risers are placed at all four bottom corners of the OT to safely extract this contaminated air and route it back to the AHU for purification." }
+    ],
+    heroImage: "/images/mot-product-page-images/ot-laf-images/laminar-airflow-1.webp"
+  },
+  'hepa-filtration': {
+    title: "Terminal HEPA & ULPA Filtration",
+    tagline: "Medical & Cleanroom Grade",
+    heroDesc: "While standard Air Handling Units (AHUs) provide initial filtration, microscopic pathogens can still breed within the hospital's ducting network. A Terminal HEPA filter is the absolute final barrier, mounted directly inside the OT ceiling's Laminar Air Flow plenum. It guarantees the air washing over the surgical table is perfectly sterile, achieving strict Class 100 cleanroom standards.",
+    atAGlance: ["H14 & U15 ULPA Grades", "Mini-Pleat Technology", "Zero-Leak Aluminum Frame", "Integrated DOP/PAO Ports"],
+    configurations: [
+      {
+        title: "The Mini-Pleat Technology",
+        desc: [
+          "To process the massive volume of air required for a hospital cleanroom, a filter needs a vast surface area to handle airflow without causing resistance. We utilize advanced Mini-Pleat construction across all our filter grades.",
+          "The water-repellent micro-glass media is meticulously folded into tight, shallow pleats, separated by continuous beads of specialized hot-melt adhesive. This design packs the maximum amount of filtration media into a highly compact frame while ensuring extremely low initial pressure drop, thereby reducing the energy strain on your hospital's HVAC blower motors."
+        ],
+        image: "/images/mot-product-page-images/ot-hepa-filter/mini-pleat-hepa-filter.webp"
+      },
+      {
+        title: "The Extruded Aluminum Frame",
+        desc: [
+          "A hospital HEPA filter operates under constant, high-velocity air pressure. To prevent the delicate media from warping or breaking its airtight seal, the filter housing is constructed from a heavy-duty extruded aluminum frame.",
+          "The internal filter pack is entirely sealed within this aluminum casing using a zero-leak polyurethane potting compound. The frame itself is anodized to prevent any shedding of metal particles, ensuring absolute structural integrity whether it is mounted in an AHU or directly inside the Laminar Air Flow plenum."
+        ],
+        image: "/images/mot-product-page-images/ot-hepa-filter/aluminum-frame-hepa-filter.webp"
+      }
+    ],
+    engineering: [
+      {
+        title: "H13 (Medical Grade)",
+        desc: "The baseline standard for clinical safety. H13 filters trap 99.95% of particles down to 0.3 microns. They are highly common in general hospital wards, standard pathology labs, and isolation rooms where robust air purification is needed without the extreme stringency of a Class 100 cleanroom.",
+        bullets: ["99.95% Efficiency", "General Ward Safety"]
+      },
+      {
+        title: "H14 (High Efficiency)",
+        desc: "The strict, non-negotiable standard for Modular Operation Theatres and critical GMP facilities. The H14 high efficiency cleanroom filter eliminates 99.995% of micro-particles. When paired with a Laminar Air Flow plenum, it guarantees an ISO 5 / Class 100 sterile surgical zone, effectively nullifying airborne infection risks.",
+        bullets: ["99.995% Efficiency", "ISO 5 Cleanroom Ready"]
+      },
+      {
+        title: "U15 / ULPA",
+        desc: "Ultra-Low Penetration Air (ULPA) filters are the absolute apex of air purification. They trap 99.9995% of particles down to an incredibly microscopic 0.12 microns. A U15 ULPA filter is deployed in specialized, extremely high-purity applications like advanced IVF embryology labs, burn units, and organ transplant OTs.",
+        bullets: ["99.9995% Efficiency", "Apex Air Purity"]
+      }
+    ],
+    applications: [
+      { title: "Modular Operation Theatres", image: "/images/service-images/modular-ot-product.webp" },
+      { title: "Intensive Care Units (ICU)", image: "/images/key-application-images/icu.webp" },
+      { title: "IVF & Embryology Labs", image: "/images/about-us/about-us-assets/ivf-about.webp" },
+      { title: "Isolation Wards & Corridors", image: "/images/about-us/about-us-assets/hospital-ward-about.webp" }
+    ],
+    whyChoose: [
+      { title: "Turnkey Solutions", desc: "By providing End to End Hepa-Filteration solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
+      { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
+      { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
+      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+    ],
+    caseStudy: {
+      title: "Passing Particle Counts in a UP Hospital",
+      context: "A major surgical center in Uttar Pradesh was consistently failing their annual NABH particle count tests. Despite having a new HVAC system, their third-party auditor kept detecting high levels of 0.5-micron particles over the surgical bed, forcing the suspension of major joint replacement surgeries.",
+      solution: "Our technical team inspected the ceiling and discovered they were using non-certified, deep-pleat commercial filters with leaky gaskets. We immediately retrofitted their LAF plenum with our H14 Mini-Pleat Terminal HEPA Filters set in zero-leak polyurethane potting. During the re-test via the integrated PAO ports, the particle count dropped to near zero, easily securing their Class 100 certification."
+    },
+    specs: [
+      { label: "Filter Grade standards", value: "H13, H14, U15 (Compliant with EN 1822 Standards)" },
+      { label: "H14 Filtration Efficiency", value: "≥ 99.995% at 0.3 Microns (MPPS)" },
+      { label: "Filter Media", value: "Water-repellent Micro-Glass Fiber" },
+      { label: "Frame Construction", value: "Extruded Anodized Aluminum with Polyurethane Potting" },
+      { label: "Initial Pressure Drop", value: "~120 Pa at Rated Airflow (Highly energy efficient)" }
+    ],
+    faqs: [
+      { q: "What is a Terminal HEPA Filter in an Operation Theatre?", a: "A Terminal HEPA Filter is the absolute final stage of air filtration. While standard filters are located inside the remote AHU, the 'terminal' filter is mounted directly inside the OT ceiling's Laminar Air Flow (LAF) plenum, ensuring no contamination can occur between the ducting and the surgical table." },
+      { q: "What is the difference between H13, H14, and U15 ULPA filters?", a: "H13 (99.95%) is the medical grade standard for general hospitals and labs. H14 (99.995%) is the high-efficiency standard mandatory for Class 100 Modular Operation Theatres. U15 or ULPA (99.9995%) provides ultra-low penetration for extremely high-purity applications like organ transplants and specialized embryology." },
+      { q: "How often should hospital HEPA filters be tested or replaced?", a: "HEPA filters in an OT must undergo a DOP/PAO integrity test annually to maintain NABH compliance. Depending on the hospital's pre-filtration efficiency and OT usage, the actual terminal HEPA filter typically requires replacement every 3 to 5 years." }
     ],
     heroImage: "/images/service assets/mot-page-n-eq-assets/hepa-filter.webp"
   },
   'ahu': {
     title: "Air Handling Units (AHU)",
     tagline: "The Engine of the OT",
-    heroDesc: "The AHU is the massive engine that sitting outside the OT. It cools, dehumidifies, and multi-filters the air before it reaches the surgical suite. We manufacture double-skin thermal break units that guarantee absolute climate control.",
+    heroDesc: "While the Laminar Air Flow (LAF) system delivers the air, the AHU is the massive engine that creates it. A hospital-grade Air Handling Unit is responsible for cooling, dehumidifying, pressurizing, and pre-filtering the air before it ever reaches the surgical suite. We engineer double-skin thermal break AHUs that guarantee absolute climate control and zero condensation.",
     atAGlance: ["Double-Skin Thermal Break", "High Efficiency EC Plug Fans", "UVGI Coil Sterilization", "Class 100 / ISO 5 Compliant"],
     configurations: [
       {
-        title: "Cleanroom Hygienic AHU",
-        desc: ["The mandatory base system for OTs and ICUs. Built specifically for zero microbial growth with smooth internal surfaces.", "Features double-skin PUF insulated panels to prevent thermal leakage and multi-stage filtration banks."],
+        title: "Hygienic / Cleanroom AHU",
+        desc: [
+          "Built specifically for infection control and sterile environments. This is the mandatory base system for all modular OTs, ICUs, and Neonatal Intensive Care Units (NICUs). It is completely engineered around structural integrity and zero microbial growth.",
+          "These units feature double-skin PUF insulated panels to prevent any thermal leakage or condensation. The internal surfaces are perfectly smooth, utilizing stainless steel or anti-microbial coatings to prevent bacterial nesting, alongside rigorous multi-stage filtration (Pre + Fine + HEPA) to continuously purify the air loop."
+        ],
         image: "/images/mot-product-page-images/ahu-page-images/cleanroom-ahu.webp"
       },
       {
+        title: "Laminar Flow AHU System",
+        desc: [
+          "Deployed almost exclusively for advanced Operation Theatres. This highly specialized Air Handling Unit is engineered with massive motor capacity to handle the intense static pressure required to force air through dense terminal HEPA filters located at the end of the duct line.",
+          "It works in perfect tandem with the OT's ceiling plenum to create a unidirectional, vertical airflow over the surgical table. By precisely regulating blower speed via VFDs, the AHU guarantees a strict, uniform air velocity of ~0.25–0.35 m/s, acting as an invisible curtain that washes away surgical contaminants."
+        ],
+        image: "/images/mot-product-page-images/ahu-page-images/laminar-ahu.webp"
+      },
+      {
         title: "Treated Fresh Air Unit (TFA)",
-        desc: ["Critical for maintaining positive pressure and flushing anesthetic gases. Utilizes 100% outside air with zero recirculation.", "Equipped with massive cooling coils to handle the immense thermal load of raw outdoor air."],
+        desc: [
+          "Critical for maintaining positive pressure and flushing out dangerous anesthetic gases from the OT. A Treated Fresh Air (TFA) unit utilizes 100% outside air with absolutely zero recirculation.",
+          "Because raw outdoor air in India is typically hot, humid, and heavily polluted, this heavy-duty unit is equipped with massive, deep-row cooling coils. It handles the immense thermal load of completely cooling, aggressively dehumidifying, and multi-filtering the raw air before constantly pushing it into the OT to maintain the strict +15 Pa pressure requirement."
+        ],
         image: "/images/mot-product-page-images/ahu-page-images/fresh-air-ahu.webp"
+      },
+      {
+        title: "Return Air / Recirculation AHU",
+        desc: [
+          "Designed to dramatically improve energy efficiency and lower hospital electricity bills by reusing already cooled and conditioned air. This unit intelligently mixes return air from the facility with a calculated ratio of fresh outdoor air.",
+          "While primarily used in large hospital corridors, lobbies, and general patient wards, it is also used carefully in OT support areas. When deployed in clinical zones, it is always paired with strict HEPA filtration banks and UVGI sterilization to ensure that recirculating the air does not result in bacterial cross-contamination across wards."
+        ],
+        image: "/images/mot-product-page-images/ahu-page-images/recirculation-ahu.webp"
       }
     ],
     engineering: [
       {
-        title: "Double-Skin PUF Housing",
-        desc: "Cabinets separated by injected high-density PUF insulation to ensure zero temperature transfer and zero sweating.",
-        bullets: ["Eliminates Condensation", "High-Density Insulation"]
+        title: "Double-Skin Thermal Break Housing",
+        desc: "The outer cabinet of the AHU is critical. If a standard single-metal cabinet is used, the cold air inside will cause the warm outside air to condense, leading to severe \"sweating,\" internal rust, and water-borne bacteria. We manufacture Double-Skin cabinets separated by a thick layer of high-density injected PUF (Polyurethane Foam), utilizing Thermal Break aluminum profiles to ensure zero temperature transfer and zero condensation.",
+        bullets: ["Eliminates Condensation", "High-Density PUF Insulation"]
       },
       {
-        title: "EC Plug Fan Technology",
-        desc: "Direct-driven motors that operate silently and automatically adjust speed via VFD to maintain exact room pressure.",
-        bullets: ["Massive Static Pressure", "Energy Efficient & Silent"]
+        title: "EC Plug Fans & Centrifugal Blowers",
+        desc: "To push air through dense HEPA filters at the end of the duct line, the AHU must generate massive static pressure. We utilize backward-curved centrifugal blowers or highly advanced EC (Electronically Commutated) Plug Fans. EC fans eliminate belts and pulleys, operating silently. Connected to a VFD, they automatically adjust speed to maintain exact positive pressure inside the OT, saving massive electricity.",
+        bullets: ["Massive Static Pressure", "VFD Energy Efficiency"]
+      },
+      {
+        title: "Multi-Stage Pre-Filtration",
+        desc: "You cannot send raw outdoor air directly to a delicate HEPA filter; it would clog within days. Our AHUs incorporate a robust multi-stage filtration bank. First, a washable aluminum G4 Pre-Filter (10-20 microns) catches large dust and pollen. Next, a synthetic F7/F9 Fine Bag Filter (1-5 microns) captures finer particulate matter before the air reaches the critical surgical zones.",
+        bullets: ["Protects Terminal HEPA", "G4 & F9 Filter Banks"]
       },
       {
         title: "UVGI Coil Sterilization",
-        desc: "Ultraviolet lamps pointing at cooling coils destroy mold and biofilm before air enters the ductwork.",
+        desc: "The cooling coils inside an AHU are constantly wet due to condensation. This dark, damp environment is notorious for breeding mold and biofilm, leading to \"Sick Building Syndrome.\" We install Ultraviolet Germicidal Irradiation (UVGI) lamps directly inside the coil section to physically destroy the DNA of mold and bacteria before the air enters the hospital ductwork.",
         bullets: ["Destroys Mold & Biofilm", "Prevents Sick Building Syndrome"]
       }
     ],
     applications: [
       { title: "Modular Operation Theatres", image: "/images/service-images/modular-ot-product.webp" },
-      { title: "Intensive Care Units", image: "/images/key-application-images/icu.webp" },
+      { title: "Intensive Care Units (ICU)", image: "/images/key-application-images/icu.webp" },
       { title: "IVF & Fertility Labs", image: "/images/about-us/about-us-assets/ivf-about.webp" },
-      { title: "Isolation Wards", image: "/images/about-us/about-us-assets/hospital-ward-about.webp" }
+      { title: "Isolation Wards & Corridors", image: "/images/about-us/about-us-assets/hospital-ward-about.webp" }
     ],
     whyChoose: [
-      { title: "Turnkey HVAC", desc: "By providing end-to-end HVAC solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
-      { title: "ISO & CE Certified", desc: "Our products strictly adhere to ISO 9001:2015 standards for medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
-      { title: "Pan-India Execution", desc: "Our engineering teams travel directly to your site anywhere in the country.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "We provide comprehensive maintenance and validation services for the life of the plant.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "Turnkey Solutions", desc: "By providing End to End HVAC system solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
+      { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
+      { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
+      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Stabilizing OT Humidity in Maharashtra",
-      context: "A surgical center near the coast faced extreme humidity, fogging microscopes and risking contamination.",
-      solution: "Installed a Double-Skin Thermal Break DX AHU with wrap-around heat pipes. 50% ± 5% Relative Humidity maintained flawlessly."
+      context: "A major surgical center located near the coast in Maharashtra was struggling with extreme humidity in their operation theatres during the monsoon season. Surgeons were complaining about fogged microscopes, and the high moisture was putting sterile instruments at risk of contamination. Their existing, cheap commercial AHU could not handle the latent heat load.",
+      solution: "We designed and installed a massive Double-Skin Thermal Break DX AHU specifically engineered for deep dehumidification. We integrated a specialized wrap-around heat pipe mechanism that pre-cooled the air before the coil and re-heated it after, flawlessly maintaining the strict NABH requirement of 50% ± 5% Relative Humidity without excessive electricity costs."
     },
     specs: [
-      { label: "Cabinet Construction", value: "Double Skin with 43mm/50mm PUF insulation" },
-      { label: "Frame Profile", value: "Extruded Aluminum with Thermal Break" },
-      { label: "Fan Technology", value: "Direct Driven EC Plug Fans" },
-      { label: "Coil Type", value: "Copper Tubes with Hydrophilic Aluminum Fins" }
+      { label: "Cabinet Construction", value: "Double Skin with 43mm/50mm PUF insulation (Density 40kg/m³)" },
+      { label: "Frame Profile", value: "Extruded Aluminum with Thermal Break design" },
+      { label: "Inner Skin Material", value: "SS-304 Stainless Steel or GI Plain Sheet (to prevent rust/shedding)" },
+      { label: "Fan Technology", value: "Direct Driven EC Plug Fans (Energy efficient & silent)" },
+      { label: "Coil Type", value: "Copper Tubes with Hydrophilic coated Aluminum Fins" }
     ],
     faqs: [
-      { q: "Difference between AHU and LAF?", a: "AHU is the external 'engine' that cools and filters air; LAF is the internal 'delivery' plenum." },
-      { q: "Why use 'Double Skin'?", a: "To prevent external condensation (sweating) which breeds rust and mold." },
-      { q: "What is UVGI?", a: "Ultraviolet lights that sterilize the cooling coils to kill mold and bacteria." }
+      { q: "What is the difference between an AHU and a Laminar Air Flow (LAF) system?", a: "The AHU is the 'engine' that sits outside the OT. It cools, dehumidifies, pressurizes, and pre-filters the air. The LAF is the 'delivery' unit inside the OT ceiling that pushes this treated air smoothly over the patient through final HEPA filters." },
+      { q: "Why do hospital AHUs need a 'Double Skin Thermal Break'?", a: "A thermal break prevents the cold internal temperature of the AHU from transferring to the outer metal casing. Without it, the AHU would 'sweat' (form condensation), leading to severe rust and potentially introducing water-borne bacteria into the ducting." },
+      { q: "What is the role of UVGI in an AHU?", a: "Ultraviolet Germicidal Irradiation (UVGI) lights are installed pointing directly at the AHU's cooling coils. Since coils are naturally damp, they can grow mold. UVGI destroys the DNA of bacteria and fungus on the coils before the air even enters the ductwork." },
+      { q: "Why can't standard commercial AHUs be used in a Modular Operation Theatre?", a: "Standard commercial AHUs lack proper thermal break insulation and the high-static blower capacity needed to push air through dense HEPA filters. Using a commercial unit in an OT leads to condensation, mold growth, inadequate air changes, and severe cross-contamination risks." },
+      { q: "How do your AHU systems ensure compliance with NABH and ASHRAE 170 guidelines?", a: "Our AHUs are engineered to achieve strict NABH and ASHRAE 170 parameters by maintaining precise temperature (21°C ± 3°C) and relative humidity (50% ± 5%), delivering the mandatory minimum air changes per hour (ACH), and sustaining a positive pressure gradient (+15 Pa) to block contaminated air from entering the sterile zone." }
     ],
     heroImage: "/images/mot-product-page-images/ahu-page-images/cleanroom-ahu.webp"
   },
   'pressure-control': {
     title: "OT Pressure Control Systems",
-    tagline: "Sterile Pressure Balancing",
-    heroDesc: "While the AHU generates airflow, the Pressure Control System acts as the brain. An OT must maintain constant positive pressure so contaminated air cannot enter. We manufacture precise monitors and relief valves to lock in Class 100 sterility.",
+    tagline: "Advanced OT Monitoring",
+    heroDesc: "While the AHU generates the airflow, the Pressure Control System acts as the \"brain and valves.\" An Operation Theatre must maintain constant positive pressure so contaminated air from corridors cannot enter when doors open. We manufacture the precise monitors, motorized dampers, and relief valves required to lock in your OT's Class 100 sterility.",
     atAGlance: ["Maintains +15 Pa Pressure", "Digital Micro-Monitors", "Motorized VAV Dampers", "Automated VFD Feedback"],
     configurations: [
       {
-        title: "Differential Pressure Monitor",
-        desc: ["Digital screens provide real-time readings of room pressure compared to outer corridors. Programmable for NABH ranges.", "Triggers instant audio-visual alarms if pressure drops below the safe threshold of +2.5 Pa."],
+        title: "Differential Pressure Monitors",
+        desc: [
+          "These act as the \"eyes\" of the entire system. Installed flush into the OT wall (or integrated directly into our Surgeon Control Panels), these digital screens provide real-time readings of the air pressure inside the surgical room compared to the outside corridor.",
+          "The monitor is programmed to ensure the room stays within the mandatory NABH positive pressure range of +2.5 Pa to +15 Pa. If the pressure drops below the safe threshold, it instantly triggers an audible and visual alarm, warning the surgical staff of a potential cleanroom breach."
+        ],
         image: "/images/mot-product-page-images/environmental-monitoring-images/differential-pressure-transmitters.webp"
       },
       {
-        title: "Pressure Relief Damper (PRD)",
-        desc: ["The critical mechanical safety valve. Automatically vents excess air if positive pressure becomes too high.", "Precisely calibrated gravity-weighted louvers ensure heavy doors remain easy to open for staff safety."],
+        title: "Motorized VAV / VCD Dampers",
+        desc: [
+          "These act as the \"muscles.\" Variable Air Volume (VAV) or Volume Control Dampers (VCD) are mechanical valves installed deep inside the HVAC ducting network just before the air enters the OT ceiling.",
+          "They are fitted with electronic actuators. When the Pressure Monitor detects a drop in room pressure, it sends a signal to these actuators, which automatically open the damper flaps wider, allowing a massive rush of supply air from the AHU to re-pressurize the OT instantly."
+        ],
+        image: "/images/mot-product-page-images/ot-preassure-control/motorised-vav-vcd-dampers.webp"
+      },
+      {
+        title: "Pressure Relief Dampers (PRD)",
+        desc: [
+          "This is the critical \"safety valve.\" If an AHU pumps too much air into a perfectly hermetically sealed room, the pressure builds up excessively. Extreme positive pressure makes it physically impossible to push the heavy OT doors open, trapping the staff inside. Worse, it can cause the false ceiling tiles to pop out.",
+          "The PRD is usually installed low on the OT wall. It features precisely calibrated, gravity-weighted louvers. The moment the room pressure exceeds +15 Pa, the louvers automatically swing open, venting the excess sterile air safely into the corridor and maintaining perfect equilibrium."
+        ],
         image: "/images/mot-product-page-images/ot-preassure-control/preassure-relief-damper.webp"
+      },
+      {
+        title: "VFD Automation Logic (AHU Link)",
+        desc: [
+          "The ultimate communication link. Instead of just relying on duct dampers, our advanced pressure control systems communicate directly with the Air Handling Unit itself via a Variable Frequency Drive (VFD) panel.",
+          "If the OT requires more pressure, the system commands the VFD to literally spin the massive AHU blower motors faster. If the room is over-pressurized, it slows the motors down. This automated feedback loop provides the most stable cleanroom environment possible while drastically reducing electricity costs for the hospital."
+        ],
+        image: "/images/mot-product-page-images/ot-preassure-control/vdf-panel.webp"
       }
     ],
     engineering: [
       {
         title: "Micro-Processor Sensors",
-        desc: "High-sensitivity internal diaphragms detect variances as minute as 0.1 Pascal for real-time telemetry.",
+        desc: "We utilize high-sensitivity internal diaphragms capable of detecting pressure variances as minute as 0.1 Pascal. This guarantees that your digital displays provide flawless, real-time feedback without lag.",
         bullets: ["0.1 Pa Sensitivity", "Real-Time Telemetry"]
       },
       {
         title: "Electronic Actuators",
-        desc: "Swift-response motors continuously modulate duct dampers to compensate for sudden door openings.",
+        desc: "The dampers are driven by swift-response 24V or 230V electronic actuator motors. They continuously modulate the damper louvers open and closed, instantly compensating for any sudden door openings.",
         bullets: ["Swift-Response Motors", "Continuous Modulation"]
       },
       {
         title: "Isolated Control Wiring",
-        desc: "Heavily shielded data lines connect monitors to VFDs, ensuring zero electromagnetic interference during surgery.",
+        desc: "To prevent electromagnetic interference from heavy surgical equipment, all data lines connecting the monitors to the AHU VFDs are heavily shielded. This ensures the communication loop never drops during a procedure.",
         bullets: ["EMI Shielded Data Lines", "Flawless VFD Integration"]
       }
     ],
     applications: [
-      { title: "Modular Operation Theatres", image: "/images/service-images/modular-ot-product.webp" },
+      { title: "Modular OTs", image: "/images/service-images/modular-ot-product.webp" },
       { title: "Isolation Wards", image: "/images/about-us/about-us-assets/hospital-ward-about.webp" },
       { title: "Cath Labs", image: "/images/key-application-images/cath-lab.webp" },
       { title: "CSSD Cleanrooms", image: "/images/key-application-images/cssd.webp" }
     ],
     whyChoose: [
-      { title: "Turnkey Solutions", desc: "We provide complete end-to-end pressure control setups from design to validation.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
-      { title: "ISO & CE Certified", desc: "Our instruments strictly adhere to NABH norms for sterile medical cleanrooms.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
-      { title: "Pan-India Execution", desc: "Engineering teams provide onsite installation and testing across all Indian states.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "relationship continues with annual calibration and maintenance support.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "Turnkey Solutions", desc: "By providing End to End pressure control solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
+      { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
+      { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
+      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
-      title: "Fixing the Jammed Door Crisis in Haryana",
-      context: "An OT was so over-pressurized that staff couldn't push the heavy swing doors open to exit.",
-      solution: "Installed calibrated PRDs and a Digital Pressure Monitor linked to the VFD. equilibrium achieved instantly."
+      title: "Fixing the \"Jammed Door\" Crisis in a Haryana Hospital",
+      context: "A newly built surgical hospital in Haryana called us with a bizarre emergency. Their new OT was so heavily pressurized by their AHU that nurses were physically unable to push the swing doors open to get patients out after surgery. The local contractor had completely forgotten to install a pressure regulation system.",
+      solution: "Our engineering team rapidly intervened. We cut a precise opening in the modular wall panel and installed a calibrated Pressure Relief Damper (PRD). We then retrofitted a Differential Pressure Monitor linked to the AHU's VFD. Within 24 hours, the room achieved perfect equilibrium. The excess air safely vented into the corridor, and the heavy doors could be opened effortlessly with one hand."
     },
     specs: [
-      { label: "Operating Pressure", value: "+2.5 Pascal to +15 Pascal" },
-      { label: "Monitor Display", value: "Digital LED / Touchscreen Integrated" },
-      { label: "Damper Type", value: "Motorized VAV with 24V Actuators" },
-      { label: "PRD Material", value: "SS-304 with gravity-weighted calibration" }
+      { label: "Standard Operating Pressure", value: "+2.5 Pascal to +15 Pascal (NABH / CDC compliance range)" },
+      { label: "Monitor Display type", value: "Digital LED / Touchscreen LCD (Standalone or Integrated in Surgeon Panel)" },
+      { label: "Motorized Damper Type", value: "Extruded aluminum aerofoil blades with 24V / 230V Actuators" },
+      { label: "PRD Flap Material", value: "Stainless Steel SS-304 with gravity-weighted calibration mechanism" },
+      { label: "Alarm Outputs", value: "Audible Buzzer & Flashing Red LED for High/Low pressure faults" }
     ],
     faqs: [
-      { q: "Why is positive pressure needed?", a: "To ensure that air only rushes OUT when doors open, preventing bacteria from entering." },
-      { q: "What is a PRD?", a: "A pressure relief damper acts as a safety valve to vent excess air and keep doors operable." },
-      { q: "How does it link to the AHU?", a: "The monitor sends feedback to the VFD to slow down or speed up the blower motors." }
+      { q: "Why must an Operation Theatre have positive pressure?", a: "Positive pressure ensures that the air pressure inside the OT is higher than the surrounding corridors. When the OT door opens, air rushes OUT, preventing airborne bacteria and contaminated dust from entering the sterile surgical field." },
+      { q: "What is a Pressure Relief Damper (PRD)?", a: "A PRD is a critical mechanical safety valve usually installed in the OT wall. If the positive pressure inside the room becomes too high (which can jam doors shut or pop ceiling tiles), the weighted flaps of the PRD automatically open to release the excess air." },
+      { q: "How does the pressure system communicate with the AHU?", a: "The Differential Pressure Monitor inside the OT constantly measures the room's air pressure. If the pressure drops, it sends a digital signal to the AHU's Variable Frequency Drive (VFD), instantly commanding the blower motors to speed up and push more air." }
     ],
     heroImage: "/images/service-images/pressure-monitor-main.webp"
   },
   'hvac-ducting': {
     title: "HVAC Ducting Networks",
     tagline: "The Air Highways",
-    heroDesc: "The ducting network is the respiratory system of the OT. Standard ducts leak air, causing pressure drops. We manufacture CNC-fabricated, zero-leak ducting with thick thermal insulation.",
+    heroDesc: "The ducting network is the respiratory system of the Operation Theatre. If standard commercial ducts are used, air leaks out of joints causing catastrophic drops in positive pressure. Furthermore, poor insulation causes the metal to sweat, breeding toxic mold above the ceiling. We manufacture CNC-fabricated, zero-leak ducting engineered specifically for strict cleanroom applications.",
     atAGlance: ["CNC-Fabricated GI & Alu", "Zero-Leak Flange Joints", "Nitrile Thermal Insulation", "Fire Damper Integrated"],
     configurations: [
       {
@@ -635,174 +807,228 @@ const motProducts: Record<string, ProductData> = {
       { label: "Safety Devices", value: "UL-listed Fire Dampers Integrated" }
     ],
     faqs: [
-      { q: "Why is commercial ducting bad for OTs?", a: "Standard ducts leak air, causing a drop in positive pressure and allowing bacteria entry." },
-      { q: "Why insulate ducts?", a: "To prevent metal 'sweating' (condensation), which drips and breeds toxic mold." },
-      { q: "What is a Fire Damper?", a: "A safety device that snaps shut during a fire to block smoke from entering the OT." }
+      { q: "Why is standard commercial ducting not suitable for an Operation Theatre?", a: "Standard ducting often leaks up to 10% of its air through poorly sealed joints. In an OT, any loss of air volume results in a drop in positive pressure, which violates NABH cleanroom protocols and allows bacteria to enter the room." },
+      { q: "Why must OT HVAC ducts be heavily insulated?", a: "The AHU pumps extremely cold air through the ducts. If uninsulated, the warm air in the ceiling void will cause the metal ducts to 'sweat' (condensation). This moisture will drip onto the OT ceiling and rapidly grow toxic mold. We use thick closed-cell nitrile rubber to prevent this completely." },
+      { q: "What is a Fire Damper in an HVAC network?", a: "A Fire Damper is a critical safety device installed inside the duct where it passes through walls. In the event of a hospital fire, a fusible link melts from the heat, snapping the damper shut instantly. This prevents the HVAC system from pumping toxic smoke and fire into the OT." },
+      { q: "How are the ducts joined?", a: "Using slip-on flanges with 5mm Neoprene gaskets and medical-grade RTV sealant to ensure zero air leakage." },
+      { q: "Do you perform leak testing?", a: "Yes, all our HVAC ducting networks are rigorously leak-tested prior to ceiling closure to guarantee absolute zero pressure loss." },
+      { q: "Is the insulation fire-retardant?", a: "Yes, we use Class 'O' fire-retardant nitrile rubber for insulation." }
     ],
     heroImage: "/images/mot-product-page-images/ot-hvac-ducting/aluminum-hvac-ducting.webp"
   },
-  'control-panel': {
-    title: "Surgeon Control Panels",
+  'surgeon-control-panel': {
+    title: "Command the Surgical Environment",
     tagline: "The Brain of the OT",
-    heroDesc: "In a surgery, doctors cannot break scrub to adjust wall switches. We manufacture centralized digital interfaces that command HVAC, lighting, and alarms from one single sterile dashboard.",
+    heroDesc: "In an active surgery, doctors cannot break scrub to adjust disjointed wall switches. We manufacture centralized, flush-mounted digital interfaces that allow the surgical team to command HVAC parameters, lighting, elapsed timers, and medical gas alarms from one single, sterile dashboard.",
     atAGlance: ["Digital Touchscreen Interface", "Real-time Temp & RH Data", "Integrated Gas Alarms", "IP65 Waterproof Sealed"],
     configurations: [
       {
-        title: "Flush-Mounted Digital Panel",
-        desc: ["Smooth, anti-microbial membrane keypad or HD capacitive touchscreen. Sits level with Modular OT wall panels.", "IP65 rated to allow aggressive chemical wipe-downs without risking internal short-circuits."],
+        title: "Flush-Mounted Digital Interface",
+        desc: [
+          "Traditional wall switches feature gaps and ridges where dangerous bacteria accumulate. Our Surgeon Control Panels are designed with an ultra-smooth, anti-microbial membrane keypad or a high-definition capacitive touchscreen.",
+          "The entire unit is flush-mounted directly into the Modular OT wall panels. It is strictly IP65 rated (waterproof and dustproof), meaning hospital staff can aggressively spray and wipe down the panel with liquid chemical disinfectants without any risk of internal short-circuits."
+        ],
         image: "/images/mot-product-page-images/ot-control-panels-images/flush-mounted-digital-interface.webp"
       },
       {
-        title: "Environmental & Gas Hub",
-        desc: ["Centralized monitoring of OT Temperature, Humidity, and HEPA status. Linked directly to the AHU.", "Built-in digital manometer for up to 6 gases with audio-visual alarms for pressure deviations."],
+        title: "Precision Environmental Control",
+        desc: [
+          "The panel serves as the central brain communicating directly with the OT's Air Handling Unit (AHU) via a Variable Frequency Drive (VFD).",
+          "Surgeons and anesthetists can view real-time digital readouts of the room's parameters. Using the interface, they can instantly adjust the Temperature (standard 21°C ± 2°C), manage Relative Humidity (50% ± 5%), and monitor HEPA filter status. If the AHU detects a pressure drop or filter blockage, the panel immediately triggers a visual and audible alarm."
+        ],
         image: "/images/mot-product-page-images/ot-control-panels-images/precision-environmental-control.webp"
+      },
+      {
+        title: "Integrated Medical Gas Alarms",
+        desc: [
+          "Surgical safety relies heavily on life-support gases. Rather than installing a separate, disjointed alarm box on the wall, our control panel features a built-in digital medical gas manometer.",
+          "It provides a continuous, highly visible readout of the line pressure for up to 6 gases: Oxygen, Medical Air (4 Bar), Surgical Air (7 Bar), Nitrous Oxide, Vacuum, and CO2. If the pressure of any gas drops below or spikes above the critical threshold, the panel triggers an immediate emergency buzzer to alert the surgical team."
+        ],
+        image: "/images/mot-product-page-images/ot-control-panels-images/integrated-medical-gas-alarms.webp"
+      },
+      {
+        title: "Surgical Timers & Illumination Control",
+        desc: [
+          "Every panel includes a highly accurate standard Day/Time clock, alongside a critical Elapsed Time Clock. This stop-watch feature is heavily utilized by anesthetists to track surgery duration, anesthesia exposure, and time critical CPR/Code Blue events down to the second.",
+          "Additionally, the panel integrates comprehensive lighting controls. Staff can easily switch on/off or dim the peripheral LED room lights, X-Ray viewing screens, and surgical dome lights directly from the membrane keypad, avoiding the need to walk around the room."
+        ],
+        image: "/images/mot-product-page-images/ot-control-panels-images/surgical-timers-illumination-control.webp"
       }
     ],
     engineering: [
       {
         title: "Micro-Controller Board",
-        desc: "Industrial-grade PCBs engineered for 24/7 operation. Handles multiple sensor inputs without latency.",
+        desc: "The core processing unit. We use industrial-grade PCBs engineered for 24/7 continuous operation. It effortlessly handles inputs from multiple room sensors, processes analog/digital signals, and outputs precise commands to the HVAC and lighting relays without latency.",
         bullets: ["Industrial Grade PCB", "Continuous 24/7 Monitoring"]
       },
       {
         title: "IP65 Sealed Fascia",
-        desc: "Anti-microbial membrane is hermetically sealed to the SS backbox, preventing liquid ingress during fumigation.",
+        desc: "The front interface is constructed using a specialized anti-microbial membrane or heavy-duty capacitive glass. It is hermetically sealed to the SS-304 backbox, preventing any liquid chemical ingress during aggressive OT fumigation or deep cleaning procedures.",
         bullets: ["Anti-Microbial Surface", "100% Washable Design"]
       },
       {
         title: "Fail-Safe Relays",
-        desc: "Uses optically isolated relays to separate low-voltage UI from high-voltage equipment, protecting surgeons.",
+        desc: "Safety is paramount in the OT. The control panel uses optically isolated relays to separate the low-voltage user interface from the high-voltage equipment it controls. This guarantees that surgeons are completely protected from electrical short circuits.",
         bullets: ["Isolated Control Circuits", "Protects Against Shocks"]
       }
     ],
     applications: [
       { title: "Modular Operation Theatres", image: "/images/service-images/modular-ot-product.webp" },
-      { title: "Hybrid Cath Labs", image: "/images/key-application-images/cath-lab.webp" },
-      { title: "Intensive Care Units (ICU)", image: "/images/key-application-images/icu.webp" }
+      { title: "Intensive Care Units (ICU)", image: "/images/key-application-images/icu.webp" },
+      { title: "Hybrid Cath Labs & OTs", image: "/images/key-application-images/cath-lab.webp" },
+      { title: "CSSD & Processing", image: "/images/key-application-images/cssd.webp" }
     ],
     whyChoose: [
-      { title: "Turnkey Solutions", desc: "We provide complete panel and control solutions, eliminating delays and ensuring quality.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
-      { title: "ISO & CE Certified", desc: "Our products strictly adhere to ISO 9001:2015 for medical-grade control outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
-      { title: "Pan-India Execution", desc: "Engineering teams travel directly to your site for precision wall-integrated installation.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Comprehensive lifetime maintenance and remote troubleshooting support.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "Turnkey Solutions", desc: "By providing End to End panel and cabinet solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
+      { title: "ISO & CE Certified", desc: "Our products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
+      { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
+      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Streamlining Workflows in a Punjab Cardiac Center",
-      context: "Scattered manual controls forced nurses to break the sterile perimeter repeatedly to adjust dials.",
-      solution: "Installed a Touchscreen Surgeon Control Panel. Team can now monitor temp, timers, and lights from one spot."
+      context: "A prominent cardiac surgery center in Punjab was operating with disjointed infrastructure. The AC controls, gas alarms, light switches, and wall clocks were scattered across four different walls. During intense bypass surgeries, nurses were constantly breaking their sterile perimeter to run around the room adjusting these manual dials.",
+      solution: "We performed a targeted retrofit, stripping away the individual panels and installing a singular, flush-mounted Touchscreen Surgeon Control Panel. We wired the AHU, lighting relays, and MGPS sensors directly into this central hub. The surgical team can now monitor temperature, track elapsed bypass time, and adjust lighting from one spot, saving critical seconds and vastly improving room sterility."
     },
     specs: [
-      { label: "Enclosure Construction", value: "1.2mm SS-304 Stainless Steel" },
-      { label: "User Interface", value: "Anti-microbial Membrane / HD Touch" },
-      { label: "Ingress Protection", value: "IP65 Rated (Washable)" },
-      { label: "Gas Alarms", value: "Supports 4-Gas to 6-Gas setups" }
+      { label: "Enclosure Construction", value: "1.2mm SS-304 Stainless Steel or Powder Coated CRCA (Flush-mounted)" },
+      { label: "User Interface", value: "Anti-microbial Membrane Keypad or HD Capacitive Touchscreen" },
+      { label: "Ingress Protection", value: "IP65 Rated (Protected against dust ingress and low-pressure water jets)" },
+      { label: "Gas Monitoring Capacity", value: "Digital manifold supporting 4-Gas up to 6-Gas configurations" },
+      { label: "Auxiliary Controls", value: "Hands-free telephone, HEPA UVGI switch, Music/PA system integration" }
     ],
     faqs: [
-      { q: "Why use a digital panel?", a: "Standard switches have crevices for bacteria. Panels are flush and instantly washable." },
-      { q: "What parameters are monitored?", a: "Temp, Humidity, Gas Pressures, HEPA status, and Anesthesia Timers." },
-      { q: "Is the panel waterproof?", a: "Yes, IP65 rating protects against water and fumigation chemicals." }
+      { q: "Why can't standard wall switches be used in an Operation Theatre?", a: "Standard physical switches and dials have crevices where bacteria, blood, and fluids can accumulate. A digital Surgeon Control Panel uses a flush membrane or touchscreen interface that can be wiped down instantly with harsh chemical disinfectants without short-circuiting." },
+      { q: "What parameters can the Surgeon Control Panel monitor?", a: "The panel is the central hub. It monitors and controls OT Temperature, Humidity, Medical Gas Pipeline Pressures (O2, Air, Vacuum, N2O), HEPA filter status, Elapsed Anesthesia Timers, and Peripheral Room Lighting." },
+      { q: "Is the panel waterproof?", a: "Yes, our Surgeon Control Panels are IP65 rated. The front fascia is completely sealed, making it dust-tight and protected against water jets during deep OT cleaning and fumigation." },
+      { q: "Does the panel have a backup battery?", a: "The panel is typically connected to the hospital's UPS system to ensure it remains operational during power outages." },
+      { q: "Can we integrate a telephone system?", a: "Yes, our panels can include hands-free telephone systems for communication outside the OT without breaking scrub." },
+      { q: "Is the surface anti-microbial?", a: "Yes, we use anti-microbial membrane overlays that actively prevent cross-contamination between surgical cases." }
     ],
     heroImage: "/images/mot-product-page-images/ot-control-panels-images/flush-mounted-digital-interface.webp"
   },
   'surgical-pendants': {
     title: "OT Ceiling Pendants",
-    tagline: "Ergonomic Workflow Integration",
-    heroDesc: "Floor clutter is a severe hazard in an operating room. Our advanced Ceiling Pendants consolidate medical gases, power, and data into ergonomic, overhead consoles, keeping the floor 100% clear and sterile.",
+    tagline: "Ergonomic Surgical Workflows",
+    heroDesc: "Floor clutter is a severe hazard in an operating room. Tangled medical gas hoses and electrical cables compromise surgical workflows and create dangerous trip hazards. Our advanced OT Ceiling Pendants consolidate all critical utilities—gases, power, data, and monitors—into ergonomic, highly maneuverable overhead consoles, keeping the floor 100% clear and sterile.",
     atAGlance: ["Heavy-Duty Load Capacity", "Pneumatic Braking System", "Segregated Gas & Power", "330° Ergonomic Rotation"],
     configurations: [
       {
-        title: "Single-Arm Movable Pendant",
-        desc: ["The industry standard for multi-specialty OTs. 330-degree rotation allows the console to pivot smoothly around the table.", "Allows anesthetists to pull equipment close during prep and push it away during the surgery."],
+        title: "Single-Arm Movable Pendants",
+        desc: [
+          "The industry standard for multi-specialty Operation Theatres. The Single-Arm pendant features a heavy-duty extruded aluminum articulating arm that allows the entire console to pivot smoothly up to 330 degrees around its axis.",
+          "This provides exceptional flexibility, allowing the anesthetist or surgical nurse to effortlessly pull the console toward the patient during prep, and instantly push it out of the way during the surgical procedure. It supports substantial weight, easily carrying multiple monitors, infusion pumps, and surgical tools."
+        ],
         image: "/images/mot-product-page-images/ot-surgical-pendant-images/single-arm-surgical-pendant.webp"
       },
       {
-        title: "Double-Arm (Tandem) Pendant",
-        desc: ["Ultimate solution for Neurosurgery and Cardiac OTs. Two articulating segments provide a massive reach radius.", "Arms fold completely flat when not in use to conserve space in the surgical suite."],
+        title: "Double-Arm (Tandem) Pendants",
+        desc: [
+          "The ultimate solution for large, highly complex surgical environments like Neurosurgery, Cardiac bypass, or Hybrid OTs. The Double-Arm design features two connected articulating segments.",
+          "This tandem configuration provides an incredibly wide reach radius. A surgeon can pull the equipment console from the head of the bed all the way down to the foot of the bed without ever unplugging a single wire or hose. When not in use, the arms fold completely flat against each other to conserve space."
+        ],
         image: "/images/mot-product-page-images/ot-surgical-pendant-images/double-arm-surgical-pendant.webp"
       },
       {
-        title: "Rigid / Fixed Pendant",
-        desc: ["Robust and cost-effective for ICUs and recovery rooms. provides a solid, centralized utility drop from the ceiling.", "The console box rotates 330 degrees, providing stable mounting for monitors and infusion pumps."],
+        title: "Rigid / Fixed Pendants",
+        desc: [
+          "A highly robust and cost-effective solution designed for Intensive Care Units (ICUs), Emergency Recovery Rooms, and minor procedure OTs where wide multi-axis movement isn't strictly necessary.",
+          "The Rigid Pendant drops straight down from the ceiling mount, providing a solid, centralized utility drop. While the console box itself can rotate 330 degrees to face the nurse, the main drop tube remains fixed in place, offering incredible stability for heavy monitors and continuous patient care equipment."
+        ],
         image: "/images/mot-product-page-images/ot-surgical-pendant-images/rigid-surgical-pendant.webp"
       }
     ],
     engineering: [
       {
         title: "Pneumatic Braking",
-        desc: "Integrated compressed-air brakes prevent accidental drifting. Releasing the lock button anchors the arm rigidly.",
+        desc: "To prevent the heavy pendant from accidentally drifting mid-surgery, we integrate compressed-air pneumatic brakes. Pressing the release button allows effortless movement; releasing it locks the arm rigidly in place instantly.",
         bullets: ["Zero Drift Guarantee", "Compressed-Air Actuated"]
       },
       {
         title: "Segregated Utilities",
-        desc: "Internal column features physical compartmentalization of electrical wiring and gas pipelines to prevent fires.",
-        bullets: ["Physical Segregation", "Complete Fire Safety"]
+        desc: "Safety is paramount. The internal column features strictly segregated compartments. High-voltage electrical wiring is physically separated from oxygen and nitrous oxide pipelines to eliminate any risk of spark-induced fires.",
+        bullets: ["Physical Compartmentalization", "Gas & Electrical Separation"]
       },
       {
         title: "Modular Trays & Rails",
-        desc: "Equipped with adjustable heavy-duty trays and integrated DIN rails for infusion pumps and monitors.",
+        desc: "The console features adjustable equipment trays capable of holding heavy monitors or cautery machines. Integrated DIN rails on the sides allow nurses to easily clip on infusion pumps, IV poles, and syringe holders.",
         bullets: ["Adjustable Shelving", "Integrated DIN Rails"]
       }
     ],
     applications: [
       { title: "Modular Operation Theatres", image: "/images/service-images/modular-ot-product.webp" },
-      { title: "IVF & Fertility Labs", image: "/images/about-us/about-us-assets/ivf-about.webp" },
+      { title: "IVF & Embryology Labs", image: "/images/about-us/about-us-assets/ivf-about.webp" },
       { title: "Hybrid Cath Labs", image: "/images/key-application-images/cath-lab.webp" }
     ],
     whyChoose: [
-      { title: "Turnkey Solutions", desc: "We handle End to End Surgical Pendant solutions, eliminating delays and ensuring quality.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
-      { title: "ISO & CE Certified", desc: "Our products strictly adhere to ISO 9001:2015 standards for surgical safety.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
-      { title: "Pan-India Execution", desc: "Expert engineering teams travel directly to your site anywhere in India.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Comprehensive lifetime maintenance support for all articulating pendant joints.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "Turnkey Solutions", desc: "By providing End to End Surgical Pendant solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
+      { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
+      { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
+      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Eliminating Cable Clutter in a Delhi Trauma Center",
-      context: "A hospital struggled with trip hazards from hoses and cables stretching from walls to the surgical table.",
-      solution: "Installed a Double-Arm Anaesthesia Pendant. Utilities now drop from the ceiling, clearing the floor entirely."
+      context: "A high-volume trauma center in Delhi was struggling with emergency response times. During critical resuscitations, nurses and surgeons were constantly tripping over a maze of oxygen hoses and power cables stretching from the wall-mounted bed head panels to the surgical table.",
+      solution: "We disconnected the wall utilities and installed a heavy-duty Double-Arm Anaesthesia Pendant directly over the head of the surgical table. All MGPS lines and power cables were routed through the ceiling and down the pendant arms. The floor was instantly cleared of all trip hazards, vastly improving staff mobility and room sterility during critical trauma cases."
     },
     specs: [
-      { label: "Structural Material", value: "High-strength extruded Aluminum alloy" },
-      { label: "Load Capacity", value: "150 kg to 300 kg (Model dependent)" },
-      { label: "Rotation Radius", value: "330° at each pivot joint" },
-      { label: "Braking Mechanism", value: "Pneumatic Air Brakes / Friction" }
+      { label: "Structural Material", value: "High-strength extruded Aluminum alloy with anti-microbial coating" },
+      { label: "Load Bearing Capacity", value: "150 kg to 300 kg (Depending on single/double arm configuration)" },
+      { label: "Rotation Radius", value: "330° rotation at each pivot joint with mechanical stops" },
+      { label: "Braking Mechanism", value: "Pneumatic Air Brakes / Electro-Magnetic / Mechanical Friction" },
+      { label: "Standard Integrations", value: "O2, N2O, Air, Vac, AGSS Outlets | 5/15 Amp Sockets | RJ45 Data Ports" }
     ],
     faqs: [
-      { q: "Why use ceiling pendants?", a: "To eliminate trip hazards from floor cables and hoses, ensuring a sterile and clear path." },
-      { q: "Anaesthesia vs Surgical Pendants?", a: "Anaesthesia units hold gas lines and monitors; Surgical units hold tools and cautery equipment." },
-      { q: "How to prevent drifting?", a: "Via pneumatic brakes that lock the arm joints instantly when the positioning button is released." }
+      { q: "Why do Operation Theatres need Ceiling Pendants?", a: "In a standard OT, electrical cables and medical gas hoses drag across the floor from wall outlets to the surgical bed. This creates massive trip hazards and contamination zones. Ceiling pendants suspend all utilities from the roof, keeping the floor 100% clear and sterile." },
+      { q: "What is the difference between an Anaesthesia Pendant and a Surgical Pendant?", a: "An Anaesthesia Pendant is typically positioned near the patient's head. It holds the anesthesia machine, monitors, and specific gases (O2, N2O, AGSS). A Surgical Pendant is placed near the patient's feet or side, holding surgical tools, cautery machines, and surgical air/vacuum lines." },
+      { q: "How does the pendant stay still during surgery without drifting?", a: "Our multi-arm pendants are equipped with advanced Pneumatic or Electro-Magnetic braking systems. Once the surgeon positions the pendant, they press a button on the console that locks the joints in place instantly, ensuring absolutely zero drifting during delicate procedures." }
     ],
     heroImage: "/images/mot-product-page-images/ot-surgical-pendant-images/single-arm-surgical-pendant.webp"
   },
   'scrub-stations': {
     title: "Surgical Scrub Stations",
     tagline: "Pre-Surgical Sterility",
-    heroDesc: "Infection control begins outside the OT. We manufacture touchless SS-304 surgical scrub stations that ensure absolute sterility before the team enters the sterile zone.",
+    heroDesc: "Infection control begins outside the operating room. If a surgeon touches a standard faucet handle after washing their hands, the entire scrubbing process is compromised. We manufacture highly specialized, touchless SS-304 surgical scrub stations that ensure absolute sterility before the surgical team even steps through the OT doors.",
     atAGlance: ["Touchless IR Sensors", "Knee & Foot Backups", "Anti-Splash Sloped Basin", "Premium SS-304 Steel"],
     configurations: [
       {
-        title: "Multi-Bay configurations",
-        desc: ["Available in 1-Bay, 2-Bay, and 3-Bay setups to accommodate various team sizes. 800mm wide bays ensure ample scrubbing space.", "Prevents lead surgeons and nurses from bumping into each other during prep, maintaining a sterile perimeter."],
+        title: "Multi-Bay Configurations",
+        desc: [
+          "To accommodate diverse hospital requirements, we fabricate our medical scrub stations in customizable 1-Bay, 2-Bay, and 3-Bay configurations. This multi-user design ensures that lead surgeons and scrub nurses can prepare simultaneously, eliminating pre-operative bottlenecks outside the Modular OT.",
+          "Each individual washing bay is spaciously engineered with a standard 800mm width. This generous spatial allowance guarantees that surgeons have ample room to rigorously scrub their hands and forearms up to the elbows without accidentally bumping into adjacent personnel—a critical factor in maintaining an unbroken sterile perimeter and adhering to strict NABH cleanroom protocols."
+        ],
+        image: "/images/mot-product-page-images/ot-surgical-scrub-stations-images/triple-bay-manual-surgical-scrub-station.webp"
+      },
+      {
+        title: "Touchless Sensor Faucets",
+        desc: [
+          "The absolute core of pre-surgical infection control relies on eliminating physical contact points. Each scrubbing bay is equipped with a highly sensitive, medical-grade Infrared (IR) optical sensor built directly into the SS-304 back panel or the faucet neck itself. As the surgeon approaches the hospital sink, the water activates instantly without a single touch.",
+          "When they step away, an integrated digital micro-controller allows the water to flow for an additional 2 to 3 seconds. This delayed shut-off is crucial, as it automatically washes away any residual betadine soap down the drain, leaving a perfectly clean basin for the next user while simultaneously saving thousands of liters of hospital water annually."
+        ],
         image: "/images/mot-product-page-images/ot-surgical-scrub-stations-images/triple-bay-automatic-surgical-scrub-station.webp"
       },
       {
-        title: "Integrated Soap & UV Station",
-        desc: ["Touchless betadine dispensers alongside inline UV-C Water Sterilizers. Guarantees the washing water itself is pure.", "Includes 0.2-micron microbial absolute filters hidden within the plumbing shroud for absolute purification."],
-        image: "/images/mot-product-page-images/ot-surgical-scrub-stations-images/single-bay-automatic-soap-dispenser-surgical-scrub-station.webp"
+        title: "Integrated Soap & UV Sterilization",
+        desc: [
+          "Alongside our touchless faucets, every scrubbing bay features integrated automatic betadine or surgical soap dispensers, ensuring the entire pre-op cleaning protocol remains 100% hands-free.",
+          "Furthermore, we offer the seamless integration of inline UV-C Water Sterilizers and 0.2-micron microbial absolute filters hidden within the stainless steel plumbing shroud. This guarantees that the water washing the surgeon's hands is fundamentally sterile and purified before it even exits the tap."
+        ],
+        image: "/images/mot-product-page-images/ot-surgical-scrub-stations-images/triple-bay-automatic-soap-dispenser-surgical-scrub-station.webp"
       }
     ],
     engineering: [
       {
         title: "SS-304 Construction",
-        desc: "Body and basin fabricated from 1.5mm thick SS-304. Non-porous and rust-proof with seamless welded joints.",
+        desc: "The entire body, basin, and plumbing shroud are fabricated from heavy-gauge 1.5mm Stainless Steel 304. This premium alloy is entirely non-porous, meaning bacteria cannot root into the surface.",
         bullets: ["100% Rust-Proof Material", "Seamless Welded Joints"]
       },
       {
         title: "Thermostatic Control",
-        desc: "Integrated mixing valves ensure hot/cold lines are blended to a consistent, comfortable warm flow.",
+        desc: "We integrate advanced Thermostatic Mixing Valves hidden within the plumbing shroud. This ensures the hot and cold water lines are blended perfectly, delivering a consistent, comfortable warm water flow.",
         bullets: ["Prevents Scalding Burns", "Hidden Anti-Tamper Valve"]
       },
       {
         title: "Fail-Safe Mechanisms",
-        desc: "Equipped with redundant mechanical knee-operated panels for use during power outages or sensor maintenance.",
+        desc: "If a hospital experiences a severe power outage and the IR sensors lose electricity, the surgery cannot be delayed. Every station is equipped with mechanical Knee or Foot operated push-panels.",
         bullets: ["Knee-Operated Backups", "Zero Power Dependency"]
       }
     ],
@@ -813,61 +1039,87 @@ const motProducts: Record<string, ProductData> = {
       { title: "CSSD Cleanrooms", image: "/images/key-application-images/cssd.webp" }
     ],
     whyChoose: [
-      { title: "Turnkey Solutions", desc: "We handle End to End Scrub Station solutions, eliminating delays and ensuring quality.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
-      { title: "ISO & CE Certified", desc: "Our products strictly adhere to ISO 9001:2015 standards for surgical sterility.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
-      { title: "Pan-India Execution", desc: "Expert engineering teams travel to your hospital site anywhere in India for setup.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Comprehensive lifetime maintenance and spare parts support for all stations.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "Turnkey Solutions", desc: "By providing End to End Scrub Station solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
+      { title: "ISO & CE Certified", desc: "Our products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
+      { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
+      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Eliminating Cross-Contamination in an Orthopedic Wing",
-      context: "Surgeons using old elbow-operated taps occasionally brushed sterilized arms against wet handles.",
-      solution: "Installed 3-Bay SS-304 Station with IR Sensors. Chain of contamination broken; infection rates dropped to zero."
+      context: "An orthopedic hospital was experiencing a minor but consistent spike in post-op joint infections. Environmental audits showed the OT was perfectly clean, but the corridor outside was the culprit. Surgeons were using elbow-operated taps, but occasionally their sterilized forearms would brush against the wet, unsterile handle while turning the water off.",
+      solution: "We ripped out the old sinks and installed a seamless 3-Bay SS-304 Scrub Station with IR Sensors. The surgeons simply step up, scrub, and step back. Because they no longer have to push or pull any physical levers with their elbows, the chain of cross-contamination was instantly broken, and infection rates dropped back to zero."
     },
     specs: [
-      { label: "Construction Material", value: "1.5mm thick Premium SS-304" },
-      { label: "Activation type", value: "Infrared (IR) Optical Sensors" },
-      { label: "Backup Control", value: "Mechanical Knee / Foot Push Panels" },
-      { label: "Water Sterilization", value: "Optional UV-C & 0.2µm Inline Filters" }
+      { label: "Construction Material", value: "1.5mm thick Premium Stainless Steel 304 (Matte/Satin Finish)" },
+      { label: "Primary Activation", value: "Highly sensitive Infrared (IR) Optical Sensors" },
+      { label: "Mechanical Backup", value: "Concealed Knee/Foot operated push-panel switches" },
+      { label: "Temperature Control", value: "Concealed Thermostatic Mixing Valve (Pre-settable to 38°C)" },
+      { label: "Water Sterilization", value: "Optional UV-C sterilizer & 0.2µm anti-bacterial inline filters" }
     ],
     faqs: [
-      { q: "Why must scrub stations be touchless?", a: "To prevent re-contaminating sterilized hands via faucet handles, following NABH guidelines." },
-      { q: "What if sensors fail during power loss?", a: "Mechanical knee-panels ensure water flow continues uninterrupted even without power." },
-      { q: "How to prevent water splashing?", a: "Deep-sloped back-walls deflect high-pressure streams downward into the anti-vortex drain." }
+      { q: "Why must scrub stations be touchless?", a: "In highly sterile environments like Modular Operation Theatres, touchless scrub stations are a mandatory infection control measure. Once a surgeon or scrub nurse completes their surgical hand antisepsis using betadine or chlorhexidine, physically touching a traditional faucet handle instantly re-contaminates their hands, leading to severe surgical site infections (SSI). Our advanced SS-304 scrub sinks utilize high-precision Infrared (IR) optical sensors that automatically trigger water and medical soap dispensers. This 100% hands-free, touchless activation ensures absolute compliance with strict NABH and CDC hospital hygiene guidelines, fundamentally safeguarding the sterile core of the hospital." },
+      { q: "What happens if the IR sensor fails during a power outage?", a: "Continuous surgical workflows cannot be interrupted by technical failures or power outages. To guarantee fail-safe operation, every surgical scrub station we manufacture at MedGenz is equipped with redundant mechanical backups. Beneath the primary IR sensor array, we install concealed, ergonomic knee-operated or foot-operated push panels. If the hospital experiences a sudden electrical failure, the surgical staff can simply press their knee against these mechanical levers to instantly activate the water flow. This dual-redundancy ensures uninterrupted pre-surgical preparation and absolute reliability in critical healthcare scenarios." },
+      { q: "How does the sink prevent water from splashing onto the surgeon?", a: "Splashing contaminated water from the drain back onto a surgeon's sterile scrub suit is a major bio-hazard. To counter this, our scrub station basins are meticulously engineered using heavy-gauge Stainless Steel 304 with an aerodynamic, deep-sloped back-wall design. Instead of hitting a flat surface and rebounding, the high-pressure water stream hits the angled plane smoothly and is safely deflected downward into an oversized, anti-vortex drain. This anti-splash ergonomic design keeps the surgical team completely dry and sterile, maintaining the integrity of the hospital cleanroom environment." },
+      { q: "Is the SS-304 non-porous?", a: "Yes, SS-304 is a premium medical-grade alloy that is entirely non-porous and rust-proof." },
+      { q: "Can we have both knee and foot operation?", a: "Yes, we can equip the stations with both IR sensors and redundant mechanical knee or foot operated backups." },
+      { q: "What is the width of each bay?", a: "Each individual washing bay is spaciously engineered with a standard 800mm width." }
     ],
     heroImage: "/images/mot-product-page-images/ot-surgical-scrub-stations-images/single-bay-automatic-surgical-scrub-station.webp"
   },
   'x-ray-viewers': {
     title: "LED X-Ray Viewing Screens",
     tagline: "Surgical Diagnostics",
-    heroDesc: "Surgeons rely on absolute visual clarity. Our advanced LED X-Ray screens are ultra-slim, flicker-free, and flush-mounted to provide perfect diagnostics without compromising cleanroom sterility.",
+    heroDesc: "Surgeons rely on absolute visual clarity to navigate complex procedures. Old fluorescent view boxes cause severe eye strain, flicker, and protrude from the wall, gathering hazardous dust. Our advanced LED X-Ray screens are ultra-slim, flicker-free, and seamlessly flush-mounted to provide perfect diagnostic illumination without compromising cleanroom sterility.",
     atAGlance: ["10,000+ Lux Edge-Lit LED", "Class 100 Cleanroom Ready", "SS-304 Flush-Mounted", "Auto-Sensor Dimming"],
     configurations: [
       {
-        title: "Double-Film Viewers",
-        desc: ["Standard for general OTs. Allows surgeons to compare historical scans against intra-operative MRIs.", "Flush-mounted to integrate level with wall panels, ensuring zero dust accumulation on ledges."],
+        title: "Double-Film Viewers (Standard OT)",
+        desc: [
+          "The absolute industry standard for general Modular Operation Theatres. The Double-Film (2-Panel) configuration allows lead surgeons to simultaneously compare a patient's historical X-Ray against a current intra-operative scan or MRI.",
+          "Engineered for flush-mounting, this unit integrates perfectly level with SS-304 wall panels. The high-density LED matrix provides incredibly uniform light distribution (over 10,000 Lux), ensuring there are absolutely no dark spots or shadows that could lead to diagnostic errors during a fast-paced surgery."
+        ],
         image: "/images/mot-product-page-images/ot-x-ray-viewers/double-film-x-ray-viewer.webp"
       },
       {
-        title: "Multi-Film (Quad) Viewers",
-        desc: ["Designed for Neurosurgery and Spine rooms where multiple scan angles must be viewed at once.", "Ultra-slim edge-lit technology generates zero radiant heat, maintaining OT thermal control."],
+        title: "Multi-Film (3 & 4 Panel) Viewers",
+        desc: [
+          "Designed exclusively for highly complex environments such as Orthopedic, Neurosurgery, and Spine procedure rooms. In these specialized cases, surgeons must cross-reference multiple angles of a spinal column or massive full-body MRI sequences simultaneously.",
+          "Our 3-Panel and 4-Panel (Quad) viewing screens provide massive visual real estate. Despite their large footprint, the ultra-slim LED edge-lighting technology ensures the entire unit generates virtually zero radiant heat, maintaining the strict thermal control required inside the cleanroom."
+        ],
         image: "/images/mot-product-page-images/ot-x-ray-viewers/multi-film-x-ray-viewer.webp"
+      },
+      {
+        title: "Single-Film Viewers (ICU & Wards)",
+        desc: [
+          "A highly compact, space-saving solution ideal for Intensive Care Units (ICUs), emergency recovery rooms, and outpatient clinics.",
+          "While utilizing the exact same premium, flicker-free LED technology as our large surgical models, the Single-Film viewer is highly versatile. It can be easily surface-mounted on standard hospital walls or flush-mounted into semi-modular setups, providing immediate diagnostic capabilities right at the patient's bedside."
+        ],
+        image: "/images/mot-product-page-images/ot-x-ray-viewers/single-film-x-ray-viewer.webp"
+      },
+      {
+        title: "Smart Dimmable & Auto-Sensor Viewers",
+        desc: [
+          "The pinnacle of diagnostic technology. Our advanced models are equipped with capacitive touch controls and internal micro-switches hidden within the film grips.",
+          "The screen remains entirely dark to prevent harsh glare in the OT. The exact moment a surgeon slides a film into a specific grip, the auto-sensor instantly illuminates only that specific panel. Furthermore, the stepless digital dimming allows the radiologist or surgeon to adjust the brightness from 10% to 100%, perfectly contrasting over-exposed or under-exposed films."
+        ],
+        image: "/images/mot-product-page-images/ot-x-ray-viewers/smart-dimmable-auto-sensor-viewers.webp"
       }
     ],
     engineering: [
       {
         title: "High-Density LED Matrix",
-        desc: "Medical-grade edge-lit technology producing 10,000+ Lux. absolutely uniform, flicker-free light.",
-        bullets: ["Zero Eye Strain", "100,000+ Hour Lifespan"]
+        desc: "Utilizes medical-grade edge-lit LED technology producing over 10,000 Lux. Delivers absolutely uniform, flicker-free light with a 100,000-hour lifespan, ensuring zero diagnostic errors.",
+        bullets: ["Zero Eye Strain", "Crisp 10,000K Color Temp"]
       },
       {
         title: "Toughened Acrylic Fascia",
-        desc: "Viewing surface is covered by shatterproof, scratch-resistant acrylic that withstands chemical disinfectants.",
-        bullets: ["Anti-Glare Coating", "Non-Yellowing Surface"]
+        desc: "The viewing surface is covered by a shatterproof, scratch-resistant acrylic sheet that diffuses light perfectly and withstands aggressive hospital-grade chemical cleaning without yellowing.",
+        bullets: ["Anti-Glare Coating", "Easy Disinfection"]
       },
       {
         title: "Roller-Grip System",
-        desc: "Advanced spring-loaded silicone grips allow surgeons to slide films in smoothly with one hand.",
-        bullets: ["Damage-Free Film Holding", "Single-Hand Operation"]
+        desc: "Features an advanced spring-loaded silicone roller grip mechanism at the top. Allows surgeons to slide films in smoothly with one hand, preventing tearing and ensuring a firm hold.",
+        bullets: ["Damage-Free Holding", "Single-Hand Operation"]
       }
     ],
     applications: [
@@ -876,32 +1128,35 @@ const motProducts: Record<string, ProductData> = {
       { title: "Emergency Rooms (ER)", image: "/images/key-application-images/emergency-ward.webp" }
     ],
     whyChoose: [
-      { title: "Turnkey Solutions", desc: "We provide complete diagnostic viewing systems, eliminating third-party errors.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
-      { title: "ISO & CE Certified", desc: "Our products strictly adhere to ISO 9001:2015 for healthcare diagnostics.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
-      { title: "Pan-India Execution", desc: "Teams travel to your hospital site for precision flush-mount installation.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Comprehensive lifetime maintenance and parts support for all viewing units.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "Turnkey Solutions", desc: "By providing End to End diagnostic monitor solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
+      { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
+      { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
+      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Enhancing Clarity in Neurosurgery",
-      context: "Surgeons suffered eye fatigue from old fluorescent view boxes that flickered and generated heat.",
-      solution: "Upgraded to Quad-Panel LED Smart Viewers. Flicker-free light and dimming capability restored diagnostic speed."
+      context: "A premier neurology center was experiencing critical issues during long spinal surgeries. The surgeons were suffering from severe eye fatigue caused by the micro-flickering of old fluorescent X-Ray view boxes, which also generated excess heat inside the OT.",
+      solution: "We upgraded their facility with a flush-mounted Quad-Panel LED Smart Viewer. The new unit provided absolutely flicker-free, 10,000 Lux illumination with zero radiant heat. The dimming capability allowed the surgeons to perfectly contrast dense bone scans, completely eliminating eye strain and improving diagnostic speed."
     },
     specs: [
-      { label: "Light Technology", value: "Edge-Lit High-Density LED Matrix" },
-      { label: "Brightness Intensity", value: "> 10,000 Lux (Uniform)" },
-      { label: "Color Temp", value: "10,000K (Diagnostic Blue-White)" },
-      { label: "Frame / Enclosure", value: "Flush SS-304 / Aluminum profile" }
+      { label: "Light Source Technology", value: "Edge-Lit High-Density LED Matrix (100,000+ Hours Lifespan)" },
+      { label: "Illumination Intensity", value: "> 10,000 Lux (Uniform light distribution with no dark spots)" },
+      { label: "Color Temperature", value: "10,000K (Crisp, diagnostic blue-white light)" },
+      { label: "Viewing Fascia", value: "3mm Shatterproof Anti-Glare Acrylic Sheet" },
+      { label: "Frame / Enclosure", value: "Ultra-slim profile powder-coated aluminum / SS-304" }
     ],
     faqs: [
-      { q: "Advantage of LED over Fluorescent?", a: "Flicker-free to prevent eye strain, 100% uniform light, and 100,000+ hour life." },
-      { q: "What is 'Flush-Mounted'?", a: "Built directly into the modular wall so no ledge exists for dust to settle." },
-      { q: "Is there an auto-sensor?", a: "Yes, advanced models stay dark until a film is slid into the grip, then illuminate instantly." }
+      { q: "What is the advantage of LED over old fluorescent X-Ray viewers?", a: "LED viewers are completely flicker-free, which eliminates surgeon eye strain during long procedures. They also provide 100% uniform light distribution without the dark spots common in fluorescent tubes, generate zero radiant heat, and have a lifespan of over 100,000 hours." },
+      { q: "What does 'Flush-Mounted' mean for an X-Ray viewer?", a: "Instead of hanging on the wall like a picture frame (which creates a horizontal ledge for hazardous dust to settle), flush-mounted viewers are built directly into the modular wall panel. The acrylic screen sits perfectly level with the steel wall, ensuring zero dust accumulation and unhindered Laminar Airflow." },
+      { q: "What is the 'Auto-Sensor' feature?", a: "To prevent harsh glare in a dark OT, our advanced models feature micro-switches in the film grips. The LED panel remains off until a surgeon physically slides an MRI or X-Ray film into the grip, at which point it instantly illuminates only that specific panel." },
+      { q: "Can we adjust the brightness of the screen?", a: "Yes, our multi-panel viewing screens come with integrated digital dimming controls (either capacitive touch or rotary dials). Surgeons can easily adjust the Lux intensity from 10% to 100% to perfectly match the density of different X-Ray, CT, or MRI films for optimal contrast." },
+      { q: "Are the LED X-Ray viewing screens easy to clean and maintain?", a: "Yes, our flush-mounted LED X-Ray viewing screens are designed with a completely seamless, non-porous acrylic fascia. They are specifically engineered to withstand harsh hospital-grade chemical disinfectants and daily fumigation without yellowing or scratching." }
     ],
     heroImage: "/images/mot-product-page-images/ot-x-ray-viewers/double-film-x-ray-viewer.webp"
   },
   'storage-cabinets': {
     title: "Flush-Mounted OT Cabinets",
-    tagline: "Space-Saving Integration",
+    tagline: "Space-Saving OT Solutions",
     heroDesc: "In an Operation Theatre, free-standing furniture gathers dust. Our SS-304 flush-mounted surgical cabinets integrate into modular walls, providing sterile storage without compromising airflow.",
     atAGlance: ["100% Flush Integration", "Premium SS-304 Steel", "Toughened Safety Glass", "Hermetic Magnetic Seals"],
     configurations: [
@@ -957,9 +1212,12 @@ const motProducts: Record<string, ProductData> = {
       { label: "Hardware", value: "Concealed SS hinges & Magnetic Seals" }
     ],
     faqs: [
-      { q: "Why use flush-mounted cabinets?", a: "To eliminate dust-trapping ledges and floor gaps found in standard cupboards." },
-      { q: "Does it compromise wall insulation?", a: "No, cabinet rears are insulated with PUF to maintain the wall's thermal barrier." },
-      { q: "Are shelves adjustable?", a: "Yes, heavy-duty internal tracks allow height adjustment for any equipment." }
+      { q: "Why can't we use standard free-standing cupboards in an OT?", a: "Standard free-standing cupboards have flat tops that collect dust, gaps underneath that trap bacteria, and sharp corners that disrupt the OT's Laminar Airflow. Flush-mounted cabinets eliminate all these issues by integrating seamlessly into the wall, providing a monolithic and perfectly sterile surface." },
+      { q: "Do flush-mounted cabinets compromise the wall's insulation?", a: "No. When we manufacture and install our flush-mounted cabinets, the back panel of the cabinet is heavily insulated with high-density Polyurethane Foam (PUF). This ensures the thermal and acoustic barrier of the modular wall remains perfectly intact without any heat leaks." },
+      { q: "Are the internal shelves adjustable?", a: "Yes, our storage cabinets feature heavy-duty, height-adjustable SS-304 or toughened glass shelving. This flexibility allows hospital staff to easily accommodate various sizes of surgical kits, implants, and large medical consumables on the fly." },
+      { q: "Can we customize the dimensions of the OT cabinets?", a: "Absolutely. As direct manufacturers, we CNC-fabricate each cabinet to match your exact hospital wall specifications, ensuring a 100% flush fit regardless of the modular panel thickness. We can design single-door, double-door, or full-wall storage grids." },
+      { q: "How are the glass doors protected against shattering?", a: "We utilize double-glazed, 5mm toughened safety glass set deeply into the SS-304 frame. In the extremely rare event of a severe impact from a surgical trolley, the glass is designed to crumble into blunt granular chunks rather than dangerous sharp shards, protecting the sterile field and staff." },
+      { q: "Is the SS-304 medical grade?", a: "Yes, all our SS-304 cabinets are engineered specifically for Class 100 cleanrooms, ensuring zero bio-fluid retention and maximum durability." }
     ],
     heroImage: "/images/mot-product-page-images/ot-storage-cabinet-images/glass-door-storage-cabinet.webp"
   },
@@ -970,77 +1228,106 @@ const motProducts: Record<string, ProductData> = {
     atAGlance: ["Real-Time Temp & RH Data", "High-Precision DP Sensors", "BMS & RS-485 Logging", "Audio/Visual Alarm Triggers"],
     configurations: [
       {
-        title: "Digital Display Stations",
-        desc: ["High-visibility LED screens flush-mounted into SS-304 panels. Output real-time Temp, RH, and Pressure readings.", "Numbers remain Green when safe; aggressive Red flashes with buzzers occur the second a breach happens."],
-        image: "/images/mot-product-page-images/environmental-monitoring-images/flush-mounted-digital-display-station.webp"
+        title: "Temperature & RH Sensors",
+        desc: [
+          "High-precision probes designed for extreme accuracy. These advanced sensors constantly measure the ambient Room Temperature and Relative Humidity (RH) inside the surgical suite or directly within the return air ducts.",
+          "They are engineered with ultra-fast response times to instantly detect any thermal spikes caused by surgical lighting or personnel movement. If humidity breaches 60%, they immediately signal the AHU's cooling coils and heaters to initiate deep dehumidification, preventing fungal growth on sterile equipment."
+        ],
+        image: "/images/mot-product-page-images/environmental-monitoring-images/temperature-rh-sensor.webp"
       },
       {
         title: "Differential Pressure Transmitters",
-        desc: ["Industrial-grade sensors convert air pressure into electrical signals for AHU feedback loops.", "Measures exact pressure variance in Pascals between sterile OT and outer corridor."],
+        desc: [
+          "The backbone of positive and negative pressure environments. Differential Pressure (DP) transmitters utilize highly sensitive diaphragms to measure the exact pressure variance (in Pascals) between the sterile OT and the unsterile corridor.",
+          "These industrial-grade transmitters convert physical air pressure into a 4-20mA electrical signal, communicating seamlessly with the digital displays and Variable Frequency Drives (VFDs) to actively modulate duct dampers and AHU blower speeds."
+        ],
         image: "/images/mot-product-page-images/environmental-monitoring-images/differential-pressure-transmitters.webp"
+      },
+      {
+        title: "Flush-Mounted Digital Display Stations",
+        desc: [
+          "Surgeons and nursing staff need instant environmental awareness without looking away from the patient. Our digital display stations feature high-visibility LED screens perfectly flush-mounted into the SS-304 modular wall panels.",
+          "The screens output real-time readings for Temp, RH, and Pressure. They are equipped with intelligent color-coding: numbers remain a soothing Green when parameters are safe, and instantly flash aggressive Red while sounding a piercing buzzer the second a cleanroom breach occurs."
+        ],
+        image: "/images/mot-product-page-images/environmental-monitoring-images/flush-mounted-digital-display-station.webp"
+      },
+      {
+        title: "BMS Integration & Data Logging",
+        desc: [
+          "For NABH accreditation, hospitals must present unalterable historical logs proving that OT climates were stable during surgeries.",
+          "Our environmental systems come with standard RS-485 Modbus outputs, allowing them to connect seamlessly to your facility's Building Management System (BMS) or Hospital Information System (HIS). The software records 24/7 telemetry data, providing 21 CFR Part 11 compliant audit trails, printable PDF reports, and automated email alerts to facility managers during off-hours."
+        ],
+        image: "/images/mot-product-page-images/environmental-monitoring-images/bms-monitoring-system.png"
       }
     ],
     engineering: [
       {
-        title: "Micro-Processor Sensors",
-        desc: "High-sensitivity internal diaphragms detect variances as minute as 0.1 Pascal for real-time telemetry.",
-        bullets: ["0.1 Pa Sensitivity", "Real-Time Telemetry"]
+        title: "Temperature Accuracy",
+        desc: "Precision sensors providing accuracy within ± 0.5°C across the standard operational range of 10°C to 40°C.",
+        bullets: ["± 0.5°C Accuracy", "Fast-Response Probe"]
       },
       {
-        title: "Electronic Actuators",
-        desc: "Swift-response motors continuously modulate duct dampers to compensate for sudden door openings.",
-        bullets: ["Swift-Response Motors", "Continuous Modulation"]
+        title: "RH Accuracy",
+        desc: "Utilizes capacitive polymer sensor technology to maintain relative humidity within ± 2% of the setpoint.",
+        bullets: ["± 2% RH Accuracy", "Capacitive Sensor Tech"]
       },
       {
-        title: "BMS Integration",
-        desc: "Telemetry data is recorded 24/7, providing unalterable reports for NABH auditors and facility managers.",
-        bullets: ["Audit-Ready Logs", "HIS/BMS Connectivity"]
+        title: "Differential Pressure Range",
+        desc: "Industrial sensors measuring variances from -50 Pa to +50 Pa with an accuracy of ± 1% for active pressure control.",
+        bullets: ["-50 to +50 Pa Range", "± 1% DP Accuracy"]
       }
     ],
     applications: [
       { title: "Modular Operation Theatres", image: "/images/service-images/modular-ot-product.webp" },
+      { title: "Intensive Care Units (ICU)", image: "/images/key-application-images/icu.webp" },
       { title: "IVF & Embryology Labs", image: "/images/about-us/about-us-assets/ivf-about.webp" },
-      { title: "Isolation Wards", image: "/images/about-us/about-us-assets/hospital-ward-about.webp" },
-      { title: "Intensive Care Units (ICU)", image: "/images/key-application-images/icu.webp" }
+      { title: "Isolation Wards & Corridors", image: "/images/service assets/service-page-assets/hospital-furniture.webp" }
     ],
     whyChoose: [
-      { title: "Turnkey Solutions", desc: "We provide End to End instrumentation solutions, eliminating delays and ensuring quality.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
-      { title: "ISO & CE Certified", desc: "Our products strictly adhere to ISO 9001:2015 for medical monitoring outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
-      { title: "Pan-India Execution", desc: "Engineering teams travel to your hospital site for precision sensor calibration.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Comprehensive lifetime maintenance and periodic calibration support.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "Turnkey Solutions", desc: "By providing End to End instrumentation solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
+      { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
+      { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
+      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Passing NABH Audits in a Corporate Hospital",
-      context: "A hospital had no way to prove historical humidity compliance to auditors during a major inspection.",
-      solution: "Deployed Digital Display Stations with BMS logging. Microscope fogging stopped and perfect data logs secured accreditation."
+      context: "A premier corporate hospital in Haryana was weeks away from a major NABH inspection. While their AHU was functioning, their analog wall thermostats were outdated, and they had no way to prove historical humidity compliance. Furthermore, surgeons were complaining about their microscopes continuously fogging up mid-procedure.",
+      solution: "MedGenz rapidly deployed a network of Digital Environmental Display Stations linked to duct-mounted RH sensors. We integrated the system with their central BMS. The new sensors instantly detected sudden humidity spikes during surgical washing phases, automatically triggering the AHU dehumidification cycle. The microscope fogging stopped entirely, and the hospital presented perfect 30-day data logs to the auditors, securing their accreditation."
     },
     specs: [
-      { label: "Temperature Accuracy", value: "± 0.5°C" },
-      { label: "RH Accuracy", value: "± 2% (Capacitive sensor)" },
-      { label: "DP Range", value: "-50 Pa to +50 Pa (± 1%)" },
-      { label: "Comm Output", value: "RS-485 Modbus RTU Protocol" }
+      { label: "Temperature Accuracy", value: "± 0.5°C (Standard Range: 10°C to 40°C)" },
+      { label: "Relative Humidity (RH) Accuracy", value: "± 2% RH (Capacitive polymer sensor technology)" },
+      { label: "Differential Pressure Range", value: "-50 Pa to +50 Pa (Accuracy ± 1%)" },
+      { label: "Communication Output", value: "4-20mA Analog / RS-485 Modbus RTU Protocol" },
+      { label: "Display Panel Material", value: "Flush-mounted SS-304 / Anti-microbial Polycarbonate fascia" }
     ],
     faqs: [
-      { q: "Why strict humidity control?", a: "High humidity breeds bacteria; low humidity build static electricity that shocks sensitive gear." },
-      { q: "Can data be exported?", a: "Yes, BMS integration logs data 24/7 for unalterable audit-ready reports." },
-      { q: "Does it adjust cooling?", a: "Yes, sensors command the AHU speed via VFD feedback loops to re-stabilize the room." }
+      { q: "Why do we need strict humidity control in the OT?", a: "Humidity that is too high (above 60%) breeds bacteria and mold, while humidity that is too low (below 40%) causes static electricity to build up, which can shock sensitive patient monitoring equipment. We maintain a strict 50% ± 5% RH." },
+      { q: "Can we export historical environmental data for NABH audits?", a: "Yes. Our advanced monitoring stations feature RS-485 Modbus and BMS (Building Management System) integration. This automatically logs temperature, humidity, and pressure data 24/7, providing unalterable reports for NABH auditors." },
+      { q: "Does the monitoring system automatically adjust the OT cooling?", a: "Yes, our smart sensors create a feedback loop. If the room gets too hot or pressure drops, the system sends an immediate command to the Air Handling Unit (AHU) to speed up the blower motors or engage the cooling coils to re-stabilize the environment." }
     ],
     heroImage: "/images/mot-product-page-images/environmental-monitoring-images/flush-mounted-digital-display-station.webp"
   },
   'room-lighting': {
     title: "Peripheral Cleanroom Lights",
-    tagline: "Ambient Illumination",
-    heroDesc: "General lighting in an OT cannot be ordinary. Standard fixtures gather dust and disrupt airflow. We manufacture flush-mounted, IP65-rated Peripheral LED panels.",
+    tagline: "Cleanroom Grade Ambient Illumination",
+    heroDesc: "General ambient lighting in an operating theatre cannot be ordinary. Standard commercial fixtures gather dust, disrupt airflow, and harbor dangerous bacteria. We manufacture flush-mounted, IP65-rated Peripheral LED light panels seamlessly engineered to integrate into Modular OT ceilings, ensuring a Class 100 sterile environment while providing brilliant, glare-free illumination for the entire surgical team.",
     atAGlance: ["IP65 Dust & Moisture Proof", "Flush Ceiling Integration", "Aerodynamic LAF Profile", "Anti-Glare Diffusers"],
     configurations: [
       {
         title: "Rectangular IP65 LED Panels",
-        desc: ["Designed to sit perfectly flush with modular ceilings. Prevents air turbulence and dust accumulation.", "Hermetically sealed with silicon gaskets to withstand aggressive chemical deep cleaning and fumigation."],
+        desc: [
+          "Designed to sit perfectly flush with modular ceilings. Prevents air turbulence and dust accumulation.",
+          "Hermetically sealed with silicon gaskets to withstand aggressive chemical deep cleaning and fumigation."
+        ],
         image: "/images/mot-product-page-images/ot-peripheral-led-light-images/rectangular-peripheral-led-light.webp"
       },
       {
         title: "Dimmable Cleanroom Arrays",
-        desc: ["Linked to Surgeon Control Panels for stepless dimming. Allows doctors to lower ambient light during endoscopy.", "Features high CRI (>90) for accurate skin tone and tissue color representation in the sterile zone."],
+        desc: [
+          "Linked to Surgeon Control Panels for stepless dimming. Allows doctors to lower ambient light during endoscopy.",
+          "Features high CRI (>90) for accurate skin tone and tissue color representation in the sterile zone."
+        ],
         image: "/images/mot-product-page-images/ot-peripheral-led-light-images/rectangular-peripheral-led-light.webp"
       }
     ],
@@ -1052,12 +1339,12 @@ const motProducts: Record<string, ProductData> = {
       },
       {
         title: "IP65 Sealed Housings",
-        desc: "entirely impervious to dust ingress and can withstand washing and harsh chemical fumigation agents.",
+        desc: "Operation Theatres require rigorous deep cleaning and fumigation. Our luminaires are hermetically sealed with robust silicon gaskets. They are entirely impervious to dust ingress and can withstand washing and harsh chemical fumigation agents.",
         bullets: ["Fumigation Safe", "Water Jet Protected"]
       },
       {
         title: "Anti-Glare Diffusers",
-        desc: "Frosted polycarbonate diffusers provide soft, flicker-free light that prevents eye fatigue during long surgeries.",
+        desc: "While the surgical dome light provides intense cavity illumination, the peripheral lights provide broad ambient sight for the anesthesiologists and nurses. We use frosted polycarbonate diffusers to provide soft, uniform, flicker-free light that prevents eye fatigue during long surgeries.",
         bullets: ["Reduces Eye Strain", "Soft, Uniform Illumination"]
       }
     ],
@@ -1068,24 +1355,28 @@ const motProducts: Record<string, ProductData> = {
       { title: "CSSD Processing", image: "/images/key-application-images/cssd.webp" }
     ],
     whyChoose: [
-      { title: "Turnkey Solutions", desc: "By providing End to End lighting solutions, we eliminate delays and ensure quality.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
-      { title: "ISO & CE Certified", desc: "Our products strictly adhere to ISO 9001:2015 standards for medical facilities.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
-      { title: "Pan-India Execution", desc: "Engineering teams travel to your site anywhere in India for installation.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "We provide comprehensive lifetime maintenance and spare parts support.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "Turnkey Solutions", desc: "By providing end-to-end lighting solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
+      { title: "ISO & CE Certified", desc: "Our products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
+      { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
+      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
-      title: "Resolving LAF Turbulence",
-      context: "A clinic failed validation because bulky commercial LED panels created air vortices that pulled in contaminants.",
-      solution: "Retrofitted with Flush-Mounted IP65 Panels. Airflow became an undisturbed 'piston effect', passing validation."
+      title: "Resolving Laminar Air Flow Turbulence with Flush Lighting",
+      context: "A newly built specialty clinic was failing its NABH cleanroom validation tests. Smoke flow tests revealed that standard, bulky commercial LED panels installed in the OT ceiling were creating severe air turbulence. This turbulence was pulling non-sterile ambient air directly into the sterile surgical zone.",
+      solution: "We removed the commercial panels and retrofitted the ceiling with MedGenz Flush-Mounted IP65 Peripheral LED Panels. The perfectly flat aerodynamic profile allowed the Laminar Air Flow to travel downwards in a completely undisturbed \"piston effect\". The clinic passed their Class 100 validation test on the very next attempt, ensuring surgical safety."
     },
     specs: [
-      { label: "Ingress Protection", value: "IP65 / IP66 Rated" },
-      { label: "Color Temperature", value: "6000K - 6500K (Daylight)" },
-      { label: "Diffuser Material", value: "Frosted Polycarbonate (Anti-glare)" },
-      { label: "CRI Rating", value: "Ra > 90 (Accurate Tissue Rendering)" }
+      { label: "Housing Frame Material", value: "Powder Coated CRCA Sheet / Extruded Aluminum" },
+      { label: "Ingress Protection (IP) Rating", value: "IP65 / IP66 (Hermetically sealed against dust and moisture)" },
+      { label: "Color Temperature", value: "6000K - 6500K (Cool White Daylight for visual clarity)" },
+      { label: "Diffuser Type", value: "Frosted Polycarbonate (Anti-glare, flicker-free)" },
+      { label: "Mounting Type", value: "Bottom Access Flush Mount (Easy maintenance without breaking ceiling seal)" }
     ],
     faqs: [
-      { q: "Why use IP65 lights?", a: "They are hermetically sealed against dust and moisture, surviving daily chemical washdowns." },
+      { q: "Why can't we use standard LED panels in a Modular OT?", a: "Standard commercial LED panels are not hermetically sealed (IP65 rated), meaning they harbor dust and bacteria inside the fixture. Furthermore, their frames often protrude slightly from the ceiling, which disrupts the critical downward push of the Laminar Air Flow system, causing dangerous air turbulence." },
+      { q: "What does an IP65 rating mean for OT lights?", a: "IP65 signifies that the light fixture is completely dust-tight and highly protected against low-pressure water jets from any direction. This is absolutely essential because Operating Theatres undergo rigorous chemical fumigation and high-pressure cleaning routines to maintain absolute sterility." },
+      { q: "How do peripheral lights differ from the main Surgical Dome lights?", a: "The main surgical dome light hangs over the patient and provides intense, highly-focused, shadowless illumination directly into the deep surgical cavity. Peripheral LED lights are installed flush into the surrounding ceiling to provide bright, glare-free ambient illumination for the nurses, anesthesiologists, and the rest of the room." },
+      { q: "Why is IP65 lights important?", a: "They are hermetically sealed against dust and moisture, surviving daily chemical washdowns." },
       { q: "Do they disrupt LAF?", a: "No, their flush aerodynamic profile ensures sterile air travels downwards without turbulence." },
       { q: "How do they differ from Dome lights?", a: "Dome lights are for the surgical cavity; peripheral lights provide ambient room sight." }
     ],
@@ -1094,129 +1385,195 @@ const motProducts: Record<string, ProductData> = {
   'surgical-lights': {
     title: "Shadowless Surgical OT Lights",
     tagline: "Uncompromised Vision",
-    heroDesc: "True surgical precision requires absolute visual clarity. Poor lighting interprets tissue color incorrectly and generates heat. Our lights deliver shadowless, cold LED illumination.",
+    heroDesc: "True surgical precision requires absolute visual clarity inside deep body cavities. Poor lighting causes shadows, misinterprets tissue color, and generates heat that dries out exposed organs. Our advanced OT lights deliver true shadowless, cold LED illumination, ensuring brilliant tissue rendering and perfect focus for the entire surgical team.",
     atAGlance: ["True Shadowless Tech", "HD Camera Ready", "Cold LED Illumination", "Adjustable Focus & Lux"],
     configurations: [
       {
-        title: "Ceiling-Mounted Double Dome",
-        desc: ["High-intensity LED technology (up to 1,60,000 Lux). Fixed overhead for stable, multi-angle illumination.", "Eliminates infrared heat to ensure exposed tissues do not dry out during procedures."],
+        title: "Ceiling-Mounted LED Lights",
+        desc: [
+          "The modern standard for permanent operating theatres. These fixed overhead systems utilize advanced LED technology to provide incredibly high-intensity white light (up to 1,60,000 Lux per dome) with minimal heat generation, ensuring exposed tissues do not dry out.",
+          "Ceiling-mounted lights are typically deployed in Double Dome or Triple Dome configurations for complex surgeries, providing stable, shadowless illumination from multiple overlapping angles while leaving the floor completely free of cables and stands."
+        ],
         image: "/images/mot-product-page-images/ot-light-images/ceiling-mounted-led-light.webp"
       },
       {
-        title: "Mobile / Portable OT Lights",
-        desc: ["Indispensable for flexible deployment. Mounted on anti-static castors with built-in battery backups.", "Exact same shadowless technology as ceiling models, perfect for emergency trauma bays."],
+        title: "Mobile & Portable OT Lights",
+        desc: [
+          "Engineered for ultimate flexibility and rapid deployment. These standalone lighting units are mounted on heavy-duty, anti-static casters, allowing medical staff to easily wheel them between different operating rooms, ICUs, or emergency trauma bays.",
+          "Mobile OT lights offer the exact same shadowless LED technology and high lux intensity as ceiling models but feature built-in battery backups. This makes them indispensable during power failures or in makeshift surgical environments where ceiling suspension isn't structurally possible."
+        ],
         image: "/images/mot-product-page-images/ot-light-images/mobile-portable-ot-lights.webp"
+      },
+      {
+        title: "Hybrid & Halogen OT Lights",
+        desc: [
+          "While LED is the modern baseline, Halogen OT Lights are still favored by some surgeons for their excellent, warm-toned color rendering index (CRI), making it easier to distinguish subtle differences in deep red muscle tissues, though they emit more infrared heat.",
+          "To bridge the gap, we offer Hybrid OT Lights. These advanced systems combine LED and Halogen technologies in a single housing. Surgeons can utilize the extreme brightness and cold temperature management of the LEDs, while dialing in the precise color spectrum of the halogen bulbs for specialized neuro or cardiovascular procedures."
+        ],
+        image: "/images/mot-product-page-images/ot-light-images/halogen-ot-lights.webp"
+      },
+      {
+        title: "Wall-Mounted Examination Lights",
+        desc: [
+          "Designed for confined spaces where ceiling mounts interfere with HVAC systems, or floor space is too limited for mobile carts. Wall-mounted lights are firmly attached to the vertical partitions via articulating, spring-balanced arms.",
+          "These are most commonly utilized in outpatient departments (OPD), labor rooms, emergency examination bays, or as highly directional supplementary lighting during complex, multi-angle surgeries in compact Modular OTs."
+        ],
+        image: "/images/mot-product-page-images/ot-light-images/wall-mounted-ot-lights.webp"
       }
     ],
     engineering: [
       {
         title: "Shadowless Technology",
-        desc: "Strategic array of intersecting LED beams ensures that if a head blocks one path, others maintain brightness.",
+        desc: "Utilizing a vast array of individual LEDs and specialized multi-faceted reflectors, our lights emit beams from hundreds of intersecting angles. This ensures that even if the surgeon’s head blocks the main light path, the operating field remains brilliantly illuminated with zero hard shadows.",
         bullets: ["Deep Cavity Illumination", "Multi-Faceted Reflectors"]
       },
       {
-        title: "HD Camera Ready",
-        desc: "integrated mounts for 4K surgical cameras. Allows recording and live streaming to auditoriums.",
+        title: "HD Camera Integration",
+        desc: "Modern teaching hospitals require live visual documentation. Our premium light domes come \"Camera Ready,\" featuring integrated internal wiring and central mounts for high-definition 1080p or 4K surgical cameras. Allows for seamless recording and live streaming to auditoriums.",
         bullets: ["4K / HD Video Output", "Live Streaming Capability"]
       },
       {
         title: "Adjustable Focus & Lux",
-        desc: "Intuitive sterile handle or digital panel for stepless dimming and variable field diameter.",
+        desc: "Via an intuitive sterile central handle or a wall-mounted digital touch panel, surgeons can smoothly adjust the diameter of the light field and the depth of focus. Stepless dimming from 10% to 100% ensures the perfect Lux intensity for any specific tissue type without glare.",
         bullets: ["Variable Field Diameter", "Stepless Intensity Dimming"]
       }
     ],
     applications: [
       { title: "Modular Operation Theatres", image: "/images/service-images/modular-ot-product.webp" },
-      { title: "Hybrid Cath Labs", image: "/images/key-application-images/cath-lab.webp" },
-      { title: "Intensive Care Units (ICU)", image: "/images/key-application-images/icu.webp" }
+      { title: "Ambulatory Surgery Centers", image: "/images/key-application-images/ambulatory-surgery-centers.webp" },
+      { title: "Intensive Care Units (ICU)", image: "/images/key-application-images/icu.webp" },
+      { title: "Emergency Rooms (ER)", image: "/images/service assets/service-page-assets/hospital-furniture.webp" }
     ],
     whyChoose: [
-      { title: "Turnkey Solutions", desc: "We handle the entire OT lighting project, ensuring absolute clinical precision.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
-      { title: "ISO & CE Certified", desc: "Our products strictly adhere to ISO 9001:2015 standards for surgical safety.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
-      { title: "Pan-India Execution", desc: "Our teams travel to your hospital site anywhere in the country for setup.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Comprehensive support for the lifetime of your surgical lighting infrastructure.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "Turnkey Solutions", desc: "By providing End to End OT Lighting solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
+      { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
+      { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
+      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
-      title: "Eliminating Cavity Shadows in a Teaching Hospital",
-      context: "Halogen lights were generating heat and students couldn't see the surgical site due to heavy shadowing.",
-      solution: "Upgraded to Ceiling Double Dome LEDs with 4K Camera. Shadow-free feed restored education quality."
+      title: "Eliminating Deep Cavity Shadows in a Teaching Hospital",
+      context: "A prominent medical teaching college was struggling during complex cardiovascular demonstrations. Their aging halogen lights were generating intense heat, drying out tissues rapidly. Furthermore, students watching on external monitors couldn't see the surgical site due to heavy shadowing from the lead surgeon's head.",
+      solution: "We upgraded their main theatre with a Ceiling-Mounted Double Dome LED Light featuring true shadowless technology and an integrated 4K HD Camera. The cold LED illumination eliminated tissue drying instantly. Thanks to the multi-faceted reflectors and the central camera, students in the auditorium now receive a crystal-clear, shadow-free, real-time feed of the deep cardiac cavity, vastly improving the educational experience."
     },
     specs: [
-      { label: "Max Illumination", value: "Up to 1,60,000 Lux" },
-      { label: "Color Temp", value: "3500K - 5000K (Adjustable)" },
-      { label: "Color Rendering (CRI)", value: "> 95 Ra" },
-      { label: "LED Lifespan", value: "> 50,000 Hours" }
+      { label: "Maximum Illumination (Lux)", value: "Up to 1,60,000 Lux (Per Dome, highly adjustable)" },
+      { label: "Color Temperature", value: "3500K - 5000K (Variable for optimal tissue contrast)" },
+      { label: "Color Rendering Index (CRI)", value: "> 95 Ra (Guarantees true red tissue color visualization)" },
+      { label: "LED Lifespan", value: "> 50,000 Hours (Virtually maintenance-free operation)" },
+      { label: "Camera Integration Options", value: "Built-in HD / 4K Wireless Camera with remote control pan/tilt" }
     ],
     faqs: [
-      { q: "What makes it shadowless?", a: "Multiple intersecting LED beams that compensate if one path is blocked by a head or hand." },
-      { q: "Why LED over Halogen?", a: "LEDs provide 'cold illumination'—zero heat and much longer lifespans." },
-      { q: "Can a camera be added?", a: "Yes, our 'Camera-Ready' domes are pre-wired for central HD/4K cameras." }
+      { q: "What makes an OT light 'Shadowless'?", a: "A true shadowless OT light utilizes a vast array of strategically angled LED bulbs and specialized multi-faceted reflectors. This design ensures that even if the surgeon’s head or hands block a portion of the light source, the overlapping beams from other angles maintain absolute brightness in the surgical cavity." },
+      { q: "Why is LED preferred over traditional Halogen OT lights?", a: "While halogen lights offer warm color rendering, they emit significant infrared heat, which can dry out exposed tissues during long surgeries. LED lights provide 'cold illumination'—delivering ultra-high intensity white light with virtually zero heat generation and vastly superior lifespans." },
+      { q: "Can we integrate a camera into the surgical light later?", a: "Yes, many of our high-end LED dome systems are 'Camera-Ready.' This means they are pre-wired internally so a central HD or 4K camera can be easily installed into the central axis of the light head at a later date without replacing the entire unit." },
+      { q: "What is the importance of Adjustable Focus?", a: "Different surgeries require different lighting. A cardiovascular surgery might need a wide beam to illuminate a large area, while a neurosurgery requires a narrow, deeply penetrating beam. Adjustable focus allows the surgeon to mechanically or digitally narrow the diameter of the light field to suit the procedure." }
     ],
     heroImage: "/images/mot-product-page-images/ot-light-images/ceiling-mounted-led-light.webp"
   },
   'surgical-tables': {
     title: "Surgical OT Tables",
-    tagline: "Precision Positioning",
-    heroDesc: "The literal foundation of patient care. A surgeon requires absolute anatomical access and perfect stability. We manufacture platforms from heavy-duty electro-hydraulic bases to radiolucent carbon fiber tops.",
+    tagline: "Precision Patient Positioning",
+    heroDesc: "The surgical table is the literal foundation of patient care inside the OT. A surgeon requires absolute anatomical access, perfect stability, and seamless integration with C-Arm imaging equipment during complex procedures. From heavy-duty electro-hydraulic bases to radiolucent carbon fiber tops, we manufacture the exact positioning platforms required for every medical specialty.",
     atAGlance: ["C-Arm & X-Ray Compatible", "High Weight Capacity", "Precise Auto-Positioning", "Multi-Specialty Attachments"],
     configurations: [
       {
-        title: "C-Arm Compatible Table",
-        desc: ["Radiolucent carbon fiber or phenolic resin top. Offset pillar design provides unobstructed 360-degree imaging.", "Allows C-Arm machine to glide freely under the patient without metal interference during live surgery."],
-        image: "/images/mot-product-page-images/ot-tables-images/c-arm-compatible-ot-table.webp"
+        title: "General & Multi-Purpose Tables",
+        desc: [
+          "The versatile backbone of any standard hospital. Our General Surgery OT Tables, highly adaptable Universal OT Tables, and flexible Multi-purpose OT Tables are engineered to accommodate a vast majority of routine abdominal, cardiovascular, and minor surgical procedures.",
+          "These tables feature a 4 or 5-section top, allowing for precise adjustments including Trendelenburg, reverse Trendelenburg, lateral tilt, and backrest elevation, ensuring the surgeon can easily manipulate patient posture for optimal anatomical exposure."
+        ],
+        image: "/images/mot-product-page-images/ot-tables-images/general-ot-table.webp"
       },
       {
-        title: "Electro-Hydraulic Table",
-        desc: ["Combines electric precision with hydraulic lifting power (300+ kg). smooth and stable articulations.", "Integrated battery backup ensures full movement control even during total power failure."],
+        title: "Specialty-Based OT Tables",
+        desc: [
+          "Certain disciplines demand highly specialized hardware. For intricate bone and trauma work, we offer dedicated Orthopedic OT Tables, Traction OT Tables, and specialized Fracture OT Tables featuring robust stainless steel traction frames.",
+          "Our portfolio also covers highly precise Neurosurgery OT Tables (compatible with Mayfield skull clamps) and robust Cardiovascular / Thoracic OT Tables for life-saving interventions. For specialized clinics, we manufacture heavy-capacity Bariatric OT Tables (Heavy-duty), Urology OT Tables with drainage systems, ENT OT Tables, low-height Ophthalmic OT Tables, contoured Plastic Surgery OT Tables, and advanced Laparoscopic OT Tables."
+        ],
+        image: "/images/mot-product-page-images/ot-tables-images/orthopedic-ot-table.webp"
+      },
+      {
+        title: "Gynecology & Obstetrics",
+        desc: [
+          "Maternity, delivery, and women's health procedures require precise ergonomics and immediate transformability. We supply dedicated Gynecology OT Tables featuring built-in lithotomy stirrups and fluid collection basins.",
+          "For comprehensive maternity wards, we manufacture heavy-duty Obstetric / Delivery Tables and multi-functional Labor Tables (LDR Tables) that allow a patient to remain in a single bed throughout Labor, Delivery, and Recovery. We also provide specialized Uro-Gynecology Tables engineered for complex pelvic floor procedures."
+        ],
+        image: "/images/mot-product-page-images/ot-tables-images/gynaecology-ot-table.webp"
+      },
+      {
+        title: "Mechanism / Technology-Based",
+        desc: [
+          "The driving force behind the table dictates its speed, precision, and weight capacity. For budget-conscious rural clinics, we offer reliable Manual OT Tables and smooth, pump-operated Hydraulic OT Tables.",
+          "For high-volume corporate hospitals, we engineer advanced Electro-Hydraulic OT Tables (combining electric motors with fluid power for massive lifting capacity) and ultra-precise Fully Electric OT Tables utilizing linear actuators. To guarantee absolute safety during hospital power failures, all powered models can be upgraded to Battery Operated OT Tables."
+        ],
         image: "/images/mot-product-page-images/ot-tables-images/electro-hydraulic-ot-table.webp"
+      },
+      {
+        title: "Advanced / Hybrid Tables",
+        desc: [
+          "For apex-tier medical facilities and teaching hospitals, operational efficiency is key. Our Modular OT Tables feature easily interchangeable table tops on a universal base, allowing a room to instantly switch from orthopedics to cardiovascular simply by rolling in a new top section.",
+          "Furthermore, we design state-of-the-art Hybrid OT Tables specifically engineered for simultaneous Cath Lab and surgery integration. These tables offer perfectly synchronized movements with heavy robotic imaging systems, providing the ultimate platform for complex, multi-disciplinary surgical interventions."
+        ],
+        image: "/images/mot-product-page-images/ot-tables-images/hybird-ot-table.webp"
+      },
+      {
+        title: "Imaging-Compatible Tables",
+        desc: [
+          "Modern, minimally invasive surgeries require continuous, live fluoroscopy and X-ray imaging directly over the patient.",
+          "Our highly advanced C-Arm Compatible OT Tables and fully Radiolucent OT Tables are manufactured using specialized translucent carbon fiber or phenolic resin tops. They feature an eccentric pillar design (the lifting column is offset to one end), providing a massive, unobstructed imaging window so the C-Arm machine can freely glide under and around the patient without metal interference."
+        ],
+        image: "/images/mot-product-page-images/ot-tables-images/c-arm-compatible-ot-table.webp"
       }
     ],
     engineering: [
       {
         title: "Heavy-Duty Lifting Column",
-        desc: "Central pillar using SS-304 and enclosed linear actuators for zero micro-vibrations during delicate surgery.",
+        desc: "The central pillar is engineered using premium SS-304 stainless steel and enclosed linear actuators or hydraulic cylinders. It provides a massive, stable lifting capacity (up to 300+ kg for bariatric models) without any shaking or micro-vibrations during delicate microscopic procedures.",
         bullets: ["Extreme Weight Capacity", "Zero Micro-Vibrations"]
       },
       {
         title: "Anti-Static Memory Mattress",
-        desc: "High-density memory foam wrapped in anti-static, waterproof PU cover to prevent pressure ulcers.",
-        bullets: ["Prevents Pressure Ulcers", "Detachable for Sanitization"]
+        desc: "Patient comfort is critical during multi-hour surgeries to prevent pressure ulcers. Our tables feature high-density, seamless memory foam mattresses. They are enveloped in an anti-static, waterproof, and fire-retardant PU cover that is easily detachable for rapid sanitization between cases.",
+        bullets: ["Prevents Pressure Ulcers", "Anti-Static & Waterproof"]
       },
       {
         title: "Digital Remote & Override",
-        desc: "Wired/wireless remote control with an integrated mechanical override for absolute emergency safety.",
+        desc: "Electro-hydraulic and fully electric models are controlled via a wired or wireless digital hand remote. For absolute patient safety in the event of a total electrical failure or remote damage, the tables are equipped with a manual, mechanical override system integrated directly into the base.",
         bullets: ["Precision Digital Remote", "Fail-Safe Manual Override"]
       }
     ],
     applications: [
       { title: "Modular Operation Theatres", image: "/images/service-images/modular-ot-product.webp" },
       { title: "Hybrid Cath Labs", image: "/images/key-application-images/cath-lab.webp" },
-      { title: "Trauma Centers", image: "/images/key-application-images/icu.webp" }
+      { title: "Ambulatory Surgery Centers", image: "/images/key-application-images/ambulatory-surgery-centers.webp" },
+      { title: "Maternity & Labor Wards", image: "/images/key-application-images/maternity-labour-ward.webp" }
     ],
     whyChoose: [
-      { title: "Turnkey Solutions", desc: "We provide complete OT Table solutions, ensuring clinical precision and safety.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
-      { title: "ISO & CE Certified", desc: "Our products strictly adhere to ISO 9001:2015 standards for surgical facilities.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
-      { title: "Pan-India Execution", desc: "Our teams travel directly to your hospital site anywhere in the country.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Comprehensive maintenance support for all table mechanisms.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "Turnkey Solutions", desc: "By providing End to End OT Table solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
+      { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
+      { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
+      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance on all tables.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Empowering Complex Orthopedics in Punjab",
-      context: "A hospital's old table blocked their new C-Arm X-Ray machine, forcing staff to move patients mid-surgery.",
-      solution: "Installed C-Arm Compatible Electro-Hydraulic Table. Carbon fiber top allowed head-to-toe imaging without movement."
+      context: "A leading joint replacement hospital in Punjab was facing severe operational delays. Their standard OT table had thick metal pillars underneath, which completely blocked their new C-Arm X-ray machine. Surgeons had to physically move the patient multiple times during surgery to get clear pelvic images, increasing anesthesia time and infection risks.",
+      solution: "We replaced their outdated equipment with our premium C-Arm Compatible Electro-Hydraulic Orthopedic Table. Featuring an eccentric base and a 100% radiolucent carbon fiber top, the C-Arm can now glide seamlessly from head to toe. The integrated orthopedic traction boots allowed surgeons to perform complex hip replacements 30% faster without ever moving the patient."
     },
     specs: [
-      { label: "Column Material", value: "Medical Grade SS-304" },
-      { label: "Load Capacity", value: "300+ kg (Heavy-Duty)" },
-      { label: "Articulations", value: "Trendelenburg, Lateral Tilt, Back/Leg Adj" },
-      { label: "Control System", value: "Digital Remote + Manual Override" }
+      { label: "Base & Column Material", value: "Medical Grade SS-304 Stainless Steel (Anti-rust & easy clean)" },
+      { label: "Table Top Sections", value: "4 or 5 sections (Radiolucent Phenolic / Carbon Fiber available)" },
+      { label: "Load Capacity", value: "150 kg (Standard) up to 300+ kg (Bariatric / Heavy Duty)" },
+      { label: "Movement Articulations", value: "Hi-Low, Trendelenburg/Reverse, Lateral Tilt, Back/Leg adjustments" },
+      { label: "Control Systems", value: "Wired/Wireless Digital Remote + Mechanical Manual Override" }
     ],
     faqs: [
-      { q: "What is 'C-Arm Compatible'?", a: "Radiolucent tops (X-ray transparent) and offset pillars that allow imaging scanners free access." },
-      { q: "Electro-Hydraulic vs Electric?", a: "Hydraulic offers massive weight lifting; Electric offers zero-oil precise digital motors." },
-      { q: "Is there battery backup?", a: "Yes, all powered models include SMF backups for continuous use during outages." }
+      { q: "What makes an OT table 'C-Arm Compatible'?", a: "A C-Arm compatible table uses a radiolucent top (often made of carbon fiber or phenolic resin) that allows X-rays to pass completely through it. It is also designed without bulky metal columns directly underneath the patient, allowing the C-Arm scanner to rotate freely 360 degrees around the table during live surgery." },
+      { q: "What is the difference between an Electro-Hydraulic and a Fully Electric OT table?", a: "An Electro-Hydraulic table uses an electric motor to pump hydraulic fluid to lift and tilt the table, offering massive weight capacity and smooth movements. A Fully Electric table uses electronic linear actuators (motors) for every movement, providing ultra-precise, digital positioning without the use of oil." },
+      { q: "Do your OT tables have a battery backup?", a: "Yes, our electric and electro-hydraulic tables come with an integrated, high-capacity SMF battery backup. If the hospital loses power during a critical procedure, the surgeon can still adjust the table's height, Trendelenburg, and tilt functions for hours." },
+      { q: "Can one table be used for both Neurology and Orthopedics?", a: "Yes, our Universal and Modular OT Tables feature interchangeable attachments. You can swap out a standard headrest for a specialized neuro-skull clamp, or attach orthopedic traction boots to the foot end, making a single table highly versatile for multispecialty hospitals." }
     ],
     heroImage: "/images/mot-product-page-images/ot-tables-images/fully-electric-ot-table1.webp"
-  }
+  },
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {

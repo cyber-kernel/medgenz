@@ -1,0 +1,202 @@
+:root { 
+    --med-blue: #212d45; 
+    --med-yellow: #f0df4a; 
+    --med-dark: #161e30;
+    --med-success: #25D366;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+::selection { background: var(--med-yellow); color: var(--med-blue); }
+body { background-color: #ffffff; color: var(--med-blue); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+/* ==========================================================================
+   2. HIGH-END SCROLLBAR DESIGN
+   ========================================================================== */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; border: 2px solid #f1f5f9; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ==========================================================================
+   3. PREMIUM GLASSMORPHISM
+   ========================================================================== */
+.glass-header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(33, 45, 69, 0.05);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+    transition: all 0.5s ease;
+}
+
+/* ==========================================================================
+   4. HERO IMAGE CROSSFADE ENGINE
+   ========================================================================== */
+.hero-bg {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; opacity: 0; transform: scale(1.08);
+    transition: opacity 2.5s cubic-bezier(0.4, 0, 0.2, 1), transform 10s linear;
+    will-change: transform, opacity;
+}
+.hero-bg.active { opacity: 0.65; transform: scale(1); }
+
+/* ==========================================================================
+   5. ZERO-SHIFT CSS GRID DYNAMIC TEXT SWAPPER
+   ========================================================================== */
+.swap-grid {
+    display: inline-grid;
+    grid-template-areas: "word";
+    vertical-align: bottom;
+    color: var(--med-yellow);
+}
+.swap-word {
+    grid-area: word;
+    opacity: 0;
+    transform: translateY(25px);
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    pointer-events: none;
+    justify-self: start; 
+}
+.swap-word.active { opacity: 1; transform: translateY(0); }
+.swap-word.exit { opacity: 0; transform: translateY(-25px); }
+
+/* ==========================================================================
+   6. INFINITE MARQUEE FADING MASKS
+   ========================================================================== */
+.marquee-mask {
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+
+/* ==========================================================================
+   7. HIGH-PERFORMANCE SCROLL REVEAL PHYSICS
+   ========================================================================== */
+.reveal-up {
+    opacity: 0; transform: translateY(40px);
+    transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+}
+.reveal-up.active { opacity: 1; transform: translateY(0); }
+.stagger-1 { transition-delay: 100ms; }
+.stagger-2 { transition-delay: 200ms; }
+.stagger-3 { transition-delay: 300ms; }
+.stagger-4 { transition-delay: 400ms; }
+.stagger-5 { transition-delay: 500ms; }
+
+/* ==========================================================================
+   8. CUSTOM HOVER GLOW EFFECTS
+   ========================================================================== */
+.btn-glow { transition: all 0.3s ease; position: relative; overflow: hidden; z-index: 1; }
+.btn-glow::before {
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.6s ease; z-index: -1;
+}
+.btn-glow:hover::before { left: 100%; }
+
+/* ==========================================================================
+   9. COMPACT DATA TABLE STYLING
+   ========================================================================== */
+.data-table th, .data-table td { border-bottom: 1px solid rgba(33, 45, 69, 0.08); vertical-align: top; }
+.data-table tr:last-child th, .data-table tr:last-child td { border-bottom: none; }
+.data-table tbody tr { transition: background-color 0.2s ease; }
+.data-table tbody tr:hover { background-color: rgba(240, 223, 74, 0.15); }
+
+/* ==========================================================================
+   10. FAQ ACCORDION ARCHITECTURE
+   ========================================================================== */
+.faq-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.faq-content.open { grid-template-rows: 1fr; }
+.faq-inner { overflow: hidden; }
+.faq-icon { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+.faq-content.open + .faq-icon-wrapper .faq-icon { transform: rotate(180deg); }
+
+/* ==========================================================================
+   11. CUSTOM FLOATING WIDGET (Mobile Only)
+   ========================================================================== */
+.widget-bubble { transform-origin: right center; }
+
+/* ==========================================================================
+   12. EXCELLENCE SECTION IMAGES CROSSFADE
+   ========================================================================== */
+.exc-bg {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; opacity: 0; transition: opacity 2.5s ease;
+}
+.exc-bg.active { opacity: 1; }
+
+/* ==========================================================================
+   MOBILE 3D COVERFLOW CAROUSEL
+   ========================================================================== */
+@media (max-width: 767px) {
+    .ot-card {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        width: 60%; /* Controls the width of the center card */
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        transform-origin: center center;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 0;
+        transform: translateX(-50%) scale(0.6);
+    }
+    
+    /* Center Card */
+    .ot-card.card-center {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+        z-index: 30;
+        pointer-events: auto;
+    }
+    
+    /* Left Back Card */
+    .ot-card.card-left {
+        transform: translateX(-115%) scale(0.85);
+        opacity: 0.5;
+        z-index: 20;
+        pointer-events: auto;
+        cursor: pointer;
+    }
+    
+    /* Right Back Card */
+    .ot-card.card-right {
+        transform: translateX(15%) scale(0.85);
+        opacity: 0.5;
+        z-index: 20;
+        pointer-events: auto;
+        cursor: pointer;
+    }
+    
+    /* Cards waiting off-screen */
+    .ot-card.card-hidden-right {
+        transform: translateX(80%) scale(0.6);
+        opacity: 0;
+    }
+    .ot-card.card-hidden-left {
+        transform: translateX(-180%) scale(0.6);
+        opacity: 0;
+    }
+}
+
+img {
+    /* Kills the native long-press popup menu on iOS Safari */
+    -webkit-touch-callout: none; 
+
+    /* Prevents the image from being highlighted/selected on all devices */
+    -webkit-user-select: none; 
+    -khtml-user-select: none; 
+    -moz-user-select: none; 
+    -ms-user-select: none; 
+    user-select: none; 
+    
+    /* Kills the native drag-and-drop ghost image */
+    -webkit-user-drag: none; 
+}

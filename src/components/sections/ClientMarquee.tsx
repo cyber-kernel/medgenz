@@ -12,11 +12,11 @@ const clientLogos = [
 
 export default function ClientMarquee() {
   return (
-    <section id="clients" className="py-12 md:py-24 bg-white overflow-hidden border-t border-gray-100 relative">
+    <section id="clients" className="py-12 md:py-20 bg-white overflow-hidden border-t border-gray-100 relative">
         <div className="text-center mb-6 md:mb-10 animate-on-scroll is-visible">
-            <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4 text-gray-900">Our Valuable <span className="text-brand-600">Clients</span></h2>
+            <h2 className="text-2xl md:text-4xl font-black mb-3 md:mb-4 text-gray-900 uppercase tracking-tighter">Our Valuable <span className="text-brand-600">Clients</span></h2>
             <div className="w-12 md:w-20 h-1 bg-brand-600 mx-auto rounded-full"></div>
-            <p className="text-gray-500 mt-3 md:mt-4 text-[11px] md:text-base max-w-xl mx-auto px-4 text-center">Trusted by leading healthcare institutions across India. Drag to explore.</p>
+            <p className="text-gray-500 mt-3 md:mt-4 text-[11px] md:text-base max-w-xl mx-auto px-4 text-center font-light">Trusted by leading healthcare institutions across India. Drag to explore.</p>
         </div>
 
         <div className="marquee-container group relative flex overflow-hidden">

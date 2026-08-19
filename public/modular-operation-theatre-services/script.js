@@ -98,9 +98,13 @@ formData.append('Query', document.getElementById('query').value);
                     method: 'POST', body: formData 
                 });
 
-                // GTM Tracking Push
+                // GTM Tracking Push with Google Ads Conversion
                 window.dataLayer = window.dataLayer || [];
-                window.dataLayer.push({'event': 'generate_lead'});
+                window.dataLayer.push({
+                    'event': 'contact_form_submit',
+                    'conversion_id': '17860249048',
+                    'conversion_label': 'QGO9CKDgylMCENiLt8RC'
+                });
 
                 const successModal = document.getElementById('successModal');
                 const successModalContent = document.getElementById('successModalContent');

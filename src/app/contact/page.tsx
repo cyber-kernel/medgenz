@@ -35,6 +35,15 @@ export default function ContactPage() {
       const result = await response.json();
 
       if (response.ok) {
+        // Trigger Google Ads Conversion Tracking via GTM DataLayer
+        if (typeof window !== 'undefined' && (window as any).dataLayer) {
+          (window as any).dataLayer.push({
+            event: 'contact_form_submit',
+            conversion_id: '17860249048',
+            conversion_label: 'QGO9CKDgylMCENiLt8RC'
+          });
+        }
+
         setStatus('success');
         setFormData({ name: '', email: '', phone: '', subject: 'General Inquiry', message: '' });
       } else {

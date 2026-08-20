@@ -88,21 +88,22 @@ export default function Header() {
             : 'bg-transparent border-b border-white/10'
         )}
       >
-        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+        <div className="w-full px-6 md:px-10 lg:px-12 flex justify-between items-center">
+
           <Link href="/" className="flex items-center group py-1">
-            <div className="relative h-14 md:h-28 w-40 md:w-80 transition-all duration-500">
-                <Image
-                    src="/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp"
-                    alt="MedGenz Logo"
-                    fill
-                    className="object-contain drop-shadow-md"
-                    priority
-                />
+            <div className="relative h-24 md:h-32 lg:h-36 w-72 md:w-[380px] lg:w-[420px] transition-all duration-500">
+              <Image
+                src="/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp"
+                alt="MedGenz Logo"
+                fill
+                className="object-contain object-left drop-shadow-md"
+                priority
+              />
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex gap-10 text-sm font-bold uppercase tracking-[0.15em]">
+          <div className="hidden md:flex gap-8 lg:gap-10 text-sm font-bold uppercase tracking-[0.15em]">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -114,12 +115,16 @@ export default function Header() {
                 )}
               >
                 {link.name}
-                <span className={cn(
+
+                <span
+                  className={cn(
                     "absolute bottom-0 left-0 w-0 h-0.5 bg-brand-600 transition-all duration-300 group-hover:w-full",
                     pathname === link.href ? "w-full" : ""
-                )} />
+                  )}
+                />
               </Link>
             ))}
+
             <Link
               href="/contact"
               className={cn(
@@ -138,8 +143,14 @@ export default function Header() {
             className="md:hidden p-2 rounded-lg bg-white/10 backdrop-blur-md"
             onClick={() => setIsMobileMenuOpen(true)}
           >
-            <Menu className={cn('w-6 h-6', shouldBeSolid ? 'text-slate-900' : 'text-white')} />
+            <Menu
+              className={cn(
+                'w-6 h-6',
+                shouldBeSolid ? 'text-slate-900' : 'text-white'
+              )}
+            />
           </button>
+
         </div>
       </nav>
 

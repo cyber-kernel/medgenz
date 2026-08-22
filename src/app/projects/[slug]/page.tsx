@@ -99,9 +99,10 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
                       </div>
                       <h2 className="text-3xl font-black text-slate-900 uppercase tracking-tighter">Project <span className="text-brand-600">Brief</span></h2>
                   </div>
-                  <p className="text-slate-500 text-xl leading-relaxed font-light">
-                      {project.brief}
-                  </p>
+                  <div
+                    className="prose prose-slate max-w-none text-slate-500 text-xl leading-relaxed font-light"
+                    dangerouslySetInnerHTML={{ __html: project.brief }}
+                  />
                 </div>
               )}
 
@@ -111,9 +112,10 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
                       <h3 className="text-xl font-black text-slate-900 uppercase tracking-tighter flex items-center gap-2">
                           <Zap className="w-5 h-5 text-brand-600" /> The Challenge
                       </h3>
-                      <p className="text-slate-600 leading-relaxed font-light whitespace-pre-wrap">
-                          {project.challenge}
-                      </p>
+                      <div
+                        className="prose prose-slate max-w-none text-slate-600 leading-relaxed font-light"
+                        dangerouslySetInnerHTML={{ __html: project.challenge }}
+                      />
                    </div>
                  )}
                  {project.solution && (
@@ -121,9 +123,10 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
                       <h3 className="text-xl font-black text-slate-900 uppercase tracking-tighter flex items-center gap-2">
                           <ShieldCheck className="w-5 h-5 text-green-600" /> Our Solution
                       </h3>
-                      <p className="text-slate-600 leading-relaxed font-light whitespace-pre-wrap">
-                          {project.solution}
-                      </p>
+                      <div
+                        className="prose prose-slate max-w-none text-slate-600 leading-relaxed font-light"
+                        dangerouslySetInnerHTML={{ __html: project.solution }}
+                      />
                    </div>
                  )}
               </div>

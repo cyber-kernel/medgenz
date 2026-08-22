@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+import 'react-quill-new/dist/quill.snow.css';
 import {
   Save,
   Image as ImageIcon,
@@ -19,6 +21,11 @@ import {
 } from "lucide-react";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+
+const ReactQuill = dynamic(() => import('react-quill-new'), {
+  ssr: false,
+  loading: () => <div className="h-64 bg-slate-50 animate-pulse rounded-2xl" />
+});
 
 interface ProjectEditorProps {
   initialData?: any;
@@ -53,6 +60,8 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   const [metaDescription, setMetaDescription] = useState(initialData?.metaDescription || '');
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const quillRefs = useRef<Record<string, any>>({});
+  const Quill: any = ReactQuill;
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -80,6 +89,72 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
       setUploading(false);
     }
   };
+
+  const selectLocalImage = (section: string) => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click();
+
+    input.onchange = async () => {
+      const file = input.files?.[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+        const res = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+        if (data.url) {
+          const quill = quillRefs.current[section]?.getEditor();
+          if (quill) {
+            const range = quill.getSelection() || { index: quill.getLength() };
+            quill.insertEmbed(range.index, 'image', data.url);
+          }
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+  };
+
+  const getQuillModules = (section: string) => ({
+    toolbar: {
+      container: [
+        [{ header: [1, 2, 3, false] }],
+        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        ['link', 'image'],
+        ['clean']
+      ],
+      handlers: {
+        image: () => selectLocalImage(section)
+      }
+    }
+  });
+
+  const renderRichTextField = (
+    section: string,
+    value: string,
+    onChange: (content: string) => void,
+    placeholder: string
+  ) => (
+    <div className="prose prose-slate max-w-none">
+      <Quill
+        ref={(editor: any) => { quillRefs.current[section] = editor; }}
+        theme="snow"
+        value={value}
+        onChange={onChange}
+        modules={getQuillModules(section)}
+        placeholder={placeholder}
+        className="min-h-[260px] border-none"
+      />
+    </div>
+  );
 
   const addHighlight = () => setHighlights([...highlights, '']);
   const removeHighlight = (index: number) => setHighlights(highlights.filter((_, i) => i !== index));
@@ -249,12 +324,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
                     <FileText className="w-5 h-5 text-brand-600" />
                     <h3 className="text-xl font-bold text-slate-900 uppercase tracking-tighter">The Project Brief</h3>
                 </div>
-                <textarea
-                    placeholder="Describe the initial project requirements and context..."
-                    value={brief}
-                    onChange={(e) => setBrief(e.target.value)}
-                    className="w-full h-32 p-6 rounded-2xl bg-slate-50 border-none outline-none focus:ring-4 focus:ring-brand-600/10 transition-all font-medium text-slate-600"
-                />
+                {renderRichTextField('brief', brief, setBrief, 'Describe the initial project requirements and context...')}
              </div>
 
              <div className="grid md:grid-cols-2 gap-10">
@@ -263,24 +333,14 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
                         <Zap className="w-5 h-5 text-brand-600" />
                         <h3 className="text-xl font-bold text-slate-900 uppercase tracking-tighter">The Challenge</h3>
                     </div>
-                    <textarea
-                        placeholder="What were the technical or structural hurdles?"
-                        value={challenge}
-                        onChange={(e) => setChallenge(e.target.value)}
-                        className="w-full h-48 p-6 rounded-2xl bg-slate-50 border-none outline-none focus:ring-4 focus:ring-brand-600/10 transition-all font-medium text-slate-600"
-                    />
+                    {renderRichTextField('challenge', challenge, setChallenge, 'What were the technical or structural hurdles?')}
                 </div>
                 <div className="space-y-4">
                     <div className="flex items-center gap-3 border-l-4 border-brand-600 pl-4">
                         <ShieldCheck className="w-5 h-5 text-green-600" />
                         <h3 className="text-xl font-bold text-slate-900 uppercase tracking-tighter">Our Solution</h3>
                     </div>
-                    <textarea
-                        placeholder="How did MedGenz engineering solve the problem?"
-                        value={solution}
-                        onChange={(e) => setSolution(e.target.value)}
-                        className="w-full h-48 p-6 rounded-2xl bg-slate-50 border-none outline-none focus:ring-4 focus:ring-brand-600/10 transition-all font-medium text-slate-600"
-                    />
+                    {renderRichTextField('solution', solution, setSolution, 'How did MedGenz engineering solve the problem?')}
                 </div>
              </div>
           </div>

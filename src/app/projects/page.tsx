@@ -54,7 +54,7 @@ export default async function ProjectsPage() {
     <div className="font-inter">
       {/* 1. HERO SECTION */}
       <section className="relative py-24 md:py-32 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
-        <div className="absolute inset-0 z-0 opacity-60">
+        <div className="absolute inset-0 z-0 opacity-80">
            <Image
              src="/images/about-us/about-us-home/about-us.webp"
              alt="MedGenz Projects"
@@ -62,7 +62,7 @@ export default async function ProjectsPage() {
              className="object-cover"
              priority
            />
-           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-transparent" />
+           <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/10 to-transparent" />
         </div>
         <div className="max-w-7xl mx-auto px-6 relative z-10 text-center pt-24 md:pt-32">
           <span className="inline-block px-4 py-1.5 rounded-full bg-brand-600/20 text-brand-400 border border-brand-500/30 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-6">Case Studies</span>

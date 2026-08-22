@@ -69,18 +69,28 @@ export default async function BlogListingPage() {
   };
 
   return (
-    <div className="pt-20 font-inter">
+    <div className="font-inter">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* CLEAN HEADER */}
-      <section className="py-24 md:py-32 bg-slate-50 border-b border-slate-100 uppercase tracking-tighter">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <span className="text-brand-600 font-bold uppercase tracking-widest text-xs md:text-sm mb-4 block">Knowledge Hub</span>
-          <h1 className="text-4xl md:text-7xl font-black text-slate-900 mb-8 leading-tight">Latest <span className="text-brand-600">Insights</span></h1>
-          <p className="text-slate-500 text-lg md:text-2xl max-w-2xl mx-auto leading-relaxed font-light normal-case tracking-normal">
+      {/* BLOG HERO */}
+      <section className="relative py-24 md:py-32 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
+        <div className="absolute inset-0 z-0 opacity-60">
+          <Image
+            src="/images/service-images/service-hero.webp"
+            alt="MedGenz healthcare insights"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-transparent" />
+        </div>
+        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center pt-24 md:pt-32">
+          <span className="text-brand-400 font-bold uppercase tracking-widest text-xs md:text-sm mb-4 block">Knowledge Hub</span>
+          <h1 className="text-4xl md:text-7xl font-black text-white mb-8 leading-tight">Latest <span className="text-brand-500">Insights</span></h1>
+          <p className="text-slate-300 text-lg md:text-2xl max-w-2xl mx-auto leading-relaxed font-light normal-case tracking-normal">
             Stay updated with the latest trends, safety protocols, and engineering breakthroughs in hospital infrastructure.
           </p>
         </div>

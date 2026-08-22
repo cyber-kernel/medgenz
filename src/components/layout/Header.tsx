@@ -44,8 +44,7 @@ export default function Header() {
 
   const transparentRoutes = ['/', '/about', '/services', '/projects', '/blogs', '/contact'];
   const shouldBeSolid = !transparentRoutes.includes(pathname ?? '') || isScrolled;
-  const hasLightHero = pathname === '/blogs';
-  const shouldUseDarkText = shouldBeSolid || hasLightHero;
+  const shouldUseDarkText = shouldBeSolid;
 
   return (
     <>
@@ -248,22 +247,7 @@ export default function Header() {
             {/* Contact Button */}
             <Link
               href="/contact"
-              className={cn(
-                'px-6',
-                'py-2',
-                'rounded-xl',
-                'whitespace-nowrap',
-                'transition-all',
-                'duration-500',
-                'transform',
-                'hover:-translate-y-0.5',
-
-                shouldBeSolid
-                  ? 'bg-brand-600 text-white shadow-lg shadow-brand-600/30 hover:bg-slate-900'
-                  : hasLightHero
-                    ? 'bg-brand-600 text-white hover:bg-slate-900'
-                    : 'bg-white text-slate-900 hover:bg-brand-600 hover:text-white'
-              )}
+              className="px-6 py-2 rounded-xl whitespace-nowrap transition-all duration-500 transform hover:-translate-y-0.5 bg-brand-600 text-white hover:bg-white hover:text-slate-900 active:bg-white active:text-slate-900"
             >
               Contact
             </Link>
@@ -305,14 +289,20 @@ export default function Header() {
       ========================================================= */}
       <div
         className={cn(
-          'fixed inset-0',
+          'fixed top-[156px] left-4 right-4',
           'bg-white',
           'z-[110]',
           'flex flex-col',
           'items-center',
-          'justify-center',
-          'gap-10',
-          'text-3xl',
+          'justify-start',
+          'gap-2',
+          'p-6',
+          'rounded-2xl',
+          'border border-slate-100',
+          'shadow-2xl',
+          'max-h-[calc(100vh-172px)]',
+          'overflow-y-auto',
+          'text-base',
           'font-black',
           'transition-all',
           'duration-500',
@@ -348,6 +338,9 @@ export default function Header() {
             href={link.href}
             onClick={() => setIsMobileMenuOpen(false)}
             className={cn(
+              'w-full',
+              'py-3',
+              'text-center',
               'hover:text-brand-600',
               'transition-all',
               'transform',
@@ -369,9 +362,12 @@ export default function Header() {
           className="
             bg-brand-600
             text-white
-            px-12
-            py-5
-            rounded-[2rem]
+            w-full
+            max-w-xs
+            px-6
+            py-3
+            rounded-xl
+            text-center
             hover:bg-slate-900
             transition-all
             shadow-2xl

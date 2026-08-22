@@ -15,19 +15,37 @@ export async function GET(request: Request) {
 
     // Fetch all projects
     const projects = await prisma.project.findMany({
-      select: { id: true, updatedAt: true },
+      where: { published: true },
+      select: { slug: true, updatedAt: true },
       orderBy: { updatedAt: "desc" },
     });
 
-    // Define static pages
-    const staticPages = [
+    // Define all public static pages and service product routes.
+    const staticPaths = [
       { path: "/", lastmod: new Date().toISOString(), priority: "1.0" },
       { path: "/about", lastmod: new Date().toISOString(), priority: "0.9" },
       { path: "/services", lastmod: new Date().toISOString(), priority: "0.9" },
       { path: "/projects", lastmod: new Date().toISOString(), priority: "0.8" },
       { path: "/blogs", lastmod: new Date().toISOString(), priority: "0.8" },
       { path: "/contact", lastmod: new Date().toISOString(), priority: "0.7" },
+      { path: "/services/modular-operation-theatre", lastmod: new Date().toISOString(), priority: "0.8" },
+      { path: "/services/medical-gas-pipeline-system", lastmod: new Date().toISOString(), priority: "0.8" },
+      { path: "/services/hospital-furniture", lastmod: new Date().toISOString(), priority: "0.8" },
+      { path: "/services/nurse-call-system", lastmod: new Date().toISOString(), priority: "0.8" },
+      { path: "/services/curtain-track-system", lastmod: new Date().toISOString(), priority: "0.8" },
+      { path: "/services/ivf-lab-setups", lastmod: new Date().toISOString(), priority: "0.8" },
+      { path: "/services/surgical-pendants", lastmod: new Date().toISOString(), priority: "0.8" },
     ];
+
+    const serviceProductPaths = [
+      ...["wall-panels", "ceiling-systems", "hermetic-doors", "flooring-systems", "laminar-airflow", "hepa-filtration", "ahu", "pressure-control", "hvac-ducting", "surgeon-control-panel", "room-lighting", "environment-monitoring", "surgical-pendants", "scrub-stations", "storage-cabinets", "x-ray-viewers"].map((slug) => `/services/modular-operation-theatre/${slug}`),
+      ...["oxygen-supply-system", "nitrous-oxide-system", "medical-air-system", "central-vacuum-system", "copper-pipeline-network", "gas-control-safety", "bed-head-panels", "gas-outlets-terminals", "accessories-consumables"].map((slug) => `/services/medical-gas-pipeline-system/${slug}`),
+      ...["icu-beds", "electric-bed", "crash-cart-trollies", "fowler-ward-beds", "lockers-overbedtables", "support-therapy-beds", "speciality-beds", "transport-emergency-beds", "examination-tables", "iv-stand-accessories"].map((slug) => `/services/hospital-furniture/${slug}`),
+      ...["bedside-hardware", "emergency-indicators", "central-control-displays"].map((slug) => `/services/nurse-call-system/${slug}`),
+      ...["aluminum-tracks", "silent-gliders", "roof-suspensions", "custom-layouts", "curtains", "iv-tracks"].map((slug) => `/services/curtain-track-system/${slug}`),
+    ].map((path) => ({ path, lastmod: new Date().toISOString(), priority: "0.7" }));
+
+    const staticPages = [...staticPaths, ...serviceProductPaths];
 
     // Build XML
     const urls = [
@@ -52,7 +70,7 @@ export async function GET(request: Request) {
       ...projects.map(
         (project) =>
           `  <url>
-    <loc>${baseUrl}/projects/${project.id}</loc>
+    <loc>${baseUrl}/projects/${project.slug}</loc>
     <lastmod>${project.updatedAt.toISOString()}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

@@ -192,9 +192,10 @@ export default function Home() {
             <div className="w-16 h-1 bg-brand-600 mx-auto rounded-full" />
           </div>
 
-          <div className="flex overflow-x-auto gap-6 pb-12 snap-x snap-mandatory hide-scrollbar">
-            {testimonials.map((t, i) => (
-              <div key={i} className="min-w-[85vw] md:min-w-[450px] bg-white rounded-3xl p-8 shadow-lg border border-slate-100 snap-center relative group hover:-translate-y-2 transition-transform duration-300">
+          <div className="overflow-hidden pb-12">
+            <div className="flex w-max gap-6 animate-marquee">
+            {[...testimonials, ...testimonials].map((t, i) => (
+              <div key={`${t.name}-${i}`} className="w-[85vw] md:w-[450px] shrink-0 bg-white rounded-3xl p-8 shadow-lg border border-slate-100 relative group hover:-translate-y-2 transition-transform duration-300">
                 <div className="flex text-yellow-400 mb-6">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="w-5 h-5 fill-current" />
@@ -210,6 +211,7 @@ export default function Home() {
                 </div>
               </div>
             ))}
+            </div>
           </div>
         </div>
       </section>

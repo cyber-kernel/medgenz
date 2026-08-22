@@ -47,9 +47,9 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
       {/* 1. PROJECT HERO */}
       <section className="relative py-24 md:py-32 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
         {project.heroImage && (
-          <div className="absolute inset-0 z-0 opacity-40">
+          <div className="absolute inset-0 z-0 opacity-70">
             <Image src={project.heroImage} alt={project.title} fill className="object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/80 to-slate-950/60" />
+            <div className="absolute inset-0 bg-gradient-to-b from-slate-950/55 via-slate-950/35 to-slate-950/20" />
           </div>
         )}
 

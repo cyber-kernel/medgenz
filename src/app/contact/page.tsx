@@ -273,7 +273,7 @@ export default function ContactPage() {
       </section>
 
       {/* Map Placeholder */}
-      <section className="h-[500px] bg-slate-100 relative">
+      <section className="bg-slate-100 relative">
         <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 font-bold uppercase tracking-widest text-xs gap-4">
           <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md">
             <MapPin className="w-8 h-8 text-brand-500" />

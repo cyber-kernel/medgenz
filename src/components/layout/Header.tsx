@@ -42,8 +42,10 @@ export default function Header() {
     return null;
   }
 
-  const isHome = pathname === '/';
-  const shouldBeSolid = !isHome || isScrolled;
+  const transparentRoutes = ['/', '/about', '/services', '/projects', '/blogs', '/contact'];
+  const shouldBeSolid = !transparentRoutes.includes(pathname ?? '') || isScrolled;
+  const hasLightHero = pathname === '/blogs';
+  const shouldUseDarkText = shouldBeSolid || hasLightHero;
 
   return (
     <>
@@ -212,7 +214,7 @@ export default function Header() {
                   'py-2',
                   'whitespace-nowrap',
 
-                  shouldBeSolid
+                  shouldUseDarkText
                     ? 'text-slate-900'
                     : 'text-white',
 
@@ -258,7 +260,9 @@ export default function Header() {
 
                 shouldBeSolid
                   ? 'bg-brand-600 text-white shadow-lg shadow-brand-600/30 hover:bg-slate-900'
-                  : 'bg-white text-slate-900 hover:bg-brand-600 hover:text-white'
+                  : hasLightHero
+                    ? 'bg-brand-600 text-white hover:bg-slate-900'
+                    : 'bg-white text-slate-900 hover:bg-brand-600 hover:text-white'
               )}
             >
               Contact
@@ -287,7 +291,7 @@ export default function Header() {
               className={cn(
                 'w-6 h-6',
 
-                shouldBeSolid
+                shouldUseDarkText
                   ? 'text-slate-900'
                   : 'text-white'
               )}

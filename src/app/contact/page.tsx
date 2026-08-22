@@ -111,7 +111,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="pt-20 font-inter">
+    <div className="font-inter">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -10,8 +10,8 @@ interface SEOProps {
 }
 
 const defaultSEO = {
-  title: 'MedGenz | Premier Medical Equipment & MGPS Manufacturers',
-  description: 'Premier ISO certified manufacturer of Modular Operation Theatres (MOT), Medical Gas Pipeline Systems (MGPS), and turnkey hospital infrastructure in India.',
+  title: 'MedGenz | Modular Operation Theatres & Medical Gas Pipeline System NABH and ISO certified turnkey solutions',
+  description: 'MedGenz India Private Limited provides NABH and ISO certified turnkey solutions for Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure.',
   image: '/images/og-image.jpg',
   url: 'https://www.medgenz.com',
   type: 'website',

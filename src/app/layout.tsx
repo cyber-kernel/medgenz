@@ -36,8 +36,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "MedGenz | Premier Medical Equipment & MGPS Manufacturers in India",
-  description: "ISO 9001 & CE certified manufacturer of Modular Operation Theatres (MOT), Medical Gas Pipeline Systems (MGPS), Hospital Furniture, and complete turnkey hospital infrastructure. 150+ projects, 12+ years experience.",
+  title: "MedGenz | Modular Operation Theatres & Medical Gas Pipeline System NABH and ISO certified turnkey solutions",
+  description: "MedGenz India Private Limited provides NABH and ISO certified turnkey solutions for Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure.",
   keywords: [
     "Modular Operation Theatre",
     "MGPS",
@@ -67,9 +67,9 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: "https://www.medgenz.com",
     siteName: "MedGenz",
-    title: "MedGenz | Premier Medical Equipment & MGPS Manufacturers",
+    title: "MedGenz | Modular Operation Theatres & Medical Gas Pipeline System NABH and ISO certified turnkey solutions",
     description:
-      "ISO certified manufacturer of Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure in India.",
+      "MedGenz India Private Limited provides NABH and ISO certified turnkey solutions for Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure.",
     images: [
       {
         url: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
@@ -82,9 +82,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "MedGenz | Premier Medical Equipment & MGPS Manufacturers",
+    title: "MedGenz | Modular Operation Theatres & Medical Gas Pipeline System NABH and ISO certified turnkey solutions",
     description:
-      "ISO certified manufacturer of Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure in India.",
+      "MedGenz India Private Limited provides NABH and ISO certified turnkey solutions for Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure.",
     creator: "@medgenz",
   },
   robots: {

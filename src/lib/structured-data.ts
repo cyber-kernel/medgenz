@@ -10,7 +10,9 @@ export interface SchemaOrgType {
 export const getOrganizationSchema = (): SchemaOrgType => ({
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "MedGenz",
+  name: "MedGenz India Private Limited",
+  legalName: "MedGenz India Private Limited",
+  alternateName: "MedGenz",
   url: "https://www.medgenz.com",
   logo: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
   description:
@@ -49,7 +51,8 @@ export const getOrganizationSchema = (): SchemaOrgType => ({
 export const getLocalBusinessSchema = (): SchemaOrgType => ({
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  name: "MedGenz",
+  name: "MedGenz India Private Limited",
+  alternateName: "MedGenz",
   image: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
   description:
     "Leading manufacturer of Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure.",
@@ -230,7 +233,8 @@ export const getContactPointSchema = (): SchemaOrgType => ({
 export const getWebsiteSchema = (): SchemaOrgType => ({
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "MedGenz",
+  name: "MedGenz India Private Limited",
+  alternateName: "MedGenz",
   url: "https://www.medgenz.com",
   potentialAction: {
     "@type": "SearchAction",

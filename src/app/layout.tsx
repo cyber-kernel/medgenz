@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
+import FAQAccordionController from "@/components/FAQAccordionController";
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { getOrganizationSchema, getWebsiteSchema } from "@/lib/structured-data";
@@ -171,6 +172,7 @@ export default function RootLayout({
 
         <Header />
         <ScrollReveal />
+        <FAQAccordionController />
         <main>{children}</main>
         <Footer />
       </body>

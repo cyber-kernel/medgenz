@@ -15,6 +15,29 @@ h1, h2, h3, h4, h5, h6 {
   @apply font-poppins;
 }
 
+details > summary {
+  list-style: none;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+details > summary::after {
+  content: "";
+  width: 0.6rem;
+  height: 0.6rem;
+  flex: 0 0 0.6rem;
+  border-right: 2px solid var(--primary);
+  border-bottom: 2px solid var(--primary);
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform 200ms ease;
+}
+
+details[open] > summary::after {
+  transform: rotate(225deg) translateY(-2px);
+}
+
 .animate-on-scroll {
   @apply opacity-0 translate-y-4 transition-all duration-700 ease-out;
 }

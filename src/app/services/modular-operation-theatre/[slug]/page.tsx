@@ -819,7 +819,7 @@ const motProducts: Record<string, ProductData> = {
     heroImage: "/images/mot-product-page-images/ot-hvac-ducting/aluminum-hvac-ducting.webp"
   },
   'surgeon-control-panel': {
-    title: "Command the Surgical Environment",
+    title: "SURGEON CONTROL PANEL",
     tagline: "The Brain of the OT",
     heroDesc: "In an active surgery, doctors cannot break scrub to adjust disjointed wall switches. We manufacture centralized, flush-mounted digital interfaces that allow the surgical team to command HVAC parameters, lighting, elapsed timers, and medical gas alarms from one single, sterile dashboard.",
     atAGlance: ["Digital Touchscreen Interface", "Real-time Temp & RH Data", "Integrated Gas Alarms", "IP65 Waterproof Sealed"],
@@ -1075,10 +1075,7 @@ const motProducts: Record<string, ProductData> = {
     faqs: [
       { q: "Why must scrub stations be touchless?", a: "In highly sterile environments like Modular Operation Theatres, touchless scrub stations are a mandatory infection control measure. Once a surgeon or scrub nurse completes their surgical hand antisepsis using betadine or chlorhexidine, physically touching a traditional faucet handle instantly re-contaminates their hands, leading to severe surgical site infections (SSI). Our advanced SS-304 scrub sinks utilize high-precision Infrared (IR) optical sensors that automatically trigger water and medical soap dispensers. This 100% hands-free, touchless activation ensures absolute compliance with strict NABH and CDC hospital hygiene guidelines, fundamentally safeguarding the sterile core of the hospital." },
       { q: "What happens if the IR sensor fails during a power outage?", a: "Continuous surgical workflows cannot be interrupted by technical failures or power outages. To guarantee fail-safe operation, every surgical scrub station we manufacture at MedGenz is equipped with redundant mechanical backups. Beneath the primary IR sensor array, we install concealed, ergonomic knee-operated or foot-operated push panels. If the hospital experiences a sudden electrical failure, the surgical staff can simply press their knee against these mechanical levers to instantly activate the water flow. This dual-redundancy ensures uninterrupted pre-surgical preparation and absolute reliability in critical healthcare scenarios." },
-      { q: "How does the sink prevent water from splashing onto the surgeon?", a: "Splashing contaminated water from the drain back onto a surgeon's sterile scrub suit is a major bio-hazard. To counter this, our scrub station basins are meticulously engineered using heavy-gauge Stainless Steel 304 with an aerodynamic, deep-sloped back-wall design. Instead of hitting a flat surface and rebounding, the high-pressure water stream hits the angled plane smoothly and is safely deflected downward into an oversized, anti-vortex drain. This anti-splash ergonomic design keeps the surgical team completely dry and sterile, maintaining the integrity of the hospital cleanroom environment." },
-      { q: "Is the SS-304 non-porous?", a: "Yes, SS-304 is a premium medical-grade alloy that is entirely non-porous and rust-proof." },
-      { q: "Can we have both knee and foot operation?", a: "Yes, we can equip the stations with both IR sensors and redundant mechanical knee or foot operated backups." },
-      { q: "What is the width of each bay?", a: "Each individual washing bay is spaciously engineered with a standard 800mm width." }
+      { q: "How does the sink prevent water from splashing onto the surgeon?", a: "Splashing contaminated water from the drain back onto a surgeon's sterile scrub suit is a major bio-hazard and infection risk in any operating room setup. To counter this, our scrub station basins are meticulously engineered using heavy-gauge Stainless Steel 304 with an aerodynamic, deep-sloped back-wall design. Instead of hitting a flat surface and rebounding, the high-pressure water stream hits the angled plane smoothly and is safely deflected downward into an oversized, anti-vortex drain. This anti-splash ergonomic design keeps the surgical team completely dry and sterile, maintaining the integrity of the hospital cleanroom environment." }
     ],
     heroImage: "/images/mot-product-page-images/ot-surgical-scrub-stations-images/single-bay-automatic-surgical-scrub-station.webp"
   },
@@ -1548,8 +1545,7 @@ const motProducts: Record<string, ProductData> = {
         ],
         image: "/images/mot-product-page-images/ot-tables-images/hybird-ot-table.webp",
         gallery: [
-          "/images/mot-product-page-images/ot-tables-images/hybird-ot-table.webp",
-          "/images/mot-product-page-images/ot-tables-images/c-arm-compatible-ot-table.webp"
+          "/images/mot-product-page-images/ot-tables-images/hybird-ot-table.webp"
         ]
       },
       {
@@ -1651,6 +1647,7 @@ export default async function MOTProductPage({ params }: { params: Promise<{ slu
           title: <>Product <span className="text-brand-600">Configurations</span></>,
           description: 'Every configuration is precision-manufactured and modularly designed to fit your exact demands.'
         };
+    const configurations = slug === 'laminar-airflow' ? data.configurations.slice(1) : data.configurations;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -1723,8 +1720,66 @@ export default async function MOTProductPage({ params }: { params: Promise<{ slu
         </div>
       </section>
 
+      {slug === 'laminar-airflow' && (
+        <section className="py-12 md:py-24 px-4 md:px-6 bg-gray-50 border-b border-gray-200">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-12 md:mb-16 animate-on-scroll">
+              <span className="text-brand-600 font-bold uppercase tracking-widest text-[10px] md:text-sm mb-1 md:mb-2 block">The MedGenz Standard</span>
+              <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4 text-gray-900">Vertical Laminar Air Flow <span className="text-brand-600">(VLAF) Systems</span></h2>
+              <div className="w-16 md:w-20 h-1 bg-brand-600 mx-auto rounded-full mb-4 md:mb-6"></div>
+              <p className="text-gray-600 max-w-2xl mx-auto text-xs md:text-lg">Engineered exclusively for modern Modular Operation Theatres by MedGenz India Private Limited.</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
+              <div className="relative w-full animate-on-scroll order-1">
+                <ConfigurationImageSlider
+                  images={[
+                    "/images/mot-product-page-images/ot-laf-images/laminar-airflow-1.webp",
+                    "/images/mot-product-page-images/ot-laf-images/laminar-airflow-2.webp",
+                    "/images/mot-product-page-images/ot-laf-images/laminar-airflow-3.webp",
+                    "/images/mot-product-page-images/ot-laf-images/laminar-airflow-4.webp"
+                  ]}
+                  alt="MedGenz Vertical Laminar Air Flow"
+                  className="h-72 sm:h-80 lg:h-[450px]"
+                />
+              </div>
+
+              <div className="animate-on-scroll order-2 md:order-none">
+                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-5">Precision-Engineered for Modular Ceilings</h3>
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-5">
+                  In high-acuity healthcare infrastructure, ceiling-mounted Vertical Laminar Air Flow (VLAF) systems are the absolute standard. We manufacture these units to integrate flawlessly into your modular OT ceiling, suspended directly above the surgical table.
+                </p>
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6">
+                  The VLAF plenum pushes H14 HEPA-filtered air straight down in a clean, unidirectional &quot;piston effect.&quot; This instantly washes away aerosolized bacteria and surgical dust, forcing contaminants toward the floor where they are safely extracted by corner Return Air Risers.
+                </p>
+
+                <div className="bg-white border border-gray-100 rounded-xl p-5 mb-8 shadow-sm">
+                  <ul className="space-y-4">
+                    {[
+                      "NABH-Compliant Class 100 / ISO 5 Sterile Zones",
+                      "Constructed in Custom SS-304 Stainless Steel or Powder-Coated Aluminum",
+                      "Zero-Turbulence Airflow via Micro-Perforated CG Diffusers"
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-3 text-sm md:text-base text-gray-800 font-medium">
+                        <span className="w-6 h-6 rounded-full bg-brand-50 flex items-center justify-center shrink-0 mt-0.5 text-brand-600">&#10003;</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <Link href="/contact" className="inline-flex items-center gap-2 text-brand-600 font-bold hover:text-brand-800 transition-colors uppercase tracking-wide text-sm group">
+                  Consult Our Engineering Team
+                  <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* CONFIGURATIONS */}
-      <section className="py-12 md:py-20 px-4 md:px-6 bg-gray-50 border-b border-gray-200">
+      {slug !== 'laminar-airflow' && <section className="py-12 md:py-20 px-4 md:px-6 bg-gray-50 border-b border-gray-200">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10 md:mb-16 animate-on-scroll">
             <span className="text-brand-600 font-bold uppercase tracking-widest text-[10px] md:text-sm mb-1 md:mb-2 block">{catalogueCopy.eyebrow}</span>
@@ -1734,7 +1789,7 @@ export default async function MOTProductPage({ params }: { params: Promise<{ slu
           </div>
 
           <div className="space-y-16 md:space-y-24">
-            {data.configurations.map((config, i) => (
+            {configurations.map((config, i) => (
               <div key={i} className="grid md:grid-cols-12 gap-8 md:gap-12 items-center group animate-on-scroll">
                 <div className={`md:col-span-5 relative ${i % 2 !== 0 ? 'md:order-2' : 'md:order-1'}`}>
                   <ConfigurationImageSlider images={config.gallery ?? [config.image]} alt={config.title} />
@@ -1749,7 +1804,7 @@ export default async function MOTProductPage({ params }: { params: Promise<{ slu
             ))}
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* INTERNAL ENGINEERING */}
       <section className="py-12 md:py-24 px-4 md:px-6 bg-white border-b border-gray-200">

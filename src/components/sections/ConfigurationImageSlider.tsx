@@ -7,9 +7,10 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 interface ConfigurationImageSliderProps {
   images: string[];
   alt: string;
+  className?: string;
 }
 
-export default function ConfigurationImageSlider({ images, alt }: ConfigurationImageSliderProps) {
+export default function ConfigurationImageSlider({ images, alt, className }: ConfigurationImageSliderProps) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   if (images.length === 0) return null;
@@ -19,7 +20,7 @@ export default function ConfigurationImageSlider({ images, alt }: ConfigurationI
   };
 
   return (
-    <div className="relative w-full h-56 sm:h-72 lg:h-80 bg-gray-100 rounded-xl shadow-md border border-gray-200 overflow-hidden group/slider">
+    <div className={`relative w-full h-56 sm:h-72 lg:h-80 bg-gray-100 rounded-xl shadow-md border border-gray-200 overflow-hidden group/slider ${className ?? ''}`}>
       <div
         className="flex w-full h-full transition-transform duration-500 ease-in-out"
         style={{ transform: `translateX(-${activeIndex * 100}%)` }}

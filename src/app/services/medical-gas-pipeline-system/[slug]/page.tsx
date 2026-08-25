@@ -394,7 +394,7 @@ const productData: Record<string, ProductData> = {
           "The structural highway of your hospital's gas supply. We strictly utilize half-hard and hard tempered, non-arsenical, seamless copper tubes manufactured precisely to BS EN 13348 and ASTM B819 medical standards.",
           "Unlike standard tubing, our medical copper is intensely degreased at the factory to strip away all hydrocarbon residues, and then individually capped at both ends. This guarantees the internal surface remains immaculately clean during transit and storage, eliminating the catastrophic risk of high-pressure oxygen fires."
         ],
-        image: "/images/service-images/copper-pipe-main.webp"
+        image: "/images/service-images/mgps-product.webp"
       },
       {
         title: "Pipe Fittings & Joints",

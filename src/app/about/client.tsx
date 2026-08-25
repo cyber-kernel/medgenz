@@ -65,10 +65,10 @@ const featuredProjects = [
     link: "/services/medical-gas-pipeline-system"
   },
   {
-    title: "Advanced IVF Laboratory",
-    desc: "Precision-engineered sterile setup designed specifically for clinical embryology and successful in-vitro fertilization procedures.",
-    image: "/images/about-us/about-us-assets/ivf-about.webp",
-    link: "/services/ivf-lab-setups"
+    title: "Hospital Furniture",
+    desc: "Durable, patient-focused hospital furniture engineered for intensive care, wards, emergency rooms, and everyday clinical use.",
+    image: "/images/service assets/service-page-assets/hospital-furniture.webp",
+    link: "/services/hospital-furniture"
   }
 ];
 

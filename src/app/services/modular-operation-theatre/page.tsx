@@ -38,7 +38,7 @@ const architecture = [
     badge: "Integrated Commands",
     items: [
       { name: "Digital Surgeon Control Panel", slug: "surgeon-control-panel" },
-      { name: "Peripheral LED Room Lighting", slug: "room-lighting" },
+      { name: "Peripheral Cleanroom Lights", slug: "peripheral-cleanroom-lights" },
       { name: "Temperature & Pressure Monitoring", slug: "environment-monitoring" }
     ]
   },

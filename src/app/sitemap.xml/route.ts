@@ -38,7 +38,7 @@ export async function GET(request: Request) {
     ];
 
     const serviceProductPaths = [
-      ...["wall-panels", "ceiling-systems", "hermetic-doors", "flooring-systems", "laminar-airflow", "hepa-filtration", "ahu", "pressure-control", "hvac-ducting", "surgeon-control-panel", "room-lighting", "environment-monitoring", "surgical-pendants", "scrub-stations", "storage-cabinets", "x-ray-viewers"].map((slug) => `/services/modular-operation-theatre/${slug}`),
+      ...["wall-panels", "ceiling-systems", "hermetic-doors", "flooring-systems", "laminar-airflow", "hepa-filtration", "ahu", "pressure-control", "hvac-ducting", "surgeon-control-panel", "peripheral-cleanroom-lights", "environment-monitoring", "surgical-pendants", "scrub-stations", "storage-cabinets", "x-ray-viewers"].map((slug) => `/services/modular-operation-theatre/${slug}`),
       ...["oxygen-supply-system", "nitrous-oxide-system", "medical-air-system", "central-vacuum-system", "copper-pipeline-network", "gas-control-safety", "bed-head-panels", "gas-outlets-terminals", "accessories-consumables"].map((slug) => `/services/medical-gas-pipeline-system/${slug}`),
       ...["icu-beds", "electric-bed", "crash-cart-trollies", "fowler-ward-beds", "lockers-overbedtables", "support-therapy-beds", "speciality-beds", "transport-emergency-beds", "examination-tables", "iv-stand-accessories"].map((slug) => `/services/hospital-furniture/${slug}`),
       ...["bedside-hardware", "emergency-indicators", "central-control-displays"].map((slug) => `/services/nurse-call-system/${slug}`),

@@ -1321,7 +1321,7 @@ const motProducts: Record<string, ProductData> = {
     ],
     heroImage: "/images/mot-product-page-images/environmental-monitoring-images/flush-mounted-digital-display-station.webp"
   },
-  'room-lighting': {
+  'peripheral-cleanroom-lights': {
     title: "Peripheral Cleanroom Lights",
     tagline: "Cleanroom Grade Ambient Illumination",
     heroDesc: "General ambient lighting in an operating theatre cannot be ordinary. Standard commercial fixtures gather dust, disrupt airflow, and harbor dangerous bacteria. We manufacture flush-mounted, IP65-rated Peripheral LED light panels seamlessly engineered to integrate into Modular OT ceilings, ensuring a Class 100 sterile environment while providing brilliant, glare-free illumination for the entire surgical team.",
@@ -1778,8 +1778,66 @@ export default async function MOTProductPage({ params }: { params: Promise<{ slu
         </section>
       )}
 
+      {slug === 'peripheral-cleanroom-lights' && (
+        <section className="py-12 md:py-24 px-4 md:px-6 bg-gray-50 border-b border-gray-200">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-12 md:mb-16 animate-on-scroll">
+              <span className="text-brand-600 font-bold uppercase tracking-widest text-[10px] md:text-sm mb-1 md:mb-2 block">The MedGenz Standard</span>
+              <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4 text-gray-900">Peripheral LED Cleanroom Panels</h2>
+              <div className="w-16 md:w-20 h-1 bg-brand-600 mx-auto rounded-full mb-4 md:mb-6"></div>
+              <p className="text-gray-600 max-w-2xl mx-auto text-xs md:text-lg">Engineered exclusively for modern Modular Operation Theatres by MedGenz India Private Limited.</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
+              <div className="relative w-full animate-on-scroll order-1">
+                <ConfigurationImageSlider
+                  images={[
+                    "/images/mot-product-page-images/ot-peripheral-led-light-images/rectangular-peripheral-led-light.webp",
+                    "/images/mot-product-page-images/ot-peripheral-led-light-images/square-peripheral-led-light.webp",
+                    "/images/mot-product-page-images/ot-peripheral-led-light-images/peripheral-ot-light.webp",
+                    "/images/mot-product-page-images/ot-peripheral-led-light-images/ot-peripheral-light-modular-ot.webp"
+                  ]}
+                  alt="MedGenz Peripheral LED Cleanroom Panels"
+                  className="h-72 sm:h-80 lg:h-[450px]"
+                />
+              </div>
+
+              <div className="animate-on-scroll order-2 md:order-none">
+                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-5">Precision-Engineered for Modular Ceilings</h3>
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-5">
+                  Proper ambient lighting reduces eye fatigue for the surgical team during hours-long procedures. Our Peripheral LED panels are manufactured to fit perfectly within standard modular PUF or powder-coated aluminum ceiling grids, sitting completely flush with the surface.
+                </p>
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6">
+                  Because they sit perfectly flush, they do not disrupt the critical downward trajectory of the Laminar Air Flow (LAF) system. Furthermore, the IP65 sealed housing ensures that potent hospital fumigation chemicals and intense wash-downs will never penetrate the circuitry.
+                </p>
+
+                <div className="bg-white border border-gray-100 rounded-xl p-5 mb-8 shadow-sm">
+                  <ul className="space-y-4">
+                    {[
+                      "IP65 Certified against Dust and Moisture Ingress",
+                      "Flush Installation to maintain LAF Aerodynamics",
+                      "Available in Top-Access or Bottom-Access Maintenance Models"
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-3 text-sm md:text-base text-gray-800 font-medium">
+                        <span className="w-6 h-6 rounded-full bg-brand-50 flex items-center justify-center shrink-0 mt-0.5 text-brand-600">&#10003;</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <Link href="/contact" className="inline-flex items-center gap-2 text-brand-600 font-bold hover:text-brand-800 transition-colors uppercase tracking-wide text-sm group">
+                  Consult Our Engineering Team
+                  <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* CONFIGURATIONS */}
-      {slug !== 'laminar-airflow' && <section className="py-12 md:py-20 px-4 md:px-6 bg-gray-50 border-b border-gray-200">
+      {slug !== 'laminar-airflow' && slug !== 'peripheral-cleanroom-lights' && <section className="py-12 md:py-20 px-4 md:px-6 bg-gray-50 border-b border-gray-200">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10 md:mb-16 animate-on-scroll">
             <span className="text-brand-600 font-bold uppercase tracking-widest text-[10px] md:text-sm mb-1 md:mb-2 block">{catalogueCopy.eyebrow}</span>

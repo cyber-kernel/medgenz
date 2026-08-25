@@ -206,8 +206,7 @@ export default function ServicesPage() {
             {faqs.map((faq, index) => (
               <details key={index} className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-lg transition-all">
                 <summary className="cursor-pointer list-none text-base md:text-lg font-black text-slate-900 flex items-center justify-between gap-4 uppercase tracking-tighter">
-                  <span>{faq.question}</span>
-                  <span className="text-brand-600 text-2xl transition-transform group-open:rotate-45">+</span>
+                  <span className="flex items-start gap-3"><span className="text-brand-600 shrink-0">{index + 1}.</span>{faq.question}</span>
                 </summary>
                 <p className="mt-4 text-slate-600 leading-relaxed text-sm md:text-base font-light">{faq.answer}</p>
               </details>

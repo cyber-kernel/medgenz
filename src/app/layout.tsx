@@ -58,8 +58,8 @@ export const metadata: Metadata = {
     address: false,
   },
   icons: {
-    icon: "/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
-    apple: "/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
+    icon: "/medgenz-favicon-new2.webp",
+    apple: "/medgenz-favicon-new2.webp",
   },
   manifest: "/manifest.json",
   openGraph: {

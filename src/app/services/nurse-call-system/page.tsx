@@ -7,7 +7,6 @@ import {
   CheckCircle,
   ShieldCheck,
   ChevronRight,
-  ChevronDown,
   FileText,
   Zap,
   Activity,
@@ -16,7 +15,6 @@ import {
   Monitor,
   AlertTriangle,
   ArrowRight,
-  HelpCircle,
   Star,
   ExternalLink,
   Wind
@@ -324,13 +322,12 @@ export default function NurseCallSystemHub() {
               <details key={i} className="group bg-gray-50 rounded-lg md:rounded-xl border border-gray-200 shadow-sm overflow-hidden" open={i === 0}>
                 <summary className="flex items-center justify-between p-3 md:p-5 font-bold text-gray-900 cursor-pointer hover:bg-white transition-colors">
                   <span className="text-xs sm:text-sm md:text-lg flex items-start gap-2 md:gap-3">
-                    <HelpCircle className="w-4 h-4 md:w-6 md:h-6 text-brand-600 shrink-0 mt-0.5" />
+                    <span className="text-brand-600 shrink-0">{i + 1}.</span>
                     {faq.q}
                   </span>
-                  <ArrowRight className="transition duration-300 group-open:rotate-90 shrink-0 text-brand-600 w-4 h-4 md:w-5 md:h-5" />
                 </summary>
                 <div className="px-3 md:px-5 pb-3 md:pb-5 pt-1 text-gray-600 text-xs md:text-base leading-relaxed border-t border-gray-100 mt-2 font-light">
-                  <p className="mt-1 md:mt-2 ml-6 md:ml-9">{faq.a}</p>
+                  <p className="mt-1 md:mt-2">{faq.a}</p>
                 </div>
               </details>
             ))}

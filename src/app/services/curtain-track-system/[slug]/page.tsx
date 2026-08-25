@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { CheckCircle, ShieldCheck, ArrowRight, Activity, Zap, Layers, Settings, Microscope, Shield, Globe, Clock, Award, FileText, Phone, MessageSquare, Calendar, ChevronDown, Wind, Layout, Lightbulb, HelpCircle, Scissors } from "lucide-react";
+import { CheckCircle, ShieldCheck, ArrowRight, Activity, Zap, Layers, Settings, Microscope, Shield, Globe, Clock, Award, FileText, Phone, MessageSquare, Calendar, Wind, Layout, Lightbulb, Scissors } from "lucide-react";
 import ECGCTA from '@/components/sections/ECGCTA';
 import ClientMarquee from '@/components/sections/ClientMarquee';
 import Certifications from '@/components/sections/Certifications';
@@ -590,6 +590,9 @@ export default async function CTSProductPage({ params }: { params: Promise<{ slu
         </div>
       </section>
 
+      <Certifications />
+      <ClientMarquee />
+
       {/* FAQ */}
       <section className="py-12 md:py-24 px-4 md:px-6 bg-white border-b border-gray-200">
         <div className="max-w-4xl mx-auto">
@@ -602,14 +605,13 @@ export default async function CTSProductPage({ params }: { params: Promise<{ slu
             {data.faqs.map((faq, i) => (
               <details key={i} className="group bg-gray-50 rounded-lg md:rounded-xl border border-gray-200 shadow-sm overflow-hidden" open={i === 0}>
                 <summary className="flex items-center justify-between p-3 md:p-5 font-bold text-gray-900 cursor-pointer hover:bg-white transition-colors">
-                  <span className="text-sm md:text-base pr-4 flex items-center gap-3 text-left font-bold">
-                    <HelpCircle className="w-5 h-5 text-brand-600 shrink-0" />
+                  <span className="text-sm md:text-base pr-4 flex items-start gap-3 text-left font-bold">
+                    <span className="text-brand-600 shrink-0">{i + 1}.</span>
                     {faq.q}
                   </span>
-                  <ChevronDown className="transition duration-300 group-open:-rotate-180 shrink-0 text-brand-600 w-5 h-5" />
                 </summary>
                 <div className="px-3 md:px-5 pb-3 md:pb-5 pt-1 text-gray-600 text-xs md:text-base leading-relaxed border-t border-gray-100 mt-2 font-light">
-                  <p className="mt-1 md:mt-2 ml-6 md:ml-9">{faq.a}</p>
+                  <p className="mt-1 md:mt-2">{faq.a}</p>
                 </div>
               </details>
             ))}
@@ -617,8 +619,6 @@ export default async function CTSProductPage({ params }: { params: Promise<{ slu
         </div>
       </section>
 
-      <Certifications />
-      <ClientMarquee />
       <ECGCTA />
     </div>
   );

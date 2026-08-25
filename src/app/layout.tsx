@@ -3,6 +3,7 @@ import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import ScrollReveal from "@/components/ScrollReveal";
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { getOrganizationSchema, getWebsiteSchema } from "@/lib/structured-data";
@@ -169,6 +170,7 @@ export default function RootLayout({
         {/* End Google Tag Manager (noscript) */}
 
         <Header />
+        <ScrollReveal />
         <main>{children}</main>
         <Footer />
       </body>

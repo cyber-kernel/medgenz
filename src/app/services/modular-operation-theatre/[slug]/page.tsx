@@ -6,11 +6,13 @@ import { Activity, Zap, ArrowRight } from "lucide-react";
 import ECGCTA from '@/components/sections/ECGCTA';
 import ClientMarquee from '@/components/sections/ClientMarquee';
 import Certifications from '@/components/sections/Certifications';
+import ConfigurationImageSlider from '@/components/sections/ConfigurationImageSlider';
 
 interface ConfigItem {
   title: string;
   desc: string[];
   image: string;
+  gallery?: string[];
 }
 
 interface EngineeringItem {
@@ -996,7 +998,12 @@ const motProducts: Record<string, ProductData> = {
           "To accommodate diverse hospital requirements, we fabricate our medical scrub stations in customizable 1-Bay, 2-Bay, and 3-Bay configurations. This multi-user design ensures that lead surgeons and scrub nurses can prepare simultaneously, eliminating pre-operative bottlenecks outside the Modular OT.",
           "Each individual washing bay is spaciously engineered with a standard 800mm width. This generous spatial allowance guarantees that surgeons have ample room to rigorously scrub their hands and forearms up to the elbows without accidentally bumping into adjacent personnel—a critical factor in maintaining an unbroken sterile perimeter and adhering to strict NABH cleanroom protocols."
         ],
-        image: "/images/mot-product-page-images/ot-surgical-scrub-stations-images/triple-bay-manual-surgical-scrub-station.webp"
+        image: "/images/mot-product-page-images/ot-surgical-scrub-stations-images/single-bay-manual-surgical-scrub-station.webp",
+        gallery: [
+          "/images/mot-product-page-images/ot-surgical-scrub-stations-images/single-bay-manual-surgical-scrub-station.webp",
+          "/images/mot-product-page-images/ot-surgical-scrub-stations-images/double-bay-manual-surgical-scrub-station.webp",
+          "/images/mot-product-page-images/ot-surgical-scrub-stations-images/triple-bay-manual-surgical-scrub-station.webp"
+        ]
       },
       {
         title: "Touchless Sensor Faucets",
@@ -1004,7 +1011,12 @@ const motProducts: Record<string, ProductData> = {
           "The absolute core of pre-surgical infection control relies on eliminating physical contact points. Each scrubbing bay is equipped with a highly sensitive, medical-grade Infrared (IR) optical sensor built directly into the SS-304 back panel or the faucet neck itself. As the surgeon approaches the hospital sink, the water activates instantly without a single touch.",
           "When they step away, an integrated digital micro-controller allows the water to flow for an additional 2 to 3 seconds. This delayed shut-off is crucial, as it automatically washes away any residual betadine soap down the drain, leaving a perfectly clean basin for the next user while simultaneously saving thousands of liters of hospital water annually."
         ],
-        image: "/images/mot-product-page-images/ot-surgical-scrub-stations-images/triple-bay-automatic-surgical-scrub-station.webp"
+        image: "/images/mot-product-page-images/ot-surgical-scrub-stations-images/single-bay-automatic-surgical-scrub-station.webp",
+        gallery: [
+          "/images/mot-product-page-images/ot-surgical-scrub-stations-images/single-bay-automatic-surgical-scrub-station.webp",
+          "/images/mot-product-page-images/ot-surgical-scrub-stations-images/double-bay-automatic-surgical-scrub-station.webp",
+          "/images/mot-product-page-images/ot-surgical-scrub-stations-images/triple-bay-automatic-surgical-scrub-station.webp"
+        ]
       },
       {
         title: "Integrated Soap & UV Sterilization",
@@ -1012,7 +1024,11 @@ const motProducts: Record<string, ProductData> = {
           "Alongside our touchless faucets, every scrubbing bay features integrated automatic betadine or surgical soap dispensers, ensuring the entire pre-op cleaning protocol remains 100% hands-free.",
           "Furthermore, we offer the seamless integration of inline UV-C Water Sterilizers and 0.2-micron microbial absolute filters hidden within the stainless steel plumbing shroud. This guarantees that the water washing the surgeon's hands is fundamentally sterile and purified before it even exits the tap."
         ],
-        image: "/images/mot-product-page-images/ot-surgical-scrub-stations-images/triple-bay-automatic-soap-dispenser-surgical-scrub-station.webp"
+        image: "/images/mot-product-page-images/ot-surgical-scrub-stations-images/single-bay-automatic-soap-dispenser-surgical-scrub-station.webp",
+        gallery: [
+          "/images/mot-product-page-images/ot-surgical-scrub-stations-images/single-bay-automatic-soap-dispenser-surgical-scrub-station.webp",
+          "/images/mot-product-page-images/ot-surgical-scrub-stations-images/double-bay-automatic-soap-dispenser-surgical-scrub-station.webp"
+        ]
       }
     ],
     engineering: [
@@ -1482,7 +1498,11 @@ const motProducts: Record<string, ProductData> = {
           "The versatile backbone of any standard hospital. Our General Surgery OT Tables, highly adaptable Universal OT Tables, and flexible Multi-purpose OT Tables are engineered to accommodate a vast majority of routine abdominal, cardiovascular, and minor surgical procedures.",
           "These tables feature a 4 or 5-section top, allowing for precise adjustments including Trendelenburg, reverse Trendelenburg, lateral tilt, and backrest elevation, ensuring the surgeon can easily manipulate patient posture for optimal anatomical exposure."
         ],
-        image: "/images/mot-product-page-images/ot-tables-images/general-ot-table.webp"
+        image: "/images/mot-product-page-images/ot-tables-images/general-ot-table.webp",
+        gallery: [
+          "/images/mot-product-page-images/ot-tables-images/general-ot-table.webp",
+          "/images/mot-product-page-images/ot-tables-images/multi-purpose-ot-table.webp"
+        ]
       },
       {
         title: "Specialty-Based OT Tables",
@@ -1490,7 +1510,11 @@ const motProducts: Record<string, ProductData> = {
           "Certain disciplines demand highly specialized hardware. For intricate bone and trauma work, we offer dedicated Orthopedic OT Tables, Traction OT Tables, and specialized Fracture OT Tables featuring robust stainless steel traction frames.",
           "Our portfolio also covers highly precise Neurosurgery OT Tables (compatible with Mayfield skull clamps) and robust Cardiovascular / Thoracic OT Tables for life-saving interventions. For specialized clinics, we manufacture heavy-capacity Bariatric OT Tables (Heavy-duty), Urology OT Tables with drainage systems, ENT OT Tables, low-height Ophthalmic OT Tables, contoured Plastic Surgery OT Tables, and advanced Laparoscopic OT Tables."
         ],
-        image: "/images/mot-product-page-images/ot-tables-images/orthopedic-ot-table.webp"
+        image: "/images/mot-product-page-images/ot-tables-images/orthopedic-ot-table.webp",
+        gallery: [
+          "/images/mot-product-page-images/ot-tables-images/orthopedic-ot-table.webp",
+          "/images/mot-product-page-images/ot-tables-images/neurosurgery-ot-table.webp"
+        ]
       },
       {
         title: "Gynecology & Obstetrics",
@@ -1498,7 +1522,11 @@ const motProducts: Record<string, ProductData> = {
           "Maternity, delivery, and women's health procedures require precise ergonomics and immediate transformability. We supply dedicated Gynecology OT Tables featuring built-in lithotomy stirrups and fluid collection basins.",
           "For comprehensive maternity wards, we manufacture heavy-duty Obstetric / Delivery Tables and multi-functional Labor Tables (LDR Tables) that allow a patient to remain in a single bed throughout Labor, Delivery, and Recovery. We also provide specialized Uro-Gynecology Tables engineered for complex pelvic floor procedures."
         ],
-        image: "/images/mot-product-page-images/ot-tables-images/gynaecology-ot-table.webp"
+        image: "/images/mot-product-page-images/ot-tables-images/gynaecology-ot-table.webp",
+        gallery: [
+          "/images/mot-product-page-images/ot-tables-images/gynaecology-ot-table.webp",
+          "/images/mot-product-page-images/ot-tables-images/obstetric-ldr-table.webp"
+        ]
       },
       {
         title: "Mechanism / Technology-Based",
@@ -1506,7 +1534,11 @@ const motProducts: Record<string, ProductData> = {
           "The driving force behind the table dictates its speed, precision, and weight capacity. For budget-conscious rural clinics, we offer reliable Manual OT Tables and smooth, pump-operated Hydraulic OT Tables.",
           "For high-volume corporate hospitals, we engineer advanced Electro-Hydraulic OT Tables (combining electric motors with fluid power for massive lifting capacity) and ultra-precise Fully Electric OT Tables utilizing linear actuators. To guarantee absolute safety during hospital power failures, all powered models can be upgraded to Battery Operated OT Tables."
         ],
-        image: "/images/mot-product-page-images/ot-tables-images/electro-hydraulic-ot-table.webp"
+        image: "/images/mot-product-page-images/ot-tables-images/electro-hydraulic-ot-table.webp",
+        gallery: [
+          "/images/mot-product-page-images/ot-tables-images/electro-hydraulic-ot-table.webp",
+          "/images/mot-product-page-images/ot-tables-images/fully-electric-ot-table.webp"
+        ]
       },
       {
         title: "Advanced / Hybrid Tables",
@@ -1514,7 +1546,11 @@ const motProducts: Record<string, ProductData> = {
           "For apex-tier medical facilities and teaching hospitals, operational efficiency is key. Our Modular OT Tables feature easily interchangeable table tops on a universal base, allowing a room to instantly switch from orthopedics to cardiovascular simply by rolling in a new top section.",
           "Furthermore, we design state-of-the-art Hybrid OT Tables specifically engineered for simultaneous Cath Lab and surgery integration. These tables offer perfectly synchronized movements with heavy robotic imaging systems, providing the ultimate platform for complex, multi-disciplinary surgical interventions."
         ],
-        image: "/images/mot-product-page-images/ot-tables-images/hybird-ot-table.webp"
+        image: "/images/mot-product-page-images/ot-tables-images/hybird-ot-table.webp",
+        gallery: [
+          "/images/mot-product-page-images/ot-tables-images/hybird-ot-table.webp",
+          "/images/mot-product-page-images/ot-tables-images/c-arm-compatible-ot-table.webp"
+        ]
       },
       {
         title: "Imaging-Compatible Tables",
@@ -1522,7 +1558,11 @@ const motProducts: Record<string, ProductData> = {
           "Modern, minimally invasive surgeries require continuous, live fluoroscopy and X-ray imaging directly over the patient.",
           "Our highly advanced C-Arm Compatible OT Tables and fully Radiolucent OT Tables are manufactured using specialized translucent carbon fiber or phenolic resin tops. They feature an eccentric pillar design (the lifting column is offset to one end), providing a massive, unobstructed imaging window so the C-Arm machine can freely glide under and around the patient without metal interference."
         ],
-        image: "/images/mot-product-page-images/ot-tables-images/c-arm-compatible-ot-table.webp"
+        image: "/images/mot-product-page-images/ot-tables-images/c-arm-compatible-ot-table.webp",
+        gallery: [
+          "/images/mot-product-page-images/ot-tables-images/c-arm-compatible-ot-table.webp",
+          "/images/mot-product-page-images/ot-tables-images/radiolucent-ot-table.webp"
+        ]
       }
     ],
     engineering: [
@@ -1593,6 +1633,24 @@ export default async function MOTProductPage({ params }: { params: Promise<{ slu
   if (!data) {
     notFound();
   }
+
+  const catalogueCopy = slug === 'surgical-tables'
+    ? {
+        eyebrow: 'Table Types & Mechanisms',
+        title: <>OT Table <span className="text-brand-600">Catalogue</span></>,
+        description: 'Our surgical tables are precision-engineered for general, specialty, imaging, and hybrid operating theatre workflows.'
+      }
+    : slug === 'scrub-stations'
+      ? {
+          eyebrow: 'Configurations & Features',
+          title: <>Station <span className="text-brand-600">Variants</span></>,
+          description: 'Our scrub sinks are precision-fabricated to accommodate different surgical team sizes while maintaining rigorous touchless hygiene protocols.'
+        }
+      : {
+          eyebrow: 'System Infrastructure',
+          title: <>Product <span className="text-brand-600">Configurations</span></>,
+          description: 'Every configuration is precision-manufactured and modularly designed to fit your exact demands.'
+        };
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -1668,20 +1726,18 @@ export default async function MOTProductPage({ params }: { params: Promise<{ slu
       {/* CONFIGURATIONS */}
       <section className="py-12 md:py-20 px-4 md:px-6 bg-gray-50 border-b border-gray-200">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-10 md:mb-16">
-            <span className="text-brand-600 font-bold uppercase tracking-widest text-[10px] md:text-sm mb-1 md:mb-2 block">System Infrastructure</span>
-            <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4 text-gray-900 uppercase tracking-tighter">Console <span className="text-brand-600">Configurations</span></h2>
+          <div className="text-center mb-10 md:mb-16 animate-on-scroll">
+            <span className="text-brand-600 font-bold uppercase tracking-widest text-[10px] md:text-sm mb-1 md:mb-2 block">{catalogueCopy.eyebrow}</span>
+            <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4 text-gray-900 uppercase tracking-tighter">{catalogueCopy.title}</h2>
             <div className="w-16 md:w-20 h-1 bg-brand-600 mx-auto rounded-full mb-4 md:mb-6"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto text-xs md:text-lg text-center font-light">Every configuration is precision-manufactured and modularly designed to fit your exact demands.</p>
+            <p className="text-gray-600 max-w-2xl mx-auto text-xs md:text-lg text-center font-light">{catalogueCopy.description}</p>
           </div>
 
           <div className="space-y-16 md:space-y-24">
             {data.configurations.map((config, i) => (
-              <div key={i} className="grid md:grid-cols-12 gap-8 md:gap-12 items-center group">
+              <div key={i} className="grid md:grid-cols-12 gap-8 md:gap-12 items-center group animate-on-scroll">
                 <div className={`md:col-span-5 relative ${i % 2 !== 0 ? 'md:order-2' : 'md:order-1'}`}>
-                  <div className="relative w-full h-56 sm:h-72 lg:h-80 bg-gray-100 rounded-xl shadow-md border border-gray-200 overflow-hidden">
-                    <Image src={config.image} alt={config.title} fill className="object-cover" />
-                  </div>
+                  <ConfigurationImageSlider images={config.gallery ?? [config.image]} alt={config.title} />
                 </div>
                 <div className={`md:col-span-7 ${i % 2 !== 0 ? 'md:order-1' : 'md:order-2'}`}>
                   <h3 className="text-xl md:text-3xl font-bold text-gray-900 mb-4 uppercase tracking-tighter">{config.title}</h3>

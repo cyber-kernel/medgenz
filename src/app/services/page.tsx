@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ShieldCheck, CheckCircle, ArrowRight, Activity, Layout, Layers, Wind, Settings, Microscope, Scissors } from "lucide-react";
 import type { Metadata } from "next";
 import { getFAQSchema } from "@/lib/structured-data";
+import ClientMarquee from "@/components/sections/ClientMarquee";
 
 export const metadata: Metadata = {
   title: "Turnkey Hospital Infrastructure Services | MedGenz | MOT, MGPS, Hospital Furniture",
@@ -192,6 +193,8 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
+
+      <ClientMarquee />
 
       {/* FAQ - Scaled Down */}
       <section className="py-16 md:py-24 bg-slate-50 border-y border-slate-200">

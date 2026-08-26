@@ -30,7 +30,7 @@ export const metadata: Metadata = {
       "Explore our successful turnkey hospital installations and case studies across India.",
     images: [
       {
-        url: "https://www.medgenz.com/images/service assets/mot-page-n-eq-assets/ot-3.webp",
+        url: "https://www.medgenz.com/images/projects/projects-hero.jpeg",
         width: 1200,
         height: 630,
         alt: "MedGenz Projects",
@@ -56,7 +56,7 @@ export default async function ProjectsPage() {
       <section className="relative py-24 md:py-32 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
         <div className="absolute inset-0 z-0 opacity-80">
            <Image
-             src="/images/about-us/about-us-home/about-us.webp"
+             src="/images/projects/projects-hero.jpeg"
              alt="MedGenz Projects"
              fill
              className="object-cover"

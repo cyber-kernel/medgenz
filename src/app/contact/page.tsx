@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Phone, Mail, MapPin, MessageSquare, Clock, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import { Phone, Mail, MapPin, MessageSquare, Clock, Loader2, CheckCircle2, AlertCircle, ChevronDown } from "lucide-react";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -10,6 +10,7 @@ export default function ContactPage() {
     email: '',
     phone: '',
     subject: 'General Inquiry',
+    designation: '',
     message: ''
   });
 
@@ -45,7 +46,7 @@ export default function ContactPage() {
         }
 
         setStatus('success');
-        setFormData({ name: '', email: '', phone: '', subject: 'General Inquiry', message: '' });
+        setFormData({ name: '', email: '', phone: '', subject: 'General Inquiry', designation: '', message: '' });
       } else {
         setStatus('error');
         setErrorMsg(result.error || 'Failed to send message.');
@@ -119,7 +120,7 @@ export default function ContactPage() {
       <section className="relative py-24 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
         <div className="absolute inset-0 z-0 opacity-60">
           <Image
-            src="/images/about-us/about-us-home/about-us.webp"
+            src="/images/contact-assets/contact-hero.jpeg"
             alt="Contact MedGenz"
             fill
             className="object-cover"
@@ -219,18 +220,42 @@ export default function ContactPage() {
                     </div>
                     <div className="space-y-2">
                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Subject</label>
-                      <select
-                        name="subject"
-                        value={formData.subject}
-                        onChange={handleChange}
-                        className="w-full px-8 py-5 rounded-2xl bg-white border border-slate-100 focus:border-brand-600 focus:ring-4 focus:ring-brand-600/10 outline-none transition-all bg-white font-medium appearance-none cursor-pointer"
-                      >
-                        <option>General Inquiry</option>
-                        <option>Modular OT Project</option>
-                        <option>MGPS Installation</option>
-                        <option>Hospital Furniture</option>
-                        <option>IVF Lab Setup</option>
-                      </select>
+                      <div className="relative">
+                        <select
+                          name="subject"
+                          value={formData.subject}
+                          onChange={handleChange}
+                          className="w-full px-8 py-5 pr-14 rounded-2xl bg-white border border-slate-100 focus:border-brand-600 focus:ring-4 focus:ring-brand-600/10 outline-none transition-all font-medium appearance-none cursor-pointer"
+                        >
+                          <option>General Inquiry</option>
+                          <option>Modular OT Project</option>
+                          <option>MGPS Installation</option>
+                          <option>Hospital Furniture</option>
+                          <option>IVF Lab Setup</option>
+                        </select>
+                        <ChevronDown className="pointer-events-none absolute right-6 top-1/2 h-5 w-5 -translate-y-1/2 text-brand-500" />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Designation</label>
+                      <div className="relative">
+                        <select
+                          required
+                          name="designation"
+                          value={formData.designation}
+                          onChange={handleChange}
+                          className="w-full px-8 py-5 pr-14 rounded-2xl bg-white border border-slate-100 focus:border-brand-600 focus:ring-4 focus:ring-brand-600/10 outline-none transition-all font-medium appearance-none cursor-pointer"
+                        >
+                          <option value="">Select Designation...</option>
+                          <option>Doctor / Surgeon</option>
+                          <option>Principal Architect</option>
+                          <option>Project Contractor</option>
+                          <option>Medical College Admin</option>
+                          <option>Organisational Staff</option>
+                          <option>Personal</option>
+                        </select>
+                        <ChevronDown className="pointer-events-none absolute right-6 top-1/2 h-5 w-5 -translate-y-1/2 text-brand-500" />
+                      </div>
                     </div>
                   </div>
                   <div className="space-y-2">

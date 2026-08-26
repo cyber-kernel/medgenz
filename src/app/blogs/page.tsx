@@ -79,7 +79,7 @@ export default async function BlogListingPage() {
       <section className="relative py-24 md:py-32 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
         <div className="absolute inset-0 z-0 opacity-60">
           <Image
-            src="/images/service-images/service-hero.webp"
+            src="/images/blogs/blogs-hero.jpeg"
             alt="MedGenz healthcare insights"
             fill
             className="object-cover"

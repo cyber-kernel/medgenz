@@ -86,7 +86,6 @@ export default function ContactPage() {
         { text: "Dwarka Sector-3, Matiala, New Delhi" }
       ],
       icon: MapPin,
-      href: "https://maps.google.com"
     },
     {
       title: "Working Hours",

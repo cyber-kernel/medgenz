@@ -111,7 +111,7 @@ const productData: Record<string, ProductData> = {
     applications: [
       { title: "Intensive Care Units (ICU)", image: "/images/key-application-images/icu.webp" },
       { title: "Cardiac Care Units (CCU)", image: "/images/hospital-furniture-images/speciality-beds-images/orthopedic-bed.webp" },
-      { title: "High Dependency Units (HDU)", image: "/images/key-application-images/post-op.webp" },
+      { title: "High Dependency Units (HDU)", image: "/images/key-application-images/icu.webp" },
       { title: "Post-Operative Recovery", image: "/images/key-application-images/emergency-rooms.webp" }
     ],
     whyChoose: [
@@ -193,7 +193,7 @@ const productData: Record<string, ProductData> = {
       { title: "General Public Wards", image: "/images/about-us/about-us-assets/hospital-ward-about.webp" },
       { title: "Private Patient Rooms", image: "/images/key-application-images/maternity-labour-ward.webp" },
       { title: "Clinics & Nursing Homes", image: "/images/key-application-images/icu.webp" },
-      { title: "Post-Op Step Down", image: "/images/key-application-images/post-op.webp" }
+      { title: "Post-Op Step Down", image: "/images/key-application-images/emergency-rooms.webp" }
     ],
     whyChoose: [
       { title: "In-House Production", desc: "By manufacturing our own bed frames with robotic welding, we guarantee zero structural defects and maximum load limits.", icon: "/images/why-choose-medgenz-symbols/in-house-assemble.webp" },
@@ -347,8 +347,11 @@ const productData: Record<string, ProductData> = {
       { label: "Backup", value: "Built-in Lead-Acid Battery (4-6 Hours)" }
     ],
     faqs: [
-      { q: "Is there a manual override?", a: "Yes, our electric beds feature mechanical overrides for backrest descent in case of emergency electrical failure." },
-      { q: "Is the battery rechargeable?", a: "Yes, it charges automatically when the bed is plugged into mains power and features a charge-level indicator." }
+      { q: "What is the difference between a Semi-Electric and a Fully Electric bed?", a: "A Semi-Electric bed features motorized adjustment for the backrest and knee-rest using a remote control, but the overall height of the bed (Hi-Low) is adjusted manually via a crank. A Fully Electric bed is 100% motorized, allowing remote adjustment of the backrest, knee-rest, AND the bed height." },
+      { q: "What happens if there is a power failure?", a: "Our Fully Electric and premium Semi-Electric beds are equipped with an integrated battery backup system. In the event of a power cut, the bed retains full motorized functionality for several hours, allowing emergency repositioning." },
+      { q: "Are the remotes easy for elderly patients to use?", a: "Yes, patient autonomy is a key focus. The beds come with a highly intuitive, ergonomic hand pendant featuring large, clear, color-coded buttons with icons. Patients can easily raise their head or knees without waiting for nursing assistance." },
+      { q: "Can the bed height be lowered to prevent fall injuries?", a: "Yes. Our Fully Electric beds feature a motorized 'Hi-Low' function. The bed can be lowered very close to the ground, which is a critical safety feature for Alzheimer's or dementia patients prone to rolling out of bed, minimizing the risk of a fall injury." },
+      { q: "Is the electrical system safe from liquid spills?", a: "Absolutely. All electronic components, including the medical-grade linear actuators, control box, and hand pendant, are IP54 rated for water and dust resistance. They are completely safe against accidental fluid spills and routine hospital cleaning." }
     ],
     heroImage: "/images/hospital-furniture-images/speciality-beds-images/orthopedic-bed.webp"
   },
@@ -405,8 +408,11 @@ const productData: Record<string, ProductData> = {
       { label: "Casters", value: "Double-Bearing 150mm Heavy-Duty Wheels" }
     ],
     faqs: [
-      { q: "What is the max weight limit?", a: "Our bariatric models support up to 350 KG safely with no structural flex." },
-      { q: "Are pediatric beds available?", a: "Yes, we manufacture pediatric beds with full-length colorful safety rails and child-friendly aesthetics." }
+      { q: "What is the weight limit on the Bariatric bed?", a: "Our Bariatric beds are built with heavy-duty robotic-welded steel frames and high-torque dual actuators, safely supporting a working load of up to 350 KG to 500 KG depending on the specific model requested." },
+      { q: "How do Pediatric beds prevent child injuries?", a: "Pediatric beds feature full-height safety enclosures and side rails with strictly regulated gap spacing to prevent entrapment. All joints and moving parts are shielded with pinch-free mechanisms, and latches are child-proofed to prevent accidental drops." },
+      { q: "Can the Orthopedic bed support traction equipment?", a: "Yes. Our Orthopedic beds are designed with reinforced sockets specifically to accommodate standard Balkan frames and overhead traction pulley systems required for complex bone alignment and trauma recovery." },
+      { q: "Why are Geriatric beds so close to the floor?", a: "Geriatric beds utilize an ultra-low Hi-Low mechanism. By lowering the mattress base to just a few inches off the floor, we severely mitigate the risk of injury if an elderly patient, especially those with dementia or Alzheimer's, rolls out of bed during the night." },
+      { q: "Are these specialty beds manual or electric?", a: "While Pediatric and basic Orthopedic beds can be configured as manual crank systems, our Bariatric and Geriatric beds are almost exclusively fully electric. Motorization is crucial for safely lifting heavy patients and managing the ultra-low height adjustments without straining nursing staff." }
     ],
     heroImage: "/images/hospital-furniture-images/speciality-beds-images/orthopedic-bed.webp"
   },
@@ -452,7 +458,7 @@ const productData: Record<string, ProductData> = {
     ],
     applications: [
       { title: "Burn Care Units", image: "/images/key-application-images/icu.webp" },
-      { title: "Intensive Care Units", image: "/images/key-application-images/post-op.webp" },
+      { title: "Intensive Care Units", image: "/images/key-application-images/icu.webp" },
       { title: "Geriatric & Long-Term Care", image: "/images/about-us/about-us-assets/hospital-ward-about.webp" }
     ],
     whyChoose: [
@@ -473,10 +479,11 @@ const productData: Record<string, ProductData> = {
       { label: "Emergency Response", value: "Pull-tag CPR Rapid Deflation Valve" }
     ],
     faqs: [
-      { q: "Standard vs Alternating Air Mattress?", a: "Standard exerts constant pressure; Alternating actively shifts pressure points using a pump to allow healthy blood flow to all skin areas." },
-      { q: "Can these treat existing pressure ulcers?", a: "Yes, for Stage I to Stage IV ulcers, the relief allows wounds lack of friction and improved circulation needed for healing." },
-      { q: "How noisy is the air pump?", a: "Operates at less than 30 decibels, ensuring no disturbance to patient sleep in a quiet ward." },
-      { q: "Are they waterproof?", a: "Yes, outer covers are medical-grade TPU, waterproof, fluid-resistant, and bleach-cleanable." }
+      { q: "What is the difference between a standard mattress and an alternating air mattress?", a: "A standard mattress exerts constant pressure on the patient's skin, which can block blood flow and cause bedsores. An alternating air mattress is actively connected to a pump that inflates and deflates alternating rows of air cells. This constantly shifts the pressure points, mimicking natural body movement and allowing healthy blood flow to all areas of the skin." },
+      { q: "Can these beds treat existing pressure ulcers?", a: "Yes. Our Support & Therapy beds are designed for both prevention and treatment. For patients with existing Stage I to Stage IV decubitus ulcers, the alternating pressure relief allows the wounds the necessary lack of friction and improved blood circulation needed to heal effectively." },
+      { q: "How noisy is the air pump?", a: "Patient rest is vital. Our systems are equipped with a whisper-quiet, low-vibration aluminum motor housing. It operates at less than 30 decibels, ensuring it will not disturb the patient's sleep or cause irritation in a quiet ward." },
+      { q: "What happens in the event of a cardiac emergency or power failure?", a: "Safety is built-in. Our air mattresses feature a highly visible, quick-release CPR (Cardiopulmonary Resuscitation) valve. Pulling this tag instantly deflates the mattress to provide a hard, flat surface required for chest compressions. In the event of a power failure, the mattress retains air for several hours in a static mode." },
+      { q: "Are the mattresses waterproof and easy to clean?", a: "Absolutely. The outer covers are made from medical-grade TPU or PVC fabric. They are completely waterproof, fluid-resistant, fire-retardant, and treated with an anti-microbial finish. They can be easily wiped down with standard hospital disinfectants without degrading." }
     ],
     heroImage: "/images/hospital-furniture-images/speciality-beds-images/orthopedic-bed.webp"
   },
@@ -522,7 +529,7 @@ const productData: Record<string, ProductData> = {
     ],
     applications: [
       { title: "Emergency & Trauma (ER)", image: "/images/key-application-images/emergency-ward.webp" },
-      { title: "Diagnostic Imaging", image: "/images/key-application-images/triage.webp" },
+      { title: "Diagnostic Imaging", image: "/images/key-application-images/emergency-ward.webp" },
       { title: "Ambulance Transfer Bays", image: "/images/key-application-images/emergency-rooms.webp" }
     ],
     whyChoose: [
@@ -543,9 +550,11 @@ const productData: Record<string, ProductData> = {
       { label: "X-Ray imaging", value: "Full-Length Radiolucent Top" }
     ],
     faqs: [
-      { q: "Stretcher vs Ward Bed?", a: "Ward beds are for stationary comfort; stretchers are built for mobility with larger castors, narrow profiles, and steering mechanisms." },
-      { q: "What is 5th Wheel Steering?", a: "A retractable center wheel that acts as a pivot point for straight tracking and 360-degree pivoting in tight bays." },
-      { q: "Can X-Rays be taken directly?", a: "Yes, our trauma stretchers feature radiolucent backrests and full-length X-ray cassette trays." }
+      { q: "What is the difference between a standard ward bed and a stretcher bed?", a: "Ward beds are designed for long-term recovery and stationary comfort. Stretcher beds are built entirely around mobility. They feature larger castors, a narrower profile to fit through tight corridors, crash-resistant bumpers, and specialized steering mechanisms to move a patient rapidly during a trauma event." },
+      { q: "What is 5th Wheel Steering?", a: "A 5th wheel is a retractable center wheel located underneath the chassis. When engaged, it acts as a central pivot point. This allows a single nurse or orderly to push the heavy stretcher in a perfectly straight line down long corridors and effortlessly pivot it 360 degrees in tight ER bays without 'drifting'." },
+      { q: "Can X-Rays be taken directly on the stretcher?", a: "Yes, our advanced trauma stretchers are equipped with a radiolucent backrest and full-length X-ray cassette trays. This allows emergency staff to take critical X-rays immediately upon the patient's arrival using a C-arm without moving the unstable patient to a separate table." },
+      { q: "How does the central locking system work?", a: "During CPR or intubation, the stretcher must be completely immobile. Instead of walking around to lock each wheel individually, the central locking system uses a single, easy-access foot pedal that instantly engages the brakes on all four castors simultaneously." },
+      { q: "What is the maximum weight capacity of these transport beds?", a: "Our stretchers and trolleys are constructed from heavy-gauge tubular steel and high-grade aluminum. Combined with robust dual hydraulic lifting columns, they safely support a maximum working load of up to 250 KG." }
     ],
     heroImage: "/images/hospital-furniture-images/transport-emergency-images/stretcher-trolly.webp"
   },
@@ -606,9 +615,11 @@ const productData: Record<string, ProductData> = {
       { label: "Mobility", value: "50mm Twin-Wheel Swivel Castors" }
     ],
     faqs: [
-      { q: "How is height adjusted?", a: "Using a smooth pneumatic gas-spring. A simple squeeze of the lever allows one-handed height control." },
-      { q: "Is the locker secure?", a: "Yes, premium lockers are equipped with a lockable top drawer for wallets, phones, and personal items." },
-      { q: "Fit under low beds?", a: "Yes, the low-profile U-shaped base slides under specialized ICU and geriatric beds." }
+      { q: "How does the overbed table adjust in height?", a: "Our overbed tables utilize a smooth pneumatic gas-spring mechanism. A simple squeeze of the lever located under the tabletop allows the patient or nurse to effortlessly raise or lower the table to the exact desired height with one hand." },
+      { q: "Can the bedside locker hold a patient's personal valuables securely?", a: "Yes, our premium bedside lockers are equipped with a lockable top drawer specifically designed for patients to securely store wallets, phones, and other personal valuables during their hospital stay." },
+      { q: "Are the surfaces resistant to hospital disinfectants?", a: "Absolutely. Both our lockers and overbed tables feature tops made from medical-grade ABS polymer or high-pressure membrane-pressed laminate. These materials are non-porous, highly resistant to chemical disinfectants, and feature raised edges to contain fluid spills." },
+      { q: "Will the overbed table fit under low-clearance beds?", a: "Yes, the overbed table is engineered with a 'low-profile U-shaped base'. This allows the frame to easily slide under ultra-low geriatric beds, specialized ICUs, and standard ward beds without obstructing the patient's legs." },
+      { q: "Do the castors lock to prevent rolling during meals?", a: "Yes. Our lockers and tables are fitted with premium twin-wheel swivel castors, and at least two of these castors are equipped with foot-operated brakes to ensure the unit remains completely stationary during dining or when used for support." }
     ],
     heroImage: "/images/about-us/about-us-assets/hospital-ward-about.webp"
   },
@@ -624,7 +635,7 @@ const productData: Record<string, ProductData> = {
           "Essential mobile infusion pole for general wards. Constructed from highly durable, rust-proof Grade 304 stainless steel.",
           "Sits on a wide 5-leg star base with smooth-rolling castors and telescopic height adjustment via a secure friction knob."
         ],
-        image: "/images/hospital-furniture-images/iv-stand-accessories-images/iv-stand.webp"
+        image: "/images/hospital-furniture-images/iv-stands-images/standard-iv-stands.webp"
       },
       {
         title: "Heavy-Duty ICU Infusion Stand",
@@ -650,7 +661,7 @@ const productData: Record<string, ProductData> = {
     applications: [
       { title: "General Patient Wards", image: "/images/about-us/about-us-assets/hospital-ward-about.webp" },
       { title: "Intensive Care Units (ICU)", image: "/images/key-application-images/icu.webp" },
-      { title: "Ambulatory Day Care", image: "/images/key-application-images/post-op.webp" }
+      { title: "Ambulatory Day Care", image: "/images/key-application-images/emergency-rooms.webp" }
     ],
     whyChoose: [
       { title: "In-House Quality", desc: "Built and stress-tested in-house to ensure anti-tip stability under heavy multi-pump loads.", icon: "/images/why-choose-medgenz-symbols/in-house-assemble.webp" },
@@ -670,9 +681,11 @@ const productData: Record<string, ProductData> = {
       { label: "Hook Style", value: "2-Prong or 4-Prong SS Ram-Horn" }
     ],
     faqs: [
-      { q: "Standard vs ICU stand?", a: "ICU stands use thicker gauge steel and heavily weighted bases to safely hold multiple heavy electronic syringe pumps." },
-      { q: "Are they prone to tipping?", a: "No, we use wide 5-leg star bases reinforced with weights to prevent tipping during rapid transit." },
-      { q: "Fluid hooks replaceable?", a: "Yes, top assemblies are modular and can be easily replaced or upgraded to 4-prong hooks." }
+      { q: "What is the difference between a standard IV stand and a heavy-duty ICU stand?", a: "Standard IV stands are lightweight and designed to hold a few bags of IV fluids for general ward patients. Heavy-duty ICU stands are built with thicker gauge steel and heavily weighted bases specifically to safely hold the weight of multiple heavy electronic syringe and infusion pumps without tipping over." },
+      { q: "How is the height of the IV stand adjusted?", a: "Our IV stands feature a smooth, telescopic pole mechanism. They are equipped with a secure, ergonomic friction knob that allows nurses to easily raise or lower the height of the fluid bags with one hand, locking it firmly into place." },
+      { q: "Are the stands prone to tipping over?", a: "No. Patient safety is our priority. We utilize a wide 5-leg star base design, often reinforced with solid cast-iron weights underneath. This creates an extremely low center of gravity, making the stands highly resistant to tipping even during rapid transit." },
+      { q: "Are the fluid hooks replaceable?", a: "Yes, our stands come equipped with premium 2-prong or 4-prong 'ram-horn' style stainless steel hooks. These top assemblies are modular and can be easily replaced or upgraded if necessary." },
+      { q: "Do you provide mounting solutions directly for hospital beds?", a: "Absolutely. Alongside floor-standing models, we supply specialized IV poles that mount directly into the accessory sockets of our Fowler and ICU beds, as well as space-saving ceiling-mounted telescopic IV tracks." }
     ],
     heroImage: "/images/hospital-furniture-images/iv-stands-images/heavy-duty-iv-stand.webp"
   },
@@ -688,7 +701,7 @@ const productData: Record<string, ProductData> = {
           "Essential workstation for general physicians. Features a robust two-section design with a manually adjustable headrest for patient comfort.",
           "Can be configured with integrated lower cabinets and sliding drawers to store stethoscopes and diagnostic tools immediately under the bed."
         ],
-        image: "/images/hospital-furniture-images/examination-tables-images/standard-exam-table.webp"
+        image: "/images/service assets/service-page-assets/hospital-furniture.webp"
       },
       {
         title: "Gynecological / Obstetric Table",
@@ -696,7 +709,7 @@ const productData: Record<string, ProductData> = {
           "Tailored for maternity clinics, ensuring optimal patient positioning and doctor access. Includes padded adjustable lithotomy poles.",
           "Features a specialized U-cut mattress design and a sliding stainless steel basin for hygienic fluid collection."
         ],
-        image: "/images/hospital-furniture-images/examination-tables-images/gynae-table.webp"
+        image: "/images/key-application-images/maternity-labour-ward.webp"
       },
       {
         title: "Pediatric Examination Table",
@@ -704,7 +717,7 @@ const productData: Record<string, ProductData> = {
           "Scaled for infants with raised, padded guard rails on three sides to prevent accidental falls. Features child-friendly upholstery colors.",
           "Can be configured with a built-in digital weighing scale or infant measuring tape embedded into the mattress cover."
         ],
-        image: "/images/hospital-furniture-images/examination-tables-images/pediatric-exam-table.webp"
+        image: "/images/about-us/about-us-assets/hospital-ward-about.webp"
       }
     ],
     engineering: [
@@ -725,9 +738,9 @@ const productData: Record<string, ProductData> = {
       }
     ],
     applications: [
-      { title: "OPD Clinics", image: "/images/key-application-images/post-op.webp" },
+      { title: "OPD Clinics", image: "/images/service assets/service-page-assets/hospital-furniture.webp" },
       { title: "Gynecology Clinics", image: "/images/key-application-images/maternity-labour-ward.webp" },
-      { title: "Emergency Triage", image: "/images/key-application-images/triage.webp" }
+      { title: "Emergency Triage", image: "/images/key-application-images/emergency-ward.webp" }
     ],
     whyChoose: [
       { title: "In-House Assembly", desc: "Tables are welded and upholstered in-house to ensure frames won't wobble and foam won't sag.", icon: "/images/why-choose-medgenz-symbols/in-house-assemble.webp" },
@@ -747,12 +760,13 @@ const productData: Record<string, ProductData> = {
       { label: "Max Safe Load", value: "150 KG" }
     ],
     faqs: [
-      { q: "Gynae table accessories?", a: "Yes, they come with adjustable lithotomy poles, U-cut mattress, and sliding SS fluid collection bowl." },
-      { q: "Paper roll holder standard?", a: "Yes, all standard exam tables feature an integrated bracket end to maintain infection control." },
-      { q: "Weight capacity?", a: "Factory-tested to safely support up to 150 KG without bending." },
-      { q: "Custom storage?", a: "Yes, we offer built-in lower cabinets and sliding drawers for stethoscopes and tools." }
+      { q: "What is the weight capacity of the standard examination table?", a: "Our examination tables are constructed from heavy-duty tubular steel. They are factory-tested to safely support a working load of up to 150 KG without bending or structural compromise." },
+      { q: "Do the gynecological tables come with accessories?", a: "Yes, our Gynecological and Obstetric Examination Tables come fully equipped with adjustable lithotomy poles/crutches, a specialized U-cut mattress design, and a sliding stainless steel fluid collection bowl." },
+      { q: "Is a paper roll holder included as standard?", a: "Yes, to maintain high infection control standards in busy OPDs, all our standard examination tables feature an integrated paper roll dispenser bracket located at the head or foot end." },
+      { q: "How do you clean the table upholstery?", a: "The mattress sections are upholstered in premium, non-porous medical PVC/rexine. They are highly fluid-resistant and can be easily wiped down between patients using standard hospital-grade chemical disinfectants without cracking or peeling." },
+      { q: "Can the tables be customized with drawers or cabinets?", a: "Absolutely. We offer variations of our standard exam couches that feature built-in lower cabinets and sliding drawers. This allows doctors to store stethoscopes, gloves, and diagnostic tools directly under the table to save clinic space." }
     ],
-    heroImage: "/images/hospital-furniture-images/examination-tables-images/standard-exam-table.webp"
+    heroImage: "/images/service assets/service-page-assets/hospital-furniture.webp"
   }
 };
 

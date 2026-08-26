@@ -25,42 +25,88 @@ import Certifications from '@/components/sections/Certifications';
 
 const architecture = [
   {
-    category: "Intensive & Critical Care",
-    badge: "Life Support",
+    category: "ICU Beds",
+    badge: "Intensive Care Units",
     items: [
-      { name: "Electric ICU Beds", slug: "icu-beds" },
-      { name: "Multi-Function Motorized Beds", slug: "electric-bed" },
-      { name: "Emergency Crash Carts", slug: "crash-cart-trollies" }
+      { name: "ICU Bed (Electric)", slug: "icu-beds" },
+      { name: "ICU Bed with Weighing System", slug: "icu-beds" },
+      { name: "ICU Bed with Ventilator Support", slug: "icu-beds" }
     ],
     slug: "icu-beds"
   },
   {
-    category: "General Ward & recovery",
-    badge: "Patient Comfort",
+    category: "Fowler & Ward Beds",
+    badge: "General Patient Wards",
     items: [
-      { name: "Fowler & Ward Beds", slug: "fowler-ward-beds" },
-      { name: "Bedside Lockers & Tables", slug: "lockers-overbedtables" },
-      { name: "Support & Therapy Beds", slug: "support-therapy-beds" }
+      { name: "Semi Fowler Bed", slug: "fowler-ward-beds" },
+      { name: "Full Fowler Bed", slug: "fowler-ward-beds" },
+      { name: "General Ward Bed", slug: "fowler-ward-beds" }
     ],
     slug: "fowler-ward-beds"
   },
   {
-    category: "Specialized Medical Furniture",
-    badge: "Clinical Specific",
+    category: "Electric Beds",
+    badge: "Motorized Adjustments",
     items: [
-      { name: "Specialty & Bariatric Beds", slug: "speciality-beds" },
-      { name: "Transport & Emergency", slug: "transport-emergency-beds" },
-      { name: "Examination Tables", slug: "examination-tables" }
+      { name: "Semi-Electric Bed", slug: "electric-bed" },
+      { name: "Fully Electric Bed", slug: "electric-bed" }
+    ],
+    slug: "electric-bed"
+  },
+  {
+    category: "Specialty Beds",
+    badge: "Bariatric to Pediatric",
+    items: [
+      { name: "Bariatric Bed", slug: "speciality-beds" },
+      { name: "Pediatric Bed", slug: "speciality-beds" },
+      { name: "Orthopedic Bed", slug: "speciality-beds" },
+      { name: "Geriatric Bed", slug: "speciality-beds" }
     ],
     slug: "speciality-beds"
   },
   {
-    category: "Ward Support Accessories",
-    badge: "Utility",
+    category: "Support & Therapy",
+    badge: "Pressure Relief Systems",
     items: [
-      { name: "IV Stands & Infusion Poles", slug: "iv-stand-accessories" },
-      { name: "Instrument & Dressing Trolleys", slug: "crash-cart-trollies" },
-      { name: "Patient Transfer Systems", slug: "transport-emergency-beds" }
+      { name: "Air Mattress Bed", slug: "support-therapy-beds" },
+      { name: "Pressure Relief Bed", slug: "support-therapy-beds" }
+    ],
+    slug: "support-therapy-beds"
+  },
+  {
+    category: "Transport & Emergency",
+    badge: "Mobility & Transit",
+    items: [
+      { name: "Stretcher Bed", slug: "transport-emergency-beds" },
+      { name: "Trolley Bed", slug: "transport-emergency-beds" }
+    ],
+    slug: "transport-emergency-beds"
+  },
+  {
+    category: "Lockers & Overbed Tables",
+    badge: "Bedside Convenience",
+    items: [
+      { name: "Bedside Locker", slug: "lockers-overbedtables" },
+      { name: "Overbed Table", slug: "lockers-overbedtables" }
+    ],
+    slug: "lockers-overbedtables"
+  },
+  {
+    category: "Crash Carts & Trolleys",
+    badge: "Emergency Mobility",
+    items: [
+      { name: "Crash Cart", slug: "crash-cart-trollies" },
+      { name: "Medication Trolley", slug: "crash-cart-trollies" },
+      { name: "Dressing & Instrument Trolley", slug: "crash-cart-trollies" }
+    ],
+    slug: "crash-cart-trollies"
+  },
+  {
+    category: "IV Stands & Accessories",
+    badge: "Stainless Steel Supports",
+    items: [
+      { name: "Standard Mobile IV Stand", slug: "iv-stand-accessories" },
+      { name: "Heavy-Duty ICU Infusion Stand", slug: "iv-stand-accessories" }
     ],
     slug: "iv-stand-accessories"
   }
@@ -73,19 +119,19 @@ const faqs = [
   },
   {
     q: "How does your medical furniture maintain strict infection control?",
-    a: "All our medical furniture features a premium CRCA steel framework with an anti-microbial epoxy powder-coated finish. This ensures maximum rust resistance and allows for easy sanitization using harsh hospital-grade chemical disinfectants."
+    a: "All our medical furniture features a premium CRCA steel framework with an anti-microbial epoxy powder-coated finish. This ensures maximum rust resistance and allows for easy sanitization using harsh hospital-grade chemical disinfectants without degrading the surface."
   },
   {
     q: "What is the safe working load of your motorized ICU beds?",
-    a: "Our heavy-duty motorized ICU beds are engineered with robotic-welded steel frames and high-torque linear actuators, safely supporting a maximum working load of up to 250 KG."
+    a: "Our heavy-duty motorized ICU beds are engineered with robotic-welded steel frames and high-torque linear actuators, safely supporting a maximum working load of up to 250 KG. We also offer specialized bariatric beds for higher weight capacities."
   },
   {
     q: "Are your hospital beds and furniture NABH and CE compliant?",
-    a: "Yes. All MedGenz hospital beds and furniture are strictly manufactured to meet CE standards, ISO 9001:2015, and NABH guidelines, ensuring absolute patient safety and structural stability."
+    a: "Yes. All MedGenz hospital beds and furniture are strictly manufactured to meet CE standards, ISO 9001:2015, and NABH guidelines, ensuring absolute patient safety, structural stability, and electrical compliance for medical facilities."
   },
   {
     q: "Do you provide pan-India installation and after-sales support?",
-    a: "Yes, we provide complete turnkey execution. Our logistics and engineering teams handle the delivery and installation across India. We also provide comprehensive lifetime maintenance and AMC support."
+    a: "Yes, we provide complete turnkey execution. Our logistics and engineering teams handle the delivery and installation of all hospital furniture across India. We also provide comprehensive lifetime maintenance, replacement parts, and AMC support."
   }
 ];
 
@@ -132,7 +178,7 @@ export default function HospitalFurnitureHub() {
             </p>
 
             <div className="mb-8 border-l-4 border-brand-600 bg-brand-50 rounded-r-xl p-4 md:p-5 shadow-sm">
-                <h3 className="text-[11px] md:text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">System Execution Blueprint</h3>
+                <h3 className="text-[11px] md:text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">System At a Glance</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-3 gap-x-6 text-sm md:text-base text-gray-800 font-medium normal-case tracking-normal">
                     <div className="flex items-center gap-2.5">
                         <CheckCircle className="w-4 h-4 text-green-500 shrink-0" /> Epoxy Coated CRCA Steel
@@ -154,7 +200,7 @@ export default function HospitalFurnitureHub() {
                 <div className="flex text-yellow-400">
                     {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 fill-current" />)}
                 </div>
-                <span className="text-sm font-semibold text-gray-700 bg-gray-100 px-3 py-1 rounded-lg border border-gray-200">4.8/5 based on 64 reviews</span>
+                <span className="text-sm font-semibold text-gray-700 bg-gray-100 px-3 py-1 rounded-lg border border-gray-200">4/5 based on 64 reviews</span>
             </div>
 
             <div className="flex flex-wrap gap-4">

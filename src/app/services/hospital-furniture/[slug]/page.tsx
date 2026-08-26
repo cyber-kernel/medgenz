@@ -924,14 +924,14 @@ export default async function FurnitureProductPage({ params }: { params: Promise
             <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4 text-gray-900 uppercase tracking-tighter">Key <span className="text-brand-600">Applications</span></h2>
             <div className="w-16 md:w-20 h-1 bg-brand-600 mx-auto rounded-full mb-4 md:mb-6"></div>
           </div>
-          <div className="max-w-5xl mx-auto grid grid-cols-[repeat(auto-fit,minmax(200px,240px))] justify-center gap-6">
+          <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {data.applications.map((app, i) => (
               <div key={i} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow flex flex-col">
                 <div className="aspect-square relative p-2 bg-gray-50">
                   <Image src={app.image} alt={app.title} fill className="object-cover rounded-xl" />
                 </div>
-                <div className="p-4 text-center">
-                  <h3 className="font-bold text-gray-900 text-xs md:text-sm leading-tight uppercase tracking-tighter">{app.title}</h3>
+                <div className="p-3 md:p-4 text-center">
+                  <h3 className="font-bold text-gray-900 text-[10px] sm:text-xs md:text-sm leading-tight uppercase tracking-tighter">{app.title}</h3>
                 </div>
               </div>
             ))}
@@ -948,14 +948,14 @@ export default async function FurnitureProductPage({ params }: { params: Promise
             <p className="text-gray-500 text-sm max-w-2xl mx-auto font-light">We don't just supply equipment; we engineer and execute complete turnkey hospital ecosystems.</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 relative z-10">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5 relative z-10">
             {data.whyChoose.map((point, i) => (
-              <div key={i} className="bg-white p-6 rounded-2xl border border-slate-100 hover:shadow-md transition-all duration-300">
-                <div className="w-12 h-12 mb-4 relative">
+              <div key={i} className="bg-white p-3 md:p-6 rounded-2xl border border-slate-100 hover:shadow-md transition-all duration-300">
+                <div className="w-9 h-9 md:w-12 md:h-12 mb-3 md:mb-4 relative">
                   <Image src={point.icon} alt={point.title} fill className="object-contain" />
                 </div>
-                <h3 className="text-base font-bold text-gray-900 mb-2 uppercase tracking-tighter">{point.title}</h3>
-                <p className="text-xs text-gray-600 leading-relaxed font-light">{point.desc}</p>
+                <h3 className="text-[10px] sm:text-xs md:text-base font-bold text-gray-900 mb-2 uppercase tracking-tighter">{point.title}</h3>
+                <p className="text-[10px] md:text-xs text-gray-600 leading-relaxed font-light">{point.desc}</p>
               </div>
             ))}
           </div>

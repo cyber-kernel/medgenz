@@ -51,9 +51,9 @@ export const metadata: Metadata = {
     "Healthcare Infrastructure",
     "Hospital Construction",
   ],
-  authors: [{ name: "MedGenz" }],
-  creator: "MedGenz",
-  publisher: "MedGenz",
+  authors: [{ name: "MedGenz India Private Limited" }],
+  creator: "MedGenz India Private Limited",
+  publisher: "MedGenz India Private Limited",
   formatDetection: {
     email: false,
     telephone: false,
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: "https://www.medgenz.com",
-    siteName: "MedGenz",
+    siteName: "MedGenz India Private Limited",
     title: "MedGenz | Modular Operation Theatres & Medical Gas Pipeline System NABH and ISO certified turnkey solutions",
     description:
       "MedGenz India Private Limited provides NABH and ISO certified turnkey solutions for Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure.",

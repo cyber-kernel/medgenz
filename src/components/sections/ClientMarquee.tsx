@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
 import Image from 'next/image';
+import AutoScrollTrack from './AutoScrollTrack';
 
 const clientLogos = [
   "hospital-1.webp", "hospital-2.webp", "hospital-3.webp", "hospital-4.webp",
@@ -19,10 +19,10 @@ export default function ClientMarquee() {
             <p className="text-gray-500 mt-3 md:mt-4 text-[11px] md:text-base max-w-xl mx-auto px-4 text-center font-light">Trusted by leading healthcare institutions across India. Drag to explore.</p>
         </div>
 
-        <div className="marquee-container group relative flex overflow-hidden">
-            <div className="flex gap-12 animate-marquee whitespace-nowrap py-10">
+        <div className="marquee-container group relative">
+            <AutoScrollTrack className="scrollbar-hide" contentClassName="gap-8 md:gap-12 whitespace-nowrap py-6 md:py-10" speed={0.35}>
                 {[...clientLogos, ...clientLogos].map((logo, i) => (
-                    <div key={i} className="w-40 h-24 relative flex-shrink-0 transition-all opacity-80 hover:opacity-100">
+                    <div key={i} className="w-28 h-16 md:w-40 md:h-24 relative flex-shrink-0 transition-all opacity-80 hover:opacity-100">
                         <Image
                             src={`/images/hospital-logos/${logo}`}
                             alt={`Hospital Client ${i + 1}`}
@@ -31,7 +31,7 @@ export default function ClientMarquee() {
                         />
                     </div>
                 ))}
-            </div>
+            </AutoScrollTrack>
             {/* Gradient fades */}
             <div className="absolute top-0 bottom-0 left-0 w-12 md:w-32 bg-gradient-to-r from-white to-transparent pointer-events-none z-10"></div>
             <div className="absolute top-0 bottom-0 right-0 w-12 md:w-32 bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>

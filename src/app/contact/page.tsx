@@ -4,6 +4,11 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { Phone, Mail, MapPin, MessageSquare, Clock, Loader2, CheckCircle2, AlertCircle, ChevronDown } from "lucide-react";
 
+interface ContactDetail {
+  text: string;
+  href?: string;
+}
+
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',
@@ -57,28 +62,38 @@ export default function ContactPage() {
     }
   };
 
-  const contactInfo = [
+  const contactInfo: { title: string; details: ContactDetail[]; icon: typeof Phone }[] = [
     {
       title: "Call Us",
-      details: ["+91 97164 12630", "+91 83839 39473"],
-      icon: Phone,
-      href: "tel:+919716412630"
+      details: [
+        { text: "+91 97164 12630", href: "tel:+919716412630" },
+        { text: "+91 83839 39473", href: "tel:+918383939473" }
+      ],
+      icon: Phone
     },
     {
       title: "Email Us",
-      details: ["info@medgenz.com", "sales@medgenz.com"],
-      icon: Mail,
-      href: "mailto:info@medgenz.com"
+      details: [
+        { text: "info@medgenz.com", href: "mailto:info@medgenz.com" },
+        { text: "sales@medgenz.com", href: "mailto:sales@medgenz.com" }
+      ],
+      icon: Mail
     },
     {
       title: "Visit Our Office",
-      details: ["Plot No. 87 F/F kh No. 31/25,", "Dwarka Sector-3, Matiala, New Delhi"],
+      details: [
+        { text: "Plot No. 87 F/F kh No. 31/25," },
+        { text: "Dwarka Sector-3, Matiala, New Delhi" }
+      ],
       icon: MapPin,
       href: "https://maps.google.com"
     },
     {
       title: "Working Hours",
-      details: ["Mon - Sat: 9:30 AM - 6:30 PM", "Sunday: Closed"],
+      details: [
+        { text: "Mon - Sat: 9:30 AM - 6:30 PM" },
+        { text: "Sunday: Closed" }
+      ],
       icon: Clock
     }
   ];
@@ -148,7 +163,13 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-lg font-bold text-slate-900 mb-2 uppercase tracking-widest text-sm">{item.title}</h3>
                   {item.details.map((detail, d_i) => (
-                    <p key={d_i} className="text-slate-500 font-light leading-relaxed">{detail}</p>
+                    detail.href ? (
+                      <a key={d_i} href={detail.href} className="block text-slate-500 font-light leading-relaxed hover:text-brand-600 transition-colors">
+                        {detail.text}
+                      </a>
+                    ) : (
+                      <p key={d_i} className="text-slate-500 font-light leading-relaxed">{detail.text}</p>
+                    )
                   ))}
                 </div>
               </div>

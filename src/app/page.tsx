@@ -1,10 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, CheckCircle, ShieldCheck, Activity, Phone, Mail, MapPin, Layout, Wind, Settings, Star } from 'lucide-react';
+import { ArrowRight, CheckCircle, ShieldCheck, Activity, Phone, Mail, MapPin, Layout, Wind, Settings } from 'lucide-react';
 import HomeSlider from '@/components/HomeSlider';
 import ClientMarquee from '@/components/sections/ClientMarquee';
 import ECGCTA from '@/components/sections/ECGCTA';
+import Testimonials from '@/components/sections/Testimonials';
 
 const stats = [
   { label: "Projects Done", value: "150+" },
@@ -195,25 +196,7 @@ export default function Home() {
           </div>
 
           <div className="overflow-hidden pb-12">
-            <div className="flex w-max gap-6 animate-marquee">
-            {[...testimonials, ...testimonials].map((t, i) => (
-              <div key={`${t.name}-${i}`} className="w-[85vw] md:w-[450px] shrink-0 bg-white rounded-3xl p-8 shadow-lg border border-slate-100 relative group hover:-translate-y-2 transition-transform duration-300">
-                <div className="flex text-yellow-400 mb-6">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-current" />
-                  ))}
-                </div>
-                <p className="text-slate-600 text-base italic leading-relaxed mb-8 font-light">"{t.text}"</p>
-                <div className="flex items-center gap-4 pt-6 border-t border-slate-50">
-                  <div className="w-10 h-10 rounded-full bg-brand-100 flex items-center justify-center font-bold text-brand-600 text-lg">{t.name[0]}</div>
-                  <div>
-                    <h4 className="font-bold text-slate-900 text-sm">{t.name}</h4>
-                    <p className="text-slate-500 text-xs font-medium">{t.role}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-            </div>
+            <Testimonials testimonials={testimonials} />
           </div>
         </div>
       </section>

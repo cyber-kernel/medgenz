@@ -75,6 +75,15 @@ details[open] > summary::after {
   scrollbar-width: none;
 }
 
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Custom Utilities */
 @layer utilities {
   .bg-brand-gradient {

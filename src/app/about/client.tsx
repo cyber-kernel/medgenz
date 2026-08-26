@@ -242,11 +242,11 @@ export default function AboutClient() {
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
               transition={{ type: 'spring', damping: 15 }}
-              className="absolute -bottom-10 -left-10 bg-brand-600 text-white p-8 md:p-10 rounded-[2.5rem] shadow-2xl z-20"
+              className="absolute -bottom-5 -left-2 md:-bottom-10 md:-left-10 bg-brand-600 text-white p-5 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] shadow-2xl z-20"
             >
-              <Award className="w-10 h-10 md:w-12 md:h-12 mb-4 text-brand-100" />
-              <div className="text-3xl md:text-4xl font-black tracking-tighter uppercase">12+ Years</div>
-              <p className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-brand-100">Industry Excellence</p>
+              <Award className="w-7 h-7 md:w-12 md:h-12 mb-2 md:mb-4 text-brand-100" />
+              <div className="text-2xl md:text-4xl font-black tracking-tighter uppercase">12+ Years</div>
+              <p className="text-[8px] md:text-xs font-bold uppercase tracking-widest text-brand-100">Industry Excellence</p>
             </motion.div>
           </motion.div>
         </div>

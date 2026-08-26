@@ -18,7 +18,7 @@ const architecture = [
     items: [
       { name: "Modular Wall Panels (SS-304/PUF)", slug: "wall-panels" },
       { name: "Seamless OT Ceiling Systems", slug: "ceiling-systems" },
-      { name: "Hermetically Sealed OT Doors", slug: "hermetic-doors" },
+      { name: "Hermetically Sealed OT Doors", slug: "ot-doors" },
       { name: "Anti-Static Vinyl Flooring", slug: "flooring-systems" }
     ]
   },
@@ -28,7 +28,7 @@ const architecture = [
     items: [
       { name: "Laminar Air Flow (LAF) Systems", slug: "laminar-airflow" },
       { name: "Terminal HEPA Filtration", slug: "hepa-filtration" },
-      { name: "Air Handling Units (AHU)", slug: "ahu" },
+      { name: "Air Handling Units (AHU)", slug: "air-handling-units" },
       { name: "OT Pressure Control System", slug: "pressure-control" },
       { name: "Precision HVAC Ducting Network", slug: "hvac-ducting" }
     ]

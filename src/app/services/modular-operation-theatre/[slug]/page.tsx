@@ -239,7 +239,7 @@ const motProducts: Record<string, ProductData> = {
     ],
     heroImage: "/images/mot-product-page-images/ot-ceiling-images/ss-304-ceiling.webp"
   },
-  'hermetic-doors': {
+  'ot-doors': {
     title: "Operation Theatre Doors",
     tagline: "100% Sealed Infrastructure",
     heroDesc: "If an Operation Theatre door leaks even 1% of its air, the positive pressure drops and airborne bacteria flood in. Whether you need a standard modular ot door setup using highly durable PPGI and HPL materials, or a fully automated hermetic sealing mechanism, our hospital cleanroom doors guarantee a sterile, NABH-compliant environment.",
@@ -570,7 +570,7 @@ const motProducts: Record<string, ProductData> = {
     ],
     heroImage: "/images/service assets/mot-page-n-eq-assets/hepa-filter.webp"
   },
-  'ahu': {
+  'air-handling-units': {
     title: "Air Handling Units (AHU)",
     tagline: "The Engine of the OT",
     heroDesc: "While the Laminar Air Flow (LAF) system delivers the air, the AHU is the massive engine that creates it. A hospital-grade Air Handling Unit is responsible for cooling, dehumidifying, pressurizing, and pre-filtering the air before it ever reaches the surgical suite. We engineer double-skin thermal break AHUs that guarantee absolute climate control and zero condensation.",

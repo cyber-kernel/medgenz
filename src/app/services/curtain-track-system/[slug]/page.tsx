@@ -411,7 +411,7 @@ export default async function CTSProductPage({ params }: { params: Promise<{ slu
       <section className="pt-28 pb-8 md:pt-40 md:pb-16 bg-white border-b border-gray-100 uppercase tracking-tighter">
         <div className="max-w-7xl mx-auto px-4 md:px-6">
           <nav aria-label="breadcrumb" className="mb-4 md:mb-6">
-            <ol className="flex items-center space-x-2 text-[10px] md:text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <ol className="service-breadcrumb flex w-full min-w-0 items-center gap-x-1.5 md:gap-x-2 whitespace-nowrap text-[8px] sm:text-[10px] md:text-xs font-medium text-gray-500 uppercase tracking-normal md:tracking-wider">
               <li><Link href="/" className="hover:text-brand-600 transition-colors">Home</Link></li>
               <li><span className="mx-1 md:mx-2">/</span></li>
               <li><Link href="/services/curtain-track-system" className="hover:text-brand-600 transition-colors">Curtain Track System</Link></li>

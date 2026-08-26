@@ -88,7 +88,7 @@ export default function MOTPage() {
       <section className="pt-28 pb-8 md:pt-40 md:pb-16 bg-white border-b border-gray-100 uppercase tracking-tighter">
         <div className="max-w-7xl mx-auto px-4 md:px-6">
           <nav aria-label="breadcrumb" className="mb-4 md:mb-6">
-            <ol className="flex items-center space-x-2 text-[10px] md:text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <ol className="service-breadcrumb flex w-full min-w-0 items-center gap-x-1.5 md:gap-x-2 whitespace-nowrap text-[8px] sm:text-[10px] md:text-xs font-medium text-gray-500 uppercase tracking-normal md:tracking-wider">
               <li><Link href="/" className="hover:text-brand-600 transition-colors">Home</Link></li>
               <li><span className="mx-1 md:mx-2">/</span></li>
               <li><Link href="/services" className="hover:text-brand-600 transition-colors">Services</Link></li>
@@ -213,7 +213,7 @@ export default function MOTPage() {
               </p>
             </div>
             <div className="md:w-1/2 w-full grid sm:grid-cols-2 gap-3 md:gap-4 relative z-10">
-              <Link href="/services/modular-operation-theatre/surgical-lights" className="bg-white/5 hover:bg-white/10 border border-white/10 p-3 md:p-5 rounded-xl backdrop-blur-sm transition-all group flex flex-col gap-2 md:gap-3">
+              <Link href="/services/modular-operation-theatre/surgical-ot-lights" className="bg-white/5 hover:bg-white/10 border border-white/10 p-3 md:p-5 rounded-xl backdrop-blur-sm transition-all group flex flex-col gap-2 md:gap-3">
                 <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center">
                   <Lightbulb className="w-4 h-4 md:w-5 md:h-5" />
                 </div>

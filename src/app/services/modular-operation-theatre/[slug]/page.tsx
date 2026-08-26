@@ -1395,8 +1395,8 @@ const motProducts: Record<string, ProductData> = {
     ],
     heroImage: "/images/mot-product-page-images/ot-peripheral-led-light-images/rectangular-peripheral-led-light.webp"
   },
-  'surgical-lights': {
-    title: "Shadowless Surgical OT Lights",
+  'surgical-ot-lights': {
+    title: "SURGICAL OT LIGHTS",
     tagline: "Uncompromised Vision",
     heroDesc: "True surgical precision requires absolute visual clarity inside deep body cavities. Poor lighting causes shadows, misinterprets tissue color, and generates heat that dries out exposed organs. Our advanced OT lights deliver true shadowless, cold LED illumination, ensuring brilliant tissue rendering and perfect focus for the entire surgical team.",
     atAGlance: ["True Shadowless Tech", "HD Camera Ready", "Cold LED Illumination", "Adjustable Focus & Lux"],
@@ -1676,12 +1676,12 @@ export default async function MOTProductPage({ params }: { params: Promise<{ slu
       <section className="pt-28 pb-8 md:pt-40 md:pb-16 bg-white border-b border-gray-100 uppercase tracking-tighter">
         <div className="max-w-7xl mx-auto px-4 md:px-6">
           <nav aria-label="breadcrumb" className="mb-4 md:mb-6">
-            <ol className="flex items-center space-x-2 text-[10px] md:text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <li><Link href="/" className="hover:text-brand-600 transition-colors">Home</Link></li>
-              <li><span className="mx-1 md:mx-2">/</span></li>
-              <li><Link href="/services/modular-operation-theatre" className="hover:text-brand-600 transition-colors">Modular OT</Link></li>
-              <li><span className="mx-1 md:mx-2">/</span></li>
-              <li className="text-brand-600 font-bold">{data.title}</li>
+            <ol className="service-breadcrumb flex w-full min-w-0 items-center gap-x-1.5 md:gap-x-2 whitespace-nowrap text-[8px] sm:text-[10px] md:text-xs font-medium text-gray-500 uppercase tracking-normal md:tracking-wider">
+              <li className="shrink-0"><Link href="/" className="hover:text-brand-600 transition-colors">Home</Link></li>
+              <li className="shrink-0"><span>/</span></li>
+              <li className="shrink-0"><Link href="/services/modular-operation-theatre" className="hover:text-brand-600 transition-colors">Modular OT</Link></li>
+              <li className="shrink-0"><span>/</span></li>
+              <li className="min-w-0 overflow-hidden text-ellipsis text-brand-600 font-bold">{data.title}</li>
             </ol>
           </nav>
 

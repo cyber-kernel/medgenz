@@ -7,7 +7,6 @@ import {
   CheckCircle,
   ShieldCheck,
   ChevronRight,
-  FileText,
   Zap,
   Activity,
   Layout,
@@ -16,7 +15,6 @@ import {
   AlertTriangle,
   ArrowRight,
   Star,
-  ExternalLink,
   Wind
 } from "lucide-react";
 import ECGCTA from '@/components/sections/ECGCTA';
@@ -227,49 +225,6 @@ export default function NurseCallSystemHub() {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* RESOURCE VAULT */}
-      <section className="py-12 md:py-24 px-4 md:px-6 bg-white border-b border-gray-200">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 border-b-2 border-gray-200 pb-4 gap-2">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-tighter">Technical <span className="text-brand-600">Resource Vault</span></h2>
-            <span className="w-max self-start text-[10px] md:text-xs font-bold uppercase tracking-widest text-gray-500 bg-white px-3 py-1 rounded-full border border-gray-200 shadow-sm">Architect Portal</span>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
-            <a href="https://drive.google.com/file/d/1tzHDy3cESZkprCHA3yQP4qEiJtNVgOrb/view?usp=sharing" target="_blank" className="group bg-white rounded-lg md:rounded-2xl border border-gray-200 shadow-sm hover:shadow-md hover:border-brand-300 transition-all overflow-hidden flex flex-col text-center md:text-left">
-              <div className="h-16 md:h-40 bg-gray-100 flex items-center justify-center border-b border-gray-200 group-hover:bg-brand-50 transition-colors relative">
-                <FileText className="w-8 h-8 md:w-16 md:h-16 text-brand-300 group-hover:text-brand-500 transition-colors" />
-              </div>
-              <div className="p-2 md:p-5 flex flex-col flex-grow items-center md:items-start">
-                <h4 className="font-bold text-gray-900 group-hover:text-brand-700 text-[10px] md:text-base leading-tight mb-1">MGPS Layout Drawing</h4>
-                <p className="hidden md:block text-xs text-gray-500 mb-4 flex-grow font-light">DWG Format • For Hospital Architects</p>
-                <div className="text-[9px] md:text-xs font-bold text-brand-600 flex items-center gap-1 md:gap-2 mt-auto">Open Document <ExternalLink className="w-3 h-3 md:w-4 md:h-4" /></div>
-              </div>
-            </a>
-            <a href="/docs/htm-02-01-checklist.pdf" target="_blank" className="group bg-white rounded-lg md:rounded-2xl border border-gray-200 shadow-sm hover:shadow-md hover:border-brand-300 transition-all overflow-hidden flex flex-col text-center md:text-left">
-              <div className="h-16 md:h-40 bg-gray-100 flex items-center justify-center border-b border-gray-200 group-hover:bg-brand-50 transition-colors relative">
-                <FileText className="w-8 h-8 md:w-16 md:h-16 text-red-300 group-hover:text-red-500 transition-colors" />
-              </div>
-              <div className="p-2 md:p-5 flex flex-col flex-grow items-center md:items-start">
-                <h4 className="font-bold text-gray-900 group-hover:text-brand-700 text-[10px] md:text-base leading-tight mb-1">HTM 02-01 Checklist</h4>
-                <p className="hidden md:block text-xs text-gray-500 mb-4 flex-grow font-light">PDF Document • Safety Standards</p>
-                <div className="text-[9px] md:text-xs font-bold text-brand-600 flex items-center gap-1 md:gap-2 mt-auto">Open Document <ExternalLink className="w-3 h-3 md:w-4 md:h-4" /></div>
-              </div>
-            </a>
-            <a href="/docs/zone-valve-box-specs.pdf" target="_blank" className="group bg-white rounded-lg md:rounded-2xl border border-gray-200 shadow-sm hover:shadow-md hover:border-brand-300 transition-all overflow-hidden flex flex-col text-center md:text-left">
-              <div className="h-16 md:h-40 bg-gray-100 flex items-center justify-center border-b border-gray-200 group-hover:bg-brand-50 transition-colors relative">
-                <FileText className="w-8 h-8 md:w-16 md:h-16 text-gray-400 group-hover:text-brand-500 transition-colors" />
-              </div>
-              <div className="p-2 md:p-5 flex flex-col flex-grow items-center md:items-start">
-                <h4 className="font-bold text-gray-900 group-hover:text-brand-700 text-[10px] md:text-base leading-tight mb-1">Zone Valve Box Specs</h4>
-                <p className="hidden md:block text-xs text-gray-500 mb-4 flex-grow font-light">Technical Datasheet • Flow Metrics</p>
-                <div className="text-[9px] md:text-xs font-bold text-brand-600 flex items-center gap-1 md:gap-2 mt-auto">Open Document <ExternalLink className="w-3 h-3 md:w-4 md:h-4" /></div>
-              </div>
-            </a>
           </div>
         </div>
       </section>

@@ -24,22 +24,40 @@ import Certifications from '@/components/sections/Certifications';
 
 const architecture = [
   {
-    category: "Core Partition Hardware",
-    badge: "Engineered for Strength",
-    items: [
-      { name: "Heavy-Duty Aluminum Tracks", slug: "aluminum-tracks" },
-      { name: "Silent Glider Hooks", slug: "silent-gliders" },
-      { name: "Roof Suspension Systems", slug: "roof-suspensions" }
-    ]
+    name: "Heavy-Duty Aluminum",
+    tagline: "Extruded Profile",
+    slug: "aluminum-tracks",
+    desc: "Extruded from premium aluminum alloy, these rigid tracks form the backbone of the system. Treated with a 50-micron epoxy powder coat to ensure infection resistance."
   },
   {
-    category: "Customized Privacy Solutions",
-    badge: "Bespoke Layouts",
-    items: [
-      { name: "Custom Bends & Layouts", slug: "custom-layouts" },
-      { name: "Anti-Microbial Privacy Curtains", slug: "curtains" },
-      { name: "Telescopic IV Tracks", slug: "iv-tracks" }
-    ]
+    name: "Silent Glider Hooks",
+    tagline: "Jam-Free Operation",
+    slug: "silent-gliders",
+    desc: "Precision-engineered runners made from virgin nylon/delrin with stainless steel hooks. They travel silently within the track profile without sticking or snagging."
+  },
+  {
+    name: "Roof Suspensions",
+    tagline: "Sturdy Mounting",
+    slug: "roof-suspensions",
+    desc: "For wards with high or false ceilings, we provide rigid aluminum suspension drops (bridge supports) that firmly anchor the track layout to the true ceiling above."
+  },
+  {
+    name: "Custom Bends & Layouts",
+    tagline: "U-Shape & L-Shape",
+    slug: "custom-layouts",
+    desc: "Tracks are custom-bent at our facility using specialized machinery to create perfectly curved L-shape, U-shape, or O-shape cubicles tailored to your bed arrangements."
+  },
+  {
+    name: "Anti-Microbial Curtains",
+    tagline: "Fire & Stain Retardant",
+    slug: "curtains",
+    desc: "High-quality, washable polyester fabric treated with anti-bacterial agents. Features an open-mesh top design to comply with fire safety codes allowing sprinkler water penetration."
+  },
+  {
+    name: "Telescopic IV Tracks",
+    tagline: "Bedside Integration",
+    slug: "iv-tracks",
+    desc: "Dedicated overhead IV carrier tracks installed parallel to or alongside the cubicle track, providing mobile, space-saving fluid suspension directly above the patient bed."
   }
 ];
 
@@ -197,22 +215,23 @@ export default function CurtainTrackHub() {
             <p className="text-gray-600 max-w-2xl mx-auto text-xs md:text-lg font-light">We manufacture and integrate all necessary hardware to build a sturdy, reliable, and aesthetically pleasing ward partition system.</p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-5 md:gap-8 mb-8 md:mb-12">
-            {architecture.map((cat, i) => (
-              <div key={i} className="bg-gray-50 rounded-2xl p-4 md:p-8 border border-gray-200 shadow-sm hover:border-brand-200 transition-colors flex flex-col">
-                <div className="flex items-center justify-between mb-4 md:mb-6 pb-4 md:pb-6 border-b border-gray-200">
-                  <h3 className="text-base md:text-xl font-bold text-gray-900 leading-tight uppercase tracking-tighter">{cat.category}</h3>
-                  <span className="text-[8px] md:text-[10px] text-green-600 font-bold uppercase tracking-widest border border-green-200 bg-green-50 px-2 py-0.5 rounded-full">{cat.badge}</span>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8 mb-8 md:mb-12">
+            {architecture.map((item, i) => (
+              <Link
+                key={i}
+                href={`/services/curtain-track-system/configurations#${item.slug}`}
+                className="block bg-gray-50 rounded-2xl p-4 md:p-6 border border-gray-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:border-brand-300 hover:shadow-md hover:-translate-y-1 transition-all cursor-pointer group"
+              >
+                <div className="flex items-center gap-3 md:gap-4 mb-4 pb-4 border-b border-gray-200">
+                  <div>
+                    <h3 className="text-base md:text-lg font-bold text-gray-900 leading-tight group-hover:text-brand-700 transition-colors">{item.name}</h3>
+                    <p className="text-[10px] text-brand-600 font-bold uppercase tracking-wider mt-1">{item.tagline}</p>
+                  </div>
                 </div>
-                <div className="space-y-1 flex-grow">
-                  {cat.items.map((item, ii) => (
-                    <Link key={ii} href={`/services/curtain-track-system/configurations#${item.slug}`} className="group flex items-center justify-between p-2 md:p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all border border-transparent hover:border-gray-100 font-bold text-xs md:text-sm">
-                      <span className="text-gray-700 group-hover:text-brand-700">{item.name}</span>
-                      <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4 text-gray-400 group-hover:text-brand-600 transition-transform group-hover:translate-x-1" />
-                    </Link>
-                  ))}
+                <div className="text-gray-600 text-xs md:text-sm leading-relaxed pb-2 font-light">
+                  {item.desc}
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

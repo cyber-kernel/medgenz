@@ -206,7 +206,7 @@ export default function CurtainTrackHub() {
                 </div>
                 <div className="space-y-1 flex-grow">
                   {cat.items.map((item, ii) => (
-                    <Link key={ii} href={`/services/curtain-track-system/${item.slug}`} className="group flex items-center justify-between p-2 md:p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all border border-transparent hover:border-gray-100 font-bold text-xs md:text-sm">
+                    <Link key={ii} href={`/services/curtain-track-system/configurations#${item.slug}`} className="group flex items-center justify-between p-2 md:p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all border border-transparent hover:border-gray-100 font-bold text-xs md:text-sm">
                       <span className="text-gray-700 group-hover:text-brand-700">{item.name}</span>
                       <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4 text-gray-400 group-hover:text-brand-600 transition-transform group-hover:translate-x-1" />
                     </Link>

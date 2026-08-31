@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -37,6 +39,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [isDraftLoaded, setIsDraftLoaded] = useState(false);
+  const [savingStep, setSavingStep] = useState('');
 
   // Basic Info
   const [title, setTitle] = useState(initialData?.title || '');
@@ -117,7 +120,6 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Use FileReader for instant preview (no upload yet)
     const reader = new FileReader();
     reader.onloadend = () => {
       setHeroImage(reader.result as string);
@@ -161,16 +163,12 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
         image: () => selectLocalImage(section)
       }
     },
-    // We can't easily add full external modules here without npm install,
-    // but we can ensure standard image features are preserved.
     clipboard: { matchVisual: false }
   }), []);
 
   const uploadImage = async (source: string): Promise<string> => {
-    // If it's already a hosted URL, don't upload again
     if (!source.startsWith('data:image/')) return source;
 
-    // Convert base64 to blob
     const res = await fetch(source);
     const blob = await res.blob();
     const file = new File([blob], "upload.webp", { type: blob.type });
@@ -205,22 +203,18 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     return div.innerHTML;
   };
 
-  const [savingStep, setSavingStep] = useState('');
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setSavingStep('Processing images...');
 
     try {
-      // 1. Upload Hero Image if base64
       let finalHeroImage = heroImage;
       if (heroImage.startsWith('data:image/')) {
         setSavingStep('Uploading banner...');
         finalHeroImage = await uploadImage(heroImage);
       }
 
-      // 2. Upload Content Images
       setSavingStep('Uploading content images...');
       const finalBrief = await processContentImages(brief);
       const finalChallenge = await processContentImages(challenge);
@@ -284,7 +278,6 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
         modules={getQuillModules(section)}
         placeholder={placeholder}
         className="min-h-[260px] border-none"
-        // Key fix for auto-scroll: prevent re-creation of editor
         scrollingContainer="body"
       />
     </div>
@@ -304,52 +297,6 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     const newSpecs = [...specs];
     newSpecs[index][field] = val;
     setSpecs(newSpecs);
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-
-    const data = {
-      title,
-      slug,
-      subtitle,
-      service,
-      location,
-      heroImage,
-      brief,
-      challenge,
-      solution,
-      highlights: highlights.filter(h => h.trim() !== ''),
-      specs: specs.filter(s => s.label.trim() !== ''),
-      published,
-      metaTitle,
-      metaDescription
-    };
-
-    try {
-      const url = id ? `/api/projects/${id}` : '/api/projects';
-      const method = id ? 'PUT' : 'POST';
-
-      const res = await fetch(url, {
-        method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-
-      if (res.ok) {
-        router.push('/admin/projects');
-        router.refresh();
-      } else {
-        const err = await res.json();
-        alert(err.error || 'Failed to save project');
-      }
-    } catch (err) {
-      console.error(err);
-      alert('An error occurred');
-    } finally {
-      setLoading(false);
-    }
   };
 
   return (

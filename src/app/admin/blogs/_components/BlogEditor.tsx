@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -34,6 +36,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [isDraftLoaded, setIsDraftLoaded] = useState(false);
+  const [savingStep, setSavingStep] = useState('');
 
   const [title, setTitle] = useState(initialData?.title || '');
   const [slug, setSlug] = useState(initialData?.slug || '');
@@ -180,8 +183,6 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
     }
     return div.innerHTML;
   };
-
-  const [savingStep, setSavingStep] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

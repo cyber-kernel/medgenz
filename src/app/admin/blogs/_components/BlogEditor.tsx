@@ -21,7 +21,9 @@ import {
   AlignCenter,
   AlignRight,
   Trash,
-  Trash2
+  Trash2,
+  RotateCcw,
+  EyeOff
 } from "lucide-react";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -277,6 +279,18 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
       img.className = value === 'left' ? 'ql-image-left' : value === 'right' ? 'ql-image-right' : 'ql-image-center';
     } else if (style === 'width') {
       img.style.width = value;
+    } else if (style === 'rotate') {
+      const currentRotate = img.getAttribute('data-rotate') || '0';
+      const nextRotate = (parseInt(currentRotate) + 90) % 360;
+      img.setAttribute('data-rotate', nextRotate.toString());
+      img.classList.remove('rotate-90', 'rotate-180', 'rotate-270');
+      if (nextRotate !== 0) img.classList.add(`rotate-${nextRotate}`);
+    } else if (style === 'opacity') {
+      const currentOpacity = img.getAttribute('data-opacity') || '100';
+      const nextOpacity = currentOpacity === '100' ? '75' : currentOpacity === '75' ? '50' : '100';
+      img.setAttribute('data-opacity', nextOpacity);
+      img.classList.remove('opacity-75', 'opacity-50');
+      if (nextOpacity !== '100') img.classList.add(`opacity-${nextOpacity}`);
     }
 
     setContent(quillRef.current.getEditor().root.innerHTML);
@@ -300,16 +314,20 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
             left: toolbarPos.left,
             transform: 'translateX(-50%)'
           }}
+          onMouseDown={(e) => e.preventDefault()}
         >
-          <button type="button" onClick={() => updateImageStyle('align', 'left')} title="Align Left"><AlignLeft className="w-4 h-4" /></button>
-          <button type="button" onClick={() => updateImageStyle('align', 'center')} title="Align Center"><AlignCenter className="w-4 h-4" /></button>
-          <button type="button" onClick={() => updateImageStyle('align', 'right')} title="Align Right"><AlignRight className="w-4 h-4" /></button>
+          <button type="button" onMouseDown={(e) => { e.preventDefault(); updateImageStyle('align', 'left'); }} title="Align Left"><AlignLeft className="w-4 h-4" /></button>
+          <button type="button" onMouseDown={(e) => { e.preventDefault(); updateImageStyle('align', 'center'); }} title="Align Center"><AlignCenter className="w-4 h-4" /></button>
+          <button type="button" onMouseDown={(e) => { e.preventDefault(); updateImageStyle('align', 'right'); }} title="Align Right"><AlignRight className="w-4 h-4" /></button>
           <div className="divider" />
-          <button type="button" className="size-btn" onClick={() => updateImageStyle('width', '25%')}>25%</button>
-          <button type="button" className="size-btn" onClick={() => updateImageStyle('width', '50%')}>50%</button>
-          <button type="button" className="size-btn" onClick={() => updateImageStyle('width', '100%')}>FULL</button>
+          <button type="button" onMouseDown={(e) => { e.preventDefault(); updateImageStyle('rotate', ''); }} title="Rotate 90°"><RotateCcw className="w-4 h-4" /></button>
+          <button type="button" onMouseDown={(e) => { e.preventDefault(); updateImageStyle('opacity', ''); }} title="Toggle Opacity"><EyeOff className="w-4 h-4" /></button>
           <div className="divider" />
-          <button type="button" onClick={removeImage} className="text-red-400 hover:text-red-500"><Trash className="w-4 h-4" /></button>
+          <button type="button" className="size-btn" onMouseDown={(e) => { e.preventDefault(); updateImageStyle('width', '25%'); }}>25%</button>
+          <button type="button" className="size-btn" onMouseDown={(e) => { e.preventDefault(); updateImageStyle('width', '50%'); }}>50%</button>
+          <button type="button" className="size-btn" onMouseDown={(e) => { e.preventDefault(); updateImageStyle('width', '100%'); }}>FULL</button>
+          <div className="divider" />
+          <button type="button" onMouseDown={(e) => { e.preventDefault(); removeImage(); }} className="text-red-400 hover:text-red-500"><Trash className="w-4 h-4" /></button>
         </div>
       )}
 

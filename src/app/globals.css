@@ -173,3 +173,15 @@ details[open] > summary::after {
   font-weight: 800;
   min-width: 2.5rem;
 }
+
+/* Image Utilities for Editor */
+.ql-editor img {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.rotate-90 { transform: rotate(90deg); }
+.rotate-180 { transform: rotate(180deg); }
+.rotate-270 { transform: rotate(270deg); }
+
+.opacity-75 { opacity: 0.75; }
+.opacity-50 { opacity: 0.50; }

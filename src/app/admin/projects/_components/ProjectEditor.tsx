@@ -22,7 +22,9 @@ import {
   AlignLeft,
   AlignCenter,
   AlignRight,
-  Trash
+  Trash,
+  RotateCcw,
+  EyeOff
 } from "lucide-react";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -295,6 +297,51 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     }
   };
 
+  const onChangeHandlers: Record<string, (val: string) => void> = {
+    brief: setBrief,
+    challenge: setChallenge,
+    solution: setSolution
+  };
+
+  const updateImageStyle = (style: string, value: string) => {
+    if (!selectedImage) return;
+    const { element, section } = selectedImage;
+    const quill = quillRefs.current[section]?.getEditor();
+    if (!quill) return;
+
+    if (style === 'align') {
+      element.className = value === 'left' ? 'ql-image-left' : value === 'right' ? 'ql-image-right' : 'ql-image-center';
+    } else if (style === 'width') {
+      element.style.width = value;
+    } else if (style === 'rotate') {
+      const currentRotate = element.getAttribute('data-rotate') || '0';
+      const nextRotate = (parseInt(currentRotate) + 90) % 360;
+      element.setAttribute('data-rotate', nextRotate.toString());
+      // Remove old classes
+      element.classList.remove('rotate-90', 'rotate-180', 'rotate-270');
+      if (nextRotate !== 0) element.classList.add(`rotate-${nextRotate}`);
+    } else if (style === 'opacity') {
+      const currentOpacity = element.getAttribute('data-opacity') || '100';
+      const nextOpacity = currentOpacity === '100' ? '75' : currentOpacity === '75' ? '50' : '100';
+      element.setAttribute('data-opacity', nextOpacity);
+      element.classList.remove('opacity-75', 'opacity-50');
+      if (nextOpacity !== '100') element.classList.add(`opacity-${nextOpacity}`);
+    }
+
+    // Crucial: Force Quill to update its internal state
+    const html = quill.root.innerHTML;
+    onChangeHandlers[section](html);
+  };
+
+  const removeImage = () => {
+    if (!selectedImage) return;
+    const { element, section } = selectedImage;
+    element.remove();
+    const quill = quillRefs.current[section]?.getEditor();
+    onChangeHandlers[section](quill.root.innerHTML);
+    setSelectedImage(null);
+  };
+
   const renderRichTextField = (
     section: string,
     value: string,
@@ -314,36 +361,6 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
       />
     </div>
   );
-
-  const updateImageStyle = (style: string, value: string) => {
-    if (!selectedImage) return;
-    const { element, section } = selectedImage;
-    const quill = quillRefs.current[section]?.getEditor();
-    if (!quill) return;
-
-    // Apply class to the image or its container if needed, but for Quill we can use standard formats
-    if (style === 'align') {
-      element.className = value === 'left' ? 'ql-image-left' : value === 'right' ? 'ql-image-right' : 'ql-image-center';
-    } else if (style === 'width') {
-      element.style.width = value;
-    }
-
-    // Trigger update
-    onChangeHandlers[section](quill.root.innerHTML);
-  };
-
-  const removeImage = () => {
-    if (!selectedImage) return;
-    selectedImage.element.remove();
-    onChangeHandlers[selectedImage.section](quillRefs.current[selectedImage.section].getEditor().root.innerHTML);
-    setSelectedImage(null);
-  };
-
-  const onChangeHandlers: Record<string, (val: string) => void> = {
-    brief: setBrief,
-    challenge: setChallenge,
-    solution: setSolution
-  };
 
   const addHighlight = () => setHighlights([...highlights, '']);
   const removeHighlight = (index: number) => setHighlights(highlights.filter((_, i) => i !== index));
@@ -372,16 +389,20 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
             left: toolbarPos.left,
             transform: 'translateX(-50%)'
           }}
+          onMouseDown={(e) => e.preventDefault()} // Prevent losing selection
         >
-          <button type="button" onClick={() => updateImageStyle('align', 'left')} title="Align Left"><AlignLeft className="w-4 h-4" /></button>
-          <button type="button" onClick={() => updateImageStyle('align', 'center')} title="Align Center"><AlignCenter className="w-4 h-4" /></button>
-          <button type="button" onClick={() => updateImageStyle('align', 'right')} title="Align Right"><AlignRight className="w-4 h-4" /></button>
+          <button type="button" onMouseDown={(e) => { e.preventDefault(); updateImageStyle('align', 'left'); }} title="Align Left"><AlignLeft className="w-4 h-4" /></button>
+          <button type="button" onMouseDown={(e) => { e.preventDefault(); updateImageStyle('align', 'center'); }} title="Align Center"><AlignCenter className="w-4 h-4" /></button>
+          <button type="button" onMouseDown={(e) => { e.preventDefault(); updateImageStyle('align', 'right'); }} title="Align Right"><AlignRight className="w-4 h-4" /></button>
           <div className="divider" />
-          <button type="button" className="size-btn" onClick={() => updateImageStyle('width', '25%')}>25%</button>
-          <button type="button" className="size-btn" onClick={() => updateImageStyle('width', '50%')}>50%</button>
-          <button type="button" className="size-btn" onClick={() => updateImageStyle('width', '100%')}>FULL</button>
+          <button type="button" onMouseDown={(e) => { e.preventDefault(); updateImageStyle('rotate', ''); }} title="Rotate 90°"><RotateCcw className="w-4 h-4" /></button>
+          <button type="button" onMouseDown={(e) => { e.preventDefault(); updateImageStyle('opacity', ''); }} title="Toggle Opacity"><EyeOff className="w-4 h-4" /></button>
           <div className="divider" />
-          <button type="button" onClick={removeImage} className="text-red-400 hover:text-red-500"><Trash className="w-4 h-4" /></button>
+          <button type="button" className="size-btn" onMouseDown={(e) => { e.preventDefault(); updateImageStyle('width', '25%'); }}>25%</button>
+          <button type="button" className="size-btn" onMouseDown={(e) => { e.preventDefault(); updateImageStyle('width', '50%'); }}>50%</button>
+          <button type="button" className="size-btn" onMouseDown={(e) => { e.preventDefault(); updateImageStyle('width', '100%'); }}>FULL</button>
+          <div className="divider" />
+          <button type="button" onMouseDown={(e) => { e.preventDefault(); removeImage(); }} className="text-red-400 hover:text-red-500"><Trash className="w-4 h-4" /></button>
         </div>
       )}
 

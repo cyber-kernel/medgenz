@@ -30,6 +30,42 @@ const ReactQuill = dynamic(() => import('react-quill-new'), {
   loading: () => <div className="h-64 bg-slate-50 animate-pulse rounded-2xl" />
 });
 
+// Robust Attribute Registration for Quill 2.x
+const setupQuill = () => {
+  if (typeof window !== 'undefined' && !(window as any).__medgenz_quill_registered) {
+    try {
+      const QuillLib = require('react-quill-new');
+      const Quill = QuillLib.Quill || QuillLib.default?.Quill;
+      if (!Quill) return;
+
+      const Parchment = Quill.import('parchment');
+      if (!Parchment) return;
+
+      const whitelist = [
+        { name: 'class', attr: 'class' },
+        { name: 'style', attr: 'style' },
+        { name: 'width', attr: 'width' },
+        { name: 'rotate', attr: 'data-rotate' },
+        { name: 'opacity', attr: 'data-opacity' }
+      ];
+
+      whitelist.forEach(({ name, attr }) => {
+        const Attributor = name === 'style' ? Parchment.StyleAttributor : (name === 'class' ? Parchment.ClassAttributor : Parchment.AttributeAttributor);
+        const FinalAttributor = Attributor || (Parchment.Attributor ? Parchment.Attributor[name.charAt(0).toUpperCase() + name.slice(1)] : null);
+
+        if (FinalAttributor) {
+            const format = new FinalAttributor(name, attr, { scope: 3 });
+            Quill.register(format, true);
+        }
+      });
+
+      (window as any).__medgenz_quill_registered = true;
+    } catch (e) {
+      console.error('Critical Quill setup failure', e);
+    }
+  }
+};
+
 interface BlogEditorProps {
   initialData?: any;
   id?: string;
@@ -38,6 +74,7 @@ interface BlogEditorProps {
 export default function BlogEditor({ initialData, id }: BlogEditorProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [isDraftLoaded, setIsDraftLoaded] = useState(false);
   const [savingStep, setSavingStep] = useState('');
 
@@ -59,38 +96,8 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
   const quillRef = useRef<any>(null);
   const QuillComp: any = ReactQuill;
 
-  // Safe Quill Registration
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-        try {
-            const QuillLib = require('react-quill-new');
-            const Quill = QuillLib.Quill || QuillLib.default?.Quill;
-
-            if (Quill && !(window as any).__medgenz_quill_registered) {
-                const Parchment = Quill.import('parchment');
-                const getAttributor = (type: string) => {
-                    return Quill.import(`attributors/${type}`) || (Parchment ? Parchment[`${type.charAt(0).toUpperCase() + type.slice(1)}Attributor`] : null);
-                };
-
-                const ClassAttributor = getAttributor('class');
-                const StyleAttributor = getAttributor('style');
-                const AttributeAttributor = getAttributor('attribute');
-
-                if (ClassAttributor) try { Quill.register(new ClassAttributor('class', 'class', { scope: 3 }), true); } catch(e) {}
-                if (StyleAttributor) try { Quill.register(new StyleAttributor('style', 'style', { scope: 3 }), true); } catch(e) {}
-
-                if (AttributeAttributor) {
-                    try { Quill.register(new AttributeAttributor('data-rotate', 'data-rotate', { scope: 3 }), true); } catch(e) {}
-                    try { Quill.register(new AttributeAttributor('data-opacity', 'data-opacity', { scope: 3 }), true); } catch(e) {}
-                    try { Quill.register(new AttributeAttributor('width', 'width', { scope: 3 }), true); } catch(e) {}
-                }
-                (window as any).__medgenz_quill_registered = true;
-            }
-        } catch (e) {
-            console.error('Defensive Quill registration failed', e);
-        }
-    }
-  }, []);
+  // Initialize
+  useEffect(() => { setupQuill(); }, []);
 
   // Persistence: Load Draft
   useEffect(() => {
@@ -99,13 +106,13 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
     if (savedDraft) {
       try {
         const data = JSON.parse(savedDraft);
-        if (!initialData || confirm('Found an unsaved blog draft. Restore it?')) {
+        if (!initialData || confirm('Restore unsaved blog draft?')) {
             setTitle(data.title || ''); setSlug(data.slug || ''); setContent(data.content || '');
             setExcerpt(data.excerpt || ''); setCategory(data.category || 'Healthcare');
             setCoverImage(data.coverImage || ''); setPublished(data.published || false);
             setMetaTitle(data.metaTitle || ''); setMetaDescription(data.metaDescription || '');
         }
-      } catch (e) { console.error(e); }
+      } catch (e) {}
     }
     setIsDraftLoaded(true);
   }, [id, initialData]);
@@ -114,9 +121,10 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
   useEffect(() => {
     if (!isDraftLoaded) return;
     const timer = setTimeout(() => {
-      const data = { title, slug, content, excerpt, category, coverImage, published, metaTitle, metaDescription };
-      localStorage.setItem(`medgenz-blog-draft-${id || 'new'}`, JSON.stringify(data));
-    }, 1000);
+      localStorage.setItem(`medgenz-blog-draft-${id || 'new'}`, JSON.stringify({
+        title, slug, content, excerpt, category, coverImage, published, metaTitle, metaDescription
+      }));
+    }, 1500);
     return () => clearTimeout(timer);
   }, [title, slug, content, excerpt, category, coverImage, published, metaTitle, metaDescription, isDraftLoaded, id]);
 
@@ -147,19 +155,15 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
 
   const selectLocalImage = () => {
     const input = document.createElement('input');
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'image/*');
-    input.click();
+    input.setAttribute('type', 'file'); input.setAttribute('accept', 'image/*'); input.click();
     input.onchange = () => {
-      const file = input.files?.[0];
-      if (!file) return;
+      const file = input.files?.[0]; if (!file) return;
       const reader = new FileReader();
       reader.onloadend = () => {
-        const base64 = reader.result as string;
         const quill = quillRef.current?.getEditor();
         if (quill) {
           const range = quill.getSelection() || { index: quill.getLength() };
-          quill.insertEmbed(range.index, 'image', base64);
+          quill.insertEmbed(range.index, 'image', reader.result as string);
         }
       };
       reader.readAsDataURL(file);
@@ -186,12 +190,11 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
   };
 
   const processContentImages = async (html: string): Promise<string> => {
-    const div = document.createElement('div');
-    div.innerHTML = html;
+    const div = document.createElement('div'); div.innerHTML = html;
     const images = div.querySelectorAll('img');
     for (let i = 0; i < images.length; i++) {
       if (images[i].src.startsWith('data:image/')) {
-        try { images[i].src = await uploadImage(images[i].src); } catch (e) { console.error(e); }
+        try { images[i].src = await uploadImage(images[i].src); } catch (e) {}
       }
     }
     return div.innerHTML;
@@ -199,8 +202,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setSavingStep('Uploading images...');
+    setLoading(true); setSavingStep('Uploading images...');
     try {
       let finalCoverImage = coverImage;
       if (coverImage && coverImage.startsWith('data:image/')) {
@@ -224,20 +226,26 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
   const updateImageStyle = (style: string, value: string) => {
     if (!selectedImage) return;
     const img = selectedImage.element;
-    if (style === 'align') { img.className = value === 'left' ? 'ql-image-left' : value === 'right' ? 'ql-image-right' : 'ql-image-center'; }
-    else if (style === 'width') { img.style.width = value; }
-    else if (style === 'rotate') {
+    const quill = quillRef.current?.getEditor();
+    if (!quill) return;
+
+    const blot = (quill as any).scroll.find(img);
+    if (!blot) return;
+
+    if (style === 'align') {
+      const cls = value === 'left' ? 'ql-image-left' : value === 'right' ? 'ql-image-right' : 'ql-image-center';
+      blot.format('class', cls);
+    } else if (style === 'width') {
+      blot.format('width', value);
+    } else if (style === 'rotate') {
       const nextRotate = (parseInt(img.getAttribute('data-rotate') || '0') + 90) % 360;
-      img.setAttribute('data-rotate', nextRotate.toString());
-      img.classList.remove('rotate-90', 'rotate-180', 'rotate-270');
-      if (nextRotate !== 0) img.classList.add(`rotate-${nextRotate}`);
+      blot.format('rotate', nextRotate.toString());
     } else if (style === 'opacity') {
       const nextOpacity = img.getAttribute('data-opacity') === '50' ? '100' : img.getAttribute('data-opacity') === '75' ? '50' : '75';
-      img.setAttribute('data-opacity', nextOpacity);
-      img.classList.remove('opacity-75', 'opacity-50');
-      if (nextOpacity !== '100') img.classList.add(`opacity-${nextOpacity}`);
+      blot.format('opacity', nextOpacity);
     }
-    setContent(quillRef.current.getEditor().root.innerHTML);
+
+    setContent(quill.root.innerHTML);
   };
 
   const removeImage = () => {
@@ -275,9 +283,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
           <button type="button" onClick={() => { if(confirm('Reset draft?')) { clearDraft(); window.location.reload(); } }} className="p-4 bg-white rounded-2xl border border-slate-100 text-slate-400 hover:text-red-500 shadow-sm group"><RefreshCcw className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" /></button>
           <div className="flex items-center gap-3 bg-white p-2 rounded-2xl border border-slate-100 shadow-sm mr-4">
              <span className={`w-3 h-3 rounded-full ${published ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'}`} />
-             <select value={published ? 'true' : 'false'} onChange={(e) => setPublished(e.target.value === 'true')} className="bg-transparent text-[10px] font-black uppercase tracking-widest outline-none pr-4">
-               <option value="false">Draft</option><option value="true">Live</option>
-             </select>
+             <select value={published ? 'true' : 'false'} onChange={(e) => setPublished(e.target.value === 'true')} className="bg-transparent text-[10px] font-black uppercase tracking-widest outline-none pr-4"><option value="false">Draft</option><option value="true">Live</option></select>
           </div>
           <button type="submit" disabled={loading} className="inline-flex items-center gap-3 bg-brand-600 text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-widest hover:bg-brand-500 shadow-xl shadow-brand-600/20 disabled:opacity-50 min-w-[240px] justify-center">
             {loading ? <><Loader2 className="w-5 h-5 animate-spin" /><span className="text-[10px] uppercase">{savingStep}</span></> : <><Save className="w-5 h-5" /><span>{id ? 'Update' : 'Publish'}</span></>}

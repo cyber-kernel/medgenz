@@ -29,7 +29,7 @@ const ReactQuill = dynamic(() => import('react-quill-new'), {
   loading: () => <div className="h-64 bg-slate-50 animate-pulse rounded-2xl" />
 });
 
-// Production-Safe Quill Setup
+// Register custom attributes for Quill 2.x
 const setupQuill = () => {
   if (typeof window !== 'undefined' && !(window as any).__medgenz_quill_registered) {
     try {
@@ -39,13 +39,12 @@ const setupQuill = () => {
         const Parchment = Quill.import('parchment');
         const AttributeAttributor = Parchment.AttributeAttributor || (Parchment.Attributor ? Parchment.Attributor.Attribute : null);
         if (AttributeAttributor) {
-            // Only whitelist width for simplicity and stability
             Quill.register(new AttributeAttributor('width', 'width', { scope: 3 }), true);
         }
         (window as any).__medgenz_quill_registered = true;
       }
     } catch (e) {
-      console.error('Quill config failed', e);
+      console.error('Quill setup failed', e);
     }
   }
 };
@@ -61,11 +60,11 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   const [isDraftLoaded, setIsDraftLoaded] = useState(false);
   const [savingStep, setSavingStep] = useState('');
 
-  // Floating Toolbar State
+  // Toolbar State
   const [selectedImage, setSelectedImage] = useState<{ element: HTMLImageElement, section: string } | null>(null);
   const [toolbarPos, setToolbarPos] = useState({ top: 0, left: 0 });
 
-  // Basic Info
+  // Form State
   const [title, setTitle] = useState(initialData?.title || '');
   const [slug, setSlug] = useState(initialData?.slug || '');
   const [subtitle, setSubtitle] = useState(initialData?.subtitle || '');
@@ -73,17 +72,11 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   const [location, setLocation] = useState(initialData?.location || '');
   const [heroImage, setHeroImage] = useState(initialData?.heroImage || '');
   const [published, setPublished] = useState(initialData?.published || false);
-
-  // Content
   const [brief, setBrief] = useState(initialData?.brief || '');
   const [challenge, setChallenge] = useState(initialData?.challenge || '');
   const [solution, setSolution] = useState(initialData?.solution || '');
-
-  // JSON Fields
   const [highlights, setHighlights] = useState<string[]>(initialData?.highlights || ['', '']);
   const [specs, setSpecs] = useState<{label: string, value: string}[]>(initialData?.specs || [{label: '', value: ''}]);
-
-  // SEO
   const [metaTitle, setMetaTitle] = useState(initialData?.metaTitle || '');
   const [metaDescription, setMetaDescription] = useState(initialData?.metaDescription || '');
 
@@ -91,34 +84,28 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   const quillRefs = useRef<Record<string, any>>({});
   const QuillComp: any = ReactQuill;
 
-  const onChangeHandlers: Record<string, (val: string) => void> = {
-    brief: setBrief, challenge: setChallenge, solution: setSolution
-  };
-
-  // Initialize
-  useEffect(() => { setupQuill(); }, []);
-
-  // Persistence: Load Draft
+  // Persistence: Load
   useEffect(() => {
+    setupQuill();
     const draftKey = `medgenz-project-draft-${id || 'new'}`;
-    const savedDraft = localStorage.getItem(draftKey);
-    if (savedDraft) {
+    const saved = localStorage.getItem(draftKey);
+    if (saved) {
       try {
-        const data = JSON.parse(savedDraft);
-        if (!initialData || confirm('Restore unsaved project draft?')) {
-            setTitle(data.title || ''); setSlug(data.slug || ''); setSubtitle(data.subtitle || '');
-            setService(data.service || 'Modular OT'); setLocation(data.location || '');
-            setHeroImage(data.heroImage || ''); setPublished(data.published || false);
-            setBrief(data.brief || ''); setChallenge(data.challenge || ''); setSolution(data.solution || '');
-            setHighlights(data.highlights || ['', '']); setSpecs(data.specs || [{label: '', value: ''}]);
-            setMetaTitle(data.metaTitle || ''); setMetaDescription(data.metaDescription || '');
+        const data = JSON.parse(saved);
+        if (!initialData || confirm('Found an unsaved draft. Restore it?')) {
+          setTitle(data.title || ''); setSlug(data.slug || ''); setSubtitle(data.subtitle || '');
+          setService(data.service || 'Modular OT'); setLocation(data.location || '');
+          setHeroImage(data.heroImage || ''); setPublished(data.published || false);
+          setBrief(data.brief || ''); setChallenge(data.challenge || ''); setSolution(data.solution || '');
+          setHighlights(data.highlights || ['', '']); setSpecs(data.specs || [{label: '', value: ''}]);
+          setMetaTitle(data.metaTitle || ''); setMetaDescription(data.metaDescription || '');
         }
       } catch (e) {}
     }
     setIsDraftLoaded(true);
   }, [id, initialData]);
 
-  // Persistence: Save Draft
+  // Persistence: Save
   useEffect(() => {
     if (!isDraftLoaded) return;
     const timer = setTimeout(() => {
@@ -130,21 +117,16 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     return () => clearTimeout(timer);
   }, [title, slug, subtitle, service, location, heroImage, published, brief, challenge, solution, highlights, specs, metaTitle, metaDescription, isDraftLoaded, id]);
 
-  // Detect image clicks
+  // Image Selection logic
   useEffect(() => {
     const handleGlobalClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (target.tagName === 'IMG' && target.closest('.ql-editor')) {
         const img = target as HTMLImageElement;
         const rect = img.getBoundingClientRect();
-        const editorContainer = target.closest('.prose');
-        const section = editorContainer?.getAttribute('data-section') || '';
-
+        const section = target.closest('.prose')?.getAttribute('data-section') || '';
         setSelectedImage({ element: img, section });
-        setToolbarPos({
-          top: rect.top + window.scrollY - 60,
-          left: rect.left + window.scrollX + (rect.width / 2)
-        });
+        setToolbarPos({ top: rect.top + window.scrollY - 60, left: rect.left + window.scrollX + (rect.width / 2) });
       } else if (!target.closest('.image-action-toolbar')) {
         setSelectedImage(null);
       }
@@ -153,43 +135,14 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     return () => window.removeEventListener('mousedown', handleGlobalClick);
   }, []);
 
-  const clearDraft = () => localStorage.removeItem(`medgenz-project-draft-${id || 'new'}`);
-
   const handleHeroImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const file = e.target.files?.[0]; if (!file) return;
     const reader = new FileReader();
     reader.onloadend = () => setHeroImage(reader.result as string);
     reader.readAsDataURL(file);
   };
 
-  const selectLocalImage = (section: string) => {
-    const input = document.createElement('input');
-    input.setAttribute('type', 'file'); input.setAttribute('accept', 'image/*'); input.click();
-    input.onchange = () => {
-      const file = input.files?.[0]; if (!file) return;
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64 = reader.result as string;
-        const quill = quillRefs.current[section]?.getEditor();
-        if (quill) {
-          const range = quill.getSelection() || { index: quill.getLength() };
-          quill.insertEmbed(range.index, 'image', base64);
-        }
-      };
-      reader.readAsDataURL(file);
-    };
-  };
-
-  const quillModules = useMemo(() => (section: string) => ({
-    toolbar: {
-      container: [[{ header: [1, 2, 3, false] }], ['bold', 'italic', 'underline', 'strike', 'blockquote'], [{ list: 'ordered' }, { list: 'bullet' }], ['link', 'image'], ['clean']],
-      handlers: { image: () => selectLocalImage(section) }
-    },
-    clipboard: { matchVisual: false }
-  }), []);
-
-  const uploadImage = async (source: string): Promise<string> => {
+  const uploadToVercel = async (source: string): Promise<string> => {
     if (!source.startsWith('data:image/')) return source;
     const res = await fetch(source);
     const blob = await res.blob();
@@ -200,12 +153,12 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     return data.url;
   };
 
-  const processContentImages = async (html: string): Promise<string> => {
+  const processContent = async (html: string): Promise<string> => {
     const div = document.createElement('div'); div.innerHTML = html;
     const images = div.querySelectorAll('img');
     for (let i = 0; i < images.length; i++) {
       if (images[i].src.startsWith('data:image/')) {
-        try { images[i].src = await uploadImage(images[i].src); } catch (e) {}
+        try { images[i].src = await uploadToVercel(images[i].src); } catch (e) {}
       }
     }
     return div.innerHTML;
@@ -215,31 +168,31 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     e.preventDefault();
     setLoading(true); setSavingStep('Processing images...');
     try {
-      let finalHeroImage = heroImage;
+      let finalHero = heroImage;
       if (heroImage && heroImage.startsWith('data:image/')) {
         setSavingStep('Uploading banner...');
-        finalHeroImage = await uploadImage(heroImage);
+        finalHero = await uploadToVercel(heroImage);
       }
       setSavingStep('Finalizing content...');
-      const finalBrief = await processContentImages(brief);
-      const finalChallenge = await processContentImages(challenge);
-      const finalSolution = await processContentImages(solution);
+      const finalBrief = await processContent(brief);
+      const finalChallenge = await processContent(challenge);
+      const finalSolution = await processContent(solution);
 
       setSavingStep('Saving data...');
       const res = await fetch(id ? `/api/projects/${id}` : '/api/projects', {
         method: id ? 'PUT' : 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          title, slug, subtitle, service, location, heroImage: finalHeroImage,
+          title, slug, subtitle, service, location, heroImage: finalHero,
           brief: finalBrief, challenge: finalChallenge, solution: finalSolution,
           highlights: highlights.filter(h => h.trim() !== ''),
           specs: specs.filter(s => s.label.trim() !== ''),
           published, metaTitle, metaDescription
         })
       });
-      if (res.ok) { clearDraft(); router.push('/admin/projects'); router.refresh(); }
+      if (res.ok) { localStorage.removeItem(`medgenz-project-draft-${id || 'new'}`); router.push('/admin/projects'); router.refresh(); }
       else { const err = await res.json(); alert(err.error || 'Save failed'); }
-    } catch (err) { alert('Error saving project'); }
+    } catch (err) { alert('Error saving'); }
     finally { setLoading(false); setSavingStep(''); }
   };
 
@@ -249,18 +202,18 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     const quill = quillRefs.current[section]?.getEditor();
     if (!quill) return;
 
-    // Use internal Quill API to find the index and format it
     try {
         const blot = (quill as any).scroll.find(element);
         if (blot) {
             const index = blot.offset(quill.scroll);
             quill.formatText(index, 1, 'width', size);
-            onChangeHandlers[section](quill.root.innerHTML);
+            const html = quill.root.innerHTML;
+            if (section === 'brief') setBrief(html);
+            else if (section === 'challenge') setChallenge(html);
+            else if (section === 'solution') setSolution(html);
         }
     } catch (e) {
-        // Fallback to manual if selection logic fails
         element.style.width = size;
-        onChangeHandlers[section](quill.root.innerHTML);
     }
   };
 
@@ -268,32 +221,47 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     if (!selectedImage) return;
     const { element, section } = selectedImage;
     const quill = quillRefs.current[section]?.getEditor();
-
     try {
         const blot = (quill as any).scroll.find(element);
         if (blot) {
             const index = blot.offset(quill.scroll);
             quill.deleteText(index, 1);
-        } else {
-            element.remove();
-        }
-    } catch (e) {
-        element.remove();
-    }
+        } else { element.remove(); }
+    } catch (e) { element.remove(); }
 
-    if (quill) onChangeHandlers[section](quill.root.innerHTML);
+    if (quill) {
+        const html = quill.root.innerHTML;
+        if (section === 'brief') setBrief(html);
+        else if (section === 'challenge') setChallenge(html);
+        else if (section === 'solution') setSolution(html);
+    }
     setSelectedImage(null);
   };
 
-  const renderRichTextField = (section: string, value: string, onChange: (v: string) => void) => (
-    <div className="prose prose-slate max-w-none" data-section={section}>
-      <QuillComp ref={(e: any) => { if(e) quillRefs.current[section] = e; }} theme="snow" value={value} onChange={onChange} modules={quillModules(section)} className="min-h-[260px] border-none" scrollingContainer="body" />
-    </div>
-  );
+  const quillModules = (section: string) => ({
+    toolbar: {
+      container: [[{ header: [1, 2, 3, false] }], ['bold', 'italic', 'underline', 'strike'], [{ list: 'ordered' }, { list: 'bullet' }], ['link', 'image'], ['clean']],
+      handlers: { image: () => {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file'); input.setAttribute('accept', 'image/*'); input.click();
+        input.onchange = () => {
+          const file = input.files?.[0]; if (!file) return;
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const q = quillRefs.current[section]?.getEditor();
+            if (q) {
+              const range = q.getSelection() || { index: q.getLength() };
+              q.insertEmbed(range.index, 'image', reader.result as string);
+            }
+          };
+          reader.readAsDataURL(file);
+        };
+      }}
+    }
+  });
 
   return (
     <form onSubmit={handleSubmit} className="p-8 space-y-12 pb-32 relative">
-      {/* Simplified Floating Toolbar */}
       {selectedImage && (
         <div className="image-action-toolbar" style={{ top: toolbarPos.top, left: toolbarPos.left, transform: 'translateX(-50%)' }} onMouseDown={(e) => e.preventDefault()}>
           <button type="button" className="size-btn" onMouseDown={(e) => { e.preventDefault(); updateImageSize('25%'); }}>25%</button>
@@ -304,14 +272,14 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
         </div>
       )}
 
-      {/* UI Controls */}
+      {/* Toolbar */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="flex items-center gap-4">
           <Link href="/admin/projects" className="p-3 bg-white rounded-xl border border-slate-100 text-slate-400 hover:text-slate-900 shadow-sm"><ChevronRight className="w-5 h-5 rotate-180" /></Link>
           <h1 className="text-4xl font-black text-slate-900 tracking-tighter uppercase">{id ? 'Edit' : 'Create'} <span className="text-brand-600">Project</span></h1>
         </div>
         <div className="flex items-center gap-4">
-          <button type="button" onClick={() => { if(confirm('Reset draft?')) { clearDraft(); window.location.reload(); } }} className="p-4 bg-white rounded-2xl border border-slate-100 text-slate-400 hover:text-red-500 shadow-sm group"><RefreshCcw className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" /></button>
+          <button type="button" onClick={() => { if(confirm('Reset draft?')) { localStorage.removeItem(`medgenz-project-draft-${id || 'new'}`); window.location.reload(); } }} className="p-4 bg-white rounded-2xl border border-slate-100 text-slate-400 hover:text-red-500 shadow-sm group"><RefreshCcw className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" /></button>
           <div className="flex items-center gap-3 bg-white p-2 rounded-2xl border border-slate-100 shadow-sm mr-4">
              <span className={`w-3 h-3 rounded-full ${published ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'}`} />
              <select value={published ? 'true' : 'false'} onChange={(e) => setPublished(e.target.value === 'true')} className="bg-transparent text-[10px] font-black uppercase tracking-widest outline-none pr-4"><option value="false">Draft</option><option value="true">Live</option></select>
@@ -326,7 +294,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
         <div className="lg:col-span-8 space-y-12">
           <div className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm space-y-8">
              <div className="grid md:grid-cols-2 gap-8">
-                <div className="space-y-2"><label className="text-xs font-black text-slate-400 uppercase tracking-widest">Project Title</label><input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full text-xl font-bold text-slate-900 border-b-2 border-slate-50 focus:border-brand-600 outline-none p-2" required /></div>
+                <div className="space-y-2"><label className="text-xs font-black text-slate-400 uppercase tracking-widest">Title</label><input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full text-xl font-bold text-slate-900 border-b-2 border-slate-50 focus:border-brand-600 outline-none p-2" required /></div>
                 <div className="space-y-2"><label className="text-xs font-black text-slate-400 uppercase tracking-widest">Subtitle</label><input type="text" value={subtitle} onChange={(e) => setSubtitle(e.target.value)} className="w-full text-xl font-bold text-slate-900 border-b-2 border-slate-50 focus:border-brand-600 outline-none p-2" /></div>
              </div>
              <div className="grid md:grid-cols-2 gap-8">
@@ -336,36 +304,38 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
           </div>
 
           <div className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm space-y-10">
-             <div className="space-y-4"><div className="flex items-center gap-3 border-l-4 border-brand-600 pl-4"><FileText className="w-5 h-5 text-brand-600" /><h3 className="text-xl font-bold text-slate-900 uppercase">Project Brief</h3></div>{renderRichTextField('brief', brief, setBrief)}</div>
+             <div className="space-y-4"><h3 className="text-xl font-bold text-slate-900 uppercase">Brief</h3><div className="prose prose-slate max-w-none" data-section="brief"><QuillComp ref={(e: any) => { if(e) quillRefs.current.brief = e; }} theme="snow" value={brief} onChange={setBrief} modules={quillModules('brief')} className="min-h-[260px]" scrollingContainer="body" /></div></div>
              <div className="grid md:grid-cols-2 gap-10">
-                <div className="space-y-4"><div className="flex items-center gap-3 border-l-4 border-brand-600 pl-4"><Zap className="w-5 h-5 text-brand-600" /><h3 className="text-xl font-bold text-slate-900 uppercase">The Challenge</h3></div>{renderRichTextField('challenge', challenge, setChallenge)}</div>
-                <div className="space-y-4"><div className="flex items-center gap-3 border-l-4 border-brand-600 pl-4"><ShieldCheck className="w-5 h-5 text-green-600" /><h3 className="text-xl font-bold text-slate-900 uppercase">Our Solution</h3></div>{renderRichTextField('solution', solution, setSolution)}</div>
+                <div className="space-y-4"><h3 className="text-xl font-bold text-slate-900 uppercase">Challenge</h3><div className="prose prose-slate max-w-none" data-section="challenge"><QuillComp ref={(e: any) => { if(e) quillRefs.current.challenge = e; }} theme="snow" value={challenge} onChange={setChallenge} modules={quillModules('challenge')} className="min-h-[260px]" scrollingContainer="body" /></div></div>
+                <div className="space-y-4"><h3 className="text-xl font-bold text-slate-900 uppercase">Solution</h3><div className="prose prose-slate max-w-none" data-section="solution"><QuillComp ref={(e: any) => { if(e) quillRefs.current.solution = e; }} theme="snow" value={solution} onChange={setSolution} modules={quillModules('solution')} className="min-h-[260px]" scrollingContainer="body" /></div></div>
              </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12">
              <div className="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm space-y-6">
                 <div className="flex items-center justify-between"><h3 className="text-lg font-bold text-slate-900 uppercase">Highlights</h3><button type="button" onClick={() => setHighlights([...highlights, ''])} className="p-2 bg-brand-50 text-brand-600 rounded-lg hover:bg-brand-600 hover:text-white transition-all"><Plus className="w-4 h-4" /></button></div>
-                <div className="space-y-3">{highlights.map((h, i) => (<div key={i} className="flex gap-2"><input type="text" value={h} onChange={(e) => { const nh = [...highlights]; nh[i] = e.target.value; setHighlights(nh); }} placeholder="e.g. ISO Certified" className="w-full px-4 py-3 rounded-xl bg-slate-50 text-sm font-medium border-none outline-none focus:ring-2 focus:ring-brand-600/20" /><button type="button" onClick={() => setHighlights(highlights.filter((_, idx) => idx !== i))} className="p-3 text-slate-300 hover:text-red-500"><Trash2 className="w-4 h-4" /></button></div>))}</div>
+                <div className="space-y-3">{highlights.map((h, i) => (<div key={i} className="flex gap-2"><input type="text" value={h} onChange={(e) => { const nh = [...highlights]; nh[i] = e.target.value; setHighlights(nh); }} className="w-full px-4 py-3 rounded-xl bg-slate-50 text-sm font-medium border-none outline-none focus:ring-2 focus:ring-brand-600/20" /><button type="button" onClick={() => setHighlights(highlights.filter((_, idx) => idx !== i))} className="p-3 text-slate-300 hover:text-red-500"><Trash2 className="w-4 h-4" /></button></div>))}</div>
              </div>
              <div className="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm space-y-6">
                 <div className="flex items-center justify-between"><h3 className="text-lg font-bold text-slate-900 uppercase">Specs</h3><button type="button" onClick={() => setSpecs([...specs, {label: '', value: ''}])} className="p-2 bg-brand-50 text-brand-600 rounded-lg hover:bg-brand-600 hover:text-white transition-all"><Plus className="w-4 h-4" /></button></div>
-                <div className="space-y-4">{specs.map((s, i) => (<div key={i} className="flex flex-col gap-2 p-4 bg-slate-50 rounded-2xl relative group"><input type="text" value={s.label} onChange={(e) => { const ns = [...specs]; ns[i].label = e.target.value; setSpecs(ns); }} placeholder="Label" className="bg-transparent text-[10px] font-black uppercase text-brand-600 outline-none" /><input type="text" value={s.value} onChange={(e) => { const ns = [...specs]; ns[i].value = e.target.value; setSpecs(ns); }} placeholder="Value" className="bg-transparent text-sm font-bold text-slate-900 outline-none" /><button type="button" onClick={() => setSpecs(specs.filter((_, idx) => idx !== i))} className="absolute top-2 right-2 p-1 text-slate-200 hover:text-red-500"><Trash2 className="w-3.5 h-3.5" /></button></div>))}</div>
+                <div className="space-y-4">{specs.map((s, i) => (<div key={i} className="flex flex-col gap-2 p-4 bg-slate-50 rounded-2xl relative group"><input type="text" value={s.label} onChange={(e) => { const ns = [...specs]; ns[i] = { ...ns[i], label: e.target.value }; setSpecs(ns); }} placeholder="Label" className="bg-transparent text-[10px] font-black uppercase text-brand-600 outline-none" /><input type="text" value={s.value} onChange={(e) => { const ns = [...specs]; ns[i] = { ...ns[i], value: e.target.value }; setSpecs(ns); }} placeholder="Value" className="bg-transparent text-sm font-bold text-slate-900 outline-none" /><button type="button" onClick={() => setSpecs(specs.filter((_, idx) => idx !== i))} className="absolute top-2 right-2 p-1 text-slate-200 hover:text-red-500"><Trash2 className="w-3.5 h-3.5" /></button></div>))}</div>
              </div>
           </div>
         </div>
 
         <div className="lg:col-span-4 space-y-8">
            <div className="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm space-y-6">
-              <div className="flex items-center justify-between"><h3 className="text-lg font-bold text-slate-900 uppercase">Featured Image</h3>{heroImage && (<button type="button" onClick={() => setHeroImage('')} className="p-2 bg-red-50 text-red-500 rounded-lg hover:bg-red-500 hover:text-white"><Trash2 className="w-4 h-4" /></button>)}</div>
-              <div onClick={() => fileInputRef.current?.click()} className={`relative aspect-video rounded-2xl border-2 border-dashed border-slate-100 flex flex-col items-center justify-center cursor-pointer hover:border-brand-400 overflow-hidden group ${heroImage ? 'border-none' : ''}`}>{heroImage ? (<><Image src={heroImage} alt="Project" fill className="object-cover transition-transform group-hover:scale-105" /><div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><span className="text-white text-xs font-bold uppercase tracking-widest">Change</span></div></>) : (<div className="text-center space-y-2"><ImageIcon className="w-8 h-8 text-slate-200 mx-auto" /><p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Click to upload banner</p></div>)}</div>
+              <div className="flex items-center justify-between"><h3 className="text-lg font-bold text-slate-900 uppercase">Cover</h3>{heroImage && (<button type="button" onClick={() => setHeroImage('')} className="p-2 bg-red-50 text-red-500 rounded-lg hover:bg-red-500 hover:text-white"><Trash2 className="w-4 h-4" /></button>)}</div>
+              <div onClick={() => fileInputRef.current?.click()} className={`relative aspect-video rounded-2xl border-2 border-dashed border-slate-100 flex flex-col items-center justify-center cursor-pointer hover:border-brand-400 overflow-hidden group ${heroImage ? 'border-none' : ''}`}>
+                {heroImage ? (<><Image src={heroImage} alt="Project" fill className="object-cover transition-transform group-hover:scale-105" /><div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><span className="text-white text-xs font-bold uppercase tracking-widest">Change</span></div></>) : (<div className="text-center space-y-2"><ImageIcon className="w-8 h-8 text-slate-200 mx-auto" /><p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Click to upload banner</p></div>)}
+              </div>
               <input type="file" ref={fileInputRef} onChange={handleHeroImageSelect} className="hidden" accept="image/*" />
            </div>
            <div className="bg-slate-900 rounded-[2.5rem] p-8 text-white space-y-8">
               <div className="flex items-center gap-3"><Globe className="w-5 h-5 text-brand-500" /><h3 className="text-lg font-bold uppercase">SEO</h3></div>
               <div className="space-y-6">
-                 <div className="space-y-2"><label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Meta Title</label><input type="text" value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-brand-500 text-sm" placeholder="Google search title..." /></div>
-                 <div className="space-y-2"><label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Meta Description</label><textarea value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} className="w-full h-24 bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-brand-500 text-sm resize-none" placeholder="Brief summary..." /></div>
+                 <div className="space-y-2"><label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Meta Title</label><input type="text" value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-brand-500 text-sm" /></div>
+                 <div className="space-y-2"><label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Meta Description</label><textarea value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} className="w-full h-24 bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-brand-500 text-sm resize-none" /></div>
               </div>
            </div>
         </div>

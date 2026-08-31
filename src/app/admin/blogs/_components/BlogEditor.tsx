@@ -121,8 +121,6 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
     return () => window.removeEventListener('mousedown', handleGlobalClick);
   }, []);
 
-  const clearDraft = () => localStorage.removeItem(`medgenz-blog-draft-${id || 'new'}`);
-
   const handleHeroImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -130,31 +128,6 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
     reader.onloadend = () => setCoverImage(reader.result as string);
     reader.readAsDataURL(file);
   };
-
-  const selectLocalImage = () => {
-    const input = document.createElement('input');
-    input.setAttribute('type', 'file'); input.setAttribute('accept', 'image/*'); input.click();
-    input.onchange = () => {
-      const file = input.files?.[0]; if (!file) return;
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const quill = quillRef.current?.getEditor();
-        if (quill) {
-          const range = quill.getSelection() || { index: quill.getLength() };
-          quill.insertEmbed(range.index, 'image', reader.result as string);
-        }
-      };
-      reader.readAsDataURL(file);
-    };
-  };
-
-  const quillModules = useMemo(() => ({
-    toolbar: {
-      container: [[{ header: [1, 2, 3, false] }], ['bold', 'italic', 'underline', 'strike', 'blockquote'], [{ list: 'ordered' }, { list: 'bullet' }], ['link', 'image'], ['clean']],
-      handlers: { image: selectLocalImage }
-    },
-    clipboard: { matchVisual: false }
-  }), []);
 
   const uploadImage = async (source: string): Promise<string> => {
     if (!source.startsWith('data:image/')) return source;
@@ -195,7 +168,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title, slug, content: finalContent, excerpt, category, coverImage: finalCoverImage, published, metaTitle, metaDescription })
       });
-      if (res.ok) { clearDraft(); router.push('/admin/blogs'); router.refresh(); }
+      if (res.ok) { localStorage.removeItem(`medgenz-blog-draft-${id || 'new'}`); router.push('/admin/blogs'); router.refresh(); }
       else { const err = await res.json(); alert(err.error || 'Save failed'); }
     } catch (err) { alert('Error saving blog'); }
     finally { setLoading(false); setSavingStep(''); }
@@ -235,9 +208,31 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
     setSelectedImage(null);
   };
 
+  const quillModules = useMemo(() => ({
+    toolbar: {
+      container: [[{ header: [1, 2, 3, false] }], ['bold', 'italic', 'underline', 'strike'], [{ list: 'ordered' }, { list: 'bullet' }], ['link', 'image'], ['clean']],
+      handlers: { image: () => {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file'); input.setAttribute('accept', 'image/*'); input.click();
+        input.onchange = () => {
+          const file = input.files?.[0]; if (!file) return;
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const q = quillRef.current?.getEditor();
+            if (q) {
+              const range = q.getSelection() || { index: q.getLength() };
+              q.insertEmbed(range.index, 'image', reader.result as string);
+            }
+          };
+          reader.readAsDataURL(file);
+        };
+      }}
+    },
+    clipboard: { matchVisual: false }
+  }), []);
+
   return (
     <form onSubmit={handleSubmit} className="p-8 space-y-12 pb-32 relative">
-      {/* Simplified Floating Toolbar */}
       {selectedImage && (
         <div className="image-action-toolbar" style={{ top: toolbarPos.top, left: toolbarPos.left, transform: 'translateX(-50%)' }} onMouseDown={(e) => e.preventDefault()}>
           <button type="button" className="size-btn" onMouseDown={(e) => { e.preventDefault(); updateImageSize('25%'); }}>25%</button>
@@ -254,7 +249,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
           <h1 className="text-4xl font-black text-slate-900 tracking-tighter uppercase">{id ? 'Edit' : 'Create'} <span className="text-brand-600">Post</span></h1>
         </div>
         <div className="flex items-center gap-4">
-          <button type="button" onClick={() => { if(confirm('Reset draft?')) { clearDraft(); window.location.reload(); } }} className="p-4 bg-white rounded-2xl border border-slate-100 text-slate-400 hover:text-red-500 shadow-sm group"><RefreshCcw className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" /></button>
+          <button type="button" onClick={() => { if(confirm('Reset draft?')) { localStorage.removeItem(`medgenz-blog-draft-${id || 'new'}`); window.location.reload(); } }} className="p-4 bg-white rounded-2xl border border-slate-100 text-slate-400 hover:text-red-500 shadow-sm group"><RefreshCcw className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" /></button>
           <div className="flex items-center gap-3 bg-white p-2 rounded-2xl border border-slate-100 shadow-sm mr-4">
              <span className={`w-3 h-3 rounded-full ${published ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'}`} />
              <select value={published ? 'true' : 'false'} onChange={(e) => setPublished(e.target.value === 'true')} className="bg-transparent text-[10px] font-black uppercase tracking-widest outline-none pr-4"><option value="false">Draft</option><option value="true">Live</option></select>
@@ -268,19 +263,19 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
         <div className="lg:col-span-8 space-y-8">
           <div className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm space-y-8">
-             <div className="space-y-2"><label className="text-xs font-black text-slate-400 uppercase tracking-widest">Article Title</label><input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full text-3xl font-black text-slate-900 outline-none border-none focus:ring-0 p-0" required /></div>
-             <div className="space-y-4"><label className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2"><FileText className="w-3 h-3" /> Content Body</label><div className="prose prose-slate max-w-none"><QuillComp ref={quillRef} theme="snow" value={content} onChange={setContent} modules={quillModules} className="min-h-[400px] border-none" scrollingContainer="body" /></div></div>
+             <div className="space-y-2"><label className="text-xs font-black text-slate-400 uppercase tracking-widest">Title</label><input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full text-3xl font-black text-slate-900 outline-none border-none focus:ring-0 p-0" required /></div>
+             <div className="space-y-4"><label className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2"><FileText className="w-3 h-3" /> Content</label><div className="prose prose-slate max-w-none"><QuillComp ref={quillRef} theme="snow" value={content} onChange={setContent} modules={quillModules} className="min-h-[400px] border-none" scrollingContainer="body" /></div></div>
           </div>
-          <div className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm space-y-6"><div className="flex items-center gap-3 mb-2"><Sparkles className="w-5 h-5 text-brand-600" /><h3 className="text-xl font-bold text-slate-900 uppercase">Short Excerpt</h3></div><textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value)} className="w-full h-32 p-6 rounded-2xl bg-slate-50 border-none outline-none focus:ring-4 focus:ring-brand-600/10 transition-all font-medium text-slate-600" /></div>
+          <div className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm space-y-6"><div className="flex items-center gap-3 mb-2"><Sparkles className="w-5 h-5 text-brand-600" /><h3 className="text-xl font-bold text-slate-900 uppercase text-xs">Excerpt</h3></div><textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value)} className="w-full h-32 p-6 rounded-2xl bg-slate-50 border-none outline-none focus:ring-4 focus:ring-brand-600/10 transition-all font-medium text-slate-600" /></div>
         </div>
         <div className="lg:col-span-4 space-y-8">
            <div className="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm space-y-6">
-              <div className="flex items-center justify-between"><h3 className="text-lg font-bold text-slate-900 uppercase">Cover Image</h3>{coverImage && (<button type="button" onClick={() => setCoverImage('')} className="p-2 bg-red-50 text-red-500 rounded-lg hover:bg-red-500 hover:text-white"><Trash2 className="w-4 h-4" /></button>)}</div>
-              <div onClick={() => fileInputRef.current?.click()} className={`relative aspect-video rounded-2xl border-2 border-dashed border-slate-100 flex flex-col items-center justify-center cursor-pointer hover:border-brand-400 overflow-hidden group ${coverImage ? 'border-none' : ''}`}>{coverImage ? (<><Image src={coverImage} alt="Cover" fill className="object-cover transition-transform group-hover:scale-105" /><div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><span className="text-white text-xs font-bold uppercase tracking-widest">Change</span></div></>) : (<div className="text-center space-y-2"><ImageIcon className="w-8 h-8 text-slate-200 mx-auto" /><p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Click to upload banner</p></div>)}</div>
+              <div className="flex items-center justify-between"><h3 className="text-lg font-bold text-slate-900 uppercase">Cover</h3>{coverImage && (<button type="button" onClick={() => setCoverImage('')} className="p-2 bg-red-50 text-red-500 rounded-lg hover:bg-red-500 hover:text-white"><Trash2 className="w-4 h-4" /></button>)}</div>
+              <div onClick={() => fileInputRef.current?.click()} className={`relative aspect-video rounded-2xl border-2 border-dashed border-slate-100 flex flex-col items-center justify-center cursor-pointer hover:border-brand-400 overflow-hidden group ${coverImage ? 'border-none' : ''}`}>{coverImage ? (<><Image src={coverImage} alt="Cover" fill className="object-cover transition-transform group-hover:scale-110" /><div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><span className="text-white text-xs font-bold uppercase tracking-widest">Change</span></div></>) : (<div className="text-center space-y-2"><ImageIcon className="w-8 h-8 text-slate-200 mx-auto" /><p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Upload</p></div>)}</div>
               <input type="file" ref={fileInputRef} onChange={handleHeroImageSelect} className="hidden" accept="image/*" />
            </div>
            <div className="bg-slate-900 rounded-[2.5rem] p-8 text-white space-y-8">
-              <div className="flex items-center gap-3"><Globe className="w-5 h-5 text-brand-500" /><h3 className="text-lg font-bold uppercase">SEO</h3></div>
+              <div className="flex items-center gap-3"><Globe className="w-5 h-5 text-brand-500" /><h3 className="text-lg font-bold uppercase text-xs">SEO</h3></div>
               <div className="space-y-6">
                  <div className="space-y-2"><label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Category</label><select value={category} onChange={(e) => setCategory(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-brand-500 text-sm font-medium"><option className="bg-slate-900" value="Modular OT">Modular OT</option><option className="bg-slate-900" value="MGPS">MGPS</option><option className="bg-slate-900" value="Nurse Call">Nurse Call</option><option className="bg-slate-900" value="Hospital Furniture">Hospital Furniture</option><option className="bg-slate-900" value="Healthcare">Healthcare</option></select></div>
                  <div className="space-y-2"><label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Meta Title</label><input type="text" value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-brand-500 text-sm" /></div>

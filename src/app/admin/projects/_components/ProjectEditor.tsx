@@ -1,6 +1,4 @@
-"use client";
-
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import 'react-quill-new/dist/quill.snow.css';
@@ -17,7 +15,9 @@ import {
   Trash2,
   Zap,
   ShieldCheck,
-  MapPin
+  MapPin,
+  RefreshCcw,
+  Maximize2
 } from "lucide-react";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -36,6 +36,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [isDraftLoaded, setIsDraftLoaded] = useState(false);
 
   // Basic Info
   const [title, setTitle] = useState(initialData?.title || '');
@@ -63,31 +64,65 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   const quillRefs = useRef<Record<string, any>>({});
   const Quill: any = ReactQuill;
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Persistence: Load Draft
+  useEffect(() => {
+    const draftKey = `medgenz-project-draft-${id || 'new'}`;
+    const savedDraft = localStorage.getItem(draftKey);
+    if (savedDraft) {
+      try {
+        const data = JSON.parse(savedDraft);
+        if (!initialData || confirm('Found an unsaved draft. Would you like to restore it?')) {
+            setTitle(data.title || '');
+            setSlug(data.slug || '');
+            setSubtitle(data.subtitle || '');
+            setService(data.service || 'Modular OT');
+            setLocation(data.location || '');
+            setHeroImage(data.heroImage || '');
+            setPublished(data.published || false);
+            setBrief(data.brief || '');
+            setChallenge(data.challenge || '');
+            setSolution(data.solution || '');
+            setHighlights(data.highlights || ['', '']);
+            setSpecs(data.specs || [{label: '', value: ''}]);
+            setMetaTitle(data.metaTitle || '');
+            setMetaDescription(data.metaDescription || '');
+        }
+      } catch (e) {
+        console.error('Failed to parse draft', e);
+      }
+    }
+    setIsDraftLoaded(true);
+  }, [id, initialData]);
+
+  // Persistence: Save Draft
+  useEffect(() => {
+    if (!isDraftLoaded) return;
+    const draftKey = `medgenz-project-draft-${id || 'new'}`;
+    const timer = setTimeout(() => {
+      const data = {
+        title, slug, subtitle, service, location, heroImage, published,
+        brief, challenge, solution, highlights, specs, metaTitle, metaDescription
+      };
+      localStorage.setItem(draftKey, JSON.stringify(data));
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [title, slug, subtitle, service, location, heroImage, published, brief, challenge, solution, highlights, specs, metaTitle, metaDescription, isDraftLoaded, id]);
+
+  const clearDraft = () => {
+    const draftKey = `medgenz-project-draft-${id || 'new'}`;
+    localStorage.removeItem(draftKey);
+  };
+
+  const handleHeroImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    setUploading(true);
-    const formData = new FormData();
-    formData.append('file', file);
-
-    try {
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData
-      });
-      const data = await res.json();
-      if (data.url) {
-        setHeroImage(data.url);
-      } else {
-        alert(data.error || 'Upload failed');
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Upload failed');
-    } finally {
-      setUploading(false);
-    }
+    // Use FileReader for instant preview (no upload yet)
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setHeroImage(reader.result as string);
+    };
+    reader.readAsDataURL(file);
   };
 
   const selectLocalImage = (section: string) => {
@@ -96,33 +131,24 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     input.setAttribute('accept', 'image/*');
     input.click();
 
-    input.onchange = async () => {
+    input.onchange = () => {
       const file = input.files?.[0];
       if (!file) return;
 
-      const formData = new FormData();
-      formData.append('file', file);
-
-      try {
-        const res = await fetch('/api/upload', {
-          method: 'POST',
-          body: formData
-        });
-        const data = await res.json();
-        if (data.url) {
-          const quill = quillRefs.current[section]?.getEditor();
-          if (quill) {
-            const range = quill.getSelection() || { index: quill.getLength() };
-            quill.insertEmbed(range.index, 'image', data.url);
-          }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64 = reader.result as string;
+        const quill = quillRefs.current[section]?.getEditor();
+        if (quill) {
+          const range = quill.getSelection() || { index: quill.getLength() };
+          quill.insertEmbed(range.index, 'image', base64);
         }
-      } catch (err) {
-        console.error(err);
-      }
+      };
+      reader.readAsDataURL(file);
     };
   };
 
-  const getQuillModules = (section: string) => ({
+  const getQuillModules = useMemo(() => (section: string) => ({
     toolbar: {
       container: [
         [{ header: [1, 2, 3, false] }],
@@ -134,8 +160,114 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
       handlers: {
         image: () => selectLocalImage(section)
       }
+    },
+    // We can't easily add full external modules here without npm install,
+    // but we can ensure standard image features are preserved.
+    clipboard: { matchVisual: false }
+  }), []);
+
+  const uploadImage = async (source: string): Promise<string> => {
+    // If it's already a hosted URL, don't upload again
+    if (!source.startsWith('data:image/')) return source;
+
+    // Convert base64 to blob
+    const res = await fetch(source);
+    const blob = await res.blob();
+    const file = new File([blob], "upload.webp", { type: blob.type });
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const uploadRes = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData
+    });
+    const data = await uploadRes.json();
+    return data.url;
+  };
+
+  const processContentImages = async (html: string): Promise<string> => {
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    const images = div.querySelectorAll('img');
+
+    for (let i = 0; i < images.length; i++) {
+      const img = images[i];
+      if (img.src.startsWith('data:image/')) {
+        try {
+          const url = await uploadImage(img.src);
+          img.src = url;
+        } catch (e) {
+          console.error('Failed to upload embedded image', e);
+        }
+      }
     }
-  });
+    return div.innerHTML;
+  };
+
+  const [savingStep, setSavingStep] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setSavingStep('Processing images...');
+
+    try {
+      // 1. Upload Hero Image if base64
+      let finalHeroImage = heroImage;
+      if (heroImage.startsWith('data:image/')) {
+        setSavingStep('Uploading banner...');
+        finalHeroImage = await uploadImage(heroImage);
+      }
+
+      // 2. Upload Content Images
+      setSavingStep('Uploading content images...');
+      const finalBrief = await processContentImages(brief);
+      const finalChallenge = await processContentImages(challenge);
+      const finalSolution = await processContentImages(solution);
+
+      setSavingStep('Saving to database...');
+      const data = {
+        title,
+        slug,
+        subtitle,
+        service,
+        location,
+        heroImage: finalHeroImage,
+        brief: finalBrief,
+        challenge: finalChallenge,
+        solution: finalSolution,
+        highlights: highlights.filter(h => h.trim() !== ''),
+        specs: specs.filter(s => s.label.trim() !== ''),
+        published,
+        metaTitle,
+        metaDescription
+      };
+
+      const url = id ? `/api/projects/${id}` : '/api/projects';
+      const method = id ? 'PUT' : 'POST';
+
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (res.ok) {
+        clearDraft();
+        router.push('/admin/projects');
+        router.refresh();
+      } else {
+        const err = await res.json();
+        alert(err.error || 'Failed to save project');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('An error occurred during upload or save');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const renderRichTextField = (
     section: string,
@@ -145,13 +277,15 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   ) => (
     <div className="prose prose-slate max-w-none">
       <Quill
-        ref={(editor: any) => { quillRefs.current[section] = editor; }}
+        ref={(editor: any) => { if (editor) quillRefs.current[section] = editor; }}
         theme="snow"
         value={value}
         onChange={onChange}
         modules={getQuillModules(section)}
         placeholder={placeholder}
         className="min-h-[260px] border-none"
+        // Key fix for auto-scroll: prevent re-creation of editor
+        scrollingContainer="body"
       />
     </div>
   );
@@ -247,12 +381,30 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
           </div>
 
           <button
+            type="button"
+            onClick={() => { if(confirm('Clear all unsaved changes?')) { clearDraft(); window.location.reload(); } }}
+            className="p-4 bg-white rounded-2xl border border-slate-100 text-slate-400 hover:text-red-500 transition-all shadow-sm group"
+            title="Reset Draft"
+          >
+            <RefreshCcw className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" />
+          </button>
+
+          <button
             type="submit"
             disabled={loading}
-            className="inline-flex items-center gap-3 bg-brand-600 text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-widest hover:bg-brand-500 transition-all shadow-xl shadow-brand-600/20 disabled:opacity-50"
+            className="inline-flex items-center gap-3 bg-brand-600 text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-widest hover:bg-brand-500 transition-all shadow-xl shadow-brand-600/20 disabled:opacity-50 min-w-[240px] justify-center"
           >
-            {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
-            {id ? 'Update Project' : 'Publish Case Study'}
+            {loading ? (
+              <>
+                <Loader2 className="w-5 h-5 animate-spin" />
+                <span className="text-[10px]">{savingStep || 'Saving...'}</span>
+              </>
+            ) : (
+              <>
+                <Save className="w-5 h-5" />
+                <span>{id ? 'Update Project' : 'Publish Case Study'}</span>
+              </>
+            )}
           </button>
         </div>
       </div>
@@ -439,7 +591,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
                   </div>
                 )}
               </div>
-              <input type="file" ref={fileInputRef} onChange={handleImageUpload} className="hidden" accept="image/*" />
+              <input type="file" ref={fileInputRef} onChange={handleHeroImageSelect} className="hidden" accept="image/*" />
            </div>
 
            {/* SEO Settings */}

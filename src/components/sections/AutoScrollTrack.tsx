@@ -26,6 +26,7 @@ export default function AutoScrollTrack({
     const tick = () => {
       if (!isPaused && track.scrollWidth > track.clientWidth) {
         track.scrollLeft += speed;
+        // If we've scrolled past the first set of items (the content is duplicated)
         if (track.scrollLeft >= track.scrollWidth / 2) {
           track.scrollLeft = 0;
         }
@@ -44,8 +45,6 @@ export default function AutoScrollTrack({
       onPointerDown={() => setIsPaused(true)}
       onPointerUp={() => setIsPaused(false)}
       onPointerCancel={() => setIsPaused(false)}
-      onPointerEnter={() => setIsPaused(true)}
-      onPointerLeave={() => setIsPaused(false)}
       onTouchStart={() => setIsPaused(true)}
       onTouchEnd={() => setIsPaused(false)}
     >

@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -15,7 +13,8 @@ import {
   Search,
   Settings,
   ChevronRight,
-  Sparkles
+  Sparkles,
+  RefreshCcw
 } from "lucide-react";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -34,6 +33,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [isDraftLoaded, setIsDraftLoaded] = useState(false);
 
   const [title, setTitle] = useState(initialData?.title || '');
   const [slug, setSlug] = useState(initialData?.slug || '');
@@ -50,31 +50,59 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
   const quillRef = useRef<any>(null);
   const Quill: any = ReactQuill;
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Persistence: Load Draft
+  useEffect(() => {
+    const draftKey = `medgenz-blog-draft-${id || 'new'}`;
+    const savedDraft = localStorage.getItem(draftKey);
+    if (savedDraft) {
+      try {
+        const data = JSON.parse(savedDraft);
+        if (!initialData || confirm('Found an unsaved blog draft. Restore it?')) {
+            setTitle(data.title || '');
+            setSlug(data.slug || '');
+            setContent(data.content || '');
+            setExcerpt(data.excerpt || '');
+            setCategory(data.category || 'Healthcare');
+            setCoverImage(data.coverImage || '');
+            setPublished(data.published || false);
+            setMetaTitle(data.metaTitle || '');
+            setMetaDescription(data.metaDescription || '');
+        }
+      } catch (e) {
+        console.error('Failed to parse draft', e);
+      }
+    }
+    setIsDraftLoaded(true);
+  }, [id, initialData]);
+
+  // Persistence: Save Draft
+  useEffect(() => {
+    if (!isDraftLoaded) return;
+    const draftKey = `medgenz-blog-draft-${id || 'new'}`;
+    const timer = setTimeout(() => {
+      const data = {
+        title, slug, content, excerpt, category, coverImage, published,
+        metaTitle, metaDescription
+      };
+      localStorage.setItem(draftKey, JSON.stringify(data));
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [title, slug, content, excerpt, category, coverImage, published, metaTitle, metaDescription, isDraftLoaded, id]);
+
+  const clearDraft = () => {
+    const draftKey = `medgenz-blog-draft-${id || 'new'}`;
+    localStorage.removeItem(draftKey);
+  };
+
+  const handleHeroImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    setUploading(true);
-    const formData = new FormData();
-    formData.append('file', file);
-
-    try {
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData
-      });
-      const data = await res.json();
-      if (data.url) {
-        setCoverImage(data.url);
-      } else {
-        alert(data.error || 'Upload failed');
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Upload failed');
-    } finally {
-      setUploading(false);
-    }
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setCoverImage(reader.result as string);
+    };
+    reader.readAsDataURL(file);
   };
 
   const selectLocalImage = () => {
@@ -83,29 +111,20 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
     input.setAttribute('accept', 'image/*');
     input.click();
 
-    input.onchange = async () => {
+    input.onchange = () => {
       const file = input.files?.[0];
       if (!file) return;
 
-      const formData = new FormData();
-      formData.append('file', file);
-
-      try {
-        const res = await fetch('/api/upload', {
-          method: 'POST',
-          body: formData
-        });
-        const data = await res.json();
-        if (data.url) {
-          const quill = quillRef.current?.getEditor();
-          if (quill) {
-            const range = quill.getSelection();
-            quill.insertEmbed(range.index, 'image', data.url);
-          }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64 = reader.result as string;
+        const quill = quillRef.current?.getEditor();
+        if (quill) {
+          const range = quill.getSelection() || { index: quill.getLength() };
+          quill.insertEmbed(range.index, 'image', base64);
         }
-      } catch (err) {
-        console.error(err);
-      }
+      };
+      reader.readAsDataURL(file);
     };
   };
 
@@ -122,25 +141,76 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
         image: selectLocalImage
       }
     },
+    clipboard: { matchVisual: false }
   }), []);
+
+  const uploadImage = async (source: string): Promise<string> => {
+    if (!source.startsWith('data:image/')) return source;
+
+    const res = await fetch(source);
+    const blob = await res.blob();
+    const file = new File([blob], "upload.webp", { type: blob.type });
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const uploadRes = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData
+    });
+    const data = await uploadRes.json();
+    return data.url;
+  };
+
+  const processContentImages = async (html: string): Promise<string> => {
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    const images = div.querySelectorAll('img');
+
+    for (let i = 0; i < images.length; i++) {
+      const img = images[i];
+      if (img.src.startsWith('data:image/')) {
+        try {
+          const url = await uploadImage(img.src);
+          img.src = url;
+        } catch (e) {
+          console.error('Failed to upload embedded image', e);
+        }
+      }
+    }
+    return div.innerHTML;
+  };
+
+  const [savingStep, setSavingStep] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
-    const data = {
-      title,
-      slug,
-      content,
-      excerpt,
-      category,
-      coverImage,
-      published,
-      metaTitle,
-      metaDescription
-    };
+    setSavingStep('Processing images...');
 
     try {
+      let finalCoverImage = coverImage;
+      if (coverImage.startsWith('data:image/')) {
+        setSavingStep('Uploading banner...');
+        finalCoverImage = await uploadImage(coverImage);
+      }
+
+      setSavingStep('Uploading content images...');
+      const finalContent = await processContentImages(content);
+
+      setSavingStep('Saving to database...');
+      const data = {
+        title,
+        slug,
+        content: finalContent,
+        excerpt,
+        category,
+        coverImage: finalCoverImage,
+        published,
+        metaTitle,
+        metaDescription
+      };
+
       const url = id ? `/api/blogs/${id}` : '/api/blogs';
       const method = id ? 'PUT' : 'POST';
 
@@ -151,6 +221,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
       });
 
       if (res.ok) {
+        clearDraft();
         router.push('/admin/blogs');
         router.refresh();
       } else {
@@ -159,7 +230,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
       }
     } catch (err) {
       console.error(err);
-      alert('An error occurred');
+      alert('An error occurred during upload or save');
     } finally {
       setLoading(false);
     }
@@ -194,12 +265,30 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
           </div>
 
           <button
+            type="button"
+            onClick={() => { if(confirm('Clear all unsaved changes?')) { clearDraft(); window.location.reload(); } }}
+            className="p-4 bg-white rounded-2xl border border-slate-100 text-slate-400 hover:text-red-500 transition-all shadow-sm group"
+            title="Reset Draft"
+          >
+            <RefreshCcw className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" />
+          </button>
+
+          <button
             type="submit"
             disabled={loading}
-            className="inline-flex items-center gap-3 bg-brand-600 text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-widest hover:bg-brand-500 transition-all shadow-xl shadow-brand-600/20 disabled:opacity-50"
+            className="inline-flex items-center gap-3 bg-brand-600 text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-widest hover:bg-brand-500 transition-all shadow-xl shadow-brand-600/20 disabled:opacity-50 min-w-[240px] justify-center"
           >
-            {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
-            {id ? 'Update Changes' : 'Publish Article'}
+            {loading ? (
+              <>
+                <Loader2 className="w-5 h-5 animate-spin" />
+                <span className="text-[10px]">{savingStep || 'Saving...'}</span>
+              </>
+            ) : (
+              <>
+                <Save className="w-5 h-5" />
+                <span>{id ? 'Update Changes' : 'Publish Article'}</span>
+              </>
+            )}
           </button>
         </div>
       </div>
@@ -233,6 +322,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
                     modules={quillModules}
                     placeholder="Start writing your medical engineering insights..."
                     className="min-h-[400px] border-none"
+                    scrollingContainer="body"
                   />
                 </div>
              </div>
@@ -259,7 +349,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
               <div className="flex items-center justify-between">
                  <h3 className="text-lg font-bold text-slate-900 tracking-tight uppercase">Cover Image</h3>
                  {coverImage && (
-                    <button onClick={() => setCoverImage('')} className="text-red-500 hover:text-red-700 transition-colors">
+                    <button type="button" onClick={() => setCoverImage('')} className="text-red-500 hover:text-red-700 transition-colors">
                        <X className="w-4 h-4" />
                     </button>
                  )}
@@ -283,7 +373,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
                   </div>
                 )}
               </div>
-              <input type="file" ref={fileInputRef} onChange={handleImageUpload} className="hidden" accept="image/*" />
+              <input type="file" ref={fileInputRef} onChange={handleHeroImageSelect} className="hidden" accept="image/*" />
            </div>
 
            {/* SEO Settings */}

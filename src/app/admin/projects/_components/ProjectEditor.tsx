@@ -19,7 +19,10 @@ import {
   ShieldCheck,
   MapPin,
   RefreshCcw,
-  Maximize2
+  AlignLeft,
+  AlignCenter,
+  AlignRight,
+  Trash
 } from "lucide-react";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -40,6 +43,10 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   const [uploading, setUploading] = useState(false);
   const [isDraftLoaded, setIsDraftLoaded] = useState(false);
   const [savingStep, setSavingStep] = useState('');
+
+  // Floating Toolbar State
+  const [selectedImage, setSelectedImage] = useState<{ element: HTMLImageElement, section: string } | null>(null);
+  const [toolbarPos, setToolbarPos] = useState({ top: 0, left: 0 });
 
   // Basic Info
   const [title, setTitle] = useState(initialData?.title || '');
@@ -110,6 +117,30 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     }, 1000);
     return () => clearTimeout(timer);
   }, [title, slug, subtitle, service, location, heroImage, published, brief, challenge, solution, highlights, specs, metaTitle, metaDescription, isDraftLoaded, id]);
+
+  // Detect image clicks in editors
+  useEffect(() => {
+    const handleGlobalClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'IMG' && target.closest('.ql-editor')) {
+        const img = target as HTMLImageElement;
+        const rect = img.getBoundingClientRect();
+        const editorContainer = target.closest('.prose');
+        const section = editorContainer?.getAttribute('data-section') || '';
+
+        setSelectedImage({ element: img, section });
+        setToolbarPos({
+          top: rect.top + window.scrollY - 60,
+          left: rect.left + window.scrollX + (rect.width / 2)
+        });
+      } else if (!target.closest('.image-action-toolbar')) {
+        setSelectedImage(null);
+      }
+    };
+
+    window.addEventListener('mousedown', handleGlobalClick);
+    return () => window.removeEventListener('mousedown', handleGlobalClick);
+  }, []);
 
   const clearDraft = () => {
     const draftKey = `medgenz-project-draft-${id || 'new'}`;
@@ -260,6 +291,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
       alert('An error occurred during upload or save');
     } finally {
       setLoading(false);
+      setSavingStep('');
     }
   };
 
@@ -269,7 +301,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     onChange: (content: string) => void,
     placeholder: string
   ) => (
-    <div className="prose prose-slate max-w-none">
+    <div className="prose prose-slate max-w-none" data-section={section}>
       <Quill
         ref={(editor: any) => { if (editor) quillRefs.current[section] = editor; }}
         theme="snow"
@@ -282,6 +314,36 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
       />
     </div>
   );
+
+  const updateImageStyle = (style: string, value: string) => {
+    if (!selectedImage) return;
+    const { element, section } = selectedImage;
+    const quill = quillRefs.current[section]?.getEditor();
+    if (!quill) return;
+
+    // Apply class to the image or its container if needed, but for Quill we can use standard formats
+    if (style === 'align') {
+      element.className = value === 'left' ? 'ql-image-left' : value === 'right' ? 'ql-image-right' : 'ql-image-center';
+    } else if (style === 'width') {
+      element.style.width = value;
+    }
+
+    // Trigger update
+    onChangeHandlers[section](quill.root.innerHTML);
+  };
+
+  const removeImage = () => {
+    if (!selectedImage) return;
+    selectedImage.element.remove();
+    onChangeHandlers[selectedImage.section](quillRefs.current[selectedImage.section].getEditor().root.innerHTML);
+    setSelectedImage(null);
+  };
+
+  const onChangeHandlers: Record<string, (val: string) => void> = {
+    brief: setBrief,
+    challenge: setChallenge,
+    solution: setSolution
+  };
 
   const addHighlight = () => setHighlights([...highlights, '']);
   const removeHighlight = (index: number) => setHighlights(highlights.filter((_, i) => i !== index));
@@ -300,7 +362,29 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-8 space-y-12 pb-32">
+    <form onSubmit={handleSubmit} className="p-8 space-y-12 pb-32 relative">
+      {/* Floating Toolbar */}
+      {selectedImage && (
+        <div
+          className="image-action-toolbar"
+          style={{
+            top: toolbarPos.top,
+            left: toolbarPos.left,
+            transform: 'translateX(-50%)'
+          }}
+        >
+          <button type="button" onClick={() => updateImageStyle('align', 'left')} title="Align Left"><AlignLeft className="w-4 h-4" /></button>
+          <button type="button" onClick={() => updateImageStyle('align', 'center')} title="Align Center"><AlignCenter className="w-4 h-4" /></button>
+          <button type="button" onClick={() => updateImageStyle('align', 'right')} title="Align Right"><AlignRight className="w-4 h-4" /></button>
+          <div className="divider" />
+          <button type="button" className="size-btn" onClick={() => updateImageStyle('width', '25%')}>25%</button>
+          <button type="button" className="size-btn" onClick={() => updateImageStyle('width', '50%')}>50%</button>
+          <button type="button" className="size-btn" onClick={() => updateImageStyle('width', '100%')}>FULL</button>
+          <div className="divider" />
+          <button type="button" onClick={removeImage} className="text-red-400 hover:text-red-500"><Trash className="w-4 h-4" /></button>
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="flex items-center gap-4">
@@ -315,6 +399,15 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
         </div>
 
         <div className="flex items-center gap-4">
+          <button
+            type="button"
+            onClick={() => { if(confirm('Clear all unsaved changes?')) { clearDraft(); window.location.reload(); } }}
+            className="p-4 bg-white rounded-2xl border border-slate-100 text-slate-400 hover:text-red-500 transition-all shadow-sm group"
+            title="Reset Draft"
+          >
+            <RefreshCcw className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" />
+          </button>
+
           <div className="flex items-center gap-3 bg-white p-2 rounded-2xl border border-slate-100 shadow-sm mr-4">
              <span className={`w-3 h-3 rounded-full ${published ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'}`} />
              <select
@@ -328,15 +421,6 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
           </div>
 
           <button
-            type="button"
-            onClick={() => { if(confirm('Clear all unsaved changes?')) { clearDraft(); window.location.reload(); } }}
-            className="p-4 bg-white rounded-2xl border border-slate-100 text-slate-400 hover:text-red-500 transition-all shadow-sm group"
-            title="Reset Draft"
-          >
-            <RefreshCcw className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" />
-          </button>
-
-          <button
             type="submit"
             disabled={loading}
             className="inline-flex items-center gap-3 bg-brand-600 text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-widest hover:bg-brand-500 transition-all shadow-xl shadow-brand-600/20 disabled:opacity-50 min-w-[240px] justify-center"
@@ -344,7 +428,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
             {loading ? (
               <>
                 <Loader2 className="w-5 h-5 animate-spin" />
-                <span className="text-[10px]">{savingStep || 'Saving...'}</span>
+                <span className="text-[10px] uppercase tracking-tighter">{savingStep || 'Saving...'}</span>
               </>
             ) : (
               <>
@@ -514,8 +598,8 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
               <div className="flex items-center justify-between">
                  <h3 className="text-lg font-bold text-slate-900 tracking-tight uppercase">Featured Image</h3>
                  {heroImage && (
-                    <button type="button" onClick={() => setHeroImage('')} className="text-red-500 hover:text-red-700 transition-colors">
-                       <X className="w-4 h-4" />
+                    <button type="button" onClick={() => setHeroImage('')} className="p-2 bg-red-50 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all">
+                       <Trash2 className="w-4 h-4" />
                     </button>
                  )}
               </div>

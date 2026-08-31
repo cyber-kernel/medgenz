@@ -122,3 +122,54 @@ details[open] > summary::after {
   margin-left: auto;
   margin-right: auto;
 }
+
+/* Floating Image Toolbar */
+.image-action-toolbar {
+  position: absolute;
+  z-index: 1000;
+  background: #1e293b;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  animation: slide-up 0.2s ease-out;
+}
+
+@keyframes slide-up {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.image-action-toolbar button {
+  padding: 0.35rem;
+  border-radius: 0.35rem;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-action-toolbar button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.image-action-toolbar .btn-active {
+  background: #E6A100 !important;
+  color: #1e293b;
+}
+
+.image-action-toolbar .divider {
+  width: 1px;
+  height: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0 0.25rem;
+}
+
+.image-action-toolbar .size-btn {
+  font-size: 10px;
+  font-weight: 800;
+  min-width: 2.5rem;
+}

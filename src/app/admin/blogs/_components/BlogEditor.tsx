@@ -16,7 +16,12 @@ import {
   Settings,
   ChevronRight,
   Sparkles,
-  RefreshCcw
+  RefreshCcw,
+  AlignLeft,
+  AlignCenter,
+  AlignRight,
+  Trash,
+  Trash2
 } from "lucide-react";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -37,6 +42,10 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
   const [uploading, setUploading] = useState(false);
   const [isDraftLoaded, setIsDraftLoaded] = useState(false);
   const [savingStep, setSavingStep] = useState('');
+
+  // Floating Toolbar State
+  const [selectedImage, setSelectedImage] = useState<{ element: HTMLImageElement } | null>(null);
+  const [toolbarPos, setToolbarPos] = useState({ top: 0, left: 0 });
 
   const [title, setTitle] = useState(initialData?.title || '');
   const [slug, setSlug] = useState(initialData?.slug || '');
@@ -91,6 +100,28 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
     }, 1000);
     return () => clearTimeout(timer);
   }, [title, slug, content, excerpt, category, coverImage, published, metaTitle, metaDescription, isDraftLoaded, id]);
+
+  // Detect image clicks
+  useEffect(() => {
+    const handleGlobalClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'IMG' && target.closest('.ql-editor')) {
+        const img = target as HTMLImageElement;
+        const rect = img.getBoundingClientRect();
+
+        setSelectedImage({ element: img });
+        setToolbarPos({
+          top: rect.top + window.scrollY - 60,
+          left: rect.left + window.scrollX + (rect.width / 2)
+        });
+      } else if (!target.closest('.image-action-toolbar')) {
+        setSelectedImage(null);
+      }
+    };
+
+    window.addEventListener('mousedown', handleGlobalClick);
+    return () => window.removeEventListener('mousedown', handleGlobalClick);
+  }, []);
 
   const clearDraft = () => {
     const draftKey = `medgenz-blog-draft-${id || 'new'}`;
@@ -234,11 +265,54 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
       alert('An error occurred during upload or save');
     } finally {
       setLoading(false);
+      setSavingStep('');
     }
   };
 
+  const updateImageStyle = (style: string, value: string) => {
+    if (!selectedImage) return;
+    const img = selectedImage.element;
+
+    if (style === 'align') {
+      img.className = value === 'left' ? 'ql-image-left' : value === 'right' ? 'ql-image-right' : 'ql-image-center';
+    } else if (style === 'width') {
+      img.style.width = value;
+    }
+
+    setContent(quillRef.current.getEditor().root.innerHTML);
+  };
+
+  const removeImage = () => {
+    if (!selectedImage) return;
+    selectedImage.element.remove();
+    setContent(quillRef.current.getEditor().root.innerHTML);
+    setSelectedImage(null);
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="p-8 space-y-12 pb-32">
+    <form onSubmit={handleSubmit} className="p-8 space-y-12 pb-32 relative">
+      {/* Floating Toolbar */}
+      {selectedImage && (
+        <div
+          className="image-action-toolbar"
+          style={{
+            top: toolbarPos.top,
+            left: toolbarPos.left,
+            transform: 'translateX(-50%)'
+          }}
+        >
+          <button type="button" onClick={() => updateImageStyle('align', 'left')} title="Align Left"><AlignLeft className="w-4 h-4" /></button>
+          <button type="button" onClick={() => updateImageStyle('align', 'center')} title="Align Center"><AlignCenter className="w-4 h-4" /></button>
+          <button type="button" onClick={() => updateImageStyle('align', 'right')} title="Align Right"><AlignRight className="w-4 h-4" /></button>
+          <div className="divider" />
+          <button type="button" className="size-btn" onClick={() => updateImageStyle('width', '25%')}>25%</button>
+          <button type="button" className="size-btn" onClick={() => updateImageStyle('width', '50%')}>50%</button>
+          <button type="button" className="size-btn" onClick={() => updateImageStyle('width', '100%')}>FULL</button>
+          <div className="divider" />
+          <button type="button" onClick={removeImage} className="text-red-400 hover:text-red-500"><Trash className="w-4 h-4" /></button>
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="flex items-center gap-4">
@@ -253,6 +327,15 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
         </div>
 
         <div className="flex items-center gap-4">
+          <button
+            type="button"
+            onClick={() => { if(confirm('Clear all unsaved changes?')) { clearDraft(); window.location.reload(); } }}
+            className="p-4 bg-white rounded-2xl border border-slate-100 text-slate-400 hover:text-red-500 transition-all shadow-sm group"
+            title="Reset Draft"
+          >
+            <RefreshCcw className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" />
+          </button>
+
           <div className="flex items-center gap-3 bg-white p-2 rounded-2xl border border-slate-100 shadow-sm mr-4">
              <span className={`w-3 h-3 rounded-full ${published ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'}`} />
              <select
@@ -266,15 +349,6 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
           </div>
 
           <button
-            type="button"
-            onClick={() => { if(confirm('Clear all unsaved changes?')) { clearDraft(); window.location.reload(); } }}
-            className="p-4 bg-white rounded-2xl border border-slate-100 text-slate-400 hover:text-red-500 transition-all shadow-sm group"
-            title="Reset Draft"
-          >
-            <RefreshCcw className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" />
-          </button>
-
-          <button
             type="submit"
             disabled={loading}
             className="inline-flex items-center gap-3 bg-brand-600 text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-widest hover:bg-brand-500 transition-all shadow-xl shadow-brand-600/20 disabled:opacity-50 min-w-[240px] justify-center"
@@ -282,7 +356,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
             {loading ? (
               <>
                 <Loader2 className="w-5 h-5 animate-spin" />
-                <span className="text-[10px]">{savingStep || 'Saving...'}</span>
+                <span className="text-[10px] uppercase tracking-tighter">{savingStep || 'Saving...'}</span>
               </>
             ) : (
               <>
@@ -350,8 +424,8 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
               <div className="flex items-center justify-between">
                  <h3 className="text-lg font-bold text-slate-900 tracking-tight uppercase">Cover Image</h3>
                  {coverImage && (
-                    <button type="button" onClick={() => setCoverImage('')} className="text-red-500 hover:text-red-700 transition-colors">
-                       <X className="w-4 h-4" />
+                    <button type="button" onClick={() => setCoverImage('')} className="p-2 bg-red-50 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all">
+                       <Trash2 className="w-4 h-4" />
                     </button>
                  )}
               </div>

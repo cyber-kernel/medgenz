@@ -174,14 +174,9 @@ details[open] > summary::after {
   min-width: 2.5rem;
 }
 
-/* Image Utilities for Editor */
+/* Base image style for editor */
 .ql-editor img {
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  max-width: 100%;
+  height: auto;
+  transition: width 0.2s ease;
 }
-
-.rotate-90 { transform: rotate(90deg); }
-.rotate-180 { transform: rotate(180deg); }
-.rotate-270 { transform: rotate(270deg); }
-
-.opacity-75 { opacity: 0.75; }
-.opacity-50 { opacity: 0.50; }

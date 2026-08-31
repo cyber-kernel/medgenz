@@ -14,12 +14,7 @@ import {
   ChevronRight,
   Sparkles,
   RefreshCcw,
-  AlignLeft,
-  AlignCenter,
-  AlignRight,
   Trash,
-  RotateCcw,
-  EyeOff,
   Trash2
 } from "lucide-react";
 import { useRouter } from 'next/navigation';
@@ -30,38 +25,22 @@ const ReactQuill = dynamic(() => import('react-quill-new'), {
   loading: () => <div className="h-64 bg-slate-50 animate-pulse rounded-2xl" />
 });
 
-// Robust Attribute Registration for Quill 2.x
+// Production-Safe Quill Setup
 const setupQuill = () => {
   if (typeof window !== 'undefined' && !(window as any).__medgenz_quill_registered) {
     try {
       const QuillLib = require('react-quill-new');
       const Quill = QuillLib.Quill || QuillLib.default?.Quill;
-      if (!Quill) return;
-
-      const Parchment = Quill.import('parchment');
-      if (!Parchment) return;
-
-      const whitelist = [
-        { name: 'class', attr: 'class' },
-        { name: 'style', attr: 'style' },
-        { name: 'width', attr: 'width' },
-        { name: 'rotate', attr: 'data-rotate' },
-        { name: 'opacity', attr: 'data-opacity' }
-      ];
-
-      whitelist.forEach(({ name, attr }) => {
-        const Attributor = name === 'style' ? Parchment.StyleAttributor : (name === 'class' ? Parchment.ClassAttributor : Parchment.AttributeAttributor);
-        const FinalAttributor = Attributor || (Parchment.Attributor ? Parchment.Attributor[name.charAt(0).toUpperCase() + name.slice(1)] : null);
-
-        if (FinalAttributor) {
-            const format = new FinalAttributor(name, attr, { scope: 3 });
-            Quill.register(format, true);
+      if (Quill) {
+        const Parchment = Quill.import('parchment');
+        const AttributeAttributor = Parchment.AttributeAttributor || (Parchment.Attributor ? Parchment.Attributor.Attribute : null);
+        if (AttributeAttributor) {
+            Quill.register(new AttributeAttributor('width', 'width', { scope: 3 }), true);
         }
-      });
-
-      (window as any).__medgenz_quill_registered = true;
+        (window as any).__medgenz_quill_registered = true;
+      }
     } catch (e) {
-      console.error('Critical Quill setup failure', e);
+      console.error('Quill config failed', e);
     }
   }
 };
@@ -74,7 +53,6 @@ interface BlogEditorProps {
 export default function BlogEditor({ initialData, id }: BlogEditorProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [uploading, setUploading] = useState(false);
   const [isDraftLoaded, setIsDraftLoaded] = useState(false);
   const [savingStep, setSavingStep] = useState('');
 
@@ -124,7 +102,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
       localStorage.setItem(`medgenz-blog-draft-${id || 'new'}`, JSON.stringify({
         title, slug, content, excerpt, category, coverImage, published, metaTitle, metaDescription
       }));
-    }, 1500);
+    }, 2000);
     return () => clearTimeout(timer);
   }, [title, slug, content, excerpt, category, coverImage, published, metaTitle, metaDescription, isDraftLoaded, id]);
 
@@ -202,7 +180,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true); setSavingStep('Uploading images...');
+    setLoading(true); setSavingStep('Processing images...');
     try {
       let finalCoverImage = coverImage;
       if (coverImage && coverImage.startsWith('data:image/')) {
@@ -223,54 +201,50 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
     finally { setLoading(false); setSavingStep(''); }
   };
 
-  const updateImageStyle = (style: string, value: string) => {
+  const updateImageSize = (size: string) => {
     if (!selectedImage) return;
     const img = selectedImage.element;
     const quill = quillRef.current?.getEditor();
     if (!quill) return;
 
-    const blot = (quill as any).scroll.find(img);
-    if (!blot) return;
-
-    if (style === 'align') {
-      const cls = value === 'left' ? 'ql-image-left' : value === 'right' ? 'ql-image-right' : 'ql-image-center';
-      blot.format('class', cls);
-    } else if (style === 'width') {
-      blot.format('width', value);
-    } else if (style === 'rotate') {
-      const nextRotate = (parseInt(img.getAttribute('data-rotate') || '0') + 90) % 360;
-      blot.format('rotate', nextRotate.toString());
-    } else if (style === 'opacity') {
-      const nextOpacity = img.getAttribute('data-opacity') === '50' ? '100' : img.getAttribute('data-opacity') === '75' ? '50' : '75';
-      blot.format('opacity', nextOpacity);
+    try {
+        const blot = (quill as any).scroll.find(img);
+        if (blot) {
+            const index = blot.offset(quill.scroll);
+            quill.formatText(index, 1, 'width', size);
+            setContent(quill.root.innerHTML);
+        }
+    } catch (e) {
+        img.style.width = size;
+        setContent(quill.root.innerHTML);
     }
-
-    setContent(quill.root.innerHTML);
   };
 
   const removeImage = () => {
     if (!selectedImage) return;
-    selectedImage.element.remove();
-    setContent(quillRef.current.getEditor().root.innerHTML);
+    const img = selectedImage.element;
+    const quill = quillRef.current?.getEditor();
+    try {
+        const blot = (quill as any).scroll.find(img);
+        if (blot) {
+            const index = blot.offset(quill.scroll);
+            quill.deleteText(index, 1);
+        } else { img.remove(); }
+    } catch (e) { img.remove(); }
+    if (quill) setContent(quill.root.innerHTML);
     setSelectedImage(null);
   };
 
   return (
     <form onSubmit={handleSubmit} className="p-8 space-y-12 pb-32 relative">
+      {/* Simplified Floating Toolbar */}
       {selectedImage && (
         <div className="image-action-toolbar" style={{ top: toolbarPos.top, left: toolbarPos.left, transform: 'translateX(-50%)' }} onMouseDown={(e) => e.preventDefault()}>
-          <button type="button" onMouseDown={() => updateImageStyle('align', 'left')} title="Align Left"><AlignLeft className="w-4 h-4" /></button>
-          <button type="button" onMouseDown={() => updateImageStyle('align', 'center')} title="Align Center"><AlignCenter className="w-4 h-4" /></button>
-          <button type="button" onMouseDown={() => updateImageStyle('align', 'right')} title="Align Right"><AlignRight className="w-4 h-4" /></button>
+          <button type="button" className="size-btn" onMouseDown={(e) => { e.preventDefault(); updateImageSize('25%'); }}>25%</button>
+          <button type="button" className="size-btn" onMouseDown={(e) => { e.preventDefault(); updateImageSize('50%'); }}>50%</button>
+          <button type="button" className="size-btn" onMouseDown={(e) => { e.preventDefault(); updateImageSize('100%'); }}>FULL</button>
           <div className="divider" />
-          <button type="button" onMouseDown={() => updateImageStyle('rotate', '')} title="Rotate 90°"><RotateCcw className="w-4 h-4" /></button>
-          <button type="button" onMouseDown={() => updateImageStyle('opacity', '')} title="Toggle Opacity"><EyeOff className="w-4 h-4" /></button>
-          <div className="divider" />
-          <button type="button" className="size-btn" onMouseDown={() => updateImageStyle('width', '25%')}>25%</button>
-          <button type="button" className="size-btn" onMouseDown={() => updateImageStyle('width', '50%')}>50%</button>
-          <button type="button" className="size-btn" onMouseDown={() => updateImageStyle('width', '100%')}>FULL</button>
-          <div className="divider" />
-          <button type="button" onMouseDown={removeImage} className="text-red-400 hover:text-red-500"><Trash className="w-4 h-4" /></button>
+          <button type="button" onMouseDown={(e) => { e.preventDefault(); removeImage(); }} className="text-red-400 hover:text-red-500"><Trash className="w-4 h-4" /></button>
         </div>
       )}
 

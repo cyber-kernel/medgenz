@@ -19,12 +19,7 @@ import {
   ShieldCheck,
   MapPin,
   RefreshCcw,
-  AlignLeft,
-  AlignCenter,
-  AlignRight,
-  Trash,
-  RotateCcw,
-  EyeOff
+  Trash
 } from "lucide-react";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -34,41 +29,23 @@ const ReactQuill = dynamic(() => import('react-quill-new'), {
   loading: () => <div className="h-64 bg-slate-50 animate-pulse rounded-2xl" />
 });
 
-// Robust Attribute Registration for Quill 2.x
+// Production-Safe Quill Setup
 const setupQuill = () => {
   if (typeof window !== 'undefined' && !(window as any).__medgenz_quill_registered) {
     try {
       const QuillLib = require('react-quill-new');
       const Quill = QuillLib.Quill || QuillLib.default?.Quill;
-      if (!Quill) return;
-
-      const Parchment = Quill.import('parchment');
-      if (!Parchment) return;
-
-      // Manually define and register attributes to avoid "Cannot import" errors
-      // Use numeric scope: 3 is INLINE, 5 is BLOCK
-      const whitelist = [
-        { name: 'class', attr: 'class' },
-        { name: 'style', attr: 'style' },
-        { name: 'width', attr: 'width' },
-        { name: 'rotate', attr: 'data-rotate' },
-        { name: 'opacity', attr: 'data-opacity' }
-      ];
-
-      whitelist.forEach(({ name, attr }) => {
-        const Attributor = name === 'style' ? Parchment.StyleAttributor : (name === 'class' ? Parchment.ClassAttributor : Parchment.AttributeAttributor);
-        // Fallback for older parchment structures
-        const FinalAttributor = Attributor || (Parchment.Attributor ? Parchment.Attributor[name.charAt(0).toUpperCase() + name.slice(1)] : null);
-
-        if (FinalAttributor) {
-            const format = new FinalAttributor(name, attr, { scope: 3 });
-            Quill.register(format, true);
+      if (Quill) {
+        const Parchment = Quill.import('parchment');
+        const AttributeAttributor = Parchment.AttributeAttributor || (Parchment.Attributor ? Parchment.Attributor.Attribute : null);
+        if (AttributeAttributor) {
+            // Only whitelist width for simplicity and stability
+            Quill.register(new AttributeAttributor('width', 'width', { scope: 3 }), true);
         }
-      });
-
-      (window as any).__medgenz_quill_registered = true;
+        (window as any).__medgenz_quill_registered = true;
+      }
     } catch (e) {
-      console.error('Critical Quill setup failure', e);
+      console.error('Quill config failed', e);
     }
   }
 };
@@ -114,6 +91,10 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   const quillRefs = useRef<Record<string, any>>({});
   const QuillComp: any = ReactQuill;
 
+  const onChangeHandlers: Record<string, (val: string) => void> = {
+    brief: setBrief, challenge: setChallenge, solution: setSolution
+  };
+
   // Initialize
   useEffect(() => { setupQuill(); }, []);
 
@@ -145,20 +126,28 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
         title, slug, subtitle, service, location, heroImage, published,
         brief, challenge, solution, highlights, specs, metaTitle, metaDescription
       }));
-    }, 1500);
+    }, 2000);
     return () => clearTimeout(timer);
   }, [title, slug, subtitle, service, location, heroImage, published, brief, challenge, solution, highlights, specs, metaTitle, metaDescription, isDraftLoaded, id]);
 
-  // Image Selection
+  // Detect image clicks
   useEffect(() => {
     const handleGlobalClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (target.tagName === 'IMG' && target.closest('.ql-editor')) {
         const img = target as HTMLImageElement;
         const rect = img.getBoundingClientRect();
-        setSelectedImage({ element: img, section: target.closest('.prose')?.getAttribute('data-section') || '' });
-        setToolbarPos({ top: rect.top + window.scrollY - 60, left: rect.left + window.scrollX + (rect.width / 2) });
-      } else if (!target.closest('.image-action-toolbar')) { setSelectedImage(null); }
+        const editorContainer = target.closest('.prose');
+        const section = editorContainer?.getAttribute('data-section') || '';
+
+        setSelectedImage({ element: img, section });
+        setToolbarPos({
+          top: rect.top + window.scrollY - 60,
+          left: rect.left + window.scrollX + (rect.width / 2)
+        });
+      } else if (!target.closest('.image-action-toolbar')) {
+        setSelectedImage(null);
+      }
     };
     window.addEventListener('mousedown', handleGlobalClick);
     return () => window.removeEventListener('mousedown', handleGlobalClick);
@@ -181,10 +170,11 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
       const file = input.files?.[0]; if (!file) return;
       const reader = new FileReader();
       reader.onloadend = () => {
+        const base64 = reader.result as string;
         const quill = quillRefs.current[section]?.getEditor();
         if (quill) {
           const range = quill.getSelection() || { index: quill.getLength() };
-          quill.insertEmbed(range.index, 'image', reader.result as string);
+          quill.insertEmbed(range.index, 'image', base64);
         }
       };
       reader.readAsDataURL(file);
@@ -223,7 +213,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true); setSavingStep('Uploading images...');
+    setLoading(true); setSavingStep('Processing images...');
     try {
       let finalHeroImage = heroImage;
       if (heroImage && heroImage.startsWith('data:image/')) {
@@ -253,43 +243,45 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     finally { setLoading(false); setSavingStep(''); }
   };
 
-  const updateImageStyle = (style: string, value: string) => {
+  const updateImageSize = (size: string) => {
     if (!selectedImage) return;
     const { element, section } = selectedImage;
     const quill = quillRefs.current[section]?.getEditor();
     if (!quill) return;
 
-    // Use internal Quill blot for reliable formatting
-    const blot = (quill as any).scroll.find(element);
-    if (!blot) return;
-
-    if (style === 'align') {
-      const cls = value === 'left' ? 'ql-image-left' : value === 'right' ? 'ql-image-right' : 'ql-image-center';
-      blot.format('class', cls);
-    } else if (style === 'width') {
-      blot.format('width', value);
-    } else if (style === 'rotate') {
-      const nextRotate = (parseInt(element.getAttribute('data-rotate') || '0') + 90) % 360;
-      blot.format('rotate', nextRotate.toString());
-    } else if (style === 'opacity') {
-      const nextOpacity = element.getAttribute('data-opacity') === '50' ? '100' : element.getAttribute('data-opacity') === '75' ? '50' : '75';
-      blot.format('opacity', nextOpacity);
+    // Use internal Quill API to find the index and format it
+    try {
+        const blot = (quill as any).scroll.find(element);
+        if (blot) {
+            const index = blot.offset(quill.scroll);
+            quill.formatText(index, 1, 'width', size);
+            onChangeHandlers[section](quill.root.innerHTML);
+        }
+    } catch (e) {
+        // Fallback to manual if selection logic fails
+        element.style.width = size;
+        onChangeHandlers[section](quill.root.innerHTML);
     }
-
-    // Notify React state
-    const onChange = { brief: setBrief, challenge: setChallenge, solution: setSolution }[section];
-    if (onChange) onChange(quill.root.innerHTML);
   };
 
   const removeImage = () => {
     if (!selectedImage) return;
     const { element, section } = selectedImage;
     const quill = quillRefs.current[section]?.getEditor();
-    element.remove();
-    if (quill) {
-        const onChange = { brief: setBrief, challenge: setChallenge, solution: setSolution }[section];
-        if (onChange) onChange(quill.root.innerHTML);
+
+    try {
+        const blot = (quill as any).scroll.find(element);
+        if (blot) {
+            const index = blot.offset(quill.scroll);
+            quill.deleteText(index, 1);
+        } else {
+            element.remove();
+        }
+    } catch (e) {
+        element.remove();
     }
+
+    if (quill) onChangeHandlers[section](quill.root.innerHTML);
     setSelectedImage(null);
   };
 
@@ -301,23 +293,18 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
 
   return (
     <form onSubmit={handleSubmit} className="p-8 space-y-12 pb-32 relative">
+      {/* Simplified Floating Toolbar */}
       {selectedImage && (
         <div className="image-action-toolbar" style={{ top: toolbarPos.top, left: toolbarPos.left, transform: 'translateX(-50%)' }} onMouseDown={(e) => e.preventDefault()}>
-          <button type="button" onMouseDown={() => updateImageStyle('align', 'left')} title="Align Left"><AlignLeft className="w-4 h-4" /></button>
-          <button type="button" onMouseDown={() => updateImageStyle('align', 'center')} title="Align Center"><AlignCenter className="w-4 h-4" /></button>
-          <button type="button" onMouseDown={() => updateImageStyle('align', 'right')} title="Align Right"><AlignRight className="w-4 h-4" /></button>
+          <button type="button" className="size-btn" onMouseDown={(e) => { e.preventDefault(); updateImageSize('25%'); }}>25%</button>
+          <button type="button" className="size-btn" onMouseDown={(e) => { e.preventDefault(); updateImageSize('50%'); }}>50%</button>
+          <button type="button" className="size-btn" onMouseDown={(e) => { e.preventDefault(); updateImageSize('100%'); }}>FULL</button>
           <div className="divider" />
-          <button type="button" onMouseDown={() => updateImageStyle('rotate', '')} title="Rotate 90°"><RotateCcw className="w-4 h-4" /></button>
-          <button type="button" onMouseDown={() => updateImageStyle('opacity', '')} title="Toggle Opacity"><EyeOff className="w-4 h-4" /></button>
-          <div className="divider" />
-          <button type="button" className="size-btn" onMouseDown={() => updateImageStyle('width', '25%')}>25%</button>
-          <button type="button" className="size-btn" onMouseDown={() => updateImageStyle('width', '50%')}>50%</button>
-          <button type="button" className="size-btn" onMouseDown={() => updateImageStyle('width', '100%')}>FULL</button>
-          <div className="divider" />
-          <button type="button" onMouseDown={removeImage} className="text-red-400 hover:text-red-500"><Trash className="w-4 h-4" /></button>
+          <button type="button" onMouseDown={(e) => { e.preventDefault(); removeImage(); }} className="text-red-400 hover:text-red-500"><Trash className="w-4 h-4" /></button>
         </div>
       )}
 
+      {/* UI Controls */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="flex items-center gap-4">
           <Link href="/admin/projects" className="p-3 bg-white rounded-xl border border-slate-100 text-slate-400 hover:text-slate-900 shadow-sm"><ChevronRight className="w-5 h-5 rotate-180" /></Link>
@@ -349,10 +336,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
           </div>
 
           <div className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm space-y-10">
-             <div className="space-y-4">
-                <div className="flex items-center gap-3 border-l-4 border-brand-600 pl-4"><FileText className="w-5 h-5 text-brand-600" /><h3 className="text-xl font-bold text-slate-900 uppercase">Project Brief</h3></div>
-                {renderRichTextField('brief', brief, setBrief)}
-             </div>
+             <div className="space-y-4"><div className="flex items-center gap-3 border-l-4 border-brand-600 pl-4"><FileText className="w-5 h-5 text-brand-600" /><h3 className="text-xl font-bold text-slate-900 uppercase">Project Brief</h3></div>{renderRichTextField('brief', brief, setBrief)}</div>
              <div className="grid md:grid-cols-2 gap-10">
                 <div className="space-y-4"><div className="flex items-center gap-3 border-l-4 border-brand-600 pl-4"><Zap className="w-5 h-5 text-brand-600" /><h3 className="text-xl font-bold text-slate-900 uppercase">The Challenge</h3></div>{renderRichTextField('challenge', challenge, setChallenge)}</div>
                 <div className="space-y-4"><div className="flex items-center gap-3 border-l-4 border-brand-600 pl-4"><ShieldCheck className="w-5 h-5 text-green-600" /><h3 className="text-xl font-bold text-slate-900 uppercase">Our Solution</h3></div>{renderRichTextField('solution', solution, setSolution)}</div>
@@ -374,9 +358,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
         <div className="lg:col-span-4 space-y-8">
            <div className="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm space-y-6">
               <div className="flex items-center justify-between"><h3 className="text-lg font-bold text-slate-900 uppercase">Featured Image</h3>{heroImage && (<button type="button" onClick={() => setHeroImage('')} className="p-2 bg-red-50 text-red-500 rounded-lg hover:bg-red-500 hover:text-white"><Trash2 className="w-4 h-4" /></button>)}</div>
-              <div onClick={() => fileInputRef.current?.click()} className={`relative aspect-video rounded-2xl border-2 border-dashed border-slate-100 flex flex-col items-center justify-center cursor-pointer hover:border-brand-400 overflow-hidden group ${heroImage ? 'border-none' : ''}`}>
-                {heroImage ? (<><Image src={heroImage} alt="Project" fill className="object-cover transition-transform group-hover:scale-105" /><div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><span className="text-white text-xs font-bold uppercase tracking-widest">Change</span></div></>) : (<div className="text-center space-y-2"><ImageIcon className="w-8 h-8 text-slate-200 mx-auto" /><p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Click to upload banner</p></div>)}
-              </div>
+              <div onClick={() => fileInputRef.current?.click()} className={`relative aspect-video rounded-2xl border-2 border-dashed border-slate-100 flex flex-col items-center justify-center cursor-pointer hover:border-brand-400 overflow-hidden group ${heroImage ? 'border-none' : ''}`}>{heroImage ? (<><Image src={heroImage} alt="Project" fill className="object-cover transition-transform group-hover:scale-105" /><div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><span className="text-white text-xs font-bold uppercase tracking-widest">Change</span></div></>) : (<div className="text-center space-y-2"><ImageIcon className="w-8 h-8 text-slate-200 mx-auto" /><p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Click to upload banner</p></div>)}</div>
               <input type="file" ref={fileInputRef} onChange={handleHeroImageSelect} className="hidden" accept="image/*" />
            </div>
            <div className="bg-slate-900 rounded-[2.5rem] p-8 text-white space-y-8">

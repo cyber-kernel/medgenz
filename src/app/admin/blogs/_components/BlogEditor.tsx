@@ -30,20 +30,6 @@ const ReactQuill = dynamic(() => import('react-quill-new'), {
   loading: () => <div className="h-64 bg-slate-50 animate-pulse rounded-2xl" />
 });
 
-// Register Quill attributes for persistence
-const setupQuill = () => {
-  if (typeof window !== 'undefined') {
-    const Quill = require('react-quill-new').Quill;
-    const Parchment = Quill.import('parchment');
-    const config = { scope: Parchment.Scope.INLINE };
-    Quill.register(new Parchment.Attributor.Class('class', 'class', config), true);
-    Quill.register(new Parchment.Attributor.Style('style', 'style', config), true);
-    Quill.register(new Parchment.Attributor.Attribute('data-rotate', 'data-rotate', config), true);
-    Quill.register(new Parchment.Attributor.Attribute('data-opacity', 'data-opacity', config), true);
-    Quill.register(new Parchment.Attributor.Attribute('width', 'width', config), true);
-  }
-};
-
 interface BlogEditorProps {
   initialData?: any;
   id?: string;
@@ -52,7 +38,6 @@ interface BlogEditorProps {
 export default function BlogEditor({ initialData, id }: BlogEditorProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [uploading, setUploading] = useState(false);
   const [isDraftLoaded, setIsDraftLoaded] = useState(false);
   const [savingStep, setSavingStep] = useState('');
 
@@ -74,8 +59,38 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
   const quillRef = useRef<any>(null);
   const QuillComp: any = ReactQuill;
 
-  // Initialize Quill Attributes
-  useEffect(() => { setupQuill(); }, []);
+  // Safe Quill Registration
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+        try {
+            const QuillLib = require('react-quill-new');
+            const Quill = QuillLib.Quill || QuillLib.default?.Quill;
+
+            if (Quill && !(window as any).__medgenz_quill_registered) {
+                const Parchment = Quill.import('parchment');
+                const getAttributor = (type: string) => {
+                    return Quill.import(`attributors/${type}`) || (Parchment ? Parchment[`${type.charAt(0).toUpperCase() + type.slice(1)}Attributor`] : null);
+                };
+
+                const ClassAttributor = getAttributor('class');
+                const StyleAttributor = getAttributor('style');
+                const AttributeAttributor = getAttributor('attribute');
+
+                if (ClassAttributor) try { Quill.register(new ClassAttributor('class', 'class', { scope: 3 }), true); } catch(e) {}
+                if (StyleAttributor) try { Quill.register(new StyleAttributor('style', 'style', { scope: 3 }), true); } catch(e) {}
+
+                if (AttributeAttributor) {
+                    try { Quill.register(new AttributeAttributor('data-rotate', 'data-rotate', { scope: 3 }), true); } catch(e) {}
+                    try { Quill.register(new AttributeAttributor('data-opacity', 'data-opacity', { scope: 3 }), true); } catch(e) {}
+                    try { Quill.register(new AttributeAttributor('width', 'width', { scope: 3 }), true); } catch(e) {}
+                }
+                (window as any).__medgenz_quill_registered = true;
+            }
+        } catch (e) {
+            console.error('Defensive Quill registration failed', e);
+        }
+    }
+  }, []);
 
   // Persistence: Load Draft
   useEffect(() => {
@@ -140,10 +155,11 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
       if (!file) return;
       const reader = new FileReader();
       reader.onloadend = () => {
+        const base64 = reader.result as string;
         const quill = quillRef.current?.getEditor();
         if (quill) {
           const range = quill.getSelection() || { index: quill.getLength() };
-          quill.insertEmbed(range.index, 'image', reader.result as string);
+          quill.insertEmbed(range.index, 'image', base64);
         }
       };
       reader.readAsDataURL(file);

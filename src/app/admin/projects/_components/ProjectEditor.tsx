@@ -34,22 +34,6 @@ const ReactQuill = dynamic(() => import('react-quill-new'), {
   loading: () => <div className="h-64 bg-slate-50 animate-pulse rounded-2xl" />
 });
 
-// Register Quill attributes for persistence
-const setupQuill = () => {
-  if (typeof window !== 'undefined') {
-    const Quill = require('react-quill-new').Quill;
-    const Parchment = Quill.import('parchment');
-
-    // Whitelist class, style, data attributes on images
-    const config = { scope: Parchment.Scope.INLINE };
-    Quill.register(new Parchment.Attributor.Class('class', 'class', config), true);
-    Quill.register(new Parchment.Attributor.Style('style', 'style', config), true);
-    Quill.register(new Parchment.Attributor.Attribute('data-rotate', 'data-rotate', config), true);
-    Quill.register(new Parchment.Attributor.Attribute('data-opacity', 'data-opacity', config), true);
-    Quill.register(new Parchment.Attributor.Attribute('width', 'width', config), true);
-  }
-};
-
 interface ProjectEditorProps {
   initialData?: any;
   id?: string;
@@ -91,11 +75,6 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   const quillRefs = useRef<Record<string, any>>({});
   const QuillComp: any = ReactQuill;
 
-  // Initialize Quill Attributes
-  useEffect(() => {
-    setupQuill();
-  }, []);
-
   // Persistence: Load Draft
   useEffect(() => {
     const draftKey = `medgenz-project-draft-${id || 'new'}`;
@@ -125,6 +104,42 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     }
     setIsDraftLoaded(true);
   }, [id, initialData]);
+
+  // Safe Quill Registration
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+        try {
+            const QuillLib = require('react-quill-new');
+            const Quill = QuillLib.Quill || QuillLib.default?.Quill;
+
+            if (Quill && !(window as any).__medgenz_quill_registered) {
+                const Parchment = Quill.import('parchment');
+
+                // Helper to get attributor class safely
+                const getAttributor = (type: string) => {
+                    return Quill.import(`attributors/${type}`) || (Parchment ? Parchment[`${type.charAt(0).toUpperCase() + type.slice(1)}Attributor`] : null);
+                };
+
+                const ClassAttributor = getAttributor('class');
+                const StyleAttributor = getAttributor('style');
+                const AttributeAttributor = getAttributor('attribute');
+
+                if (ClassAttributor) try { Quill.register(new ClassAttributor('class', 'class', { scope: 3 }), true); } catch(e) {}
+                if (StyleAttributor) try { Quill.register(new StyleAttributor('style', 'style', { scope: 3 }), true); } catch(e) {}
+
+                if (AttributeAttributor) {
+                    try { Quill.register(new AttributeAttributor('data-rotate', 'data-rotate', { scope: 3 }), true); } catch(e) {}
+                    try { Quill.register(new AttributeAttributor('data-opacity', 'data-opacity', { scope: 3 }), true); } catch(e) {}
+                    try { Quill.register(new AttributeAttributor('width', 'width', { scope: 3 }), true); } catch(e) {}
+                }
+
+                (window as any).__medgenz_quill_registered = true;
+            }
+        } catch (e) {
+            console.error('Defensive Quill registration failed', e);
+        }
+    }
+  }, []);
 
   // Persistence: Save Draft
   useEffect(() => {
@@ -185,10 +200,11 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
       if (!file) return;
       const reader = new FileReader();
       reader.onloadend = () => {
+        const base64 = reader.result as string;
         const quill = quillRefs.current[section]?.getEditor();
         if (quill) {
           const range = quill.getSelection() || { index: quill.getLength() };
-          quill.insertEmbed(range.index, 'image', reader.result as string);
+          quill.insertEmbed(range.index, 'image', base64);
         }
       };
       reader.readAsDataURL(file);
@@ -315,9 +331,30 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     if (!selectedImage) return;
     const { element, section } = selectedImage;
     element.remove();
-    onChangeHandlers[section](quillRefs.current[section].getEditor().root.innerHTML);
+    const quill = quillRefs.current[section]?.getEditor();
+    onChangeHandlers[section](quill.root.innerHTML);
     setSelectedImage(null);
   };
+
+  const renderRichTextField = (
+    section: string,
+    value: string,
+    onChange: (content: string) => void,
+    placeholder: string
+  ) => (
+    <div className="prose prose-slate max-w-none" data-section={section}>
+      <QuillComp
+        ref={(editor: any) => { if (editor) quillRefs.current[section] = editor; }}
+        theme="snow"
+        value={value}
+        onChange={onChange}
+        modules={quillModules(section)}
+        placeholder={placeholder}
+        className="min-h-[260px] border-none"
+        scrollingContainer="body"
+      />
+    </div>
+  );
 
   const addHighlight = () => setHighlights([...highlights, '']);
   const removeHighlight = (index: number) => setHighlights(highlights.filter((_, i) => i !== index));
@@ -328,7 +365,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   const addSpec = () => setSpecs([...specs, {label: '', value: ''}]);
   const removeSpec = (index: number) => setSpecs(specs.filter((_, i) => i !== index));
   const updateSpec = (index: number, field: 'label' | 'value', val: string) => {
-    const s = [...specs]; s[index][field] = val; setSpecs(s);
+    const s = [...specs]; s[index] = { ...s[index], [field]: val }; setSpecs(s);
   };
 
   return (
@@ -398,16 +435,16 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
           <div className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm space-y-10">
              <div className="space-y-4">
                 <div className="flex items-center gap-3 border-l-4 border-brand-600 pl-4"><FileText className="w-5 h-5 text-brand-600" /><h3 className="text-xl font-bold text-slate-900 uppercase">Project Brief</h3></div>
-                <div className="prose prose-slate max-w-none" data-section="brief"><QuillComp ref={(e: any) => { if(e) quillRefs.current.brief = e; }} theme="snow" value={brief} onChange={setBrief} modules={quillModules('brief')} className="min-h-[260px] border-none" scrollingContainer="body" /></div>
+                {renderRichTextField('brief', brief, setBrief, '...')}
              </div>
              <div className="grid md:grid-cols-2 gap-10">
                 <div className="space-y-4">
                     <div className="flex items-center gap-3 border-l-4 border-brand-600 pl-4"><Zap className="w-5 h-5 text-brand-600" /><h3 className="text-xl font-bold text-slate-900 uppercase">The Challenge</h3></div>
-                    <div className="prose prose-slate max-w-none" data-section="challenge"><QuillComp ref={(e: any) => { if(e) quillRefs.current.challenge = e; }} theme="snow" value={challenge} onChange={setChallenge} modules={quillModules('challenge')} className="min-h-[260px] border-none" scrollingContainer="body" /></div>
+                    {renderRichTextField('challenge', challenge, setChallenge, '...')}
                 </div>
                 <div className="space-y-4">
                     <div className="flex items-center gap-3 border-l-4 border-brand-600 pl-4"><ShieldCheck className="w-5 h-5 text-green-600" /><h3 className="text-xl font-bold text-slate-900 uppercase">Our Solution</h3></div>
-                    <div className="prose prose-slate max-w-none" data-section="solution"><QuillComp ref={(e: any) => { if(e) quillRefs.current.solution = e; }} theme="snow" value={solution} onChange={setSolution} modules={quillModules('solution')} className="min-h-[260px] border-none" scrollingContainer="body" /></div>
+                    {renderRichTextField('solution', solution, setSolution, '...')}
                 </div>
              </div>
           </div>

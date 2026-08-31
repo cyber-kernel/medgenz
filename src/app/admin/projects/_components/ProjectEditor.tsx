@@ -76,6 +76,12 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   const quillRefs = useRef<Record<string, any>>({});
   const Quill: any = ReactQuill;
 
+  const onChangeHandlers: Record<string, (val: string) => void> = {
+    brief: setBrief,
+    challenge: setChallenge,
+    solution: setSolution
+  };
+
   // Persistence: Load Draft
   useEffect(() => {
     const draftKey = `medgenz-project-draft-${id || 'new'}`;
@@ -243,7 +249,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
 
     try {
       let finalHeroImage = heroImage;
-      if (heroImage.startsWith('data:image/')) {
+      if (heroImage && heroImage.startsWith('data:image/')) {
         setSavingStep('Uploading banner...');
         finalHeroImage = await uploadImage(heroImage);
       }
@@ -297,12 +303,6 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     }
   };
 
-  const onChangeHandlers: Record<string, (val: string) => void> = {
-    brief: setBrief,
-    challenge: setChallenge,
-    solution: setSolution
-  };
-
   const updateImageStyle = (style: string, value: string) => {
     if (!selectedImage) return;
     const { element, section } = selectedImage;
@@ -317,7 +317,6 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
       const currentRotate = element.getAttribute('data-rotate') || '0';
       const nextRotate = (parseInt(currentRotate) + 90) % 360;
       element.setAttribute('data-rotate', nextRotate.toString());
-      // Remove old classes
       element.classList.remove('rotate-90', 'rotate-180', 'rotate-270');
       if (nextRotate !== 0) element.classList.add(`rotate-${nextRotate}`);
     } else if (style === 'opacity') {
@@ -328,9 +327,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
       if (nextOpacity !== '100') element.classList.add(`opacity-${nextOpacity}`);
     }
 
-    // Crucial: Force Quill to update its internal state
-    const html = quill.root.innerHTML;
-    onChangeHandlers[section](html);
+    onChangeHandlers[section](quill.root.innerHTML);
   };
 
   const removeImage = () => {
@@ -389,7 +386,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
             left: toolbarPos.left,
             transform: 'translateX(-50%)'
           }}
-          onMouseDown={(e) => e.preventDefault()} // Prevent losing selection
+          onMouseDown={(e) => e.preventDefault()}
         >
           <button type="button" onMouseDown={(e) => { e.preventDefault(); updateImageStyle('align', 'left'); }} title="Align Left"><AlignLeft className="w-4 h-4" /></button>
           <button type="button" onMouseDown={(e) => { e.preventDefault(); updateImageStyle('align', 'center'); }} title="Align Center"><AlignCenter className="w-4 h-4" /></button>

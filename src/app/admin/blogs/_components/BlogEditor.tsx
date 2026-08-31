@@ -224,7 +224,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
 
     try {
       let finalCoverImage = coverImage;
-      if (coverImage.startsWith('data:image/')) {
+      if (coverImage && coverImage.startsWith('data:image/')) {
         setSavingStep('Uploading banner...');
         finalCoverImage = await uploadImage(coverImage);
       }

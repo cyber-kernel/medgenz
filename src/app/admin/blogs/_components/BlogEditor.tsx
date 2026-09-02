@@ -25,7 +25,7 @@ const ReactQuill = dynamic(() => import('react-quill-new'), {
   loading: () => <div className="h-64 bg-slate-50 animate-pulse rounded-2xl" />
 });
 
-// Production-Safe Quill Setup
+// Production-Safe Quill Setup with Debugging
 const setupQuill = () => {
   if (typeof window !== 'undefined' && !(window as any).__medgenz_quill_registered) {
     try {
@@ -37,10 +37,13 @@ const setupQuill = () => {
         const AttributeAttributor = Parchment.AttributeAttributor || (Parchment.Attributor ? Parchment.Attributor.Attribute : null);
         if (AttributeAttributor) {
             Quill.register(new AttributeAttributor('width', 'width', { scope: 3 }), true);
+            console.log('[MedGenz Debug] Width Attributor Registered Successfully.');
         }
         (window as any).__medgenz_quill_registered = true;
       }
-    } catch (e) { console.error(e); }
+    } catch (e) {
+      console.error('[MedGenz Debug] Quill Setup Error:', e);
+    }
   }
 };
 
@@ -83,7 +86,8 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
     if (savedDraft) {
       try {
         const data = JSON.parse(savedDraft);
-        if (!initialData || confirm('Restore unsaved blog draft?')) {
+        if (!initialData || confirm('Found an unsaved blog draft. Restore it?')) {
+            console.log('[MedGenz Debug] Restoring blog draft');
             setTitle(data.title || ''); setSlug(data.slug || ''); setContent(data.content || '');
             setExcerpt(data.excerpt || ''); setCategory(data.category || 'Healthcare');
             setCoverImage(data.coverImage || ''); setPublished(data.published || false);
@@ -121,14 +125,13 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
   }, []);
 
   const handleHeroImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const file = e.target.files?.[0]; if (!file) return;
     const reader = new FileReader();
     reader.onloadend = () => setCoverImage(reader.result as string);
     reader.readAsDataURL(file);
   };
 
-  const uploadImage = async (source: string): Promise<string> => {
+  const uploadImageToBlob = async (source: string): Promise<string> => {
     if (!source.startsWith('data:image/')) return source;
     const res = await fetch(source);
     const blob = await res.blob();
@@ -144,7 +147,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
     const images = div.querySelectorAll('img');
     for (let i = 0; i < images.length; i++) {
       if (images[i].src.startsWith('data:image/')) {
-        try { images[i].src = await uploadImage(images[i].src); } catch (e) {}
+        try { images[i].src = await uploadImageToBlob(images[i].src); } catch (e) {}
       }
     }
     return div.innerHTML;
@@ -154,10 +157,10 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
     e.preventDefault();
     setLoading(true); setSavingStep('Processing images...');
     try {
-      let finalCoverImage = coverImage;
+      let finalCover = coverImage;
       if (coverImage && coverImage.startsWith('data:image/')) {
         setSavingStep('Uploading banner...');
-        finalCoverImage = await uploadImage(coverImage);
+        finalCover = await uploadImageToBlob(coverImage);
       }
       setSavingStep('Finalizing content...');
       const finalContent = await processContentImages(content);
@@ -165,7 +168,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
       const res = await fetch(id ? `/api/blogs/${id}` : '/api/blogs', {
         method: id ? 'PUT' : 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, slug, content: finalContent, excerpt, category, coverImage: finalCoverImage, published, metaTitle, metaDescription })
+        body: JSON.stringify({ title, slug, content: finalContent, excerpt, category, coverImage: finalCover, published, metaTitle, metaDescription })
       });
       if (res.ok) { localStorage.removeItem(`medgenz-blog-draft-${id || 'new'}`); router.push('/admin/blogs'); router.refresh(); }
       else { const err = await res.json(); alert(err.error || 'Save failed'); }
@@ -180,10 +183,10 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
     if (!quill) return;
 
     try {
+        quill.focus();
         const blot = (quill as any).scroll.find(img);
         if (blot) {
             const index = blot.offset(quill.scroll);
-            quill.focus();
             quill.formatText(index, 1, 'width', size);
             setContent(quill.root.innerHTML);
         }
@@ -200,9 +203,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
     try {
         const blot = (quill as any).scroll.find(img);
         if (blot) {
-            const index = blot.offset(quill.scroll);
-            quill.focus();
-            quill.deleteText(index, 1);
+            quill.deleteText(blot.offset(quill.scroll), 1);
         } else { img.remove(); }
     } catch (e) { img.remove(); }
     if (quill) setContent(quill.root.innerHTML);
@@ -228,8 +229,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
           reader.readAsDataURL(file);
         };
       }}
-    },
-    clipboard: { matchVisual: false }
+    }
   }), []);
 
   return (
@@ -266,7 +266,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
         <div className="lg:col-span-8 space-y-8">
           <div className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm space-y-8">
              <div className="space-y-2"><label className="text-xs font-black text-slate-400 uppercase tracking-widest">Title</label><input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full text-3xl font-black text-slate-900 outline-none border-none focus:ring-0 p-0" required /></div>
-             <div className="space-y-4"><label className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2"><FileText className="w-3 h-3" /> Content Body</label><div className="prose prose-slate max-w-none"><QuillComp ref={quillRef} theme="snow" value={content} onChange={setContent} modules={quillModules} className="min-h-[400px] border-none" scrollingContainer="body" /></div></div>
+             <div className="space-y-4"><label className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2"><FileText className="w-3 h-3" /> Content</label><div className="prose prose-slate max-w-none"><QuillComp ref={quillRef} theme="snow" value={content} onChange={setContent} modules={quillModules} className="min-h-[400px] border-none" scrollingContainer="body" /></div></div>
           </div>
           <div className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm space-y-6"><div className="flex items-center gap-3 mb-2"><Sparkles className="w-5 h-5 text-brand-600" /><h3 className="text-xl font-bold text-slate-900 uppercase text-xs">Excerpt</h3></div><textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value)} className="w-full h-32 p-6 rounded-2xl bg-slate-50 border-none outline-none focus:ring-4 focus:ring-brand-600/10 transition-all font-medium text-slate-600" /></div>
         </div>

@@ -33,7 +33,7 @@ const ReactQuill = dynamic(() => import('react-quill-new'), {
 const setupQuill = () => {
   if (typeof window !== 'undefined' && !(window as any).__medgenz_quill_registered) {
     try {
-      console.log('[MedGenz Debug] Initializing Quill Engine...');
+      console.log('[MedGenz Debug] Initializing Quill Engine (Project)...');
       const QuillLib = require('react-quill-new');
       const Quill = QuillLib.Quill || QuillLib.default?.Quill;
       if (Quill) {
@@ -41,12 +41,12 @@ const setupQuill = () => {
         const AttributeAttributor = Parchment.AttributeAttributor || (Parchment.Attributor ? Parchment.Attributor.Attribute : null);
         if (AttributeAttributor) {
             Quill.register(new AttributeAttributor('width', 'width', { scope: 3 }), true);
-            console.log('[MedGenz Debug] Width Attributor Registered Successfully.');
+            console.log('[MedGenz Debug] Width Attributor Registered.');
         }
         (window as any).__medgenz_quill_registered = true;
       }
     } catch (e) {
-      console.error('[MedGenz Debug] Quill Registration Failed:', e);
+      console.error('[MedGenz Debug] Quill Setup Error:', e);
     }
   }
 };
@@ -103,7 +103,6 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
       try {
         const data = JSON.parse(savedDraft);
         if (!initialData || confirm('Found an unsaved draft. Restore it?')) {
-            console.log('[MedGenz Debug] Restoring draft from local storage');
             setTitle(data.title || ''); setSlug(data.slug || ''); setSubtitle(data.subtitle || '');
             setService(data.service || 'Modular OT'); setLocation(data.location || '');
             setHeroImage(data.heroImage || ''); setPublished(data.published || false);
@@ -154,7 +153,14 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
 
   const clearDraft = () => localStorage.removeItem(`medgenz-project-draft-${id || 'new'}`);
 
-  const uploadToVercel = async (source: string): Promise<string> => {
+  const handleHeroImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]; if (!file) return;
+    const reader = new FileReader();
+    reader.onloadend = () => setHeroImage(reader.result as string);
+    reader.readAsDataURL(file);
+  };
+
+  const uploadImageToBlob = async (source: string): Promise<string> => {
     if (!source.startsWith('data:image/')) return source;
     const res = await fetch(source);
     const blob = await res.blob();
@@ -170,7 +176,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     const images = div.querySelectorAll('img');
     for (let i = 0; i < images.length; i++) {
       if (images[i].src.startsWith('data:image/')) {
-        try { images[i].src = await uploadToVercel(images[i].src); } catch (e) {}
+        try { images[i].src = await uploadImageToBlob(images[i].src); } catch (e) { console.error(e); }
       }
     }
     return div.innerHTML;
@@ -178,12 +184,12 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true); setSavingStep('Processing images...');
+    setLoading(true); setSavingStep('Uploading images...');
     try {
       let finalHero = heroImage;
       if (heroImage && heroImage.startsWith('data:image/')) {
         setSavingStep('Uploading banner...');
-        finalHero = await uploadToVercel(heroImage);
+        finalHero = await uploadImageToBlob(heroImage);
       }
       setSavingStep('Finalizing content...');
       const finalBrief = await processContentImages(brief);
@@ -204,7 +210,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
       });
       if (res.ok) { clearDraft(); router.push('/admin/projects'); router.refresh(); }
       else { const err = await res.json(); alert(err.error || 'Save failed'); }
-    } catch (err) { alert('Error saving'); }
+    } catch (err) { alert('Error saving project'); }
     finally { setLoading(false); setSavingStep(''); }
   };
 
@@ -216,42 +222,21 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
 
     console.group('[MedGenz Debug] Resizing Image');
     console.log('Target Section:', section);
-    console.log('Target Size:', size);
-
-    if (!quill) {
-        console.error('[MedGenz Debug] FAILED: Editor instance not found for section:', section);
-        console.groupEnd();
-        return;
-    }
+    if (!quill) { console.error('Editor not found'); console.groupEnd(); return; }
 
     try {
-        // Step 1: Ensure focus to prevent addRange error
         quill.focus();
-
-        // Step 2: Locate the image blot
         const blot = (quill as any).scroll.find(element);
         if (blot) {
             const index = blot.offset(quill.scroll);
-            console.log('[MedGenz Debug] Blot Found at Index:', index);
-
-            // Step 3: Apply format
             quill.formatText(index, 1, 'width', size);
-            console.log('[MedGenz Debug] Format applied to editor memory.');
-
-            // Step 4: Sync to React State
             const html = quill.root.innerHTML;
             if (section === 'brief') setBrief(html);
             else if (section === 'challenge') setChallenge(html);
             else if (section === 'solution') setSolution(html);
-            console.log('[MedGenz Debug] React state synchronized.');
-        } else {
-            console.warn('[MedGenz Debug] Blot not found in scroll. Falling back to manual style.');
-            element.style.width = size;
-        }
-    } catch (e) {
-        console.error('[MedGenz Debug] Action Error:', e);
-        element.style.width = size;
-    }
+            console.log('Success.');
+        } else { element.style.width = size; }
+    } catch (e) { console.error(e); }
     console.groupEnd();
   };
 
@@ -262,33 +247,21 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     const quill = editorInstance?.getEditor ? editorInstance.getEditor() : null;
 
     console.group('[MedGenz Debug] Deleting Image');
-    if (!quill) {
-        console.error('[MedGenz Debug] FAILED: Editor instance not found.');
-        element.remove();
-        console.groupEnd();
-        return;
-    }
+    if (!quill) { element.remove(); console.groupEnd(); return; }
 
     try {
         quill.focus();
         const blot = (quill as any).scroll.find(element);
         if (blot) {
-            const index = blot.offset(quill.scroll);
-            quill.deleteText(index, 1);
-            console.log('[MedGenz Debug] Image deleted from editor memory.');
-        } else {
-            console.warn('[MedGenz Debug] Blot not found. Manual removal.');
-            element.remove();
-        }
+            quill.deleteText(blot.offset(quill.scroll), 1);
+            console.log('Deleted.');
+        } else { element.remove(); }
 
         const html = quill.root.innerHTML;
         if (section === 'brief') setBrief(html);
         else if (section === 'challenge') setChallenge(html);
         else if (section === 'solution') setSolution(html);
-    } catch (e) {
-        console.error('[MedGenz Debug] Deletion Error:', e);
-        element.remove();
-    }
+    } catch (e) { console.error(e); element.remove(); }
     setSelectedImage(null);
     console.groupEnd();
   };
@@ -317,7 +290,6 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
 
   return (
     <form onSubmit={handleSubmit} className="p-8 space-y-12 pb-32 relative">
-      {/* Floating Toolbar */}
       {selectedImage && (
         <div className="image-action-toolbar" style={{ top: toolbarPos.top, left: toolbarPos.left, transform: 'translateX(-50%)' }} onMouseDown={(e) => e.preventDefault()}>
           <button type="button" className="size-btn" onMouseDown={(e) => { e.preventDefault(); updateImageSize('25%'); }}>25%</button>
@@ -328,14 +300,13 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
         </div>
       )}
 
-      {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="flex items-center gap-4">
           <Link href="/admin/projects" className="p-3 bg-white rounded-xl border border-slate-100 text-slate-400 hover:text-slate-900 shadow-sm"><ChevronRight className="w-5 h-5 rotate-180" /></Link>
           <h1 className="text-4xl font-black text-slate-900 tracking-tighter uppercase">{id ? 'Edit' : 'Create'} <span className="text-brand-600">Project</span></h1>
         </div>
         <div className="flex items-center gap-4">
-          <button type="button" onClick={() => { if(confirm('Reset draft?')) { localStorage.removeItem(`medgenz-project-draft-${id || 'new'}`); window.location.reload(); } }} className="p-4 bg-white rounded-2xl border border-slate-100 text-slate-400 hover:text-red-500 shadow-sm group"><RefreshCcw className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" /></button>
+          <button type="button" onClick={() => { if(confirm('Reset draft?')) { clearDraft(); window.location.reload(); } }} className="p-4 bg-white rounded-2xl border border-slate-100 text-slate-400 hover:text-red-500 shadow-sm group"><RefreshCcw className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" /></button>
           <div className="flex items-center gap-3 bg-white p-2 rounded-2xl border border-slate-100 shadow-sm mr-4">
              <span className={`w-3 h-3 rounded-full ${published ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'}`} />
              <select value={published ? 'true' : 'false'} onChange={(e) => setPublished(e.target.value === 'true')} className="bg-transparent text-[10px] font-black uppercase tracking-widest outline-none pr-4"><option value="false">Draft</option><option value="true">Live</option></select>
@@ -362,8 +333,8 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
           <div className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm space-y-10">
              <div className="space-y-4"><h3 className="text-xl font-bold text-slate-900 uppercase">Brief</h3><div className="prose prose-slate max-w-none" data-section="brief"><QuillComp ref={(e: any) => { if(e) quillRefs.current.brief = e; }} theme="snow" value={brief} onChange={setBrief} modules={quillModules('brief')} className="min-h-[260px] border-none" scrollingContainer="body" /></div></div>
              <div className="grid md:grid-cols-2 gap-10">
-                <div className="space-y-4"><h3 className="text-xl font-bold text-slate-900 uppercase">Challenge</h3><div className="prose prose-slate max-w-none" data-section="challenge"><QuillComp ref={(e: any) => { if(e) quillRefs.current.challenge = e; }} theme="snow" value={challenge} onChange={setChallenge} modules={quillModules('challenge')} className="min-h-[260px] border-none" scrollingContainer="body" /></div></div>
-                <div className="space-y-4"><h3 className="text-xl font-bold text-slate-900 uppercase">Solution</h3><div className="prose prose-slate max-w-none" data-section="solution"><QuillComp ref={(e: any) => { if(e) quillRefs.current.solution = e; }} theme="snow" value={solution} onChange={setSolution} modules={quillModules('solution')} className="min-h-[260px] border-none" scrollingContainer="body" /></div></div>
+                <div className="space-y-4"><h3 className="text-xl font-bold text-slate-900 uppercase">Challenge</h3><div className="prose prose-slate max-w-none" data-section="challenge"><QuillComp ref={(e: any) => { if(e) quillRefs.current.challenge = e; }} theme="snow" value={challenge} onChange={setChallenge} modules={quillModules('challenge')} className="min-h-[260px]" scrollingContainer="body" /></div></div>
+                <div className="space-y-4"><h3 className="text-xl font-bold text-slate-900 uppercase">Solution</h3><div className="prose prose-slate max-w-none" data-section="solution"><QuillComp ref={(e: any) => { if(e) quillRefs.current.solution = e; }} theme="snow" value={solution} onChange={setSolution} modules={quillModules('solution')} className="min-h-[260px]" scrollingContainer="body" /></div></div>
              </div>
           </div>
 

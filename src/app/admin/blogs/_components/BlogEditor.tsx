@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import 'react-quill-new/dist/quill.snow.css';
@@ -25,7 +25,7 @@ const ReactQuill = dynamic(() => import('react-quill-new'), {
   loading: () => <div className="h-64 bg-slate-50 animate-pulse rounded-2xl" />
 });
 
-// Production-Safe Quill Setup with Debugging
+// Production-Safe Quill Setup
 const setupQuill = () => {
   if (typeof window !== 'undefined' && !(window as any).__medgenz_quill_registered) {
     try {
@@ -37,13 +37,10 @@ const setupQuill = () => {
         const AttributeAttributor = Parchment.AttributeAttributor || (Parchment.Attributor ? Parchment.Attributor.Attribute : null);
         if (AttributeAttributor) {
             Quill.register(new AttributeAttributor('width', 'width', { scope: 3 }), true);
-            console.log('[MedGenz Debug] Width Attributor Registered Successfully.');
         }
         (window as any).__medgenz_quill_registered = true;
       }
-    } catch (e) {
-      console.error('[MedGenz Debug] Quill Setup Error:', e);
-    }
+    } catch (e) { console.error(e); }
   }
 };
 
@@ -86,8 +83,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
     if (savedDraft) {
       try {
         const data = JSON.parse(savedDraft);
-        if (!initialData || confirm('Found an unsaved blog draft. Restore it?')) {
-            console.log('[MedGenz Debug] Restoring blog draft');
+        if (!initialData || confirm('Restore unsaved blog draft?')) {
             setTitle(data.title || ''); setSlug(data.slug || ''); setContent(data.content || '');
             setExcerpt(data.excerpt || ''); setCategory(data.category || 'Healthcare');
             setCoverImage(data.coverImage || ''); setPublished(data.published || false);
@@ -124,8 +120,11 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
     return () => window.removeEventListener('mousedown', handleGlobalClick);
   }, []);
 
+  const clearDraft = () => localStorage.removeItem(`medgenz-blog-draft-${id || 'new'}`);
+
   const handleHeroImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]; if (!file) return;
+    const file = e.target.files?.[0];
+    if (!file) return;
     const reader = new FileReader();
     reader.onloadend = () => setCoverImage(reader.result as string);
     reader.readAsDataURL(file);
@@ -157,10 +156,10 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
     e.preventDefault();
     setLoading(true); setSavingStep('Processing images...');
     try {
-      let finalCover = coverImage;
+      let finalCoverImage = coverImage;
       if (coverImage && coverImage.startsWith('data:image/')) {
         setSavingStep('Uploading banner...');
-        finalCover = await uploadImageToBlob(coverImage);
+        finalCoverImage = await uploadImageToBlob(coverImage);
       }
       setSavingStep('Finalizing content...');
       const finalContent = await processContentImages(content);
@@ -168,9 +167,9 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
       const res = await fetch(id ? `/api/blogs/${id}` : '/api/blogs', {
         method: id ? 'PUT' : 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, slug, content: finalContent, excerpt, category, coverImage: finalCover, published, metaTitle, metaDescription })
+        body: JSON.stringify({ title, slug, content: finalContent, excerpt, category, coverImage: finalCoverImage, published, metaTitle, metaDescription })
       });
-      if (res.ok) { localStorage.removeItem(`medgenz-blog-draft-${id || 'new'}`); router.push('/admin/blogs'); router.refresh(); }
+      if (res.ok) { clearDraft(); router.push('/admin/blogs'); router.refresh(); }
       else { const err = await res.json(); alert(err.error || 'Save failed'); }
     } catch (err) { alert('Error saving blog'); }
     finally { setLoading(false); setSavingStep(''); }
@@ -203,34 +202,40 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
     try {
         const blot = (quill as any).scroll.find(img);
         if (blot) {
-            quill.deleteText(blot.offset(quill.scroll), 1);
+            const index = blot.offset(quill.scroll);
+            quill.focus();
+            quill.deleteText(index, 1);
         } else { img.remove(); }
     } catch (e) { img.remove(); }
     if (quill) setContent(quill.root.innerHTML);
     setSelectedImage(null);
   };
 
+  // Stable Image Handler
+  const selectLocalImage = useCallback(() => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file'); input.setAttribute('accept', 'image/*'); input.click();
+    input.onchange = () => {
+      const file = input.files?.[0]; if (!file) return;
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const q = quillRef.current?.getEditor();
+        if (q) {
+          const range = q.getSelection() || { index: q.getLength() };
+          q.insertEmbed(range.index, 'image', reader.result as string);
+        }
+      };
+      reader.readAsDataURL(file);
+    };
+  }, []);
+
   const quillModules = useMemo(() => ({
     toolbar: {
       container: [[{ header: [1, 2, 3, false] }], ['bold', 'italic', 'underline', 'strike'], [{ list: 'ordered' }, { list: 'bullet' }], ['link', 'image'], ['clean']],
-      handlers: { image: () => {
-        const input = document.createElement('input');
-        input.setAttribute('type', 'file'); input.setAttribute('accept', 'image/*'); input.click();
-        input.onchange = () => {
-          const file = input.files?.[0]; if (!file) return;
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            const q = quillRef.current?.getEditor();
-            if (q) {
-              const range = q.getSelection() || { index: q.getLength() };
-              q.insertEmbed(range.index, 'image', reader.result as string);
-            }
-          };
-          reader.readAsDataURL(file);
-        };
-      }}
-    }
-  }), []);
+      handlers: { image: selectLocalImage }
+    },
+    clipboard: { matchVisual: false }
+  }), [selectLocalImage]);
 
   return (
     <form onSubmit={handleSubmit} className="p-8 space-y-12 pb-32 relative">
@@ -251,7 +256,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
           <h1 className="text-4xl font-black text-slate-900 tracking-tighter uppercase">{id ? 'Edit' : 'Create'} <span className="text-brand-600">Post</span></h1>
         </div>
         <div className="flex items-center gap-4">
-          <button type="button" onClick={() => { if(confirm('Reset draft?')) { localStorage.removeItem(`medgenz-blog-draft-${id || 'new'}`); window.location.reload(); } }} className="p-4 bg-white rounded-2xl border border-slate-100 text-slate-400 hover:text-red-500 shadow-sm group"><RefreshCcw className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" /></button>
+          <button type="button" onClick={() => { if(confirm('Reset draft?')) { clearDraft(); window.location.reload(); } }} className="p-4 bg-white rounded-2xl border border-slate-100 text-slate-400 hover:text-red-500 shadow-sm group"><RefreshCcw className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" /></button>
           <div className="flex items-center gap-3 bg-white p-2 rounded-2xl border border-slate-100 shadow-sm mr-4">
              <span className={`w-3 h-3 rounded-full ${published ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'}`} />
              <select value={published ? 'true' : 'false'} onChange={(e) => setPublished(e.target.value === 'true')} className="bg-transparent text-[10px] font-black uppercase tracking-widest outline-none pr-4"><option value="false">Draft</option><option value="true">Live</option></select>

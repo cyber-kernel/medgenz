@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import 'react-quill-new/dist/quill.snow.css';
@@ -103,6 +103,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
       try {
         const data = JSON.parse(savedDraft);
         if (!initialData || confirm('Found an unsaved draft. Restore it?')) {
+            console.log('[MedGenz Debug] Restoring draft from local storage');
             setTitle(data.title || ''); setSlug(data.slug || ''); setSubtitle(data.subtitle || '');
             setService(data.service || 'Modular OT'); setLocation(data.location || '');
             setHeroImage(data.heroImage || ''); setPublished(data.published || false);
@@ -184,7 +185,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true); setSavingStep('Uploading images...');
+    setLoading(true); setSavingStep('Processing images...');
     try {
       let finalHero = heroImage;
       if (heroImage && heroImage.startsWith('data:image/')) {
@@ -230,12 +231,17 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
         if (blot) {
             const index = blot.offset(quill.scroll);
             quill.formatText(index, 1, 'width', size);
+
+            // Re-sync the HTML back to state
             const html = quill.root.innerHTML;
             if (section === 'brief') setBrief(html);
             else if (section === 'challenge') setChallenge(html);
             else if (section === 'solution') setSolution(html);
-            console.log('Success.');
-        } else { element.style.width = size; }
+            console.log('[MedGenz Debug] Resize Successful');
+        } else {
+            console.warn('Blot not found, using direct style fallback');
+            element.style.width = size;
+        }
     } catch (e) { console.error(e); }
     console.groupEnd();
   };
@@ -254,7 +260,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
         const blot = (quill as any).scroll.find(element);
         if (blot) {
             quill.deleteText(blot.offset(quill.scroll), 1);
-            console.log('Deleted.');
+            console.log('[MedGenz Debug] Deletion Successful');
         } else { element.remove(); }
 
         const html = quill.root.innerHTML;
@@ -266,30 +272,52 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     console.groupEnd();
   };
 
-  const quillModules = (section: string) => ({
+  // Stable Image Handler
+  const selectLocalImage = useCallback((section: string) => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file'); input.setAttribute('accept', 'image/*'); input.click();
+    input.onchange = () => {
+      const file = input.files?.[0]; if (!file) return;
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const q = quillRefs.current[section]?.getEditor();
+        if (q) {
+          const range = q.getSelection() || { index: q.getLength() };
+          q.insertEmbed(range.index, 'image', reader.result as string);
+        }
+      };
+      reader.readAsDataURL(file);
+    };
+  }, []);
+
+  // MEMOIZED MODULES per section to prevent re-initialization
+  const briefModules = useMemo(() => ({
     toolbar: {
       container: [[{ header: [1, 2, 3, false] }], ['bold', 'italic', 'underline', 'strike'], [{ list: 'ordered' }, { list: 'bullet' }], ['link', 'image'], ['clean']],
-      handlers: { image: () => {
-        const input = document.createElement('input');
-        input.setAttribute('type', 'file'); input.setAttribute('accept', 'image/*'); input.click();
-        input.onchange = () => {
-          const file = input.files?.[0]; if (!file) return;
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            const q = quillRefs.current[section]?.getEditor();
-            if (q) {
-              const range = q.getSelection() || { index: q.getLength() };
-              q.insertEmbed(range.index, 'image', reader.result as string);
-            }
-          };
-          reader.readAsDataURL(file);
-        };
-      }}
-    }
-  });
+      handlers: { image: () => selectLocalImage('brief') }
+    },
+    clipboard: { matchVisual: false }
+  }), [selectLocalImage]);
+
+  const challengeModules = useMemo(() => ({
+    toolbar: {
+      container: [[{ header: [1, 2, 3, false] }], ['bold', 'italic', 'underline', 'strike'], [{ list: 'ordered' }, { list: 'bullet' }], ['link', 'image'], ['clean']],
+      handlers: { image: () => selectLocalImage('challenge') }
+    },
+    clipboard: { matchVisual: false }
+  }), [selectLocalImage]);
+
+  const solutionModules = useMemo(() => ({
+    toolbar: {
+      container: [[{ header: [1, 2, 3, false] }], ['bold', 'italic', 'underline', 'strike'], [{ list: 'ordered' }, { list: 'bullet' }], ['link', 'image'], ['clean']],
+      handlers: { image: () => selectLocalImage('solution') }
+    },
+    clipboard: { matchVisual: false }
+  }), [selectLocalImage]);
 
   return (
     <form onSubmit={handleSubmit} className="p-8 space-y-12 pb-32 relative">
+      {/* Simplified Floating Toolbar */}
       {selectedImage && (
         <div className="image-action-toolbar" style={{ top: toolbarPos.top, left: toolbarPos.left, transform: 'translateX(-50%)' }} onMouseDown={(e) => e.preventDefault()}>
           <button type="button" className="size-btn" onMouseDown={(e) => { e.preventDefault(); updateImageSize('25%'); }}>25%</button>
@@ -300,13 +328,14 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
         </div>
       )}
 
+      {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="flex items-center gap-4">
           <Link href="/admin/projects" className="p-3 bg-white rounded-xl border border-slate-100 text-slate-400 hover:text-slate-900 shadow-sm"><ChevronRight className="w-5 h-5 rotate-180" /></Link>
           <h1 className="text-4xl font-black text-slate-900 tracking-tighter uppercase">{id ? 'Edit' : 'Create'} <span className="text-brand-600">Project</span></h1>
         </div>
         <div className="flex items-center gap-4">
-          <button type="button" onClick={() => { if(confirm('Reset draft?')) { clearDraft(); window.location.reload(); } }} className="p-4 bg-white rounded-2xl border border-slate-100 text-slate-400 hover:text-red-500 shadow-sm group"><RefreshCcw className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" /></button>
+          <button type="button" onClick={() => { if(confirm('Reset draft?')) { localStorage.removeItem(`medgenz-project-draft-${id || 'new'}`); window.location.reload(); } }} className="p-4 bg-white rounded-2xl border border-slate-100 text-slate-400 hover:text-red-500 shadow-sm group"><RefreshCcw className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" /></button>
           <div className="flex items-center gap-3 bg-white p-2 rounded-2xl border border-slate-100 shadow-sm mr-4">
              <span className={`w-3 h-3 rounded-full ${published ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'}`} />
              <select value={published ? 'true' : 'false'} onChange={(e) => setPublished(e.target.value === 'true')} className="bg-transparent text-[10px] font-black uppercase tracking-widest outline-none pr-4"><option value="false">Draft</option><option value="true">Live</option></select>
@@ -331,10 +360,25 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
           </div>
 
           <div className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm space-y-10">
-             <div className="space-y-4"><h3 className="text-xl font-bold text-slate-900 uppercase">Brief</h3><div className="prose prose-slate max-w-none" data-section="brief"><QuillComp ref={(e: any) => { if(e) quillRefs.current.brief = e; }} theme="snow" value={brief} onChange={setBrief} modules={quillModules('brief')} className="min-h-[260px] border-none" scrollingContainer="body" /></div></div>
+             <div className="space-y-4">
+                <h3 className="text-xl font-bold text-slate-900 uppercase">Brief</h3>
+                <div className="prose prose-slate max-w-none" data-section="brief">
+                    <QuillComp ref={(e: any) => { if(e) quillRefs.current.brief = e; }} theme="snow" value={brief} onChange={setBrief} modules={briefModules} className="min-h-[260px] border-none" scrollingContainer="body" />
+                </div>
+             </div>
              <div className="grid md:grid-cols-2 gap-10">
-                <div className="space-y-4"><h3 className="text-xl font-bold text-slate-900 uppercase">Challenge</h3><div className="prose prose-slate max-w-none" data-section="challenge"><QuillComp ref={(e: any) => { if(e) quillRefs.current.challenge = e; }} theme="snow" value={challenge} onChange={setChallenge} modules={quillModules('challenge')} className="min-h-[260px]" scrollingContainer="body" /></div></div>
-                <div className="space-y-4"><h3 className="text-xl font-bold text-slate-900 uppercase">Solution</h3><div className="prose prose-slate max-w-none" data-section="solution"><QuillComp ref={(e: any) => { if(e) quillRefs.current.solution = e; }} theme="snow" value={solution} onChange={setSolution} modules={quillModules('solution')} className="min-h-[260px]" scrollingContainer="body" /></div></div>
+                <div className="space-y-4">
+                    <h3 className="text-xl font-bold text-slate-900 uppercase">Challenge</h3>
+                    <div className="prose prose-slate max-w-none" data-section="challenge">
+                        <QuillComp ref={(e: any) => { if(e) quillRefs.current.challenge = e; }} theme="snow" value={challenge} onChange={setChallenge} modules={challengeModules} className="min-h-[260px] border-none" scrollingContainer="body" />
+                    </div>
+                </div>
+                <div className="space-y-4">
+                    <h3 className="text-xl font-bold text-slate-900 uppercase">Solution</h3>
+                    <div className="prose prose-slate max-w-none" data-section="solution">
+                        <QuillComp ref={(e: any) => { if(e) quillRefs.current.solution = e; }} theme="snow" value={solution} onChange={setSolution} modules={solutionModules} className="min-h-[260px] border-none" scrollingContainer="body" />
+                    </div>
+                </div>
              </div>
           </div>
 

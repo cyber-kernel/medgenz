@@ -7,8 +7,18 @@
   --primary-hover: #B37D00;
 }
 
+html {
+  font-size: 14px; /* Enterprise scale reduction */
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 15px;
+  }
+}
+
 body {
-  @apply bg-white text-slate-900;
+  @apply bg-white text-slate-900 leading-snug;
 }
 
 .service-breadcrumb > li:last-child {
@@ -18,9 +28,10 @@ body {
   white-space: nowrap;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  @apply font-poppins;
-}
+h1 { @apply text-3xl md:text-5xl lg:text-6xl font-black; }
+h2 { @apply text-2xl md:text-3xl lg:text-4xl font-black; }
+h3 { @apply text-xl md:text-2xl font-bold; }
+h4, h5, h6 { @apply font-poppins; }
 
 details > summary {
   list-style: none;
@@ -190,7 +201,7 @@ details[open] > summary::after {
 
 .prose {
   max-width: 100%;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: normal;
   hyphens: none !important;

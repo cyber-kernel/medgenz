@@ -121,8 +121,8 @@ export default function Header() {
           'transition-all duration-500',
 
           isScrolled
-            ? 'top-[60px] md:top-[34px] py-1'
-            : 'top-[60px] md:top-[34px] py-2',
+            ? 'top-[60px] md:top-[34px] py-0'
+            : 'top-[60px] md:top-[34px] py-1',
 
           shouldBeSolid
             ? 'bg-white/95 backdrop-blur-xl shadow-xl border-b border-slate-100'
@@ -154,18 +154,17 @@ export default function Header() {
             className="relative flex items-center shrink-0 group"
           >
             {/* 
-              The container is intentionally narrow.
-              The image itself is allowed to visually extend.
+              Reduced logo container size
             */}
             <div
               className="
                 relative
-                h-24
-                md:h-28
-                lg:h-32
-                w-52
-                md:w-60
-                lg:w-64
+                h-16
+                md:h-20
+                lg:h-24
+                w-40
+                md:w-48
+                lg:w-56
                 overflow-visible
               "
             >
@@ -174,14 +173,14 @@ export default function Header() {
                 alt="MedGenz Logo"
                 fill
                 priority
-                sizes="(max-width: 768px) 208px, 256px"
+                sizes="(max-width: 768px) 160px, 224px"
                 className="
                   object-contain
                   object-left
                   drop-shadow-md
-                  scale-[1.30]
-                  md:scale-[1.30]
-                  lg:scale-[1.30]
+                  scale-[1.20]
+                  md:scale-[1.20]
+                  lg:scale-[1.20]
                   origin-left
                 "
               />
@@ -196,9 +195,10 @@ export default function Header() {
               hidden
               md:flex
               items-center
-              gap-5
-              lg:gap-7
-              text-sm
+              gap-4
+              lg:gap-6
+              text-[11px]
+              lg:text-[13px]
               font-bold
               uppercase
               tracking-[0.12em]

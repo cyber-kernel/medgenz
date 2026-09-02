@@ -86,18 +86,18 @@ export default function Home() {
       />
 
       {/* 1. HERO SECTION - Integrated Slider */}
-      <section className="relative min-h-screen flex items-center pt-48 md:pt-56">
+      <section className="relative min-h-[90vh] md:min-h-screen flex items-center pt-24 md:pt-32">
         <HomeSlider />
       </section>
 
       {/* 2. STATS SECTION - Scaled Down */}
-      <section className="py-12 md:py-20 bg-slate-50 border-b border-slate-100">
+      <section className="py-10 md:py-16 bg-slate-50 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((s, i) => (
               <div key={i} className="text-center">
-                <div className="text-3xl md:text-5xl font-black text-brand-600 mb-2">{s.value}</div>
-                <div className="text-slate-500 uppercase text-[9px] md:text-xs tracking-widest font-bold">{s.label}</div>
+                <div className="text-2xl md:text-4xl font-black text-brand-600 mb-1">{s.value}</div>
+                <div className="text-slate-500 uppercase text-[8px] md:text-[10px] tracking-widest font-bold">{s.label}</div>
               </div>
             ))}
           </div>
@@ -105,10 +105,10 @@ export default function Home() {
       </section>
 
       {/* 3. DEEP ABOUT SECTION - Scaled Down */}
-      <section className="py-20 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+      <section className="py-16 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div className="relative group">
-            <div className="aspect-[4/5] bg-slate-100 rounded-[2.5rem] overflow-hidden relative shadow-2xl">
+            <div className="aspect-[4/3] md:aspect-[4/5] bg-slate-100 rounded-[2rem] overflow-hidden relative shadow-xl">
               <Image
                 src="/images/about-us/about-us-home/about-us.webp"
                 alt="MedGenz Facility"
@@ -116,29 +116,29 @@ export default function Home() {
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
               />
             </div>
-            <div className="absolute -bottom-6 -right-6 bg-brand-600 text-white p-6 md:p-8 rounded-[2rem] z-20 shadow-2xl transform hover:scale-110 transition-transform cursor-default">
-              <div className="text-3xl md:text-5xl font-black">12+</div>
-              <div className="text-[9px] md:text-xs font-bold uppercase tracking-wider text-brand-100">Years of Legacy</div>
+            <div className="absolute -bottom-4 -right-4 bg-brand-600 text-white p-4 md:p-6 rounded-[1.5rem] z-20 shadow-xl transform hover:scale-105 transition-transform cursor-default">
+              <div className="text-2xl md:text-4xl font-black">12+</div>
+              <div className="text-[8px] md:text-[10px] font-bold uppercase tracking-wider text-brand-100">Years of Legacy</div>
             </div>
           </div>
 
-          <div className="space-y-8">
-            <span className="text-brand-600 font-bold uppercase tracking-widest text-xs block">Who We Are</span>
-            <h2 className="text-2xl md:text-4xl font-black text-slate-900 leading-tight uppercase tracking-tighter">Premier Manufacturer of <br /><span className="text-brand-600">Hospital Infrastructure</span></h2>
-            <p className="text-slate-600 text-base md:text-lg leading-relaxed font-light">
+          <div className="space-y-6">
+            <span className="text-brand-600 font-bold uppercase tracking-widest text-[10px] block">Who We Are</span>
+            <h2 className="text-xl md:text-3xl font-black text-slate-900 leading-tight uppercase tracking-tighter">Premier Manufacturer of <br /><span className="text-brand-600">Hospital Infrastructure</span></h2>
+            <p className="text-slate-600 text-sm md:text-base leading-relaxed font-light">
               Welcome to MedGenz. We are an ISO 9001:2015, ISO 13485:2016, and CE Certified organization engaged in Manufacturing, Supplying, and Exporting a wide array of Medical Gas Pipeline Systems (MGPS), Modular Operation Theatres, ICU Pendants, and Nurse Call Systems.
             </p>
-            <div className="space-y-4">
+            <div className="space-y-3">
               {["Turnkey Hospital Projects", "Certified Quality Management", "In-house Manufacturing & R&D"].map((item, i) => (
-                <div key={i} className="flex items-center gap-4">
-                  <div className="w-5 h-5 rounded-full bg-brand-100 flex items-center justify-center shrink-0">
-                    <CheckCircle className="w-3 h-3 text-brand-600" />
+                <div key={i} className="flex items-center gap-3">
+                  <div className="w-4 h-4 rounded-full bg-brand-100 flex items-center justify-center shrink-0">
+                    <CheckCircle className="w-2.5 h-2.5 text-brand-600" />
                   </div>
-                  <span className="text-slate-700 font-bold text-sm">{item}</span>
+                  <span className="text-slate-700 font-bold text-xs">{item}</span>
                 </div>
               ))}
             </div>
-            <Link href="/about" className="inline-flex bg-slate-900 text-white px-6 py-3.5 rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-brand-600 transition-colors shadow-lg shadow-slate-900/20">
+            <Link href="/about" className="inline-flex bg-slate-900 text-white px-5 py-3 rounded-lg font-bold uppercase tracking-widest text-[10px] hover:bg-brand-600 transition-colors shadow-lg shadow-slate-900/10">
               Read Our Full Story
             </Link>
           </div>
@@ -148,29 +148,29 @@ export default function Home() {
       <ClientMarquee />
 
       {/* 4. CORE EXPERTISE GRID - Scaled Down & Clickable */}
-      <section className="py-20 bg-slate-50 border-y border-slate-100">
+      <section className="py-16 bg-slate-50 border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-2xl md:text-4xl font-black text-slate-900 mb-4 uppercase tracking-tighter">Core <span className="text-brand-600">Expertise</span></h2>
-            <div className="w-16 h-1 bg-brand-600 mx-auto rounded-full" />
-            <p className="mt-8 text-slate-500 text-base md:text-lg max-w-2xl mx-auto font-light">Providing a comprehensive range of turnkey healthcare solutions tailored to complex medical requirements.</p>
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-3 uppercase tracking-tighter">Core <span className="text-brand-600">Expertise</span></h2>
+            <div className="w-12 h-1 bg-brand-600 mx-auto rounded-full" />
+            <p className="mt-6 text-slate-500 text-sm md:text-base max-w-xl mx-auto font-light">Providing a comprehensive range of turnkey healthcare solutions tailored to complex medical requirements.</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-6 lg:gap-10">
             {expertise.map((item, i) => (
-              <Link href={item.link} key={i} className="group bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 hover:shadow-2xl transition-all duration-500 flex flex-col h-full">
-                <div className="h-56 relative overflow-hidden flex-shrink-0">
+              <Link href={item.link} key={i} className="group bg-white rounded-[2rem] overflow-hidden border border-slate-100 hover:shadow-xl transition-all duration-500 flex flex-col h-full">
+                <div className="h-48 relative overflow-hidden flex-shrink-0">
                   <Image src={item.image} alt={item.title} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
                 </div>
-                <div className="p-8 flex-grow flex flex-col">
-                  <div className="w-12 h-12 bg-brand-50 rounded-2xl flex items-center justify-center text-brand-600 mb-6 group-hover:bg-brand-600 group-hover:text-white transition-colors flex-shrink-0">
-                    <item.icon className="w-6 h-6" />
+                <div className="p-6 md:p-8 flex-grow flex flex-col">
+                  <div className="w-10 h-10 bg-brand-50 rounded-xl flex items-center justify-center text-brand-600 mb-5 group-hover:bg-brand-600 group-hover:text-white transition-colors flex-shrink-0">
+                    <item.icon className="w-5 h-5" />
                   </div>
-                  <h3 className="text-xl font-black text-slate-900 mb-4 line-clamp-1 uppercase tracking-tighter">{item.title}</h3>
-                  <p className="text-slate-600 leading-relaxed mb-8 flex-grow line-clamp-3 text-sm font-light">{item.desc}</p>
+                  <h3 className="text-lg font-black text-slate-900 mb-3 line-clamp-1 uppercase tracking-tighter">{item.title}</h3>
+                  <p className="text-slate-600 leading-relaxed mb-6 flex-grow line-clamp-3 text-xs md:text-sm font-light">{item.desc}</p>
                   <div className="mt-auto">
-                    <div className="text-brand-600 font-bold uppercase tracking-widest text-[10px] flex items-center gap-2 group-hover:gap-4 transition-all">
-                      Explore Service <ArrowRight className="w-3.5 h-3.5" />
+                    <div className="text-brand-600 font-bold uppercase tracking-widest text-[9px] flex items-center gap-2 group-hover:gap-4 transition-all">
+                      Explore Service <ArrowRight className="w-3 h-3" />
                     </div>
                   </div>
                 </div>
@@ -178,8 +178,8 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="text-center mt-16">
-            <Link href="/services" className="inline-block bg-slate-900 text-white px-8 py-4 rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-brand-600 transition-all shadow-xl shadow-slate-900/20 transform hover:-translate-y-1">
+          <div className="text-center mt-12">
+            <Link href="/services" className="inline-block bg-slate-900 text-white px-6 py-3.5 rounded-lg font-bold uppercase tracking-widest text-[10px] hover:bg-brand-600 transition-all shadow-xl shadow-slate-900/10 transform hover:-translate-y-1">
               Explore All Services
             </Link>
           </div>
@@ -187,15 +187,15 @@ export default function Home() {
       </section>
 
       {/* 5. TESTIMONIALS - Star Icons & Scaled Down */}
-      <section className="py-20 bg-brand-50 relative overflow-hidden">
+      <section className="py-16 bg-brand-50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <span className="text-brand-600 font-bold uppercase tracking-widest text-xs mb-2 block">Client Stories</span>
-            <h2 className="text-2xl md:text-4xl font-black text-slate-900 mb-4 uppercase tracking-tighter">Trusted by <span className="text-brand-600">Professionals</span></h2>
-            <div className="w-16 h-1 bg-brand-600 mx-auto rounded-full" />
+          <div className="text-center mb-12">
+            <span className="text-brand-600 font-bold uppercase tracking-widest text-[10px] mb-2 block">Client Stories</span>
+            <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-3 uppercase tracking-tighter">Trusted by <span className="text-brand-600">Professionals</span></h2>
+            <div className="w-12 h-1 bg-brand-600 mx-auto rounded-full" />
           </div>
 
-          <div className="overflow-hidden pb-12">
+          <div className="overflow-hidden pb-8">
             <Testimonials testimonials={testimonials} />
           </div>
         </div>

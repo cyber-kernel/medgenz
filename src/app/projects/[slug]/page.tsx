@@ -48,9 +48,9 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
   const hasSolution = !isContentEmpty(project.solution);
 
   return (
-    <div className="pt-20 font-inter bg-white overflow-x-hidden">
+    <div className="pt-24 md:pt-32 font-inter bg-white overflow-x-hidden">
       {/* 1. PROJECT HERO */}
-      <section className="relative py-24 md:py-32 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
+      <section className="relative py-16 md:py-24 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
         {project.heroImage && (
           <div className="absolute inset-0 z-0 opacity-70">
             <Image src={project.heroImage} alt={project.title} fill className="object-cover" priority />
@@ -64,24 +64,24 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
           </Link>
 
           <div className="max-w-4xl mx-auto">
-            <div className="flex items-center justify-center gap-4 mb-8 flex-wrap">
+            <div className="flex items-center justify-center gap-4 mb-6 flex-wrap">
                 {project.service && (
-                  <span className="bg-brand-600 text-white text-[10px] font-black px-4 py-1.5 rounded-full tracking-widest shadow-lg shadow-brand-600/20 uppercase">
+                  <span className="bg-brand-600 text-white text-[9px] md:text-[10px] font-black px-4 py-1.5 rounded-full tracking-widest shadow-lg shadow-brand-600/20 uppercase">
                       {project.service}
                   </span>
                 )}
                 {project.location && (
-                  <span className="flex items-center gap-1.5 text-slate-300 text-[10px] font-bold tracking-widest bg-white/5 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/10 uppercase">
+                  <span className="flex items-center gap-1.5 text-slate-300 text-[9px] md:text-[10px] font-bold tracking-widest bg-white/5 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/10 uppercase">
                       <MapPin className="w-3 h-3 text-brand-500" /> {project.location}
                   </span>
                 )}
             </div>
 
-            <h1 className="text-2xl md:text-5xl lg:text-6xl font-black text-white mb-6 tracking-tighter leading-[1.1] uppercase px-2">
+            <h1 className="text-2xl md:text-4xl lg:text-5xl font-black text-white mb-6 tracking-tighter leading-[1.1] uppercase px-2">
               {project.title}
             </h1>
             {project.subtitle && (
-              <p className="text-brand-500 text-base md:text-xl font-bold tracking-widest bg-brand-500/10 px-4 py-1.5 rounded-xl inline-block uppercase">
+              <p className="text-brand-500 text-sm md:text-lg font-bold tracking-widest bg-brand-500/10 px-4 py-1.5 rounded-xl inline-block uppercase">
                 {project.subtitle}
               </p>
             )}

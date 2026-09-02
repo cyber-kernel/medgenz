@@ -32,9 +32,9 @@ export const metadata = {
 
 export default function AMCCMCPage() {
   return (
-    <div className="pt-20 font-inter">
+    <div className="pt-24 md:pt-32 font-inter">
       {/* 1. HERO SECTION */}
-      <section className="relative py-24 md:py-32 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
+      <section className="relative py-16 md:py-24 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
         <div className="absolute inset-0 z-0 opacity-40">
            <Image
              src="/images/service-images/curtain-track.webp" // Reusing a medical context image
@@ -55,11 +55,11 @@ export default function AMCCMCPage() {
       </section>
 
       {/* 2. EDUCATION SECTION */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 lg:gap-20 items-start">
-          <div className="space-y-6">
-            <h2 className="text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter">Maintenance <span className="text-brand-600">Simplified</span></h2>
-            <p className="text-slate-600 leading-relaxed font-light text-lg">
+      <section className="py-12 md:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 lg:gap-16 items-start">
+          <div className="space-y-4">
+            <h2 className="text-2xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter text-center md:text-left">Maintenance <span className="text-brand-600">Simplified</span></h2>
+            <p className="text-slate-600 leading-relaxed font-light text-sm md:text-base text-center md:text-left">
               Medical equipment requires more than just repairs; it needs a continuous lifecycle management strategy. Our contracts are designed to shift the burden of maintenance from doctors to engineers.
             </p>
 
@@ -106,21 +106,21 @@ export default function AMCCMCPage() {
       </section>
 
       {/* 3. CALCULATOR SECTION */}
-      <section className="py-20 bg-slate-50 border-y border-slate-100">
-        <div className="max-w-7xl mx-auto px-6 text-center mb-12">
-            <span className="text-brand-600 font-bold uppercase tracking-widest text-xs mb-2 block">Interactive Tool</span>
-            <h2 className="text-2xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter">Estimate Your <span className="text-brand-600">Contract Cost</span></h2>
-            <div className="w-16 h-1 bg-brand-600 mx-auto rounded-full mt-4" />
+      <section className="py-12 md:py-20 bg-slate-50 border-y border-slate-100">
+        <div className="max-w-7xl mx-auto px-6 text-center mb-8">
+            <span className="text-brand-600 font-bold uppercase tracking-widest text-[10px] mb-1 block">Interactive Tool</span>
+            <h2 className="text-xl md:text-3xl font-black text-slate-900 uppercase tracking-tighter">Estimate Your <span className="text-brand-600">Contract Cost</span></h2>
+            <div className="w-12 h-1 bg-brand-600 mx-auto rounded-full mt-3" />
         </div>
         <AMCCMCCalculator />
       </section>
 
       {/* 4. RATING SECTION */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-20">
-          <div className="text-center md:text-left space-y-2">
-            <div className="text-6xl md:text-8xl font-black text-slate-900 tracking-tighter">4.9<span className="text-brand-600">/5</span></div>
-            <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">Customer Satisfaction Rating</p>
+      <section className="py-12 md:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-16">
+          <div className="text-center md:text-left space-y-1">
+            <div className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter">4.9<span className="text-brand-600">/5</span></div>
+            <p className="text-slate-400 font-bold uppercase tracking-widest text-[9px]">Customer Satisfaction Rating</p>
           </div>
           <div className="flex flex-col items-center md:items-start gap-4">
             <div className="flex text-yellow-400">

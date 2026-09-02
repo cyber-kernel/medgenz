@@ -17,6 +17,7 @@ const navLinks = [
   { name: 'About Us', href: '/about' },
   { name: 'Services', href: '/services' },
   { name: 'Projects', href: '/projects' },
+  { name: 'AMC/CMC', href: '/amc-cmc' },
   { name: 'Blogs', href: '/blogs' },
 ];
 

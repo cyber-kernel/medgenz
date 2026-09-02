@@ -12,7 +12,12 @@ interface Testimonial {
 
 export default function Testimonials({ testimonials }: { testimonials: Testimonial[] }) {
   return (
-    <AutoScrollTrack className="pb-8 scrollbar-hide" contentClassName="gap-4 md:gap-6" speed={0.3}>
+    <AutoScrollTrack
+      className="pb-8"
+      contentClassName="gap-4 md:gap-6 py-4 px-4"
+      interval={3000}
+    >
+      {/* Duplicated once for seamless loop with AutoScrollTrack logic */}
       {[...testimonials, ...testimonials].map((testimonial, index) => (
         <div key={`${testimonial.name}-${index}`} className="w-[82vw] sm:w-[360px] md:w-[450px] shrink-0 bg-white rounded-3xl p-5 md:p-8 shadow-lg border border-slate-100 relative group">
           <div className="flex text-yellow-400 mb-4 md:mb-6">

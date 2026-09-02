@@ -64,7 +64,13 @@ details[open] > summary::after {
 }
 
 .animate-marquee {
-  animation: marquee 40s linear infinite;
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
 
 .hide-scrollbar::-webkit-scrollbar {

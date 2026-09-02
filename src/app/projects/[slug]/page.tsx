@@ -77,11 +77,11 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
                 )}
             </div>
 
-            <h1 className="text-3xl md:text-6xl lg:text-7xl font-black text-white mb-6 tracking-tighter leading-[1.1] uppercase">
+            <h1 className="text-2xl md:text-5xl lg:text-6xl font-black text-white mb-6 tracking-tighter leading-[1.1] uppercase px-2">
               {project.title}
             </h1>
             {project.subtitle && (
-              <p className="text-brand-500 text-lg md:text-2xl font-bold tracking-widest bg-brand-500/10 px-6 py-2 rounded-xl inline-block uppercase">
+              <p className="text-brand-500 text-base md:text-xl font-bold tracking-widest bg-brand-500/10 px-4 py-1.5 rounded-xl inline-block uppercase">
                 {project.subtitle}
               </p>
             )}
@@ -97,16 +97,17 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
             {/* Left Content */}
             <div className="lg:col-span-8 space-y-12 md:space-y-20 min-w-0 overflow-hidden">
               {hasBrief && (
-                <div className="space-y-8 animate-on-scroll is-visible">
-                  <div className="flex flex-col items-center gap-4 text-center">
-                      <div className="w-12 h-12 bg-brand-50 rounded-2xl flex items-center justify-center text-brand-600 shrink-0 shadow-sm border border-brand-100">
-                          <FileText className="w-6 h-6" />
+                <div className="space-y-6 md:space-y-8 animate-on-scroll is-visible">
+                  <div className="flex flex-col items-center gap-3 text-center">
+                      <div className="w-10 h-10 md:w-12 md:h-12 bg-brand-50 rounded-xl md:rounded-2xl flex items-center justify-center text-brand-600 shrink-0 shadow-sm border border-brand-100">
+                          <FileText className="w-5 h-5 md:w-6 md:h-6" />
                       </div>
-                      <h2 className="text-2xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter">Project <span className="text-brand-600">Brief</span></h2>
-                      <div className="w-12 h-1 bg-brand-600 rounded-full" />
+                      <h2 className="text-xl md:text-3xl font-black text-slate-900 uppercase tracking-tighter">Project <span className="text-brand-600">Brief</span></h2>
+                      <div className="w-10 h-1 bg-brand-600 rounded-full" />
                   </div>
                   <div
-                    className="prose prose-slate max-w-none prose-lg md:prose-xl leading-relaxed font-light text-slate-600 prose-img:rounded-3xl prose-img:shadow-2xl prose-strong:text-slate-900 prose-strong:font-black prose-headings:uppercase prose-headings:tracking-tighter break-words text-left"
+                    className="prose prose-slate max-w-none prose-base md:prose-lg lg:prose-xl leading-relaxed font-light text-slate-600 prose-img:rounded-2xl md:prose-img:rounded-3xl prose-img:shadow-2xl prose-strong:text-slate-900 prose-strong:font-black prose-headings:uppercase prose-headings:tracking-tighter break-words text-left hyphens-none"
+                    style={{ hyphens: 'none', WebkitHyphens: 'none' } as any}
                     dangerouslySetInnerHTML={{ __html: project.brief! }}
                   />
                 </div>
@@ -115,23 +116,25 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
               {(hasChallenge || hasSolution) && (
                 <div className="grid md:grid-cols-2 gap-10 lg:gap-16">
                    {hasChallenge && (
-                     <div className="space-y-6 bg-slate-50 p-8 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 className="text-xl font-black text-slate-900 uppercase tracking-tighter flex items-center gap-3">
+                     <div className="space-y-4 md:space-y-6 bg-slate-50 p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-md transition-shadow text-center md:text-left">
+                        <h3 className="text-lg md:text-xl font-black text-slate-900 uppercase tracking-tighter flex flex-col md:flex-row items-center gap-2 md:gap-3">
                             <Zap className="w-5 h-5 text-brand-600" /> The Challenge
                         </h3>
                         <div
-                          className="prose prose-slate max-w-none text-slate-600 leading-relaxed font-light text-sm md:text-base break-words"
+                          className="prose prose-slate max-w-none text-slate-600 leading-relaxed font-light text-sm md:text-base break-words hyphens-none"
+                          style={{ hyphens: 'none', WebkitHyphens: 'none' } as any}
                           dangerouslySetInnerHTML={{ __html: project.challenge! }}
                         />
                      </div>
                    )}
                    {hasSolution && (
-                     <div className="space-y-6 bg-green-50/30 p-8 rounded-[2rem] border border-green-100 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 className="text-xl font-black text-slate-900 uppercase tracking-tighter flex items-center gap-3">
+                     <div className="space-y-4 md:space-y-6 bg-green-50/30 p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] border border-green-100 shadow-sm hover:shadow-md transition-shadow text-center md:text-left">
+                        <h3 className="text-lg md:text-xl font-black text-slate-900 uppercase tracking-tighter flex flex-col md:flex-row items-center gap-2 md:gap-3">
                             <ShieldCheck className="w-5 h-5 text-green-600" /> Our Solution
                         </h3>
                         <div
-                          className="prose prose-slate max-w-none text-slate-600 leading-relaxed font-light text-sm md:text-base break-words"
+                          className="prose prose-slate max-w-none text-slate-600 leading-relaxed font-light text-sm md:text-base break-words hyphens-none"
+                          style={{ hyphens: 'none', WebkitHyphens: 'none' } as any}
                           dangerouslySetInnerHTML={{ __html: project.solution! }}
                         />
                      </div>
@@ -140,16 +143,16 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
               )}
 
               {highlights.length > 0 && (
-                <div className="bg-slate-950 p-10 md:p-16 rounded-[2.5rem] md:rounded-[3.5rem] border border-white/5 space-y-10 shadow-2xl relative overflow-hidden group">
+                <div className="bg-slate-950 p-8 md:p-16 rounded-[2rem] md:rounded-[3.5rem] border border-white/5 space-y-8 md:space-y-10 shadow-2xl relative overflow-hidden group">
                    <div className="absolute top-0 right-0 w-64 h-64 bg-brand-600 rounded-full blur-[100px] opacity-10 -mr-20 -mt-20 group-hover:opacity-20 transition-opacity" />
-                   <h3 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter relative z-10">Technical <span className="text-brand-500">Highlights</span></h3>
-                   <div className="grid sm:grid-cols-2 gap-6 relative z-10">
+                   <h3 className="text-xl md:text-3xl font-black text-white uppercase tracking-tighter relative z-10 text-center md:text-left">Technical <span className="text-brand-500">Highlights</span></h3>
+                   <div className="grid sm:grid-cols-2 gap-4 md:gap-6 relative z-10">
                       {highlights.map((h, i) => (
-                          <div key={i} className="flex items-start gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/30 transition-all">
-                              <div className="w-6 h-6 bg-brand-600 rounded-full flex items-center justify-center shrink-0 mt-0.5 shadow-lg shadow-brand-600/20">
-                                  <CheckCircle className="w-4 h-4 text-white" />
+                          <div key={i} className="flex items-start gap-3 md:gap-4 p-3 md:p-4 rounded-xl md:rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/30 transition-all">
+                              <div className="w-5 h-5 md:w-6 md:h-6 bg-brand-600 rounded-full flex items-center justify-center shrink-0 mt-0.5 shadow-lg shadow-brand-600/20">
+                                  <CheckCircle className="w-3 h-3 md:w-4 md:h-4 text-white" />
                               </div>
-                              <span className="text-slate-300 font-bold uppercase tracking-tight text-xs leading-snug">{h}</span>
+                              <span className="text-slate-300 font-bold uppercase tracking-tight text-[10px] md:text-xs leading-snug">{h}</span>
                           </div>
                       ))}
                    </div>

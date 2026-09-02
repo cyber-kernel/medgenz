@@ -190,9 +190,10 @@ details[open] > summary::after {
 
 .prose {
   max-width: 100%;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
   word-wrap: break-word;
   word-break: normal;
+  hyphens: none !important;
 }
 
 /* Ensure images don't overflow in grid layouts */

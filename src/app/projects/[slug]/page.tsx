@@ -58,30 +58,30 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
           </div>
         )}
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <Link href="/projects" className="inline-flex items-center gap-2 text-brand-400 font-bold uppercase tracking-widest text-[10px] mb-12 hover:gap-4 transition-all">
+        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
+          <Link href="/projects" className="inline-flex items-center gap-2 text-brand-400 font-bold uppercase tracking-widest text-[10px] mb-8 md:mb-12 hover:gap-4 transition-all">
             <ArrowLeft className="w-4 h-4" /> Back to Projects
           </Link>
 
-          <div className="max-w-4xl">
-            <div className="flex items-center gap-4 mb-8 flex-wrap">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center justify-center gap-4 mb-8 flex-wrap">
                 {project.service && (
-                  <span className="bg-brand-600 text-white text-[10px] font-black px-4 py-1.5 rounded-full tracking-widest shadow-lg shadow-brand-600/20">
+                  <span className="bg-brand-600 text-white text-[10px] font-black px-4 py-1.5 rounded-full tracking-widest shadow-lg shadow-brand-600/20 uppercase">
                       {project.service}
                   </span>
                 )}
                 {project.location && (
-                  <span className="flex items-center gap-1.5 text-slate-300 text-[10px] font-bold tracking-widest bg-white/5 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/10">
+                  <span className="flex items-center gap-1.5 text-slate-300 text-[10px] font-bold tracking-widest bg-white/5 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/10 uppercase">
                       <MapPin className="w-3 h-3 text-brand-500" /> {project.location}
                   </span>
                 )}
             </div>
 
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 tracking-tighter leading-[1.1]">
+            <h1 className="text-3xl md:text-6xl lg:text-7xl font-black text-white mb-6 tracking-tighter leading-[1.1] uppercase">
               {project.title}
             </h1>
             {project.subtitle && (
-              <p className="text-brand-500 text-xl md:text-2xl font-bold tracking-widest bg-brand-500/10 px-4 py-2 rounded-xl inline-block">
+              <p className="text-brand-500 text-lg md:text-2xl font-bold tracking-widest bg-brand-500/10 px-6 py-2 rounded-xl inline-block uppercase">
                 {project.subtitle}
               </p>
             )}
@@ -98,14 +98,15 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
             <div className="lg:col-span-8 space-y-12 md:space-y-20 min-w-0 overflow-hidden">
               {hasBrief && (
                 <div className="space-y-8 animate-on-scroll is-visible">
-                  <div className="flex items-center gap-4">
+                  <div className="flex flex-col items-center gap-4 text-center">
                       <div className="w-12 h-12 bg-brand-50 rounded-2xl flex items-center justify-center text-brand-600 shrink-0 shadow-sm border border-brand-100">
                           <FileText className="w-6 h-6" />
                       </div>
-                      <h2 className="text-2xl md:text-3xl font-black text-slate-900 uppercase tracking-tighter">Project <span className="text-brand-600">Brief</span></h2>
+                      <h2 className="text-2xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter">Project <span className="text-brand-600">Brief</span></h2>
+                      <div className="w-12 h-1 bg-brand-600 rounded-full" />
                   </div>
                   <div
-                    className="prose prose-slate max-w-none prose-xl leading-relaxed font-light text-slate-600 prose-img:rounded-3xl prose-img:shadow-2xl prose-strong:text-slate-900 prose-strong:font-black prose-headings:uppercase prose-headings:tracking-tighter break-words"
+                    className="prose prose-slate max-w-none prose-lg md:prose-xl leading-relaxed font-light text-slate-600 prose-img:rounded-3xl prose-img:shadow-2xl prose-strong:text-slate-900 prose-strong:font-black prose-headings:uppercase prose-headings:tracking-tighter break-words text-left"
                     dangerouslySetInnerHTML={{ __html: project.brief! }}
                   />
                 </div>

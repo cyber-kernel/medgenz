@@ -350,7 +350,13 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
         <div className="lg:col-span-8 space-y-12">
           <div className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm space-y-8">
              <div className="grid md:grid-cols-2 gap-8">
-                <div className="space-y-2"><label className="text-xs font-black text-slate-400 uppercase tracking-widest">Title</label><input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full text-xl font-bold text-slate-900 border-b-2 border-slate-50 focus:border-brand-600 outline-none p-2" required /></div>
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <label className="text-xs font-black text-slate-400 uppercase tracking-widest">Title</label>
+                    <span className={`text-[10px] font-bold ${title.length > 90 ? 'text-red-500' : 'text-slate-300'}`}>{title.length}/100</span>
+                  </div>
+                  <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} maxLength={100} className="w-full text-xl font-bold text-slate-900 border-b-2 border-slate-50 focus:border-brand-600 outline-none p-2" required />
+                </div>
                 <div className="space-y-2"><label className="text-xs font-black text-slate-400 uppercase tracking-widest">Subtitle</label><input type="text" value={subtitle} onChange={(e) => setSubtitle(e.target.value)} className="w-full text-xl font-bold text-slate-900 border-b-2 border-slate-50 focus:border-brand-600 outline-none p-2" /></div>
              </div>
              <div className="grid md:grid-cols-2 gap-8">

@@ -29,10 +29,11 @@ const ReactQuill = dynamic(() => import('react-quill-new'), {
   loading: () => <div className="h-64 bg-slate-50 animate-pulse rounded-2xl" />
 });
 
-// Register custom attributes for Quill 2.x
+// Production-Safe Quill Setup with Debugging
 const setupQuill = () => {
   if (typeof window !== 'undefined' && !(window as any).__medgenz_quill_registered) {
     try {
+      console.log('[MedGenz Debug] Initializing Quill Engine...');
       const QuillLib = require('react-quill-new');
       const Quill = QuillLib.Quill || QuillLib.default?.Quill;
       if (Quill) {
@@ -40,11 +41,12 @@ const setupQuill = () => {
         const AttributeAttributor = Parchment.AttributeAttributor || (Parchment.Attributor ? Parchment.Attributor.Attribute : null);
         if (AttributeAttributor) {
             Quill.register(new AttributeAttributor('width', 'width', { scope: 3 }), true);
+            console.log('[MedGenz Debug] Width Attributor Registered Successfully.');
         }
         (window as any).__medgenz_quill_registered = true;
       }
     } catch (e) {
-      console.error('Quill setup failed', e);
+      console.error('[MedGenz Debug] Quill Registration Failed:', e);
     }
   }
 };
@@ -60,11 +62,11 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   const [isDraftLoaded, setIsDraftLoaded] = useState(false);
   const [savingStep, setSavingStep] = useState('');
 
-  // Toolbar State
+  // Floating Toolbar State
   const [selectedImage, setSelectedImage] = useState<{ element: HTMLImageElement, section: string } | null>(null);
   const [toolbarPos, setToolbarPos] = useState({ top: 0, left: 0 });
 
-  // Form State
+  // Basic Info
   const [title, setTitle] = useState(initialData?.title || '');
   const [slug, setSlug] = useState(initialData?.slug || '');
   const [subtitle, setSubtitle] = useState(initialData?.subtitle || '');
@@ -72,11 +74,17 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   const [location, setLocation] = useState(initialData?.location || '');
   const [heroImage, setHeroImage] = useState(initialData?.heroImage || '');
   const [published, setPublished] = useState(initialData?.published || false);
+
+  // Content
   const [brief, setBrief] = useState(initialData?.brief || '');
   const [challenge, setChallenge] = useState(initialData?.challenge || '');
   const [solution, setSolution] = useState(initialData?.solution || '');
+
+  // JSON Fields
   const [highlights, setHighlights] = useState<string[]>(initialData?.highlights || ['', '']);
   const [specs, setSpecs] = useState<{label: string, value: string}[]>(initialData?.specs || [{label: '', value: ''}]);
+
+  // SEO
   const [metaTitle, setMetaTitle] = useState(initialData?.metaTitle || '');
   const [metaDescription, setMetaDescription] = useState(initialData?.metaDescription || '');
 
@@ -84,28 +92,31 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   const quillRefs = useRef<Record<string, any>>({});
   const QuillComp: any = ReactQuill;
 
-  // Persistence: Load
+  // Initialize
+  useEffect(() => { setupQuill(); }, []);
+
+  // Persistence: Load Draft
   useEffect(() => {
-    setupQuill();
     const draftKey = `medgenz-project-draft-${id || 'new'}`;
-    const saved = localStorage.getItem(draftKey);
-    if (saved) {
+    const savedDraft = localStorage.getItem(draftKey);
+    if (savedDraft) {
       try {
-        const data = JSON.parse(saved);
+        const data = JSON.parse(savedDraft);
         if (!initialData || confirm('Found an unsaved draft. Restore it?')) {
-          setTitle(data.title || ''); setSlug(data.slug || ''); setSubtitle(data.subtitle || '');
-          setService(data.service || 'Modular OT'); setLocation(data.location || '');
-          setHeroImage(data.heroImage || ''); setPublished(data.published || false);
-          setBrief(data.brief || ''); setChallenge(data.challenge || ''); setSolution(data.solution || '');
-          setHighlights(data.highlights || ['', '']); setSpecs(data.specs || [{label: '', value: ''}]);
-          setMetaTitle(data.metaTitle || ''); setMetaDescription(data.metaDescription || '');
+            console.log('[MedGenz Debug] Restoring draft from local storage');
+            setTitle(data.title || ''); setSlug(data.slug || ''); setSubtitle(data.subtitle || '');
+            setService(data.service || 'Modular OT'); setLocation(data.location || '');
+            setHeroImage(data.heroImage || ''); setPublished(data.published || false);
+            setBrief(data.brief || ''); setChallenge(data.challenge || ''); setSolution(data.solution || '');
+            setHighlights(data.highlights || ['', '']); setSpecs(data.specs || [{label: '', value: ''}]);
+            setMetaTitle(data.metaTitle || ''); setMetaDescription(data.metaDescription || '');
         }
       } catch (e) {}
     }
     setIsDraftLoaded(true);
   }, [id, initialData]);
 
-  // Persistence: Save
+  // Persistence: Save Draft
   useEffect(() => {
     if (!isDraftLoaded) return;
     const timer = setTimeout(() => {
@@ -117,16 +128,22 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     return () => clearTimeout(timer);
   }, [title, slug, subtitle, service, location, heroImage, published, brief, challenge, solution, highlights, specs, metaTitle, metaDescription, isDraftLoaded, id]);
 
-  // Image Selection logic
+  // Detect image clicks
   useEffect(() => {
     const handleGlobalClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (target.tagName === 'IMG' && target.closest('.ql-editor')) {
         const img = target as HTMLImageElement;
         const rect = img.getBoundingClientRect();
-        const section = target.closest('.prose')?.getAttribute('data-section') || '';
+        const editorContainer = target.closest('.prose');
+        const section = editorContainer?.getAttribute('data-section') || '';
+
+        console.log('[MedGenz Debug] Image Clicked in Section:', section);
         setSelectedImage({ element: img, section });
-        setToolbarPos({ top: rect.top + window.scrollY - 60, left: rect.left + window.scrollX + (rect.width / 2) });
+        setToolbarPos({
+          top: rect.top + window.scrollY - 60,
+          left: rect.left + window.scrollX + (rect.width / 2)
+        });
       } else if (!target.closest('.image-action-toolbar')) {
         setSelectedImage(null);
       }
@@ -135,12 +152,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     return () => window.removeEventListener('mousedown', handleGlobalClick);
   }, []);
 
-  const handleHeroImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]; if (!file) return;
-    const reader = new FileReader();
-    reader.onloadend = () => setHeroImage(reader.result as string);
-    reader.readAsDataURL(file);
-  };
+  const clearDraft = () => localStorage.removeItem(`medgenz-project-draft-${id || 'new'}`);
 
   const uploadToVercel = async (source: string): Promise<string> => {
     if (!source.startsWith('data:image/')) return source;
@@ -153,7 +165,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     return data.url;
   };
 
-  const processContent = async (html: string): Promise<string> => {
+  const processContentImages = async (html: string): Promise<string> => {
     const div = document.createElement('div'); div.innerHTML = html;
     const images = div.querySelectorAll('img');
     for (let i = 0; i < images.length; i++) {
@@ -174,9 +186,9 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
         finalHero = await uploadToVercel(heroImage);
       }
       setSavingStep('Finalizing content...');
-      const finalBrief = await processContent(brief);
-      const finalChallenge = await processContent(challenge);
-      const finalSolution = await processContent(solution);
+      const finalBrief = await processContentImages(brief);
+      const finalChallenge = await processContentImages(challenge);
+      const finalSolution = await processContentImages(solution);
 
       setSavingStep('Saving data...');
       const res = await fetch(id ? `/api/projects/${id}` : '/api/projects', {
@@ -190,7 +202,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
           published, metaTitle, metaDescription
         })
       });
-      if (res.ok) { localStorage.removeItem(`medgenz-project-draft-${id || 'new'}`); router.push('/admin/projects'); router.refresh(); }
+      if (res.ok) { clearDraft(); router.push('/admin/projects'); router.refresh(); }
       else { const err = await res.json(); alert(err.error || 'Save failed'); }
     } catch (err) { alert('Error saving'); }
     finally { setLoading(false); setSavingStep(''); }
@@ -199,43 +211,86 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   const updateImageSize = (size: string) => {
     if (!selectedImage) return;
     const { element, section } = selectedImage;
-    const quill = quillRefs.current[section]?.getEditor();
-    if (!quill) return;
+    const editorInstance = quillRefs.current[section];
+    const quill = editorInstance?.getEditor ? editorInstance.getEditor() : null;
+
+    console.group('[MedGenz Debug] Resizing Image');
+    console.log('Target Section:', section);
+    console.log('Target Size:', size);
+
+    if (!quill) {
+        console.error('[MedGenz Debug] FAILED: Editor instance not found for section:', section);
+        console.groupEnd();
+        return;
+    }
 
     try {
+        // Step 1: Ensure focus to prevent addRange error
+        quill.focus();
+
+        // Step 2: Locate the image blot
         const blot = (quill as any).scroll.find(element);
         if (blot) {
             const index = blot.offset(quill.scroll);
+            console.log('[MedGenz Debug] Blot Found at Index:', index);
+
+            // Step 3: Apply format
             quill.formatText(index, 1, 'width', size);
+            console.log('[MedGenz Debug] Format applied to editor memory.');
+
+            // Step 4: Sync to React State
             const html = quill.root.innerHTML;
             if (section === 'brief') setBrief(html);
             else if (section === 'challenge') setChallenge(html);
             else if (section === 'solution') setSolution(html);
+            console.log('[MedGenz Debug] React state synchronized.');
+        } else {
+            console.warn('[MedGenz Debug] Blot not found in scroll. Falling back to manual style.');
+            element.style.width = size;
         }
     } catch (e) {
+        console.error('[MedGenz Debug] Action Error:', e);
         element.style.width = size;
     }
+    console.groupEnd();
   };
 
   const removeImage = () => {
     if (!selectedImage) return;
     const { element, section } = selectedImage;
-    const quill = quillRefs.current[section]?.getEditor();
+    const editorInstance = quillRefs.current[section];
+    const quill = editorInstance?.getEditor ? editorInstance.getEditor() : null;
+
+    console.group('[MedGenz Debug] Deleting Image');
+    if (!quill) {
+        console.error('[MedGenz Debug] FAILED: Editor instance not found.');
+        element.remove();
+        console.groupEnd();
+        return;
+    }
+
     try {
+        quill.focus();
         const blot = (quill as any).scroll.find(element);
         if (blot) {
             const index = blot.offset(quill.scroll);
             quill.deleteText(index, 1);
-        } else { element.remove(); }
-    } catch (e) { element.remove(); }
+            console.log('[MedGenz Debug] Image deleted from editor memory.');
+        } else {
+            console.warn('[MedGenz Debug] Blot not found. Manual removal.');
+            element.remove();
+        }
 
-    if (quill) {
         const html = quill.root.innerHTML;
         if (section === 'brief') setBrief(html);
         else if (section === 'challenge') setChallenge(html);
         else if (section === 'solution') setSolution(html);
+    } catch (e) {
+        console.error('[MedGenz Debug] Deletion Error:', e);
+        element.remove();
     }
     setSelectedImage(null);
+    console.groupEnd();
   };
 
   const quillModules = (section: string) => ({
@@ -262,6 +317,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
 
   return (
     <form onSubmit={handleSubmit} className="p-8 space-y-12 pb-32 relative">
+      {/* Floating Toolbar */}
       {selectedImage && (
         <div className="image-action-toolbar" style={{ top: toolbarPos.top, left: toolbarPos.left, transform: 'translateX(-50%)' }} onMouseDown={(e) => e.preventDefault()}>
           <button type="button" className="size-btn" onMouseDown={(e) => { e.preventDefault(); updateImageSize('25%'); }}>25%</button>
@@ -272,7 +328,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
         </div>
       )}
 
-      {/* Toolbar */}
+      {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="flex items-center gap-4">
           <Link href="/admin/projects" className="p-3 bg-white rounded-xl border border-slate-100 text-slate-400 hover:text-slate-900 shadow-sm"><ChevronRight className="w-5 h-5 rotate-180" /></Link>
@@ -304,10 +360,10 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
           </div>
 
           <div className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm space-y-10">
-             <div className="space-y-4"><h3 className="text-xl font-bold text-slate-900 uppercase">Brief</h3><div className="prose prose-slate max-w-none" data-section="brief"><QuillComp ref={(e: any) => { if(e) quillRefs.current.brief = e; }} theme="snow" value={brief} onChange={setBrief} modules={quillModules('brief')} className="min-h-[260px]" scrollingContainer="body" /></div></div>
+             <div className="space-y-4"><h3 className="text-xl font-bold text-slate-900 uppercase">Brief</h3><div className="prose prose-slate max-w-none" data-section="brief"><QuillComp ref={(e: any) => { if(e) quillRefs.current.brief = e; }} theme="snow" value={brief} onChange={setBrief} modules={quillModules('brief')} className="min-h-[260px] border-none" scrollingContainer="body" /></div></div>
              <div className="grid md:grid-cols-2 gap-10">
-                <div className="space-y-4"><h3 className="text-xl font-bold text-slate-900 uppercase">Challenge</h3><div className="prose prose-slate max-w-none" data-section="challenge"><QuillComp ref={(e: any) => { if(e) quillRefs.current.challenge = e; }} theme="snow" value={challenge} onChange={setChallenge} modules={quillModules('challenge')} className="min-h-[260px]" scrollingContainer="body" /></div></div>
-                <div className="space-y-4"><h3 className="text-xl font-bold text-slate-900 uppercase">Solution</h3><div className="prose prose-slate max-w-none" data-section="solution"><QuillComp ref={(e: any) => { if(e) quillRefs.current.solution = e; }} theme="snow" value={solution} onChange={setSolution} modules={quillModules('solution')} className="min-h-[260px]" scrollingContainer="body" /></div></div>
+                <div className="space-y-4"><h3 className="text-xl font-bold text-slate-900 uppercase">Challenge</h3><div className="prose prose-slate max-w-none" data-section="challenge"><QuillComp ref={(e: any) => { if(e) quillRefs.current.challenge = e; }} theme="snow" value={challenge} onChange={setChallenge} modules={quillModules('challenge')} className="min-h-[260px] border-none" scrollingContainer="body" /></div></div>
+                <div className="space-y-4"><h3 className="text-xl font-bold text-slate-900 uppercase">Solution</h3><div className="prose prose-slate max-w-none" data-section="solution"><QuillComp ref={(e: any) => { if(e) quillRefs.current.solution = e; }} theme="snow" value={solution} onChange={setSolution} modules={quillModules('solution')} className="min-h-[260px] border-none" scrollingContainer="body" /></div></div>
              </div>
           </div>
 

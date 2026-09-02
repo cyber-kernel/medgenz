@@ -29,6 +29,7 @@ const ReactQuill = dynamic(() => import('react-quill-new'), {
 const setupQuill = () => {
   if (typeof window !== 'undefined' && !(window as any).__medgenz_quill_registered) {
     try {
+      console.log('[MedGenz Debug] Initializing Quill Engine (Blog)...');
       const QuillLib = require('react-quill-new');
       const Quill = QuillLib.Quill || QuillLib.default?.Quill;
       if (Quill) {
@@ -39,9 +40,7 @@ const setupQuill = () => {
         }
         (window as any).__medgenz_quill_registered = true;
       }
-    } catch (e) {
-      console.error('Quill config failed', e);
-    }
+    } catch (e) { console.error(e); }
   }
 };
 
@@ -184,6 +183,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
         const blot = (quill as any).scroll.find(img);
         if (blot) {
             const index = blot.offset(quill.scroll);
+            quill.focus();
             quill.formatText(index, 1, 'width', size);
             setContent(quill.root.innerHTML);
         }
@@ -201,6 +201,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
         const blot = (quill as any).scroll.find(img);
         if (blot) {
             const index = blot.offset(quill.scroll);
+            quill.focus();
             quill.deleteText(index, 1);
         } else { img.remove(); }
     } catch (e) { img.remove(); }
@@ -233,6 +234,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
 
   return (
     <form onSubmit={handleSubmit} className="p-8 space-y-12 pb-32 relative">
+      {/* Simplified Floating Toolbar */}
       {selectedImage && (
         <div className="image-action-toolbar" style={{ top: toolbarPos.top, left: toolbarPos.left, transform: 'translateX(-50%)' }} onMouseDown={(e) => e.preventDefault()}>
           <button type="button" className="size-btn" onMouseDown={(e) => { e.preventDefault(); updateImageSize('25%'); }}>25%</button>
@@ -264,7 +266,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
         <div className="lg:col-span-8 space-y-8">
           <div className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm space-y-8">
              <div className="space-y-2"><label className="text-xs font-black text-slate-400 uppercase tracking-widest">Title</label><input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full text-3xl font-black text-slate-900 outline-none border-none focus:ring-0 p-0" required /></div>
-             <div className="space-y-4"><label className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2"><FileText className="w-3 h-3" /> Content</label><div className="prose prose-slate max-w-none"><QuillComp ref={quillRef} theme="snow" value={content} onChange={setContent} modules={quillModules} className="min-h-[400px] border-none" scrollingContainer="body" /></div></div>
+             <div className="space-y-4"><label className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2"><FileText className="w-3 h-3" /> Content Body</label><div className="prose prose-slate max-w-none"><QuillComp ref={quillRef} theme="snow" value={content} onChange={setContent} modules={quillModules} className="min-h-[400px] border-none" scrollingContainer="body" /></div></div>
           </div>
           <div className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm space-y-6"><div className="flex items-center gap-3 mb-2"><Sparkles className="w-5 h-5 text-brand-600" /><h3 className="text-xl font-bold text-slate-900 uppercase text-xs">Excerpt</h3></div><textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value)} className="w-full h-32 p-6 rounded-2xl bg-slate-50 border-none outline-none focus:ring-4 focus:ring-brand-600/10 transition-all font-medium text-slate-600" /></div>
         </div>

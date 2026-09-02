@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Calendar, User, ArrowLeft, ArrowRight, Tag, Share2, Facebook, Twitter, Linkedin } from "lucide-react";
 import ECGCTA from "@/components/sections/ECGCTA";
 import type { Metadata } from "next";
+import { isContentEmpty } from "@/lib/content-utils";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -63,8 +64,10 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
     notFound();
   }
 
+  const hasContent = !isContentEmpty(blog.content);
+
   return (
-    <div className="pt-20 font-inter bg-white overflow-hidden">
+    <div className="pt-20 font-inter bg-white overflow-x-hidden">
       {/* 1. ARTICLE HERO */}
       <section className="relative py-16 md:py-24 bg-slate-50 border-b border-slate-100 overflow-hidden uppercase tracking-tighter">
         <div className="absolute top-0 right-0 w-96 h-96 bg-brand-200 rounded-full blur-[150px] opacity-10 -mr-20 -mt-20" />
@@ -74,18 +77,18 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
             <ArrowLeft className="w-4 h-4" /> Back to Knowledge Hub
           </Link>
 
-          <div className="max-w-4xl">
+          <div className="max-w-4xl text-left">
             <span className="inline-block px-4 py-1.5 rounded-full bg-brand-600 text-white text-[10px] font-black uppercase tracking-widest mb-6 shadow-lg shadow-brand-600/20">
               {blog.category}
             </span>
 
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-tight mb-8 tracking-tighter uppercase">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter uppercase break-words">
               {blog.title}
             </h1>
 
             <div className="flex flex-wrap items-center gap-6 md:gap-10 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] border-t border-slate-200 pt-8">
               <div className="flex items-center gap-3">
-                 <div className="w-10 h-10 rounded-full bg-brand-100 flex items-center justify-center text-brand-600">
+                 <div className="w-10 h-10 rounded-full bg-brand-100 flex items-center justify-center text-brand-600 shrink-0">
                     <User className="w-5 h-5" />
                  </div>
                  <div>
@@ -94,7 +97,7 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
                  </div>
               </div>
               <div className="flex items-center gap-3">
-                 <Calendar className="w-5 h-5 text-brand-600" />
+                 <Calendar className="w-5 h-5 text-brand-600 shrink-0" />
                  <span>{new Date(blog.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
               </div>
             </div>
@@ -123,18 +126,24 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
 
             {/* Main Content - Column width restricted for readability */}
-            <div className="lg:col-span-8 min-w-0 break-words">
-              <div
-                className="prose prose-slate prose-lg md:prose-xl max-w-none
-                prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tighter prose-headings:text-slate-900
-                prose-p:text-slate-600 prose-p:font-light prose-p:leading-relaxed
-                prose-strong:font-black prose-strong:text-slate-900
-                prose-img:rounded-[2rem] prose-img:shadow-xl prose-img:mx-auto
-                prose-blockquote:border-l-brand-600 prose-blockquote:bg-slate-50 prose-blockquote:py-2 prose-blockquote:px-8 prose-blockquote:rounded-r-2xl prose-blockquote:font-light prose-blockquote:italic
-                prose-a:text-brand-600 prose-a:font-bold prose-a:no-underline hover:prose-a:underline
-                prose-li:text-slate-600 prose-li:font-light"
-                dangerouslySetInnerHTML={{ __html: blog.content }}
-              />
+            <div className="lg:col-span-8 min-w-0 overflow-hidden">
+              {hasContent ? (
+                <div
+                  className="prose prose-slate prose-lg md:prose-xl max-w-none
+                  prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tighter prose-headings:text-slate-900
+                  prose-p:text-slate-600 prose-p:font-light prose-p:leading-relaxed
+                  prose-strong:font-black prose-strong:text-slate-900
+                  prose-img:rounded-[2rem] prose-img:shadow-xl prose-img:mx-auto
+                  prose-blockquote:border-l-brand-600 prose-blockquote:bg-slate-50 prose-blockquote:py-2 prose-blockquote:px-8 prose-blockquote:rounded-r-2xl prose-blockquote:font-light prose-blockquote:italic
+                  prose-a:text-brand-600 prose-a:font-bold prose-a:no-underline hover:prose-a:underline
+                  prose-li:text-slate-600 prose-li:font-light break-words"
+                  dangerouslySetInnerHTML={{ __html: blog.content }}
+                />
+              ) : (
+                <div className="py-20 text-center bg-slate-50 rounded-[2.5rem] border border-dashed border-slate-200 text-slate-400 font-light">
+                    Article content is being updated. Check back soon.
+                </div>
+              )}
 
               {/* Social Share Footer */}
               <div className="mt-20 pt-10 border-t border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-8">
@@ -161,13 +170,13 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
 
             {/* Sidebar - Sticky on desktop */}
             <aside className="lg:col-span-4 space-y-10 lg:sticky lg:top-32">
-               <div className="bg-slate-950 p-10 rounded-[2.5rem] text-white shadow-2xl relative overflow-hidden group">
+               <div className="bg-slate-950 p-10 rounded-[2.5rem] text-white shadow-2xl relative overflow-hidden group border border-white/5">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-brand-600 rounded-full blur-[80px] opacity-20 -mr-10 -mt-10" />
                   <h3 className="text-xl font-black uppercase tracking-tighter mb-4 relative z-10">Expert Consultation</h3>
                   <p className="text-slate-400 text-sm leading-relaxed mb-8 font-light relative z-10">
                      Need specialized advice on your hospital's modular OT or MGPS project? Speak directly with our engineering team.
                   </p>
-                  <Link href="/contact" className="relative z-10 block w-full bg-brand-600 text-white text-center py-5 rounded-2xl font-bold uppercase tracking-widest text-xs hover:bg-brand-500 transition-all shadow-xl shadow-brand-600/20">
+                  <Link href="/contact" className="relative z-10 block w-full bg-brand-600 text-white text-center py-5 rounded-2xl font-bold uppercase tracking-widest text-xs hover:bg-white hover:text-slate-900 transition-all shadow-xl shadow-brand-600/20">
                      Request a Call
                   </Link>
                </div>

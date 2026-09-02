@@ -180,9 +180,24 @@ details[open] > summary::after {
   min-width: 2.5rem;
 }
 
-/* Base image style for editor */
-.ql-editor img {
+/* Base image style for editor and public pages */
+.ql-editor img, .prose img {
   max-width: 100%;
   height: auto;
   transition: width 0.2s ease;
+  border-radius: 0.5rem;
+}
+
+.prose {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Ensure images don't overflow in grid layouts */
+.prose img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }

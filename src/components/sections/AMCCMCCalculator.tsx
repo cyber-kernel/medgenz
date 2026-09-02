@@ -10,10 +10,10 @@ function cn(...inputs: ClassValue[]) {
 }
 
 const CATEGORIES = [
-  { id: 'icu', name: 'ICU & Critical Care', rate: 1.1, icon: Activity },
-  { id: 'ot', name: 'Operation Theatre', rate: 1.2, icon: ShieldCheck },
-  { id: 'imaging', name: 'Imaging (X-Ray/C-Arm)', rate: 1.15, icon: Zap },
-  { id: 'ward', name: 'General Ward Equipment', rate: 1.0, icon: Info },
+  { id: 'icu', name: 'ICU & Critical Care', rate: 1.1 },
+  { id: 'ot', name: 'Operation Theatre', rate: 1.2 },
+  { id: 'imaging', name: 'Imaging (X-Ray/C-Arm)', rate: 1.15 },
+  { id: 'ward', name: 'General Ward Equipment', rate: 1.0 },
 ];
 
 export default function AMCCMCCalculator() {
@@ -109,11 +109,10 @@ export default function AMCCMCCalculator() {
                     key={cat.id}
                     onClick={() => setCategory(cat)}
                     className={cn(
-                      "flex items-center gap-3 p-3 rounded-xl border text-left transition-all",
+                      "flex items-center justify-center p-3 rounded-xl border text-center transition-all",
                       category.id === cat.id ? "bg-white border-brand-600 ring-2 ring-brand-600/10" : "bg-white/50 border-slate-100 opacity-60 hover:opacity-100 hover:border-brand-200"
                     )}
                   >
-                    <cat.icon className={cn("w-4 h-4", category.id === cat.id ? "text-brand-600" : "text-slate-400")} />
                     <span className="text-[10px] font-bold text-slate-700 leading-tight">{cat.name}</span>
                   </button>
                 ))}
@@ -148,7 +147,7 @@ export default function AMCCMCCalculator() {
               <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Estimated Annual Fee</p>
               <div className="text-5xl md:text-6xl font-black text-slate-900 tracking-tighter">
                 ₹{estimate.toLocaleString()}
-                <span className="text-xs text-slate-400 align-top ml-1 font-bold">/Year</span>
+                <span className="text-sm text-slate-400 align-baseline ml-2 font-bold uppercase tracking-widest">/ Year</span>
               </div>
             </div>
 

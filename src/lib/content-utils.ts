@@ -14,3 +14,12 @@ export function isContentEmpty(html: string | null | undefined): boolean {
   // 3. If there's no text and no images, it's effectively empty
   return textOnly.length === 0 && !hasImages;
 }
+
+/**
+ * Strips all HTML tags and returns plain text.
+ * Useful for summaries and cards.
+ */
+export function stripHtml(html: string | null | undefined): string {
+  if (!html) return '';
+  return html.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
+}

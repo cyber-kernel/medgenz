@@ -4,6 +4,7 @@ import { MapPin, ArrowRight, FolderKanban } from "lucide-react";
 import ClientMarquee from "@/components/sections/ClientMarquee";
 import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
+import { stripHtml } from "@/lib/content-utils";
 
 export const dynamic = 'force-dynamic';
 
@@ -115,7 +116,7 @@ export default async function ProjectsPage() {
                       {p.title}
                     </h3>
                     <p className="text-slate-500 leading-relaxed mb-8 flex-grow font-light line-clamp-3">
-                      {p.brief}
+                      {stripHtml(p.brief)}
                     </p>
 
                     <div className="pt-8 border-t border-slate-50 mt-auto">

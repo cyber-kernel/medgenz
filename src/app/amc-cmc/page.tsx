@@ -65,9 +65,6 @@ export default function AMCCMCPage() {
 
             <div className="grid grid-cols-1 gap-6 pt-6">
               <div className="bg-slate-50 p-8 rounded-[2rem] border border-slate-100 space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-brand-600 shadow-sm">
-                  <ShieldCheck className="w-6 h-6" />
-                </div>
                 <h3 className="text-xl font-bold text-slate-900 uppercase tracking-tight">What is AMC?</h3>
                 <p className="text-sm text-slate-500 leading-relaxed font-light">
                   An <strong>Annual Maintenance Contract</strong> covers the labor charges for service and preventive maintenance. If a part breaks, it is billed separately. Ideal for new equipment still under component warranty.
@@ -75,9 +72,6 @@ export default function AMCCMCPage() {
               </div>
 
               <div className="bg-brand-600 p-8 rounded-[2rem] text-white shadow-xl shadow-brand-600/20 space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-white">
-                  <Zap className="w-6 h-6" />
-                </div>
                 <h3 className="text-xl font-bold uppercase tracking-tight text-white">What is CMC?</h3>
                 <p className="text-sm text-brand-50 leading-relaxed font-light">
                   A <strong>Comprehensive Maintenance Contract</strong> is the "Ultimate" protection. It covers labor, service, and the full cost of all spare parts. It provides a fixed annual budget with zero financial surprises.

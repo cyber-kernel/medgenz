@@ -236,17 +236,22 @@ export default function AboutClient() {
                 </motion.div>
               </AnimatePresence>
             </div>
-
             {/* Experience Badge */}
             <motion.div
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
               transition={{ type: 'spring', damping: 15 }}
-              className="absolute -bottom-4 -left-2 md:-bottom-8 md:-left-8 bg-brand-600 text-white p-3 md:p-6 rounded-xl md:rounded-[2.5rem] shadow-2xl z-20 leading-none"
+              className="absolute -bottom-3 right-4 md:-bottom-5 md:right-6 bg-brand-600 text-white p-2.5 md:p-4 rounded-lg md:rounded-2xl shadow-xl z-20 leading-none"
             >
-              <Award className="w-6 h-6 md:w-10 md:h-10 mb-1 md:mb-2 text-brand-100" />
-              <div className="text-xl md:text-5xl font-black tracking-tighter uppercase mb-1">12+ Years</div>
-              <p className="text-[7px] md:text-xs font-bold uppercase tracking-widest text-brand-100">Industry Excellence</p>
+              <Award className="w-5 h-5 md:w-7 md:h-7 mb-1 text-brand-100" />
+
+              <div className="text-base md:text-3xl font-black tracking-tighter uppercase mb-1">
+                12+ Years
+              </div>
+
+              <p className="text-[6px] md:text-[9px] font-bold uppercase tracking-widest text-brand-100">
+                Industry Excellence
+              </p>
             </motion.div>
           </motion.div>
         </div>

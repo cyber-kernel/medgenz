@@ -36,14 +36,14 @@ export default function AMCCMCPage() {
       {/* 1. HERO SECTION */}
       <section className="relative py-12 md:py-20 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
         <div className="absolute inset-0 z-0 opacity-40">
-           <Image
-             src="/images/service-images/curtain-track.webp" // Reusing a medical context image
-             alt="Biomedical Service"
-             fill
-             className="object-cover"
-             priority
-           />
-           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent" />
+          <Image
+            src="/images/service-images/curtain-track.webp" // Reusing a medical context image
+            alt="Biomedical Service"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent" />
         </div>
         <div className="max-w-7xl mx-auto px-6 relative z-10 text-center pt-16 md:pt-24">
           <span className="inline-block px-4 py-1.5 rounded-full bg-brand-600/20 text-brand-400 border border-brand-500/30 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-6">Asset Security</span>
@@ -53,7 +53,17 @@ export default function AMCCMCPage() {
           </p>
         </div>
       </section>
+      {/* 3. CALCULATOR SECTION */}
+      <section className="py-12 md:py-20 bg-slate-50 border-y border-slate-100">
+        <div className="max-w-7xl mx-auto px-6 text-center mb-8">
+          <span className="text-brand-600 font-bold uppercase tracking-widest text-[10px] mb-1 block">Interactive Tool</span>
+          <h2 className="text-xl md:text-3xl font-black text-slate-900 uppercase tracking-tighter">Estimate Your <span className="text-brand-600">Contract Cost</span></h2>
+          <div className="w-12 h-1 bg-brand-600 mx-auto rounded-full mt-3" />
+        </div>
+        <AMCCMCCalculator />
+      </section>
 
+      
       {/* 2. EDUCATION SECTION */}
       <section className="py-12 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 lg:gap-16 items-start">
@@ -105,15 +115,7 @@ export default function AMCCMCPage() {
         </div>
       </section>
 
-      {/* 3. CALCULATOR SECTION */}
-      <section className="py-12 md:py-20 bg-slate-50 border-y border-slate-100">
-        <div className="max-w-7xl mx-auto px-6 text-center mb-8">
-            <span className="text-brand-600 font-bold uppercase tracking-widest text-[10px] mb-1 block">Interactive Tool</span>
-            <h2 className="text-xl md:text-3xl font-black text-slate-900 uppercase tracking-tighter">Estimate Your <span className="text-brand-600">Contract Cost</span></h2>
-            <div className="w-12 h-1 bg-brand-600 mx-auto rounded-full mt-3" />
-        </div>
-        <AMCCMCCalculator />
-      </section>
+
 
       {/* 4. RATING SECTION */}
       <section className="py-12 md:py-20 bg-white">
@@ -124,7 +126,7 @@ export default function AMCCMCPage() {
           </div>
           <div className="flex flex-col items-center md:items-start gap-4">
             <div className="flex text-yellow-400">
-                {[...Array(5)].map((_, i) => <Star key={i} className="w-8 h-8 fill-current" />)}
+              {[...Array(5)].map((_, i) => <Star key={i} className="w-8 h-8 fill-current" />)}
             </div>
             <p className="text-slate-500 max-w-sm text-center md:text-left leading-relaxed font-light">
               "MedGenz has maintained our entire ICU wing for 5 years. Their CMC plan is the most reliable in the North India region."

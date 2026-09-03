@@ -38,6 +38,7 @@ const expertise = [
   }
 ];
 
+
 const testimonials = [
   {
     name: "Dr. Aman Maggo",
@@ -53,8 +54,95 @@ const testimonials = [
     name: "Dr. M. Gupta",
     role: "IVF Specialist, Haryana",
     text: "MedGenz handled our complete IVF lab setup. Their understanding of ISO 5 air quality is unparalleled."
+  },
+  {
+    name: "Dr. Rajesh Sharma",
+    role: "Hospital Director, Delhi",
+    text: "From planning to execution, MedGenz delivered exactly what we needed. Their team was professional, responsive, and technically strong."
+  },
+  {
+    name: "Dr. Neha Kapoor",
+    role: "Gynecologist, Gurugram",
+    text: "Our Modular OT project was completed with excellent workmanship and attention to detail. MedGenz made the entire process smooth."
+  },
+  {
+    name: "Dr. Vivek Bansal",
+    role: "Orthopedic Surgeon, Noida",
+    text: "The OT infrastructure delivered by MedGenz has significantly improved our surgical environment. The quality of construction is impressive."
+  },
+  {
+    name: "Dr. Rakesh Verma",
+    role: "Hospital Administrator, Punjab",
+    text: "MedGenz provided an end-to-end solution for our hospital infrastructure. Their coordination between design, installation, and commissioning was excellent."
+  },
+  {
+    name: "Dr. Priya Malhotra",
+    role: "IVF Specialist, Jaipur",
+    text: "The IVF laboratory setup was handled with remarkable precision. MedGenz understood our technical requirements and delivered a highly controlled environment."
+  },
+  {
+    name: "Dr. Sandeep Mehra",
+    role: "Hospital Owner, Uttar Pradesh",
+    text: "We were impressed by MedGenz's technical expertise and execution quality. They delivered our MGPS installation safely and efficiently."
+  },
+  {
+    name: "Dr. Ankit Arora",
+    role: "General Surgeon, Delhi",
+    text: "MedGenz transformed our existing OT into a modern surgical facility. The finishing, cleanliness, and overall quality are excellent."
+  },
+  {
+    name: "Dr. Pooja Agarwal",
+    role: "Hospital Director, Rajasthan",
+    text: "Working with MedGenz was a great experience. Their team understood our requirements and provided practical solutions within our project timeline."
+  },
+  {
+    name: "Dr. Nitin Chawla",
+    role: "Medical Director, Haryana",
+    text: "The team demonstrated excellent knowledge of hospital engineering and compliance requirements. Their execution was systematic from start to finish."
+  },
+  {
+    name: "Dr. Rahul Mehta",
+    role: "Laparoscopic Surgeon, Delhi",
+    text: "Our new Modular OT has completely changed the working environment for our surgical team. The build quality and attention to detail are outstanding."
+  },
+  {
+    name: "Dr. Shweta Jain",
+    role: "Fertility Specialist, Chandigarh",
+    text: "MedGenz delivered our IVF lab with a strong focus on environmental control and quality standards. Their technical support was excellent throughout the project."
+  },
+  {
+    name: "Dr. Kunal Gupta",
+    role: "Hospital Founder, Noida",
+    text: "From consultation and design to installation, MedGenz handled every stage professionally. We are extremely satisfied with the final outcome."
+  },
+  {
+    name: "Dr. Arvind Kumar",
+    role: "Hospital Administrator, Delhi",
+    text: "The MGPS installation was completed efficiently with minimal disruption to our hospital operations. The MedGenz team was highly professional."
+  },
+  {
+    name: "Dr. Meenakshi Rao",
+    role: "Gynecologist, Bengaluru",
+    text: "MedGenz helped us create a modern and hygienic surgical facility that meets our operational requirements. Their team was knowledgeable and dependable."
+  },
+  {
+    name: "Dr. Harish Saini",
+    role: "Orthopedic Surgeon, Jaipur",
+    text: "The Modular OT installation exceeded our expectations. The materials, finishing, and overall execution reflect a very high standard of work."
+  },
+  {
+    name: "Dr. Sameer Khanna",
+    role: "Hospital Director, Gurugram",
+    text: "MedGenz provided excellent guidance throughout our hospital infrastructure project. Their ability to manage multiple technical requirements under one roof was a major advantage."
+  },
+  {
+    name: "Dr. Kavita Singh",
+    role: "Hospital Founder, Lucknow",
+    text: "We are very happy with the quality and professionalism shown by the MedGenz team. They delivered a reliable healthcare infrastructure solution with excellent attention to detail."
   }
 ];
+
+
 
 export default function Home() {
   const jsonLd = {

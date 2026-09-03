@@ -4,12 +4,33 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Mail, Phone, MapPin, Youtube, Linkedin, Instagram } from 'lucide-react';
+import { Mail, Phone, MapPin, Youtube, Linkedin, Instagram, Facebook } from 'lucide-react';
 
 const socialLinks = [
-  { name: 'LinkedIn', icon: Linkedin, href: 'https://www.linkedin.com/company/medgenz/', color: 'bg-[#0077b5]' },
-  { name: 'YouTube', icon: Youtube, href: 'https://youtube.com/@medgenzindiapvtltd?si=gipkOPLrCWGe4L37', color: 'bg-[#FF0000]' },
-  { name: 'Instagram', icon: Instagram, href: 'https://www.instagram.com/medgenz_india_pvt_ltd/', color: 'bg-[#E1306C]' },
+  {
+    name: 'LinkedIn',
+    icon: Linkedin,
+    href: 'https://www.linkedin.com/company/medgenz/',
+    color: 'bg-[#0077b5]',
+  },
+  {
+    name: 'YouTube',
+    icon: Youtube,
+    href: 'https://youtube.com/@medgenzindiapvtltd?si=gipkOPLrCWGe4L37',
+    color: 'bg-[#FF0000]',
+  },
+  {
+    name: 'Instagram',
+    icon: Instagram,
+    href: 'https://www.instagram.com/medgenz_india_pvt_ltd/',
+    color: 'bg-[#E1306C]',
+  },
+  {
+    name: 'Facebook',
+    icon: Facebook,
+    href: 'https://www.facebook.com/medgenz.india.pvt.ltd',
+    color: 'bg-[#1877F2]',
+  },
 ];
 
 const quickLinks = [

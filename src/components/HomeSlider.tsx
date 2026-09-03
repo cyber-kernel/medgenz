@@ -67,15 +67,15 @@ export default function HomeSlider() {
             </h2>
 
             {/* Large Dynamic Heading - Adjusted size for better fit */}
-            <h1 className="text-[1.75rem] sm:text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] mb-4 text-white tracking-tight uppercase">
+            <h1 className="text-[1.5rem] sm:text-3xl md:text-5xl lg:text-6xl font-black leading-[1.0] mb-3 text-white tracking-tight uppercase">
               Modular Operation Theatre <br />
-              <div className="h-[1.2em] overflow-hidden relative inline-block w-full">
+              <div className="h-[1.1em] overflow-hidden relative inline-block w-full">
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={index}
-                    initial={{ y: 40, opacity: 0 }}
+                    initial={{ y: 30, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: -40, opacity: 0 }}
+                    exit={{ y: -30, opacity: 0 }}
                     transition={{ duration: 0.5, ease: "backOut" }}
                     className="text-brand-500 block absolute inset-0 text-center drop-shadow-2xl"
                   >
@@ -86,16 +86,16 @@ export default function HomeSlider() {
             </h1>
 
             {/* Description - Reduced margin */}
-            <p className="text-slate-200 text-xs md:text-sm lg:text-base mb-8 max-w-2xl font-light leading-relaxed px-4">
+            <p className="text-slate-200 text-[10px] md:text-sm lg:text-base mb-6 max-w-xl font-light leading-relaxed px-4">
               We design, manufacture, and install world-class, clean-room compliant operation theatres and MGPS systems, ensuring absolute precision and patient safety.
             </p>
 
             {/* Buttons - Tighter layout */}
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link href="/services" className="bg-brand-600 text-white px-6 py-2.5 md:px-8 md:py-3.5 rounded-xl font-black text-[10px] md:text-xs uppercase tracking-widest shadow-xl shadow-brand-600/40 hover:bg-brand-500 transition-all flex items-center justify-center gap-2 transform hover:-translate-y-1">
-                View Our Services <ArrowRight className="w-3.5 h-3.5" />
+            <div className="flex flex-col sm:flex-row gap-2 justify-center">
+              <Link href="/services" className="bg-brand-600 text-white px-5 py-2 md:px-7 md:py-3 rounded-xl font-black text-[9px] md:text-xs uppercase tracking-widest shadow-xl shadow-brand-600/40 hover:bg-brand-500 transition-all flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                View Our Services <ArrowRight className="w-3 h-3" />
               </Link>
-              <Link href="/contact" className="border-2 border-white/30 text-white hover:bg-white hover:text-slate-900 transition-all px-6 py-2.5 md:px-8 md:py-3.5 rounded-xl font-black text-[10px] md:text-xs uppercase tracking-widest backdrop-blur-md flex items-center justify-center">
+              <Link href="/contact" className="border-2 border-white/30 text-white hover:bg-white hover:text-slate-900 transition-all px-5 py-2 md:px-7 md:py-3 rounded-xl font-black text-[9px] md:text-xs uppercase tracking-widest backdrop-blur-md flex items-center justify-center">
                 Get a Quote
               </Link>
             </div>

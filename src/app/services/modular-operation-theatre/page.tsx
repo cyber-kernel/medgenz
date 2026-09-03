@@ -165,8 +165,8 @@ export default function MOTPage() {
           </div>
 
           <div className="relative order-1 md:order-2 mb-4 md:mb-0">
-            <div className="absolute inset-0 bg-brand-100 rounded-3xl transform translate-x-3 translate-y-3 md:translate-x-4 md:translate-y-4 -z-10"></div>
-            <div className="relative rounded-3xl shadow-xl overflow-hidden w-full aspect-[4/3] border border-gray-200 bg-white">
+            <div className="absolute inset-0 bg-brand-100 rounded-2xl transform translate-x-2 translate-y-2 md:translate-x-3 md:translate-y-3 -z-10"></div>
+            <div className="relative rounded-2xl shadow-lg overflow-hidden w-full aspect-[3/2] border border-gray-200 bg-white">
               <Image src="/images/service assets/mot-page-n-eq-assets/ot-3.webp" alt="Modular Operation Theatre" fill className="object-cover" />
             </div>
           </div>

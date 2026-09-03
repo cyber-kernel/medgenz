@@ -32,9 +32,9 @@ export const metadata = {
 
 export default function AMCCMCPage() {
   return (
-    <div className="pt-24 md:pt-32 font-inter">
+    <div className="pt-20 md:pt-28 font-inter">
       {/* 1. HERO SECTION */}
-      <section className="relative py-16 md:py-24 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
+      <section className="relative py-12 md:py-20 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
         <div className="absolute inset-0 z-0 opacity-40">
            <Image
              src="/images/service-images/curtain-track.webp" // Reusing a medical context image

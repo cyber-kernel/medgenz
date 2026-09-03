@@ -91,13 +91,13 @@ export default function Home() {
       </section>
 
       {/* 2. STATS SECTION - Scaled Down */}
-      <section className="py-10 md:py-16 bg-slate-50 border-b border-slate-100">
+      <section className="py-8 md:py-12 bg-slate-50 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((s, i) => (
               <div key={i} className="text-center">
-                <div className="text-2xl md:text-4xl font-black text-brand-600 mb-1">{s.value}</div>
-                <div className="text-slate-500 uppercase text-[8px] md:text-[10px] tracking-widest font-bold">{s.label}</div>
+                <div className="text-2xl md:text-3xl font-black text-brand-600 mb-0.5">{s.value}</div>
+                <div className="text-slate-500 uppercase text-[8px] md:text-[9px] tracking-widest font-bold">{s.label}</div>
               </div>
             ))}
           </div>
@@ -105,10 +105,10 @@ export default function Home() {
       </section>
 
       {/* 3. DEEP ABOUT SECTION - Scaled Down */}
-      <section className="py-16 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <section className="py-12 md:py-14 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="relative group">
-            <div className="aspect-[4/3] md:aspect-[4/5] bg-slate-100 rounded-[2rem] overflow-hidden relative shadow-xl">
+            <div className="aspect-[3/2] bg-slate-100 rounded-[2rem] overflow-hidden relative shadow-xl">
               <Image
                 src="/images/about-us/about-us-home/about-us.webp"
                 alt="MedGenz Facility"
@@ -116,8 +116,8 @@ export default function Home() {
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
               />
             </div>
-            <div className="absolute -bottom-4 -right-4 bg-brand-600 text-white p-4 md:p-6 rounded-[1.5rem] z-20 shadow-xl transform hover:scale-105 transition-transform cursor-default">
-              <div className="text-2xl md:text-4xl font-black">12+</div>
+            <div className="absolute -bottom-4 -right-4 bg-brand-600 text-white p-3 md:p-5 rounded-[1.5rem] z-20 shadow-xl transform hover:scale-105 transition-transform cursor-default leading-none">
+              <div className="text-3xl md:text-5xl font-black mb-1">12+</div>
               <div className="text-[8px] md:text-[10px] font-bold uppercase tracking-wider text-brand-100">Years of Legacy</div>
             </div>
           </div>
@@ -148,12 +148,12 @@ export default function Home() {
       <ClientMarquee />
 
       {/* 4. CORE EXPERTISE GRID - Scaled Down & Clickable */}
-      <section className="py-16 bg-slate-50 border-y border-slate-100">
+      <section className="py-12 md:py-16 bg-slate-50 border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-3 uppercase tracking-tighter">Core <span className="text-brand-600">Expertise</span></h2>
-            <div className="w-12 h-1 bg-brand-600 mx-auto rounded-full" />
-            <p className="mt-6 text-slate-500 text-sm md:text-base max-w-xl mx-auto font-light">Providing a comprehensive range of turnkey healthcare solutions tailored to complex medical requirements.</p>
+          <div className="text-center mb-10">
+            <h2 className="text-xl md:text-3xl font-black text-slate-900 mb-3 uppercase tracking-tighter">Core <span className="text-brand-600">Expertise</span></h2>
+            <div className="w-10 h-1 bg-brand-600 mx-auto rounded-full" />
+            <p className="mt-5 text-slate-500 text-xs md:text-sm max-w-xl mx-auto font-light">Providing a comprehensive range of turnkey healthcare solutions tailored to complex medical requirements.</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 lg:gap-10">
@@ -187,12 +187,12 @@ export default function Home() {
       </section>
 
       {/* 5. TESTIMONIALS - Star Icons & Scaled Down */}
-      <section className="py-16 bg-brand-50 relative overflow-hidden">
+      <section className="py-12 md:py-16 bg-brand-50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <span className="text-brand-600 font-bold uppercase tracking-widest text-[10px] mb-2 block">Client Stories</span>
-            <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-3 uppercase tracking-tighter">Trusted by <span className="text-brand-600">Professionals</span></h2>
-            <div className="w-12 h-1 bg-brand-600 mx-auto rounded-full" />
+          <div className="text-center mb-10">
+            <span className="text-brand-600 font-bold uppercase tracking-widest text-[9px] mb-1 block">Client Stories</span>
+            <h2 className="text-xl md:text-3xl font-black text-slate-900 mb-3 uppercase tracking-tighter">Trusted by <span className="text-brand-600">Professionals</span></h2>
+            <div className="w-10 h-1 bg-brand-600 mx-auto rounded-full" />
           </div>
 
           <div className="overflow-hidden pb-8">

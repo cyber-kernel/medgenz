@@ -118,7 +118,7 @@ export default function AboutClient() {
   return (
     <div className="bg-white overflow-x-hidden font-inter">
       {/* 1. HERO SECTION */}
-      <section className="relative pt-64 pb-20 md:pt-[280px] md:pb-32 bg-slate-950 overflow-hidden uppercase tracking-tighter">
+      <section className="relative pt-32 pb-12 md:pt-48 md:pb-24 bg-slate-950 overflow-hidden uppercase tracking-tighter">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.6 }} // BRIGHTER BACKGROUND (Increased from 0.4)
@@ -165,7 +165,7 @@ export default function AboutClient() {
       </section>
 
       {/* 2. WHO WE ARE SECTION */}
-      <section className="py-24 md:py-32 px-6">
+      <section className="py-12 md:py-16 px-6">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 md:gap-24 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -204,7 +204,7 @@ export default function AboutClient() {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl border-8 border-slate-50">
+            <div className="relative aspect-[3/2] rounded-[2rem] md:rounded-[3.5rem] overflow-hidden shadow-xl border-4 md:border-8 border-slate-50">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentSlide}
@@ -242,11 +242,11 @@ export default function AboutClient() {
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
               transition={{ type: 'spring', damping: 15 }}
-              className="absolute -bottom-5 -left-2 md:-bottom-10 md:-left-10 bg-brand-600 text-white p-5 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] shadow-2xl z-20"
+              className="absolute -bottom-4 -left-2 md:-bottom-8 md:-left-8 bg-brand-600 text-white p-3 md:p-6 rounded-xl md:rounded-[2.5rem] shadow-2xl z-20 leading-none"
             >
-              <Award className="w-7 h-7 md:w-12 md:h-12 mb-2 md:mb-4 text-brand-100" />
-              <div className="text-2xl md:text-4xl font-black tracking-tighter uppercase">12+ Years</div>
-              <p className="text-[8px] md:text-xs font-bold uppercase tracking-widest text-brand-100">Industry Excellence</p>
+              <Award className="w-6 h-6 md:w-10 md:h-10 mb-1 md:mb-2 text-brand-100" />
+              <div className="text-xl md:text-5xl font-black tracking-tighter uppercase mb-1">12+ Years</div>
+              <p className="text-[7px] md:text-xs font-bold uppercase tracking-widest text-brand-100">Industry Excellence</p>
             </motion.div>
           </motion.div>
         </div>
@@ -281,7 +281,7 @@ export default function AboutClient() {
       </section>
 
       {/* 4. MISSION & VISION */}
-      <section className="py-24 md:py-32 px-6 bg-slate-50">
+      <section className="py-12 md:py-16 px-6 bg-slate-50">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -319,7 +319,7 @@ export default function AboutClient() {
       </section>
 
       {/* 5. WHY CHOOSE MEDGENZ */}
-      <section className="py-24 md:py-32 px-6">
+      <section className="py-12 md:py-16 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
             <motion.h2
@@ -357,24 +357,24 @@ export default function AboutClient() {
       <Certifications />
 
       {/* 7. FEATURED PRODUCTS (Formerly Featured Projects) */}
-      <section className="py-24 md:py-32 px-6 bg-white uppercase tracking-tighter">
+      <section className="py-12 md:py-16 px-6 bg-white uppercase tracking-tighter">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-6 tracking-tighter uppercase">Featured <span className="text-brand-600">Systems</span></h2>
-            <div className="w-20 h-1.5 bg-brand-600 mx-auto rounded-full mb-8" />
-            <p className="text-slate-600 text-lg max-w-2xl mx-auto font-light normal-case tracking-normal">A glimpse into our high-fidelity healthcare infrastructure installations.</p>
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-4xl font-black text-slate-900 mb-4 tracking-tighter uppercase">Featured <span className="text-brand-600">Systems</span></h2>
+            <div className="w-16 h-1 bg-brand-600 mx-auto rounded-full mb-6" />
+            <p className="text-slate-600 text-base max-w-xl mx-auto font-light normal-case tracking-normal">A glimpse into our high-fidelity healthcare infrastructure installations.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             {featuredProjects.map((project, i) => (
               <Link href={project.link} key={i}>
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
-                  className="group flex flex-col h-full bg-white border border-slate-200 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500"
+                  className="group flex flex-col h-full bg-white border border-slate-200 rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500"
                 >
-                  <div className="relative aspect-video overflow-hidden">
+                  <div className="relative aspect-[3/2] overflow-hidden">
                     <Image
                       src={project.image}
                       alt={project.title}
@@ -383,15 +383,15 @@ export default function AboutClient() {
                     />
                     <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors" />
                   </div>
-                  <div className="p-10 flex-grow flex flex-col">
-                    <h3 className="text-xl md:text-2xl font-black text-slate-900 mb-4 tracking-tighter uppercase group-hover:text-brand-600 transition-colors">
+                  <div className="p-6 md:p-8 flex-grow flex flex-col">
+                    <h3 className="text-lg md:text-xl font-black text-slate-900 mb-3 tracking-tighter uppercase group-hover:text-brand-600 transition-colors">
                       {project.title}
                     </h3>
-                    <p className="text-slate-500 text-sm md:text-base leading-relaxed font-light mb-8 flex-grow normal-case tracking-normal">
+                    <p className="text-slate-500 text-xs md:text-sm leading-relaxed font-light mb-6 flex-grow normal-case tracking-normal">
                       {project.desc}
                     </p>
-                    <div className="pt-6 border-t border-slate-100 mt-auto">
-                      <div className="inline-flex items-center gap-2 text-brand-600 font-black uppercase tracking-widest text-[10px] group-hover:gap-4 transition-all">
+                    <div className="pt-4 border-t border-slate-100 mt-auto">
+                      <div className="inline-flex items-center gap-2 text-brand-600 font-black uppercase tracking-widest text-[9px] group-hover:gap-4 transition-all">
                         Explore System <ArrowRight className="w-4 h-4" />
                       </div>
                     </div>

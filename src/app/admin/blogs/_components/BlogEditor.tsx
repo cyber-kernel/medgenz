@@ -19,11 +19,37 @@ import {
 } from "lucide-react";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import ReactCrop, { type Crop } from 'react-image-crop';
+import 'react-image-crop/dist/ReactCrop.css';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), {
   ssr: false,
   loading: () => <div className="h-64 bg-slate-50 animate-pulse rounded-2xl" />
 });
+
+const createCroppedImage = async (source: string, crop: Crop): Promise<string> => {
+  const image = new window.Image();
+  image.crossOrigin = 'anonymous';
+  image.src = source;
+  await new Promise<void>((resolve, reject) => {
+    image.onload = () => resolve();
+    image.onerror = reject;
+  });
+
+  const sourceCrop = {
+    x: (crop.x / 100) * image.naturalWidth,
+    y: (crop.y / 100) * image.naturalHeight,
+    width: (crop.width / 100) * image.naturalWidth,
+    height: (crop.height / 100) * image.naturalHeight,
+  };
+  const canvas = document.createElement('canvas');
+  canvas.width = Math.max(1, Math.round(sourceCrop.width));
+  canvas.height = Math.max(1, Math.round(sourceCrop.height));
+  const context = canvas.getContext('2d');
+  if (!context) throw new Error('Canvas is unavailable');
+  context.drawImage(image, sourceCrop.x, sourceCrop.y, sourceCrop.width, sourceCrop.height, 0, 0, canvas.width, canvas.height);
+  return canvas.toDataURL('image/webp', 0.92);
+};
 
 // Production-Safe Quill Setup
 const setupQuill = () => {
@@ -58,6 +84,11 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
   // Floating Toolbar State
   const [selectedImage, setSelectedImage] = useState<{ element: HTMLImageElement } | null>(null);
   const [toolbarPos, setToolbarPos] = useState({ top: 0, left: 0 });
+  const [cropSource, setCropSource] = useState<string | null>(null);
+  const [cropTarget, setCropTarget] = useState<'cover' | 'content' | null>(null);
+  const [cropContentTarget, setCropContentTarget] = useState<HTMLImageElement | null>(null);
+  const [crop, setCrop] = useState<Crop>({ unit: '%', x: 10, y: 10, width: 80, height: 80 });
+  const [aspect, setAspect] = useState<number | undefined>(16 / 9);
 
   const [title, setTitle] = useState(initialData?.title || '');
   const [slug, setSlug] = useState(initialData?.slug || '');
@@ -114,7 +145,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
         const rect = img.getBoundingClientRect();
         setSelectedImage({ element: img });
         setToolbarPos({ top: rect.top + window.scrollY - 60, left: rect.left + window.scrollX + (rect.width / 2) });
-      } else if (!target.closest('.image-action-toolbar')) { setSelectedImage(null); }
+      } else if (!target.closest('.image-action-toolbar') && !target.closest('.crop-dialog')) { setSelectedImage(null); }
     };
     window.addEventListener('mousedown', handleGlobalClick);
     return () => window.removeEventListener('mousedown', handleGlobalClick);
@@ -128,6 +159,39 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
     const reader = new FileReader();
     reader.onloadend = () => setCoverImage(reader.result as string);
     reader.readAsDataURL(file);
+  };
+
+  const openCropper = (source: string, target: 'cover' | 'content') => {
+    setCropSource(source);
+    setCropTarget(target);
+    setCropContentTarget(target === 'content' && selectedImage ? selectedImage.element : null);
+    setCrop({ unit: '%', x: 10, y: 10, width: 80, height: 80 });
+    setAspect(target === 'cover' ? 16 / 9 : undefined);
+  };
+
+  const closeCropper = () => {
+    setCropSource(null);
+    setCropTarget(null);
+    setCropContentTarget(null);
+  };
+
+  const applyCrop = async () => {
+    if (!cropSource || !cropTarget) return;
+    try {
+      const result = await createCroppedImage(cropSource, crop);
+      if (cropTarget === 'cover') {
+        setCoverImage(result);
+      } else if (cropContentTarget) {
+        cropContentTarget.src = result;
+        const quill = quillRef.current?.getEditor();
+        if (quill) setContent(quill.root.innerHTML);
+      }
+      closeCropper();
+      setSelectedImage(null);
+    } catch (error) {
+      console.error('Blog image crop failed', error);
+      alert('Unable to crop this image. Please try again.');
+    }
   };
 
   const uploadImageToBlob = async (source: string): Promise<string> => {
@@ -246,6 +310,8 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
           <button type="button" className="size-btn" onMouseDown={(e) => { e.preventDefault(); updateImageSize('50%'); }}>50%</button>
           <button type="button" className="size-btn" onMouseDown={(e) => { e.preventDefault(); updateImageSize('100%'); }}>FULL</button>
           <div className="divider" />
+          <button type="button" className="size-btn" title="Crop image" onMouseDown={(e) => { e.preventDefault(); openCropper(selectedImage.element.src, 'content'); }}>CROP</button>
+          <div className="divider" />
           <button type="button" onMouseDown={(e) => { e.preventDefault(); removeImage(); }} className="text-red-400 hover:text-red-500"><Trash className="w-4 h-4" /></button>
         </div>
       )}
@@ -278,7 +344,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
         <div className="lg:col-span-4 space-y-8">
            <div className="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm space-y-6">
               <div className="flex items-center justify-between"><h3 className="text-lg font-bold text-slate-900 uppercase">Cover</h3>{coverImage && (<button type="button" onClick={() => setCoverImage('')} className="p-2 bg-red-50 text-red-500 rounded-lg hover:bg-red-500 hover:text-white"><Trash2 className="w-4 h-4" /></button>)}</div>
-              <div onClick={() => fileInputRef.current?.click()} className={`relative aspect-video rounded-2xl border-2 border-dashed border-slate-100 flex flex-col items-center justify-center cursor-pointer hover:border-brand-400 overflow-hidden group ${coverImage ? 'border-none' : ''}`}>{coverImage ? (<><Image src={coverImage} alt="Cover" fill className="object-cover transition-transform group-hover:scale-110" /><div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><span className="text-white text-xs font-bold uppercase tracking-widest">Change</span></div></>) : (<div className="text-center space-y-2"><ImageIcon className="w-8 h-8 text-slate-200 mx-auto" /><p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Upload</p></div>)}</div>
+              <div onClick={() => fileInputRef.current?.click()} className={`relative aspect-video rounded-2xl border-2 border-dashed border-slate-100 flex flex-col items-center justify-center cursor-pointer hover:border-brand-400 overflow-hidden group ${coverImage ? 'border-none' : ''}`}>{coverImage ? (<><Image src={coverImage} alt="Cover" fill className="object-cover transition-transform group-hover:scale-110" /><div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3"><button type="button" className="rounded-lg bg-white px-3 py-2 text-[10px] font-black uppercase tracking-widest text-slate-900" onClick={(e) => { e.stopPropagation(); openCropper(coverImage, 'cover'); }}>Crop</button><span className="text-white text-xs font-bold uppercase tracking-widest">Change</span></div></>) : (<div className="text-center space-y-2"><ImageIcon className="w-8 h-8 text-slate-200 mx-auto" /><p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Upload</p></div>)}</div>
               <input type="file" ref={fileInputRef} onChange={handleHeroImageSelect} className="hidden" accept="image/*" />
            </div>
            <div className="bg-slate-900 rounded-[2.5rem] p-8 text-white space-y-8">
@@ -291,6 +357,16 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
            </div>
         </div>
       </div>
+
+      {cropSource && (
+        <div className="crop-dialog fixed inset-0 z-[1100] flex items-center justify-center bg-slate-950/80 p-4" role="dialog" aria-modal="true" aria-label="Crop image">
+          <div className="w-full max-w-3xl overflow-hidden rounded-2xl bg-white shadow-2xl">
+            <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4"><div><h2 className="text-lg font-black uppercase tracking-tight text-slate-900">Crop Image</h2><p className="text-xs text-slate-400">Drag the image or resize the crop handles.</p></div><button type="button" onClick={closeCropper} className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-900" aria-label="Close crop dialog"><X className="h-5 w-5" /></button></div>
+            <div className="relative h-[min(60vh,420px)] bg-slate-900"><ReactCrop crop={crop} onChange={(_, percentCrop) => setCrop(percentCrop)} aspect={aspect} keepSelection minWidth={80} minHeight={80}><img src={cropSource} alt="Crop preview" className="max-h-[min(60vh,420px)] w-auto max-w-full object-contain" /></ReactCrop></div>
+            <div className="flex flex-wrap items-center gap-4 px-5 py-4"><span className="text-xs font-bold uppercase tracking-wider text-slate-500">Drag the edges or corners to resize</span><label className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500">Ratio<select value={aspect ?? 'free'} onChange={(e) => setAspect(e.target.value === 'free' ? undefined : Number(e.target.value))} className="rounded-lg border border-slate-200 px-2 py-2 text-slate-900"><option value="free">Free</option><option value={1}>1:1</option><option value={4 / 3}>4:3</option><option value={16 / 9}>16:9</option></select></label><div className="ml-auto flex gap-2"><button type="button" onClick={closeCropper} className="rounded-lg px-4 py-2 text-xs font-bold uppercase text-slate-500 hover:bg-slate-100">Cancel</button><button type="button" onClick={applyCrop} className="rounded-lg bg-brand-600 px-5 py-2 text-xs font-black uppercase text-white hover:bg-brand-700">Apply Crop</button></div></div>
+          </div>
+        </div>
+      )}
     </form>
   );
 }

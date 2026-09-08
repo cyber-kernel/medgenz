@@ -160,21 +160,21 @@ export default function ServicesPage() {
 
       {/* Deep Service Grid - Fully Clickable Cards & Scaled Down */}
       <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {serviceCategories.map((cat, i) => (
-              <Link href={`/services/${cat.slug}`} key={i} className="group flex flex-col bg-slate-50 rounded-[2.5rem] border border-slate-100 overflow-hidden hover:bg-white hover:shadow-2xl transition-all duration-500 h-full">
-                <div className="relative h-64 md:h-80 overflow-hidden">
+              <Link href={`/services/${cat.slug}`} key={i} className="group flex flex-col bg-slate-50 rounded-[2rem] border border-slate-100 overflow-hidden hover:bg-white hover:shadow-2xl transition-all duration-500 h-full">
+                <div className="relative h-56 md:h-64 overflow-hidden">
                   <Image src={cat.image} alt={cat.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   <div className="absolute bottom-6 left-8">
                       <h3 className="text-xl md:text-3xl font-black text-white uppercase tracking-tighter leading-tight">{cat.title}</h3>
                   </div>
                 </div>
-                <div className="p-8 flex flex-col flex-grow">
-                  <p className="text-slate-600 text-sm md:text-base leading-relaxed mb-8 flex-grow font-light">{cat.desc}</p>
+                <div className="p-6 flex flex-col flex-grow">
+                  <p className="text-slate-600 text-sm md:text-base leading-relaxed mb-6 flex-grow font-light">{cat.desc}</p>
 
-                  <ul className="grid grid-cols-2 gap-y-3 gap-x-6 mb-10">
+                  <ul className="grid grid-cols-2 gap-y-3 gap-x-5 mb-7">
                     {cat.features.map((f, fi) => (
                       <li key={fi} className="flex items-center gap-2.5 text-[10px] md:text-xs font-black text-slate-800 uppercase tracking-widest">
                         <CheckCircle className="w-3.5 h-3.5 text-brand-600 shrink-0" /> {f}
@@ -183,7 +183,7 @@ export default function ServicesPage() {
                   </ul>
 
                   <div
-                    className="bg-slate-900 text-white py-4 px-8 rounded-xl font-black uppercase tracking-widest text-[10px] md:text-xs flex items-center justify-center gap-3 hover:bg-brand-600 transition-all w-full md:w-fit shadow-xl shadow-slate-900/20"
+                    className="bg-slate-900 text-white py-3 px-6 rounded-xl font-black uppercase tracking-widest text-[10px] md:text-xs flex items-center justify-center gap-3 hover:bg-brand-600 transition-all w-full md:w-fit shadow-xl shadow-slate-900/20"
                   >
                     Explore System <ArrowRight className="w-4 h-4" />
                   </div>

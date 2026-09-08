@@ -201,6 +201,7 @@ details[open] > summary::after {
 
 .prose, .prose * {
   max-width: 100% !important;
+  white-space: normal !important;
   overflow-wrap: normal !important;
   word-wrap: normal !important;
   word-break: normal !important;
@@ -213,8 +214,8 @@ details[open] > summary::after {
 
 .prose-content a,
 .prose-content code {
-  overflow-wrap: anywhere !important;
-  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  word-break: normal !important;
 }
 
 /* Ensure images don't overflow in grid layouts */

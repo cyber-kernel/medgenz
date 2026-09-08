@@ -121,8 +121,8 @@ export default function Header() {
           'transition-all duration-500',
 
           isScrolled
-            ? 'top-[60px] md:top-[34px] py-0'
-            : 'top-[60px] md:top-[34px] py-1',
+            ? 'top-[44px] md:top-[31px] py-0'
+            : 'top-[44px] md:top-[31px] py-1',
 
           shouldBeSolid
             ? 'bg-white/95 backdrop-blur-xl shadow-xl border-b border-slate-100'
@@ -290,7 +290,7 @@ export default function Header() {
       ========================================================= */}
       <div
         className={cn(
-          'fixed top-[156px] left-4 right-4',
+          'fixed top-[140px] left-4 right-4',
           'bg-white',
           'z-[110]',
           'flex flex-col',
@@ -301,7 +301,7 @@ export default function Header() {
           'rounded-2xl',
           'border border-slate-100',
           'shadow-2xl',
-          'max-h-[calc(100vh-172px)]',
+          'max-h-[calc(100vh-156px)]',
           'overflow-y-auto',
           'text-base',
           'font-black',

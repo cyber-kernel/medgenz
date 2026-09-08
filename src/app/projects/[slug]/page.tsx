@@ -89,103 +89,92 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
         </div>
       </section>
 
-      {/* 2. PROJECT OVERVIEW */}
+      {/* 2. PROJECT CONTENT */}
       <section className="py-16 md:py-24 lg:py-32">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="space-y-16 md:space-y-24">
 
-            {/* Left Content */}
-            <div className="lg:col-span-8 space-y-12 md:space-y-20 min-w-0 overflow-hidden">
-              {hasBrief && (
-                <div className="space-y-6 md:space-y-8 animate-on-scroll is-visible">
-                  <div className="flex flex-col items-center gap-3 text-center">
-                      <div className="w-10 h-10 md:w-12 md:h-12 bg-brand-50 rounded-xl md:rounded-2xl flex items-center justify-center text-brand-600 shrink-0 shadow-sm border border-brand-100">
-                          <FileText className="w-5 h-5 md:w-6 md:h-6" />
-                      </div>
-                      <h2 className="text-xl md:text-3xl font-black text-slate-900 uppercase tracking-tighter">Project <span className="text-brand-600">Brief</span></h2>
-                      <div className="w-10 h-1 bg-brand-600 rounded-full" />
-                  </div>
-                  <div
-                    className="prose prose-slate max-w-none prose-base md:prose-lg lg:prose-xl leading-relaxed font-light text-slate-600 prose-img:rounded-2xl md:prose-img:rounded-3xl prose-img:shadow-2xl prose-strong:text-slate-900 prose-strong:font-black prose-headings:uppercase prose-headings:tracking-tighter break-words text-left hyphens-none"
-                    style={{ hyphens: 'none', WebkitHyphens: 'none' } as any}
-                    dangerouslySetInnerHTML={{ __html: project.brief! }}
-                  />
+            {/* Brief Section */}
+            {hasBrief && (
+              <div className="space-y-8 md:space-y-12 animate-on-scroll is-visible">
+                <div className="flex flex-col items-center gap-4 text-center">
+                    <div className="w-12 h-12 md:w-16 md:h-16 bg-brand-50 rounded-2xl md:rounded-3xl flex items-center justify-center text-brand-600 shrink-0 shadow-sm border border-brand-100">
+                        <FileText className="w-6 h-6 md:w-8 md:h-8" />
+                    </div>
+                    <h2 className="text-2xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter">Project <span className="text-brand-600">Brief</span></h2>
+                    <div className="w-12 h-1.5 bg-brand-600 rounded-full" />
                 </div>
-              )}
+                <div
+                  className="prose prose-slate max-w-none prose-base md:prose-lg lg:prose-xl leading-relaxed font-light text-slate-600 prose-img:rounded-2xl md:prose-img:rounded-3xl prose-img:shadow-2xl prose-strong:text-slate-900 prose-strong:font-black prose-headings:uppercase prose-headings:tracking-tighter break-normal text-left hyphens-none"
+                  style={{ hyphens: 'none', WebkitHyphens: 'none' } as any}
+                  dangerouslySetInnerHTML={{ __html: project.brief! }}
+                />
+              </div>
+            )}
 
-              {(hasChallenge || hasSolution) && (
-                <div className="grid md:grid-cols-2 gap-10 lg:gap-16">
-                   {hasChallenge && (
-                     <div className="space-y-4 md:space-y-6 bg-slate-50 p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-md transition-shadow text-center md:text-left">
-                        <h3 className="text-lg md:text-xl font-black text-slate-900 uppercase tracking-tighter flex flex-col md:flex-row items-center gap-2 md:gap-3">
-                            <Zap className="w-5 h-5 text-brand-600" /> The Challenge
-                        </h3>
-                        <div
-                          className="prose prose-slate max-w-none text-slate-600 leading-relaxed font-light text-sm md:text-base break-words hyphens-none"
-                          style={{ hyphens: 'none', WebkitHyphens: 'none' } as any}
-                          dangerouslySetInnerHTML={{ __html: project.challenge! }}
-                        />
-                     </div>
-                   )}
-                   {hasSolution && (
-                     <div className="space-y-4 md:space-y-6 bg-green-50/30 p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] border border-green-100 shadow-sm hover:shadow-md transition-shadow text-center md:text-left">
-                        <h3 className="text-lg md:text-xl font-black text-slate-900 uppercase tracking-tighter flex flex-col md:flex-row items-center gap-2 md:gap-3">
-                            <ShieldCheck className="w-5 h-5 text-green-600" /> Our Solution
-                        </h3>
-                        <div
-                          className="prose prose-slate max-w-none text-slate-600 leading-relaxed font-light text-sm md:text-base break-words hyphens-none"
-                          style={{ hyphens: 'none', WebkitHyphens: 'none' } as any}
-                          dangerouslySetInnerHTML={{ __html: project.solution! }}
-                        />
-                     </div>
-                   )}
-                </div>
-              )}
+            {/* Challenge & Solution Section */}
+            {(hasChallenge || hasSolution) && (
+              <div className="grid md:grid-cols-2 gap-10 lg:gap-16">
+                 {hasChallenge && (
+                   <div className="space-y-6 bg-slate-50 p-8 md:p-12 rounded-[2rem] md:rounded-[3rem] border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                      <h3 className="text-xl md:text-2xl font-black text-slate-900 uppercase tracking-tighter flex items-center gap-3 justify-center md:justify-start">
+                          <Zap className="w-6 h-6 text-brand-600" /> The Challenge
+                      </h3>
+                      <div
+                        className="prose prose-slate max-w-none text-slate-600 leading-relaxed font-light text-base md:text-lg break-normal hyphens-none"
+                        style={{ hyphens: 'none', WebkitHyphens: 'none' } as any}
+                        dangerouslySetInnerHTML={{ __html: project.challenge! }}
+                      />
+                   </div>
+                 )}
+                 {hasSolution && (
+                   <div className="space-y-6 bg-green-50/30 p-8 md:p-12 rounded-[2rem] md:rounded-[3rem] border border-green-100 shadow-sm hover:shadow-md transition-shadow">
+                      <h3 className="text-xl md:text-2xl font-black text-slate-900 uppercase tracking-tighter flex items-center gap-3 justify-center md:justify-start">
+                          <ShieldCheck className="w-6 h-6 text-green-600" /> Our Solution
+                      </h3>
+                      <div
+                        className="prose prose-slate max-w-none text-slate-600 leading-relaxed font-light text-base md:text-lg break-normal hyphens-none"
+                        style={{ hyphens: 'none', WebkitHyphens: 'none' } as any}
+                        dangerouslySetInnerHTML={{ __html: project.solution! }}
+                      />
+                   </div>
+                 )}
+              </div>
+            )}
 
-              {highlights.length > 0 && (
-                <div className="bg-slate-950 p-8 md:p-16 rounded-[2rem] md:rounded-[3.5rem] border border-white/5 space-y-8 md:space-y-10 shadow-2xl relative overflow-hidden group">
-                   <div className="absolute top-0 right-0 w-64 h-64 bg-brand-600 rounded-full blur-[100px] opacity-10 -mr-20 -mt-20 group-hover:opacity-20 transition-opacity" />
-                   <h3 className="text-xl md:text-3xl font-black text-white uppercase tracking-tighter relative z-10 text-center md:text-left">Technical <span className="text-brand-500">Highlights</span></h3>
-                   <div className="grid sm:grid-cols-2 gap-4 md:gap-6 relative z-10">
-                      {highlights.map((h, i) => (
-                          <div key={i} className="flex items-start gap-3 md:gap-4 p-3 md:p-4 rounded-xl md:rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/30 transition-all">
-                              <div className="w-5 h-5 md:w-6 md:h-6 bg-brand-600 rounded-full flex items-center justify-center shrink-0 mt-0.5 shadow-lg shadow-brand-600/20">
-                                  <CheckCircle className="w-3 h-3 md:w-4 md:h-4 text-white" />
-                              </div>
-                              <span className="text-slate-300 font-bold uppercase tracking-tight text-[10px] md:text-xs leading-snug">{h}</span>
+            {/* Highlights Section */}
+            {highlights.length > 0 && (
+              <div className="bg-slate-950 p-10 md:p-20 rounded-[3rem] md:rounded-[4rem] border border-white/5 space-y-10 md:space-y-12 shadow-2xl relative overflow-hidden group">
+                 <div className="absolute top-0 right-0 w-80 h-80 bg-brand-600 rounded-full blur-[120px] opacity-10 -mr-20 -mt-20 group-hover:opacity-20 transition-opacity" />
+                 <h3 className="text-2xl md:text-4xl font-black text-white uppercase tracking-tighter relative z-10 text-center">Technical <span className="text-brand-500">Highlights</span></h3>
+                 <div className="grid sm:grid-cols-2 gap-6 md:gap-8 relative z-10">
+                    {highlights.map((h, i) => (
+                        <div key={i} className="flex items-start gap-4 md:gap-5 p-4 md:p-6 rounded-2xl md:rounded-3xl bg-white/5 border border-white/5 hover:border-brand-500/30 transition-all">
+                            <div className="w-6 h-6 md:w-8 md:h-8 bg-brand-600 rounded-full flex items-center justify-center shrink-0 mt-0.5 shadow-lg shadow-brand-600/20">
+                                <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-white" />
+                            </div>
+                            <span className="text-slate-300 font-bold uppercase tracking-tight text-xs md:text-sm leading-snug">{h}</span>
+                        </div>
+                    ))}
+                 </div>
+              </div>
+            )}
+
+            {/* Specs Section - Moved here from sidebar */}
+            {specs.length > 0 && (
+              <div className="bg-slate-50 p-10 md:p-16 rounded-[3rem] text-slate-900 border border-slate-100 shadow-sm relative overflow-hidden group">
+                  <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tighter mb-10 border-b-2 border-brand-600/20 pb-6 text-center">Engineering Specs</h3>
+                  <div className="grid sm:grid-cols-2 gap-8 md:gap-12">
+                      {specs.map((spec, i) => (
+                          <div key={i} className="space-y-2 group/item text-center sm:text-left">
+                              <div className="text-xs font-black text-brand-600 uppercase tracking-widest group-hover/item:text-brand-700 transition-colors">{spec.label}</div>
+                              <div className="text-xl font-bold text-slate-900">{spec.value}</div>
                           </div>
                       ))}
-                   </div>
-                </div>
-              )}
-            </div>
-
-            {/* Right Sidebar - Specs */}
-            <aside className="lg:col-span-4 space-y-8">
-                {specs.length > 0 && (
-                  <div className="bg-slate-50 p-10 rounded-[2.5rem] text-slate-900 border border-slate-100 shadow-sm relative overflow-hidden group">
-                      <h3 className="text-xl font-black uppercase tracking-tighter mb-8 border-b-2 border-brand-600/20 pb-4">Engineering Specs</h3>
-                      <div className="space-y-6">
-                          {specs.map((spec, i) => (
-                              <div key={i} className="space-y-1 group/item">
-                                  <div className="text-[10px] font-black text-brand-600 uppercase tracking-widest group-hover/item:text-brand-700 transition-colors">{spec.label}</div>
-                                  <div className="text-lg font-bold text-slate-900">{spec.value}</div>
-                              </div>
-                          ))}
-                      </div>
                   </div>
-                )}
+              </div>
+            )}
 
-                <div className="bg-brand-600 p-10 rounded-[2.5rem] text-white shadow-2xl shadow-brand-600/20 space-y-8 transform transition-transform hover:-translate-y-1">
-                    <h3 className="text-xl font-black uppercase tracking-tighter">Need a Similar Setup?</h3>
-                    <p className="text-brand-50 leading-relaxed font-light text-sm">
-                        Partner with MedGenz for international-grade Operation Theatres and high-purity clinical zones.
-                    </p>
-                    <Link href="/contact" className="block w-full bg-slate-900 text-white text-center py-5 rounded-2xl font-bold uppercase tracking-widest text-xs hover:bg-white hover:text-slate-900 transition-all shadow-xl shadow-slate-900/40">
-                        Discuss Your Project
-                    </Link>
-                </div>
-            </aside>
           </div>
         </div>
       </section>

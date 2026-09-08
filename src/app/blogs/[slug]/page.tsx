@@ -82,7 +82,7 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
               {blog.category}
             </span>
 
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter uppercase break-words">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter uppercase break-normal">
               {blog.title}
             </h1>
 
@@ -122,11 +122,11 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
 
       {/* 3. CONTENT AREA - Professional Article Grid */}
       <section className="py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="space-y-16">
 
-            {/* Main Content - Column width restricted for readability */}
-            <div className="lg:col-span-8 min-w-0 overflow-hidden">
+            {/* Main Content */}
+            <div className="min-w-0 overflow-hidden">
               {hasContent ? (
                 <div
                   className="prose prose-slate prose-lg md:prose-xl max-w-none
@@ -136,7 +136,7 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
                   prose-img:rounded-[2rem] prose-img:shadow-xl prose-img:mx-auto
                   prose-blockquote:border-l-brand-600 prose-blockquote:bg-slate-50 prose-blockquote:py-2 prose-blockquote:px-8 prose-blockquote:rounded-r-2xl prose-blockquote:font-light prose-blockquote:italic
                   prose-a:text-brand-600 prose-a:font-bold prose-a:no-underline hover:prose-a:underline
-                  prose-li:text-slate-600 prose-li:font-light break-words"
+                  prose-li:text-slate-600 prose-li:font-light break-normal"
                   dangerouslySetInnerHTML={{ __html: blog.content }}
                 />
               ) : (
@@ -168,8 +168,8 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
               </div>
             </div>
 
-            {/* Sidebar - Sticky on desktop */}
-            <aside className="lg:col-span-4 space-y-10 lg:sticky lg:top-32">
+            {/* Sidebar CTA - Moved below content but inside centered container */}
+            <div className="grid md:grid-cols-2 gap-8">
                <div className="bg-slate-950 p-10 rounded-[2.5rem] text-white shadow-2xl relative overflow-hidden group border border-white/5">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-brand-600 rounded-full blur-[80px] opacity-20 -mr-10 -mt-10" />
                   <h3 className="text-xl font-black uppercase tracking-tighter mb-4 relative z-10">Expert Consultation</h3>
@@ -191,7 +191,7 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
                      ))}
                   </div>
                </div>
-            </aside>
+            </div>
           </div>
         </div>
       </section>

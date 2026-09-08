@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Calendar, User, ArrowLeft, ArrowRight, Tag, Share2, Facebook, Twitter, Linkedin } from "lucide-react";
 import ECGCTA from "@/components/sections/ECGCTA";
 import type { Metadata } from "next";
-import { isContentEmpty } from "@/lib/content-utils";
+import { isContentEmpty, normalizeRichText } from "@/lib/content-utils";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -137,7 +137,7 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
                   prose-blockquote:border-l-brand-600 prose-blockquote:bg-slate-50 prose-blockquote:py-2 prose-blockquote:px-8 prose-blockquote:rounded-r-2xl prose-blockquote:font-light prose-blockquote:italic
                   prose-a:text-brand-600 prose-a:font-bold prose-a:no-underline hover:prose-a:underline
                   prose-li:text-slate-600 prose-li:font-light"
-                  dangerouslySetInnerHTML={{ __html: blog.content }}
+                  dangerouslySetInnerHTML={{ __html: normalizeRichText(blog.content) }}
                 />
               ) : (
                 <div className="py-20 text-center bg-slate-50 rounded-[2.5rem] border border-dashed border-slate-200 text-slate-400 font-light">

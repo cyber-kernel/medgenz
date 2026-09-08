@@ -13,7 +13,7 @@ import {
 import ECGCTA from '@/components/sections/ECGCTA';
 import { prisma } from '@/lib/prisma';
 import type { Metadata } from 'next';
-import { isContentEmpty } from '@/lib/content-utils';
+import { isContentEmpty, normalizeRichText } from '@/lib/content-utils';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -106,7 +106,7 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
                 </div>
                 <div
                   className="prose prose-content prose-slate prose-base md:prose-lg lg:prose-xl leading-relaxed font-light text-slate-600 prose-img:rounded-2xl md:prose-img:rounded-3xl prose-img:shadow-2xl prose-strong:text-slate-900 prose-strong:font-black prose-headings:uppercase prose-headings:tracking-tighter text-left"
-                  dangerouslySetInnerHTML={{ __html: project.brief! }}
+                  dangerouslySetInnerHTML={{ __html: normalizeRichText(project.brief) }}
                 />
               </div>
             )}
@@ -121,7 +121,7 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
                       </h3>
                       <div
                         className="prose prose-content prose-slate text-slate-600 leading-relaxed font-light text-base md:text-lg"
-                        dangerouslySetInnerHTML={{ __html: project.challenge! }}
+                        dangerouslySetInnerHTML={{ __html: normalizeRichText(project.challenge) }}
                       />
                    </div>
                  )}
@@ -132,7 +132,7 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
                       </h3>
                       <div
                         className="prose prose-content prose-slate text-slate-600 leading-relaxed font-light text-base md:text-lg"
-                        dangerouslySetInnerHTML={{ __html: project.solution! }}
+                        dangerouslySetInnerHTML={{ __html: normalizeRichText(project.solution) }}
                       />
                    </div>
                  )}

@@ -214,8 +214,8 @@ details[open] > summary::after {
   min-width: 0 !important;
   box-sizing: border-box !important;
   white-space: normal !important;
-  overflow-wrap: break-word !important;
-  word-wrap: break-word !important;
+  overflow-wrap: normal !important;
+  word-wrap: normal !important;
   word-break: normal !important;
   line-height: 1.75 !important;
   text-align: left !important;
@@ -236,6 +236,12 @@ details[open] > summary::after {
 .prose-content video {
   max-width: 100% !important;
   height: auto;
+}
+
+.prose-content a,
+.prose-content code {
+  overflow-wrap: break-word !important;
+  word-break: normal !important;
 }
 
 /* Ensure images don't overflow in grid layouts */

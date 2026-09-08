@@ -23,3 +23,15 @@ export function stripHtml(html: string | null | undefined): string {
   if (!html) return '';
   return html.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
 }
+
+/**
+ * Converts rich-text editor non-breaking spaces into normal word spaces.
+ * Editors can use &nbsp; between every word, which prevents normal wrapping.
+ */
+export function normalizeRichText(html: string | null | undefined): string {
+  if (!html) return '';
+
+  return html
+    .replace(/&nbsp;|&#160;|&#xA0;/gi, ' ')
+    .replace(/\u00a0/g, ' ');
+}

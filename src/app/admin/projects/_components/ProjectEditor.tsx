@@ -23,11 +23,30 @@ import {
 } from "lucide-react";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import Cropper, { type Area } from 'react-easy-crop';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), {
   ssr: false,
   loading: () => <div className="h-64 bg-slate-50 animate-pulse rounded-2xl" />
 });
+
+const createCroppedImage = async (source: string, crop: Area): Promise<string> => {
+  const image = new window.Image();
+  image.src = source;
+  await new Promise<void>((resolve, reject) => {
+    image.onload = () => resolve();
+    image.onerror = reject;
+  });
+
+  const canvas = document.createElement('canvas');
+  canvas.width = crop.width;
+  canvas.height = crop.height;
+  const context = canvas.getContext('2d');
+  if (!context) throw new Error('Canvas is unavailable');
+
+  context.drawImage(image, crop.x, crop.y, crop.width, crop.height, 0, 0, crop.width, crop.height);
+  return canvas.toDataURL('image/webp', 0.92);
+};
 
 // Production-Safe Quill Setup with Debugging
 const setupQuill = () => {
@@ -65,6 +84,12 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   // Floating Toolbar State
   const [selectedImage, setSelectedImage] = useState<{ element: HTMLImageElement, section: string } | null>(null);
   const [toolbarPos, setToolbarPos] = useState({ top: 0, left: 0 });
+  const [cropSource, setCropSource] = useState<string | null>(null);
+  const [cropTarget, setCropTarget] = useState<'hero' | 'content' | null>(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [aspect, setAspect] = useState<number | undefined>(16 / 9);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
 
   // Basic Info
   const [title, setTitle] = useState(initialData?.title || '');
@@ -159,6 +184,40 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     const reader = new FileReader();
     reader.onloadend = () => setHeroImage(reader.result as string);
     reader.readAsDataURL(file);
+  };
+
+  const openCropper = (source: string, target: 'hero' | 'content') => {
+    setCropSource(source);
+    setCropTarget(target);
+    setCrop({ x: 0, y: 0 });
+    setZoom(1);
+    setAspect(target === 'hero' ? 16 / 9 : undefined);
+    setCroppedAreaPixels(null);
+  };
+
+  const applyCrop = async () => {
+    if (!cropSource || !cropTarget || !croppedAreaPixels) return;
+    try {
+      const result = await createCroppedImage(cropSource, croppedAreaPixels);
+      if (cropTarget === 'hero') {
+        setHeroImage(result);
+      } else if (selectedImage) {
+        selectedImage.element.src = result;
+        const quill = quillRefs.current[selectedImage.section]?.getEditor?.();
+        if (quill) {
+          const html = quill.root.innerHTML;
+          if (selectedImage.section === 'brief') setBrief(html);
+          else if (selectedImage.section === 'challenge') setChallenge(html);
+          else setSolution(html);
+        }
+      }
+      setCropSource(null);
+      setCropTarget(null);
+      setSelectedImage(null);
+    } catch (error) {
+      console.error('Image crop failed', error);
+      alert('Unable to crop this image. Please try again.');
+    }
   };
 
   const uploadImageToBlob = async (source: string): Promise<string> => {
@@ -324,6 +383,8 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
           <button type="button" className="size-btn" onMouseDown={(e) => { e.preventDefault(); updateImageSize('50%'); }}>50%</button>
           <button type="button" className="size-btn" onMouseDown={(e) => { e.preventDefault(); updateImageSize('100%'); }}>FULL</button>
           <div className="divider" />
+          <button type="button" className="size-btn" title="Crop image" onMouseDown={(e) => { e.preventDefault(); openCropper(selectedImage.element.src, 'content'); }}>CROP</button>
+          <div className="divider" />
           <button type="button" onMouseDown={(e) => { e.preventDefault(); removeImage(); }} className="text-red-400 hover:text-red-500"><Trash className="w-4 h-4" /></button>
         </div>
       )}
@@ -404,7 +465,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
            <div className="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm space-y-6">
               <div className="flex items-center justify-between"><h3 className="text-lg font-bold text-slate-900 uppercase">Cover</h3>{heroImage && (<button type="button" onClick={() => setHeroImage('')} className="p-2 bg-red-50 text-red-500 rounded-lg hover:bg-red-500 hover:text-white"><Trash2 className="w-4 h-4" /></button>)}</div>
               <div onClick={() => fileInputRef.current?.click()} className={`relative aspect-video rounded-2xl border-2 border-dashed border-slate-100 flex flex-col items-center justify-center cursor-pointer hover:border-brand-400 overflow-hidden group ${heroImage ? 'border-none' : ''}`}>
-                {heroImage ? (<><Image src={heroImage} alt="Project" fill className="object-cover transition-transform group-hover:scale-105" /><div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><span className="text-white text-xs font-bold uppercase tracking-widest">Change</span></div></>) : (<div className="text-center space-y-2"><ImageIcon className="w-8 h-8 text-slate-200 mx-auto" /><p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Click to upload banner</p></div>)}
+                {heroImage ? (<><Image src={heroImage} alt="Project" fill className="object-cover transition-transform group-hover:scale-105" /><div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3"><button type="button" className="px-3 py-2 rounded-lg bg-white text-slate-900 text-[10px] font-black uppercase tracking-widest" onClick={(e) => { e.stopPropagation(); openCropper(heroImage, 'hero'); }}>Crop</button><span className="text-white text-xs font-bold uppercase tracking-widest">Change</span></div></>) : (<div className="text-center space-y-2"><ImageIcon className="w-8 h-8 text-slate-200 mx-auto" /><p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Click to upload banner</p></div>)}
               </div>
               <input type="file" ref={fileInputRef} onChange={handleHeroImageSelect} className="hidden" accept="image/*" />
            </div>
@@ -417,6 +478,25 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
            </div>
         </div>
       </div>
+
+      {cropSource && (
+        <div className="fixed inset-0 z-[1100] flex items-center justify-center bg-slate-950/80 p-4" role="dialog" aria-modal="true" aria-label="Crop image">
+          <div className="w-full max-w-3xl overflow-hidden rounded-2xl bg-white shadow-2xl">
+            <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4">
+              <div><h2 className="text-lg font-black uppercase tracking-tight text-slate-900">Crop Image</h2><p className="text-xs text-slate-400">Drag to position, then adjust zoom.</p></div>
+              <button type="button" onClick={() => { setCropSource(null); setCropTarget(null); }} className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-900" aria-label="Close crop dialog"><X className="h-5 w-5" /></button>
+            </div>
+            <div className="relative h-[min(60vh,420px)] bg-slate-900">
+              <Cropper image={cropSource} crop={crop} zoom={zoom} aspect={aspect} onCropChange={setCrop} onZoomChange={setZoom} onCropComplete={(_, pixels) => setCroppedAreaPixels(pixels)} />
+            </div>
+            <div className="flex flex-wrap items-center gap-4 px-5 py-4">
+              <label className="flex min-w-[220px] flex-1 items-center gap-3 text-xs font-bold uppercase tracking-wider text-slate-500">Zoom<input type="range" min={1} max={3} step={0.05} value={zoom} onChange={(e) => setZoom(Number(e.target.value))} className="w-full accent-brand-600" /></label>
+              <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500">Ratio<select value={aspect ?? 'free'} onChange={(e) => setAspect(e.target.value === 'free' ? undefined : Number(e.target.value))} className="rounded-lg border border-slate-200 px-2 py-2 text-slate-900"><option value="free">Free</option><option value={1}>1:1</option><option value={4 / 3}>4:3</option><option value={16 / 9}>16:9</option></select></label>
+              <div className="ml-auto flex gap-2"><button type="button" onClick={() => { setCropSource(null); setCropTarget(null); }} className="rounded-lg px-4 py-2 text-xs font-bold uppercase text-slate-500 hover:bg-slate-100">Cancel</button><button type="button" onClick={applyCrop} className="rounded-lg bg-brand-600 px-5 py-2 text-xs font-black uppercase text-white hover:bg-brand-700">Apply Crop</button></div>
+            </div>
+          </div>
+        </div>
+      )}
     </form>
   );
 }

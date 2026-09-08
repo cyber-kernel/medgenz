@@ -24,6 +24,7 @@
     "nodemailer": "^7.0.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-easy-crop": "^6.2.3",
     "react-quill-new": "^3.8.3",
     "slugify": "^1.6.9",
     "tailwind-merge": "^3.0.1",

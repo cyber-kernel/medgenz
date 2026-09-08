@@ -23,14 +23,15 @@ import {
 } from "lucide-react";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import Cropper, { type Area } from 'react-easy-crop';
+import ReactCrop, { type Crop, type PixelCrop } from 'react-image-crop';
+import 'react-image-crop/dist/ReactCrop.css';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), {
   ssr: false,
   loading: () => <div className="h-64 bg-slate-50 animate-pulse rounded-2xl" />
 });
 
-const createCroppedImage = async (source: string, crop: Area): Promise<string> => {
+const createCroppedImage = async (source: string, crop: PixelCrop): Promise<string> => {
   const image = new window.Image();
   image.src = source;
   await new Promise<void>((resolve, reject) => {
@@ -38,13 +39,21 @@ const createCroppedImage = async (source: string, crop: Area): Promise<string> =
     image.onerror = reject;
   });
 
+  const scaleX = image.naturalWidth / image.width;
+  const scaleY = image.naturalHeight / image.height;
+  const sourceCrop = {
+    x: crop.x * scaleX,
+    y: crop.y * scaleY,
+    width: crop.width * scaleX,
+    height: crop.height * scaleY,
+  };
   const canvas = document.createElement('canvas');
-  canvas.width = crop.width;
-  canvas.height = crop.height;
+  canvas.width = Math.round(sourceCrop.width);
+  canvas.height = Math.round(sourceCrop.height);
   const context = canvas.getContext('2d');
   if (!context) throw new Error('Canvas is unavailable');
 
-  context.drawImage(image, crop.x, crop.y, crop.width, crop.height, 0, 0, crop.width, crop.height);
+  context.drawImage(image, sourceCrop.x, sourceCrop.y, sourceCrop.width, sourceCrop.height, 0, 0, canvas.width, canvas.height);
   return canvas.toDataURL('image/webp', 0.92);
 };
 
@@ -86,10 +95,10 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   const [toolbarPos, setToolbarPos] = useState({ top: 0, left: 0 });
   const [cropSource, setCropSource] = useState<string | null>(null);
   const [cropTarget, setCropTarget] = useState<'hero' | 'content' | null>(null);
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
+  const [crop, setCrop] = useState<Crop>({ unit: '%', x: 10, y: 10, width: 80, height: 80 });
   const [aspect, setAspect] = useState<number | undefined>(16 / 9);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<PixelCrop | null>(null);
+  const cropImageRef = useRef<HTMLImageElement | null>(null);
 
   // Basic Info
   const [title, setTitle] = useState(initialData?.title || '');
@@ -189,16 +198,22 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   const openCropper = (source: string, target: 'hero' | 'content') => {
     setCropSource(source);
     setCropTarget(target);
-    setCrop({ x: 0, y: 0 });
-    setZoom(1);
+    setCrop({ unit: '%', x: 10, y: 10, width: 80, height: 80 });
     setAspect(target === 'hero' ? 16 / 9 : undefined);
     setCroppedAreaPixels(null);
   };
 
   const applyCrop = async () => {
-    if (!cropSource || !cropTarget || !croppedAreaPixels) return;
+    if (!cropSource || !cropTarget) return;
     try {
-      const result = await createCroppedImage(cropSource, croppedAreaPixels);
+      const fallbackCrop: PixelCrop | null = cropImageRef.current ? {
+        unit: 'px',
+        x: (crop.x / 100) * cropImageRef.current.width,
+        y: (crop.y / 100) * cropImageRef.current.height,
+        width: (crop.width / 100) * cropImageRef.current.width,
+        height: (crop.height / 100) * cropImageRef.current.height,
+      } : null;
+      const result = await createCroppedImage(cropSource, croppedAreaPixels || fallbackCrop || { unit: 'px', x: 0, y: 0, width: 1, height: 1 });
       if (cropTarget === 'hero') {
         setHeroImage(result);
       } else if (selectedImage) {
@@ -483,14 +498,16 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
         <div className="fixed inset-0 z-[1100] flex items-center justify-center bg-slate-950/80 p-4" role="dialog" aria-modal="true" aria-label="Crop image">
           <div className="w-full max-w-3xl overflow-hidden rounded-2xl bg-white shadow-2xl">
             <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4">
-              <div><h2 className="text-lg font-black uppercase tracking-tight text-slate-900">Crop Image</h2><p className="text-xs text-slate-400">Drag to position, then adjust zoom.</p></div>
+              <div><h2 className="text-lg font-black uppercase tracking-tight text-slate-900">Crop Image</h2><p className="text-xs text-slate-400">Drag the image or resize the crop handles.</p></div>
               <button type="button" onClick={() => { setCropSource(null); setCropTarget(null); }} className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-900" aria-label="Close crop dialog"><X className="h-5 w-5" /></button>
             </div>
             <div className="relative h-[min(60vh,420px)] bg-slate-900">
-              <Cropper image={cropSource} crop={crop} zoom={zoom} aspect={aspect} onCropChange={setCrop} onZoomChange={setZoom} onCropComplete={(_, pixels) => setCroppedAreaPixels(pixels)} />
+              <ReactCrop crop={crop} onChange={(_, percentCrop) => setCrop(percentCrop)} onComplete={(pixels) => setCroppedAreaPixels(pixels)} aspect={aspect} keepSelection minWidth={80} minHeight={80}>
+                <img ref={cropImageRef} src={cropSource} alt="Crop preview" className="max-h-[min(60vh,420px)] w-auto max-w-full object-contain" />
+              </ReactCrop>
             </div>
             <div className="flex flex-wrap items-center gap-4 px-5 py-4">
-              <label className="flex min-w-[220px] flex-1 items-center gap-3 text-xs font-bold uppercase tracking-wider text-slate-500">Zoom<input type="range" min={1} max={3} step={0.05} value={zoom} onChange={(e) => setZoom(Number(e.target.value))} className="w-full accent-brand-600" /></label>
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Drag the edges or corners to resize</span>
               <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500">Ratio<select value={aspect ?? 'free'} onChange={(e) => setAspect(e.target.value === 'free' ? undefined : Number(e.target.value))} className="rounded-lg border border-slate-200 px-2 py-2 text-slate-900"><option value="free">Free</option><option value={1}>1:1</option><option value={4 / 3}>4:3</option><option value={16 / 9}>16:9</option></select></label>
               <div className="ml-auto flex gap-2"><button type="button" onClick={() => { setCropSource(null); setCropTarget(null); }} className="rounded-lg px-4 py-2 text-xs font-bold uppercase text-slate-500 hover:bg-slate-100">Cancel</button><button type="button" onClick={applyCrop} className="rounded-lg bg-brand-600 px-5 py-2 text-xs font-black uppercase text-white hover:bg-brand-700">Apply Crop</button></div>
             </div>

@@ -112,10 +112,10 @@ export default async function ProjectsPage() {
                   </div>
 
                   <div className="p-10 flex-grow flex flex-col">
-                    <h3 className="text-2xl font-black text-slate-900 mb-4 group-hover:text-brand-600 transition-colors uppercase tracking-tighter line-clamp-1">
+                    <h3 className="text-2xl font-black text-slate-900 mb-4 group-hover:text-brand-600 transition-colors uppercase tracking-tighter line-clamp-1" style={{ wordBreak: 'normal', overflowWrap: 'break-word' }}>
                       {p.title}
                     </h3>
-                    <p className="text-slate-500 leading-relaxed mb-8 flex-grow font-light line-clamp-3">
+                    <p className="text-slate-500 leading-relaxed mb-8 flex-grow font-light line-clamp-3" style={{ wordBreak: 'normal', overflowWrap: 'break-word' }}>
                       {stripHtml(p.brief)}
                     </p>
 

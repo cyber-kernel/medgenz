@@ -133,11 +133,11 @@ export default async function BlogListingPage() {
                       <span className="flex items-center gap-2"><User className="w-3.5 h-3.5 text-brand-600" /> Admin</span>
                     </div>
 
-                    <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-6 leading-tight group-hover:text-brand-600 transition-colors uppercase tracking-tighter line-clamp-2 min-h-[3.5rem] md:min-h-[4.5rem]">
+                    <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-6 leading-tight group-hover:text-brand-600 transition-colors uppercase tracking-tighter line-clamp-2 min-h-[3.5rem] md:min-h-[4.5rem]" style={{ wordBreak: 'normal', overflowWrap: 'break-word' }}>
                       <Link href={`/blogs/${post.slug}`}>{post.title}</Link>
                     </h2>
 
-                    <p className="text-slate-500 text-base leading-relaxed mb-10 flex-grow font-light line-clamp-3">
+                    <p className="text-slate-500 text-base leading-relaxed mb-10 flex-grow font-light line-clamp-3" style={{ wordBreak: 'normal', overflowWrap: 'break-word' }}>
                       {post.excerpt}
                     </p>
 

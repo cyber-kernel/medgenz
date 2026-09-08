@@ -122,7 +122,7 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
 
       {/* 3. CONTENT AREA - Professional Article Grid */}
       <section className="py-16 md:py-24">
-        <div className="max-w-4xl mx-auto px-6">
+        <div className="max-w-[800px] mx-auto px-6">
           <div className="space-y-16">
 
             {/* Main Content */}

@@ -199,13 +199,16 @@ details[open] > summary::after {
   border-radius: 0.5rem;
 }
 
-.prose {
-  max-width: 100%;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  word-break: normal;
-  line-height: 1.75;
-  text-align: left;
+.prose, .prose * {
+  max-width: 100% !important;
+  overflow-wrap: break-word !important;
+  word-wrap: break-word !important;
+  word-break: normal !important;
+  line-height: 1.75 !important;
+  text-align: left !important;
+  hyphens: none !important;
+  -webkit-hyphens: none !important;
+  -ms-hyphens: none !important;
 }
 
 /* Ensure images don't overflow in grid layouts */

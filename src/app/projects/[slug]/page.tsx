@@ -91,7 +91,7 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
 
       {/* 2. PROJECT CONTENT */}
       <section className="py-16 md:py-24 lg:py-32">
-        <div className="max-w-4xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-6">
           <div className="space-y-16 md:space-y-24">
 
             {/* Brief Section */}

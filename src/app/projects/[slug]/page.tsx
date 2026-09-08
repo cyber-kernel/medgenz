@@ -91,7 +91,7 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
 
       {/* 2. PROJECT CONTENT */}
       <section className="py-16 md:py-24 lg:py-32">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-4xl mx-auto px-6">
           <div className="space-y-16 md:space-y-24">
 
             {/* Brief Section */}
@@ -105,8 +105,7 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
                     <div className="w-12 h-1.5 bg-brand-600 rounded-full" />
                 </div>
                 <div
-                  className="prose prose-slate max-w-none prose-base md:prose-lg lg:prose-xl leading-relaxed font-light text-slate-600 prose-img:rounded-2xl md:prose-img:rounded-3xl prose-img:shadow-2xl prose-strong:text-slate-900 prose-strong:font-black prose-headings:uppercase prose-headings:tracking-tighter no-break text-left"
-                  style={{ hyphens: 'none', WebkitHyphens: 'none', wordBreak: 'normal', overflowWrap: 'normal' } as any}
+                  className="prose prose-slate max-w-none prose-base md:prose-lg lg:prose-xl leading-relaxed font-light text-slate-600 prose-img:rounded-2xl md:prose-img:rounded-3xl prose-img:shadow-2xl prose-strong:text-slate-900 prose-strong:font-black prose-headings:uppercase prose-headings:tracking-tighter text-left"
                   dangerouslySetInnerHTML={{ __html: project.brief! }}
                 />
               </div>
@@ -121,8 +120,7 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
                           <Zap className="w-6 h-6 text-brand-600" /> The Challenge
                       </h3>
                       <div
-                        className="prose prose-slate max-w-none text-slate-600 leading-relaxed font-light text-base md:text-lg no-break"
-                        style={{ hyphens: 'none', WebkitHyphens: 'none', wordBreak: 'normal', overflowWrap: 'normal' } as any}
+                        className="prose prose-slate max-w-none text-slate-600 leading-relaxed font-light text-base md:text-lg"
                         dangerouslySetInnerHTML={{ __html: project.challenge! }}
                       />
                    </div>
@@ -133,8 +131,7 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
                           <ShieldCheck className="w-6 h-6 text-green-600" /> Our Solution
                       </h3>
                       <div
-                        className="prose prose-slate max-w-none text-slate-600 leading-relaxed font-light text-base md:text-lg no-break"
-                        style={{ hyphens: 'none', WebkitHyphens: 'none', wordBreak: 'normal', overflowWrap: 'normal' } as any}
+                        className="prose prose-slate max-w-none text-slate-600 leading-relaxed font-light text-base md:text-lg"
                         dangerouslySetInnerHTML={{ __html: project.solution! }}
                       />
                    </div>

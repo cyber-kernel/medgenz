@@ -82,7 +82,7 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
               {blog.category}
             </span>
 
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter uppercase no-break">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter uppercase">
               {blog.title}
             </h1>
 
@@ -122,7 +122,7 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
 
       {/* 3. CONTENT AREA - Professional Article Grid */}
       <section className="py-16 md:py-24">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-4xl mx-auto px-6">
           <div className="space-y-16">
 
             {/* Main Content */}
@@ -136,7 +136,7 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
                   prose-img:rounded-[2rem] prose-img:shadow-xl prose-img:mx-auto
                   prose-blockquote:border-l-brand-600 prose-blockquote:bg-slate-50 prose-blockquote:py-2 prose-blockquote:px-8 prose-blockquote:rounded-r-2xl prose-blockquote:font-light prose-blockquote:italic
                   prose-a:text-brand-600 prose-a:font-bold prose-a:no-underline hover:prose-a:underline
-                  prose-li:text-slate-600 prose-li:font-light no-break"
+                  prose-li:text-slate-600 prose-li:font-light"
                   dangerouslySetInnerHTML={{ __html: blog.content }}
                 />
               ) : (

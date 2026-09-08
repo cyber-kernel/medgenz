@@ -94,6 +94,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   const [toolbarPos, setToolbarPos] = useState({ top: 0, left: 0 });
   const [cropSource, setCropSource] = useState<string | null>(null);
   const [cropTarget, setCropTarget] = useState<'hero' | 'content' | null>(null);
+  const [cropContentTarget, setCropContentTarget] = useState<{ element: HTMLImageElement, section: string } | null>(null);
   const [crop, setCrop] = useState<Crop>({ unit: '%', x: 10, y: 10, width: 80, height: 80 });
   const [aspect, setAspect] = useState<number | undefined>(16 / 9);
 
@@ -175,7 +176,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
           top: rect.top + window.scrollY - 60,
           left: rect.left + window.scrollX + (rect.width / 2)
         });
-      } else if (!target.closest('.image-action-toolbar')) {
+      } else if (!target.closest('.image-action-toolbar') && !target.closest('.crop-dialog')) {
         setSelectedImage(null);
       }
     };
@@ -195,6 +196,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   const openCropper = (source: string, target: 'hero' | 'content') => {
     setCropSource(source);
     setCropTarget(target);
+    setCropContentTarget(target === 'content' && selectedImage ? selectedImage : null);
     setCrop({ unit: '%', x: 10, y: 10, width: 80, height: 80 });
     setAspect(target === 'hero' ? 16 / 9 : undefined);
   };
@@ -205,18 +207,19 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
       const result = await createCroppedImage(cropSource, crop);
       if (cropTarget === 'hero') {
         setHeroImage(result);
-      } else if (selectedImage) {
-        selectedImage.element.src = result;
-        const quill = quillRefs.current[selectedImage.section]?.getEditor?.();
+      } else if (cropContentTarget) {
+        cropContentTarget.element.src = result;
+        const quill = quillRefs.current[cropContentTarget.section]?.getEditor?.();
         if (quill) {
           const html = quill.root.innerHTML;
-          if (selectedImage.section === 'brief') setBrief(html);
-          else if (selectedImage.section === 'challenge') setChallenge(html);
+          if (cropContentTarget.section === 'brief') setBrief(html);
+          else if (cropContentTarget.section === 'challenge') setChallenge(html);
           else setSolution(html);
         }
       }
       setCropSource(null);
       setCropTarget(null);
+      setCropContentTarget(null);
       setSelectedImage(null);
     } catch (error) {
       console.error('Image crop failed', error);
@@ -484,11 +487,11 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
       </div>
 
       {cropSource && (
-        <div className="fixed inset-0 z-[1100] flex items-center justify-center bg-slate-950/80 p-4" role="dialog" aria-modal="true" aria-label="Crop image">
+        <div className="crop-dialog fixed inset-0 z-[1100] flex items-center justify-center bg-slate-950/80 p-4" role="dialog" aria-modal="true" aria-label="Crop image">
           <div className="w-full max-w-3xl overflow-hidden rounded-2xl bg-white shadow-2xl">
             <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4">
               <div><h2 className="text-lg font-black uppercase tracking-tight text-slate-900">Crop Image</h2><p className="text-xs text-slate-400">Drag the image or resize the crop handles.</p></div>
-              <button type="button" onClick={() => { setCropSource(null); setCropTarget(null); }} className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-900" aria-label="Close crop dialog"><X className="h-5 w-5" /></button>
+              <button type="button" onClick={() => { setCropSource(null); setCropTarget(null); setCropContentTarget(null); }} className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-900" aria-label="Close crop dialog"><X className="h-5 w-5" /></button>
             </div>
             <div className="relative h-[min(60vh,420px)] bg-slate-900">
               <ReactCrop crop={crop} onChange={(_, percentCrop) => setCrop(percentCrop)} aspect={aspect} keepSelection minWidth={80} minHeight={80}>
@@ -498,7 +501,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
             <div className="flex flex-wrap items-center gap-4 px-5 py-4">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Drag the edges or corners to resize</span>
               <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500">Ratio<select value={aspect ?? 'free'} onChange={(e) => setAspect(e.target.value === 'free' ? undefined : Number(e.target.value))} className="rounded-lg border border-slate-200 px-2 py-2 text-slate-900"><option value="free">Free</option><option value={1}>1:1</option><option value={4 / 3}>4:3</option><option value={16 / 9}>16:9</option></select></label>
-              <div className="ml-auto flex gap-2"><button type="button" onClick={() => { setCropSource(null); setCropTarget(null); }} className="rounded-lg px-4 py-2 text-xs font-bold uppercase text-slate-500 hover:bg-slate-100">Cancel</button><button type="button" onClick={applyCrop} className="rounded-lg bg-brand-600 px-5 py-2 text-xs font-black uppercase text-white hover:bg-brand-700">Apply Crop</button></div>
+              <div className="ml-auto flex gap-2"><button type="button" onClick={() => { setCropSource(null); setCropTarget(null); setCropContentTarget(null); }} className="rounded-lg px-4 py-2 text-xs font-bold uppercase text-slate-500 hover:bg-slate-100">Cancel</button><button type="button" onClick={applyCrop} className="rounded-lg bg-brand-600 px-5 py-2 text-xs font-black uppercase text-white hover:bg-brand-700">Apply Crop</button></div>
             </div>
           </div>
         </div>

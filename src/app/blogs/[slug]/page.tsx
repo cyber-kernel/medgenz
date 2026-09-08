@@ -126,10 +126,10 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
           <div className="space-y-16">
 
             {/* Main Content */}
-            <div className="min-w-0 overflow-hidden">
+            <div className="min-w-0">
               {hasContent ? (
                 <div
-                  className="prose prose-slate prose-lg md:prose-xl max-w-none
+                  className="prose prose-content prose-slate prose-lg md:prose-xl max-w-none
                   prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tighter prose-headings:text-slate-900
                   prose-p:text-slate-600 prose-p:font-light prose-p:leading-relaxed
                   prose-strong:font-black prose-strong:text-slate-900

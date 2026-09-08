@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import ReactCrop, { type Crop, type PixelCrop } from 'react-image-crop';
+import ReactCrop, { type Crop } from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), {
@@ -31,21 +31,20 @@ const ReactQuill = dynamic(() => import('react-quill-new'), {
   loading: () => <div className="h-64 bg-slate-50 animate-pulse rounded-2xl" />
 });
 
-const createCroppedImage = async (source: string, crop: PixelCrop): Promise<string> => {
+const createCroppedImage = async (source: string, crop: Crop): Promise<string> => {
   const image = new window.Image();
+  image.crossOrigin = 'anonymous';
   image.src = source;
   await new Promise<void>((resolve, reject) => {
     image.onload = () => resolve();
     image.onerror = reject;
   });
 
-  const scaleX = image.naturalWidth / image.width;
-  const scaleY = image.naturalHeight / image.height;
   const sourceCrop = {
-    x: crop.x * scaleX,
-    y: crop.y * scaleY,
-    width: crop.width * scaleX,
-    height: crop.height * scaleY,
+    x: (crop.x / 100) * image.naturalWidth,
+    y: (crop.y / 100) * image.naturalHeight,
+    width: (crop.width / 100) * image.naturalWidth,
+    height: (crop.height / 100) * image.naturalHeight,
   };
   const canvas = document.createElement('canvas');
   canvas.width = Math.round(sourceCrop.width);
@@ -97,8 +96,6 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   const [cropTarget, setCropTarget] = useState<'hero' | 'content' | null>(null);
   const [crop, setCrop] = useState<Crop>({ unit: '%', x: 10, y: 10, width: 80, height: 80 });
   const [aspect, setAspect] = useState<number | undefined>(16 / 9);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState<PixelCrop | null>(null);
-  const cropImageRef = useRef<HTMLImageElement | null>(null);
 
   // Basic Info
   const [title, setTitle] = useState(initialData?.title || '');
@@ -200,20 +197,12 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
     setCropTarget(target);
     setCrop({ unit: '%', x: 10, y: 10, width: 80, height: 80 });
     setAspect(target === 'hero' ? 16 / 9 : undefined);
-    setCroppedAreaPixels(null);
   };
 
   const applyCrop = async () => {
     if (!cropSource || !cropTarget) return;
     try {
-      const fallbackCrop: PixelCrop | null = cropImageRef.current ? {
-        unit: 'px',
-        x: (crop.x / 100) * cropImageRef.current.width,
-        y: (crop.y / 100) * cropImageRef.current.height,
-        width: (crop.width / 100) * cropImageRef.current.width,
-        height: (crop.height / 100) * cropImageRef.current.height,
-      } : null;
-      const result = await createCroppedImage(cropSource, croppedAreaPixels || fallbackCrop || { unit: 'px', x: 0, y: 0, width: 1, height: 1 });
+      const result = await createCroppedImage(cropSource, crop);
       if (cropTarget === 'hero') {
         setHeroImage(result);
       } else if (selectedImage) {
@@ -502,8 +491,8 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
               <button type="button" onClick={() => { setCropSource(null); setCropTarget(null); }} className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-900" aria-label="Close crop dialog"><X className="h-5 w-5" /></button>
             </div>
             <div className="relative h-[min(60vh,420px)] bg-slate-900">
-              <ReactCrop crop={crop} onChange={(_, percentCrop) => setCrop(percentCrop)} onComplete={(pixels) => setCroppedAreaPixels(pixels)} aspect={aspect} keepSelection minWidth={80} minHeight={80}>
-                <img ref={cropImageRef} src={cropSource} alt="Crop preview" className="max-h-[min(60vh,420px)] w-auto max-w-full object-contain" />
+              <ReactCrop crop={crop} onChange={(_, percentCrop) => setCrop(percentCrop)} aspect={aspect} keepSelection minWidth={80} minHeight={80}>
+                <img src={cropSource} alt="Crop preview" className="max-h-[min(60vh,420px)] w-auto max-w-full object-contain" />
               </ReactCrop>
             </div>
             <div className="flex flex-wrap items-center gap-4 px-5 py-4">

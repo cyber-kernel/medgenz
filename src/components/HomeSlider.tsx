@@ -103,18 +103,8 @@ export default function HomeSlider() {
         </div>
       </div>
 
-      {/* Background Indicators (Mini) */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setIndex(i)}
-            className={`h-1 rounded-full transition-all duration-500 ${
-              index === i ? "w-8 bg-brand-600" : "w-2 bg-white/20"
-            }`}
-          />
-        ))}
-      </div>
+      {/* Background Indicators (Mini) - Hidden as per request */}
+
     </div>
   );
 }

@@ -302,7 +302,8 @@ export default function MGPSHub() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
-            <a href="https://drive.google.com/file/d/1tzHDy3cESZkprCHA3yQP4qEiJtNVgOrb/view?usp=sharing" target="_blank" className="group bg-white rounded-lg md:rounded-2xl border border-gray-200 shadow-sm hover:shadow-md hover:border-brand-300 transition-all overflow-hidden flex flex-col text-center md:text-left">
+            <a href="/mgps-drawing.pdf" target="_blank" className="group bg-white rounded-lg md:rounded-2xl border border-gray-200 shadow-sm hover:shadow-md hover:border-brand-300 transition-all overflow-hidden flex flex-col text-center md:text-left">
+
               <div className="h-16 md:h-40 bg-gray-100 flex items-center justify-center border-b border-gray-200 group-hover:bg-brand-50 transition-colors relative">
                 <FileText className="w-8 h-8 md:w-16 md:h-16 text-brand-300 group-hover:text-brand-500 transition-colors" />
               </div>

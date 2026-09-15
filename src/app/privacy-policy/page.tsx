@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft, ShieldLock, Download, ExternalLink } from 'lucide-react';
+import { ArrowLeft, ShieldCheck, Download, ExternalLink } from 'lucide-react';
 
 export const metadata = {
   title: 'Privacy Policy | MedGenz India Private Limited',
@@ -21,7 +21,7 @@ export default function PrivacyPolicyPage() {
         <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl overflow-hidden p-8 md:p-14">
           <div className="flex flex-col items-center text-center mb-10 border-b border-slate-100 pb-8">
             <div className="w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center text-brand-600 mb-4 border border-brand-100 shadow-sm">
-              <ShieldLock className="w-7 h-7" />
+              <ShieldCheck className="w-7 h-7" />
             </div>
             <h1 className="text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter mb-3">
               Privacy <span className="text-brand-600">Policy</span>

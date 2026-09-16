@@ -46,7 +46,7 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
 
   return (
     <div className="pt-24 md:pt-32 font-inter bg-white">
-      {/* 1. PROJECT HERO - Compact & Professional */}
+      {/* 1. PROJECT HERO - Elite & Professional */}
       <section className="relative py-12 md:py-20 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
         {project.heroImage && (
           <div className="absolute inset-0 z-0 opacity-40">
@@ -142,7 +142,7 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
                 {highlights.length > 0 && (
                   <div className="bg-slate-950 p-10 md:p-16 rounded-[2.5rem] border border-white/5 space-y-10 shadow-2xl relative overflow-hidden group">
                      <div className="absolute top-0 right-0 w-80 h-80 bg-brand-600 rounded-full blur-[120px] opacity-10 -mr-20 -mt-20 group-hover:opacity-20 transition-opacity" />
-                     <h3 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter relative z-10">Technical <span className="text-brand-500">Highlights</span></h3>
+                     <h3 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter relative z-10 text-center">Technical <span className="text-brand-500">Highlights</span></h3>
                      <div className="grid sm:grid-cols-2 gap-4 md:gap-6 relative z-10">
                         {highlights.map((h, i) => (
                             <div key={i} className="flex items-start gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/30 transition-all">

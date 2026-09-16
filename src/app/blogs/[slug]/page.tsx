@@ -24,6 +24,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       updatedAt: true,
       authorName: true,
       slug: true,
+      published: true,
+      content: true,
+      readingTime: true,
     },
   });
 
@@ -84,6 +87,9 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
       updatedAt: true,
       authorName: true,
       slug: true,
+      published: true,
+      content: true,
+      readingTime: true,
     },
   });
 

@@ -215,7 +215,7 @@ details[open] > summary::after {
   overflow-wrap: break-word !important;
   word-wrap: break-word !important;
   word-break: normal !important;
-  line-height: 1.7 !important;
+  line-height: 1.65 !important;
   text-align: left !important;
   hyphens: none !important;
   -webkit-hyphens: none !important;

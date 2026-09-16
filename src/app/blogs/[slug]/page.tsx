@@ -2,10 +2,11 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { Calendar, User, ArrowLeft, ArrowRight, Tag, Share2, Facebook, Twitter, Linkedin } from "lucide-react";
-import ECGCTA from "@/components/sections/ECGCTA";
+import { Calendar, User, ArrowLeft, ArrowRight, Share2, Facebook, Twitter, Linkedin, Clock, Bookmark } from "lucide-react";
 import type { Metadata } from "next";
 import { isContentEmpty, normalizeRichText } from "@/lib/content-utils";
+import BlogSidebar from "@/components/sections/BlogSidebar";
+import RelatedBlogs from "@/components/sections/RelatedBlogs";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${title} | MedGenz Blog`,
     description,
-    keywords: [blog.category, "healthcare", "hospital infrastructure", blog.title],
+    keywords: [blog.category, ...(blog.tags || []), "healthcare", "hospital infrastructure", blog.title],
     authors: [{ name: blog.authorName }],
     alternates: {
       canonical: `https://www.medgenz.com/blogs/${blog.slug}`,
@@ -64,139 +65,152 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
     notFound();
   }
 
+  // Fetch related blogs from same category
+  const relatedBlogs = await prisma.blog.findMany({
+    where: {
+      category: blog.category,
+      slug: { not: blog.slug },
+      published: true
+    },
+    take: 3,
+    orderBy: { createdAt: 'desc' }
+  });
+
+  // Fetch all unique categories for sidebar
+  const categoriesRaw = await prisma.blog.findMany({
+    where: { published: true },
+    select: { category: true },
+    distinct: ['category']
+  });
+  const allCategories = categoriesRaw.map(c => c.category);
+
   const hasContent = !isContentEmpty(blog.content);
 
   return (
     <div className="pt-20 font-inter bg-white overflow-x-hidden">
-      {/* 1. ARTICLE HERO */}
-      <section className="relative py-16 md:py-24 bg-slate-50 border-b border-slate-100 overflow-hidden uppercase tracking-tighter">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-brand-200 rounded-full blur-[150px] opacity-10 -mr-20 -mt-20" />
+      {/* 1. ARTICLE HERO - Clean & Minimal */}
+      <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
+        {/* Background Accent */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-600 rounded-full blur-[150px] opacity-10 -mr-40 -mt-40" />
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <Link href="/blogs" className="inline-flex items-center gap-2 text-brand-600 font-bold uppercase tracking-widest text-[10px] mb-8 md:mb-12 hover:gap-4 transition-all">
-            <ArrowLeft className="w-4 h-4" /> Back to Knowledge Hub
-          </Link>
+          <nav className="flex items-center gap-2 mb-10 text-[10px] font-bold uppercase tracking-widest text-slate-400">
+             <Link href="/blogs" className="hover:text-brand-400 transition-colors">Knowledge Hub</Link>
+             <span className="opacity-30">/</span>
+             <span className="text-brand-500">{blog.category}</span>
+          </nav>
 
-          <div className="max-w-4xl text-left">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-brand-600 text-white text-[10px] font-black uppercase tracking-widest mb-6 shadow-lg shadow-brand-600/20">
-              {blog.category}
-            </span>
-
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter uppercase">
+          <div className="max-w-5xl">
+            <h1 className="text-3xl md:text-5xl lg:text-7xl font-black leading-[1.05] mb-10 tracking-tight">
               {blog.title}
             </h1>
 
-            <div className="flex flex-wrap items-center gap-6 md:gap-10 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] border-t border-slate-200 pt-8">
-              <div className="flex items-center gap-3">
-                 <div className="w-10 h-10 rounded-full bg-brand-100 flex items-center justify-center text-brand-600 shrink-0">
-                    <User className="w-5 h-5" />
-                 </div>
-                 <div>
-                    <div className="text-slate-900 leading-none mb-1">{blog.authorName || "MedGenz Admin"}</div>
-                    <div className="text-slate-300 text-[8px]">Engineering Expert</div>
-                 </div>
-              </div>
-              <div className="flex items-center gap-3">
-                 <Calendar className="w-5 h-5 text-brand-600 shrink-0" />
-                 <span>{new Date(blog.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
-              </div>
+            <div className="flex flex-wrap items-center gap-8 md:gap-12 pt-10 border-t border-white/10">
+               <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-brand-600 flex items-center justify-center text-white shrink-0 shadow-lg shadow-brand-600/20">
+                     <User className="w-6 h-6" />
+                  </div>
+                  <div>
+                     <div className="text-white text-[11px] font-black leading-none mb-1 uppercase tracking-wider">{blog.authorName}</div>
+                     <div className="text-slate-500 text-[9px] font-bold uppercase tracking-widest">Medical Infrastructure Expert</div>
+                  </div>
+               </div>
+
+               <div className="flex items-center gap-3 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                  <Calendar className="w-5 h-5 text-brand-600 shrink-0" />
+                  <span>{new Date(blog.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+               </div>
+
+               <div className="flex items-center gap-3 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                  <Clock className="w-5 h-5 text-brand-600 shrink-0" />
+                  <span>{blog.readingTime || '6 Min Read'}</span>
+               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2. COVER IMAGE AREA */}
-      {blog.coverImage && (
-        <section className="max-w-7xl mx-auto px-6 -mt-12 md:-mt-20 relative z-20">
-          <div className="relative aspect-video max-h-[600px] w-full rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl border-4 md:border-8 border-white">
-            <Image
-              src={blog.coverImage}
-              alt={blog.title}
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
-        </section>
-      )}
-
-      {/* 3. CONTENT AREA - Professional Article Grid */}
+      {/* 2. MAIN LAYOUT GRID */}
       <section className="py-16 md:py-24">
-        <div className="article-content-shell px-6">
-          <div className="space-y-16">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
 
-            {/* Main Content */}
-            <div className="min-w-0">
+            {/* Left Content Column */}
+            <div className="lg:col-span-8 min-w-0">
+
+              {/* Cover Image - Now inside the content grid for better focus */}
+              {blog.coverImage && (
+                <div className="relative aspect-video w-full rounded-[2.5rem] overflow-hidden shadow-2xl mb-16 group">
+                  <Image
+                    src={blog.coverImage}
+                    alt={blog.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-1000"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+              )}
+
               {hasContent ? (
-                <div
-                  className="prose prose-content prose-slate prose-lg md:prose-xl
-                  prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tighter prose-headings:text-slate-900
-                  prose-p:text-slate-600 prose-p:font-light prose-p:leading-relaxed
-                  prose-strong:font-black prose-strong:text-slate-900
-                  prose-img:rounded-[2rem] prose-img:shadow-xl prose-img:mx-auto
-                  prose-blockquote:border-l-brand-600 prose-blockquote:bg-slate-50 prose-blockquote:py-2 prose-blockquote:px-8 prose-blockquote:rounded-r-2xl prose-blockquote:font-light prose-blockquote:italic
-                  prose-a:text-brand-600 prose-a:font-bold prose-a:no-underline hover:prose-a:underline
-                  prose-li:text-slate-600 prose-li:font-light"
-                  dangerouslySetInnerHTML={{ __html: normalizeRichText(blog.content) }}
-                />
+                <div className="article-content-shell">
+                  <div
+                    className="prose prose-content prose-slate prose-lg md:prose-xl max-w-none
+                    prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tighter prose-headings:text-slate-900
+                    prose-p:text-slate-600 prose-p:font-light prose-p:leading-relaxed
+                    prose-strong:font-black prose-strong:text-slate-900
+                    prose-img:rounded-[2.5rem] prose-img:shadow-2xl prose-img:mx-auto prose-img:my-16
+                    prose-blockquote:border-l-4 prose-blockquote:border-brand-600 prose-blockquote:bg-slate-50 prose-blockquote:py-8 prose-blockquote:px-10 prose-blockquote:rounded-r-[2rem] prose-blockquote:font-light prose-blockquote:italic prose-blockquote:text-slate-700
+                    prose-a:text-brand-600 prose-a:font-bold prose-a:no-underline hover:prose-a:underline
+                    prose-li:text-slate-600 prose-li:font-light prose-li:marker:text-brand-600"
+                    dangerouslySetInnerHTML={{ __html: normalizeRichText(blog.content) }}
+                  />
+                </div>
               ) : (
-                <div className="py-20 text-center bg-slate-50 rounded-[2.5rem] border border-dashed border-slate-200 text-slate-400 font-light">
-                    Article content is being updated. Check back soon.
+                <div className="py-24 text-center bg-slate-50 rounded-[3rem] border-2 border-dashed border-slate-200">
+                    <Bookmark className="w-12 h-12 text-slate-200 mx-auto mb-4" />
+                    <p className="text-slate-400 font-bold uppercase tracking-widest text-sm">Article content is being updated</p>
                 </div>
               )}
 
               {/* Social Share Footer */}
-              <div className="mt-20 pt-10 border-t border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-8">
-                 <div className="flex items-center gap-4">
-                    <span className="text-xs font-black text-slate-900 uppercase tracking-widest">Share Insight:</span>
-                    <div className="flex gap-2">
-                       <button className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-brand-600 hover:text-white transition-all shadow-sm">
-                          <Facebook className="w-4 h-4" />
-                       </button>
-                       <button className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-brand-600 hover:text-white transition-all shadow-sm">
-                          <Twitter className="w-4 h-4" />
-                       </button>
-                       <button className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-brand-600 hover:text-white transition-all shadow-sm">
-                          <Linkedin className="w-4 h-4" />
-                       </button>
+              <div className="mt-24 pt-12 border-t border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-10">
+                 <div className="flex items-center gap-6">
+                    <span className="text-xs font-black text-slate-900 uppercase tracking-[0.2em]">Share Insight:</span>
+                    <div className="flex gap-3">
+                       {[
+                         { icon: Facebook, label: 'Facebook' },
+                         { icon: Twitter, label: 'Twitter' },
+                         { icon: Linkedin, label: 'LinkedIn' }
+                       ].map((item) => (
+                         <button key={item.label} className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-brand-600 hover:text-white transition-all shadow-sm hover:shadow-lg hover:shadow-brand-600/20">
+                            <item.icon className="w-5 h-5" />
+                         </button>
+                       ))}
                     </div>
                  </div>
 
-                 <Link href="/blogs" className="flex items-center gap-3 text-brand-600 font-bold uppercase tracking-widest text-[10px] hover:gap-5 transition-all">
-                    Browse More Articles <ArrowRight className="w-4 h-4" />
+                 <Link href="/blogs" className="flex items-center gap-3 text-brand-600 font-black uppercase tracking-widest text-[11px] hover:gap-5 transition-all group">
+                    Browse More Articles <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </Link>
               </div>
             </div>
 
-            {/* Sidebar CTA - Moved below content but inside centered container */}
-            <div className="grid md:grid-cols-2 gap-8">
-               <div className="bg-slate-950 p-10 rounded-[2.5rem] text-white shadow-2xl relative overflow-hidden group border border-white/5">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-brand-600 rounded-full blur-[80px] opacity-20 -mr-10 -mt-10" />
-                  <h3 className="text-xl font-black uppercase tracking-tighter mb-4 relative z-10">Expert Consultation</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed mb-8 font-light relative z-10">
-                     Need specialized advice on your hospital's modular OT or MGPS project? Speak directly with our engineering team.
-                  </p>
-                  <Link href="/contact" className="relative z-10 block w-full bg-brand-600 text-white text-center py-5 rounded-2xl font-bold uppercase tracking-widest text-xs hover:bg-white hover:text-slate-900 transition-all shadow-xl shadow-brand-600/20">
-                     Request a Call
-                  </Link>
-               </div>
-
-               <div className="p-10 rounded-[2.5rem] border border-slate-100 bg-slate-50/50">
-                  <h3 className="text-lg font-black text-slate-900 uppercase tracking-tighter mb-6">Related Topics</h3>
-                  <div className="flex flex-wrap gap-2">
-                     {['MOT', 'NABH', 'Sterility', 'Cleanroom', 'MGPS', 'Life Support'].map((tag) => (
-                        <span key={tag} className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-[10px] font-bold text-slate-400 uppercase tracking-widest hover:border-brand-600 hover:text-brand-600 transition-all cursor-pointer">
-                           #{tag}
-                        </span>
-                     ))}
-                  </div>
-               </div>
+            {/* Sticky Sidebar */}
+            <div className="lg:col-span-4">
+              <BlogSidebar
+                category={blog.category}
+                tags={blog.tags}
+                allCategories={allCategories}
+              />
             </div>
+
           </div>
         </div>
       </section>
 
-      <ECGCTA />
+      {/* 3. RELATED ARTICLES */}
+      <RelatedBlogs blogs={relatedBlogs} />
     </div>
   );
 }

@@ -97,7 +97,7 @@ export default async function BlogListingPage() {
       </section>
 
       <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-[1440px] mx-auto px-6">
           {blogs.length === 0 ? (
             <div className="py-20 text-center space-y-6">
                 <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto">
@@ -107,10 +107,10 @@ export default async function BlogListingPage() {
                 <p className="text-slate-400 font-light">Check back soon for high-impact healthcare engineering insights.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12 lg:gap-16">
               {blogs.map((post) => (
                 <article key={post.id} className="group flex flex-col h-full bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden hover:shadow-2xl hover:shadow-brand-600/10 transition-all duration-500">
-                  <div className="aspect-[4/3] bg-slate-100 relative overflow-hidden">
+                  <div className="aspect-[16/10] bg-slate-100 relative overflow-hidden">
                     <div className="absolute top-6 left-6 z-10">
                       <span className="bg-brand-600 text-white px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg shadow-brand-600/30">
                         {post.category}
@@ -127,13 +127,13 @@ export default async function BlogListingPage() {
                     <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors" />
                   </div>
 
-                  <div className="p-10 flex-grow flex flex-col">
+                  <div className="p-8 lg:p-10 flex-grow flex flex-col">
                     <div className="flex items-center gap-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6">
                       <span className="flex items-center gap-2 border-r border-slate-200 pr-6"><Calendar className="w-3.5 h-3.5 text-brand-600" /> {new Date(post.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
                       <span className="flex items-center gap-2"><User className="w-3.5 h-3.5 text-brand-600" /> Admin</span>
                     </div>
 
-                    <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-6 leading-tight group-hover:text-brand-600 transition-colors uppercase tracking-tighter line-clamp-2 min-h-[3.5rem] md:min-h-[4.5rem]" style={{ wordBreak: 'normal', overflowWrap: 'break-word' }}>
+                    <h2 className="text-2xl lg:text-3xl font-black text-slate-900 mb-6 leading-tight group-hover:text-brand-600 transition-colors uppercase tracking-tighter line-clamp-2 min-h-[3.5rem] lg:min-h-[4.5rem]" style={{ wordBreak: 'normal', overflowWrap: 'break-word' }}>
                       <Link href={`/blogs/${post.slug}`}>{post.title}</Link>
                     </h2>
 

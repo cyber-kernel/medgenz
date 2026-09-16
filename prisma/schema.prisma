@@ -23,6 +23,7 @@ model Blog {
   excerpt         String?  @db.Text
   coverImage      String?
   category        String   @default("Healthcare")
+  tags            String[] @default([])
   authorName      String   @default("MedGenz Admin")
   readingTime     String?
   metaTitle       String?

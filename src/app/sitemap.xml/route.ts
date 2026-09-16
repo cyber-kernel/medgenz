@@ -9,7 +9,7 @@ export async function GET(request: Request) {
     // Fetch all published blogs
     const blogs = await prisma.blog.findMany({
       where: { published: true },
-      select: { slug: true, updatedAt: true },
+      select: { slug: true, updatedAt: true, id: true },
       orderBy: { updatedAt: "desc" },
     });
 

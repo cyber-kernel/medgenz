@@ -10,6 +10,23 @@ export async function GET(
   try {
     const blog = await prisma.blog.findUnique({
       where: { id: params.id },
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        content: true,
+        excerpt: true,
+        coverImage: true,
+        categories: true,
+        tags: true,
+        authorName: true,
+        readingTime: true,
+        metaTitle: true,
+        metaDescription: true,
+        published: true,
+        createdAt: true,
+        updatedAt: true,
+      },
     });
 
     if (!blog) {
@@ -36,7 +53,10 @@ export async function PUT(
     const body = await request.json();
     const { title, content, excerpt, coverImage, categories, tags, authorName, metaTitle, metaDescription, published, slug: manualSlug } = body;
 
-    const existingBlog = await prisma.blog.findUnique({ where: { id: params.id } });
+    const existingBlog = await prisma.blog.findUnique({
+      where: { id: params.id },
+      select: { id: true, title: true, slug: true }
+    });
     if (!existingBlog) {
       return NextResponse.json({ error: "Blog not found" }, { status: 404 });
     }
@@ -44,7 +64,10 @@ export async function PUT(
     let slug = existingBlog.slug;
     if (title && title !== existingBlog.title && !manualSlug) {
       slug = slugify(title, { lower: true, strict: true });
-      const duplicate = await prisma.blog.findFirst({ where: { slug, id: { not: params.id } } });
+      const duplicate = await prisma.blog.findFirst({
+        where: { slug, id: { not: params.id } },
+        select: { id: true }
+      });
       if (duplicate) {
         slug = `${slug}-${Date.now()}`;
       }

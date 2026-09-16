@@ -41,10 +41,12 @@ export default function RelatedBlogs({ blogs }: RelatedBlogsProps) {
                     <span className="text-slate-300 font-black uppercase tracking-widest text-xs">MedGenz</span>
                   </div>
                 )}
-                <div className="absolute top-4 left-4 z-10">
-                  <span className="bg-brand-600 text-white px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest shadow-lg">
-                    {post.category}
-                  </span>
+                <div className="absolute top-4 left-4 z-10 flex flex-wrap gap-2">
+                  {post.categories.map((cat, idx) => (
+                    <span key={idx} className="bg-brand-600 text-white px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest shadow-lg">
+                      {cat}
+                    </span>
+                  ))}
                 </div>
               </Link>
 

@@ -10,6 +10,16 @@ export async function GET(request: Request) {
   try {
     const blogs = await prisma.blog.findMany({
       where: publishedOnly ? { published: true } : {},
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        excerpt: true,
+        coverImage: true,
+        categories: true,
+        published: true,
+        createdAt: true,
+      },
       orderBy: { createdAt: "desc" },
     });
     return NextResponse.json(blogs);
@@ -36,7 +46,10 @@ export async function POST(request: Request) {
     let slug = slugify(title, { lower: true, strict: true });
 
     // Handle duplicate slugs
-    const existingBlog = await prisma.blog.findUnique({ where: { slug } });
+    const existingBlog = await prisma.blog.findUnique({
+      where: { slug },
+      select: { id: true }
+    });
     if (existingBlog) {
       slug = `${slug}-${Date.now()}`;
     }

@@ -12,6 +12,19 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const blog = await prisma.blog.findUnique({
     where: { slug },
+    select: {
+      title: true,
+      metaTitle: true,
+      metaDescription: true,
+      excerpt: true,
+      categories: true,
+      tags: true,
+      coverImage: true,
+      createdAt: true,
+      updatedAt: true,
+      authorName: true,
+      slug: true,
+    },
   });
 
   if (!blog) return { title: "Blog Post Not Found | MedGenz" };
@@ -59,6 +72,19 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
   const { slug } = await params;
   const blog = await prisma.blog.findUnique({
     where: { slug },
+    select: {
+      title: true,
+      metaTitle: true,
+      metaDescription: true,
+      excerpt: true,
+      categories: true,
+      tags: true,
+      coverImage: true,
+      createdAt: true,
+      updatedAt: true,
+      authorName: true,
+      slug: true,
+    },
   });
 
   if (!blog || !blog.published) {
@@ -71,6 +97,15 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
       categories: { hasSome: blog.categories },
       slug: { not: blog.slug },
       published: true
+    },
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+      excerpt: true,
+      coverImage: true,
+      categories: true,
+      createdAt: true,
     },
     take: 3,
     orderBy: { createdAt: 'desc' }

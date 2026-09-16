@@ -41,6 +41,15 @@ export default async function BlogListingPage({ searchParams }: BlogListingPageP
 
   const blogs = await prisma.blog.findMany({
     where: whereClause,
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+      excerpt: true,
+      coverImage: true,
+      categories: true,
+      createdAt: true,
+    },
     orderBy: { createdAt: "desc" },
   });
 

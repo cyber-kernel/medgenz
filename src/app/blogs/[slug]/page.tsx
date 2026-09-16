@@ -119,7 +119,7 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
   };
 
   return (
-    <div className="pt-20 font-inter bg-white overflow-x-hidden">
+    <div className="pt-20 font-inter bg-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
@@ -169,10 +169,10 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
       {/* 2. MAIN LAYOUT GRID */}
       <section className="py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
 
             {/* Left Content Column */}
-            <div className="lg:col-span-8 min-w-0">
+            <div className="flex-grow lg:w-2/3 min-w-0">
 
               {/* Cover Image - Now inside the content grid for better focus */}
               {blog.coverImage && (
@@ -216,7 +216,6 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
                     <div className="flex gap-3">
                        {[
                          { icon: Facebook, label: 'Facebook' },
-                         { icon: Twitter, label: 'Twitter' },
                          { icon: Linkedin, label: 'LinkedIn' }
                        ].map((item) => (
                          <button key={item.label} className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-brand-600 hover:text-white transition-all shadow-sm hover:shadow-lg hover:shadow-brand-600/20">
@@ -233,7 +232,7 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
             </div>
 
             {/* Sticky Sidebar */}
-            <div className="lg:col-span-4">
+            <div className="w-full lg:w-1/3">
               <BlogSidebar
                 category={blog.category}
                 tags={blog.tags}

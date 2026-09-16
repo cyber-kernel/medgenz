@@ -14,18 +14,6 @@ const socialLinks = [
     color: 'bg-[#0077b5]',
   },
   {
-    name: 'YouTube',
-    icon: Youtube,
-    href: 'https://youtube.com/@medgenzindiapvtltd?si=gipkOPLrCWGe4L37',
-    color: 'bg-[#FF0000]',
-  },
-  {
-    name: 'Instagram',
-    icon: Instagram,
-    href: 'https://www.instagram.com/medgenz_india_pvt_ltd/',
-    color: 'bg-[#E1306C]',
-  },
-  {
     name: 'Facebook',
     icon: Facebook,
     href: 'https://www.facebook.com/medgenz.india.pvt.ltd',

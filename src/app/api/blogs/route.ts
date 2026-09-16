@@ -27,7 +27,7 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { title, content, excerpt, coverImage, category, authorName, metaTitle, metaDescription, published } = body;
+    const { title, content, excerpt, coverImage, category, tags, authorName, metaTitle, metaDescription, published } = body;
 
     if (!title || !content) {
       return NextResponse.json({ error: "Title and content are required" }, { status: 400 });
@@ -49,6 +49,7 @@ export async function POST(request: Request) {
         excerpt,
         coverImage,
         category,
+        tags: tags || [],
         authorName,
         metaTitle,
         metaDescription,

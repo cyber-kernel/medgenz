@@ -86,8 +86,44 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
 
   const hasContent = !isContentEmpty(blog.content);
 
+  // JSON-LD Breadcrumb
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.medgenz.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Knowledge Hub",
+        "item": "https://www.medgenz.com/blogs"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": blog.category,
+        "item": `https://www.medgenz.com/blogs?category=${encodeURIComponent(blog.category)}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": blog.title,
+        "item": `https://www.medgenz.com/blogs/${blog.slug}`
+      }
+    ]
+  };
+
   return (
     <div className="pt-20 font-inter bg-white overflow-x-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* 1. ARTICLE HERO - Clean & Minimal */}
       <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
         {/* Background Accent */}
@@ -133,7 +169,7 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
       {/* 2. MAIN LAYOUT GRID */}
       <section className="py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
 
             {/* Left Content Column */}
             <div className="lg:col-span-8 min-w-0">

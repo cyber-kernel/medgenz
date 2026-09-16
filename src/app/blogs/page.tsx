@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Calendar, User, Tag, Clock } from "lucide-react";
+import { ArrowRight, Calendar, User, Search, XCircle, FileText } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import type { Metadata } from "next";
 
@@ -21,60 +21,33 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.medgenz.com/blogs",
   },
-  openGraph: {
-    type: "website",
-    url: "https://www.medgenz.com/blogs",
-    title: "Healthcare Infrastructure Insights & Blog | MedGenz",
-    description:
-      "Latest blog posts on Modular Operation Theatres, Medical Gas Pipelines, and hospital engineering.",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Healthcare Infrastructure Blog | MedGenz",
-    description: "Expert insights on hospital design and medical infrastructure.",
-  },
 };
 
-export default async function BlogListingPage() {
+interface BlogListingPageProps {
+  searchParams: Promise<{ category?: string; tag?: string }>;
+}
+
+export default async function BlogListingPage({ searchParams }: BlogListingPageProps) {
+  const { category, tag } = await searchParams;
+
+  // Build where clause
+  const whereClause: any = { published: true };
+  if (category) {
+    whereClause.category = category;
+  }
+  if (tag) {
+    whereClause.tags = { has: tag };
+  }
+
   const blogs = await prisma.blog.findMany({
-    where: { published: true },
+    where: whereClause,
     orderBy: { createdAt: "desc" },
   });
 
-  // JSON-LD Structured Data
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Blog",
-    "name": "MedGenz Healthcare Insights",
-    "description": "Insights and trends in hospital infrastructure and medical engineering.",
-    "publisher": {
-      "@type": "Organization",
-      "name": "MedGenz",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/og-medgenz-logo-2.jpg"
-      }
-    },
-    "blogPost": blogs.map(post => ({
-      "@type": "BlogPosting",
-      "headline": post.title,
-      "description": post.excerpt,
-      "image": post.coverImage,
-      "datePublished": post.createdAt.toISOString(),
-      "author": {
-        "@type": "Person",
-        "name": "MedGenz Admin"
-      }
-    }))
-  };
+  const activeFilter = category || tag;
 
   return (
-    <div className="font-inter">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
+    <div className="font-inter min-h-screen bg-white">
       {/* BLOG HERO */}
       <section className="relative py-24 md:py-32 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
         <div className="absolute inset-0 z-0 opacity-60">
@@ -89,28 +62,51 @@ export default async function BlogListingPage() {
         </div>
         <div className="max-w-7xl mx-auto px-6 relative z-10 text-center pt-24 md:pt-32">
           <span className="text-brand-400 font-bold uppercase tracking-widest text-xs md:text-sm mb-4 block">Knowledge Hub</span>
-          <h1 className="text-4xl md:text-7xl font-black text-white mb-8 leading-tight">Latest <span className="text-brand-500">Insights</span></h1>
+          <h1 className="text-4xl md:text-7xl font-black text-white mb-8 leading-tight">
+            {category ? <><span className="text-brand-500">{category}</span> Insights</> : tag ? <>Topic: <span className="text-brand-500">#{tag}</span></> : <>Latest <span className="text-brand-500">Insights</span></>}
+          </h1>
           <p className="text-slate-300 text-lg md:text-2xl max-w-2xl mx-auto leading-relaxed font-light normal-case tracking-normal">
             Stay updated with the latest trends, safety protocols, and engineering breakthroughs in hospital infrastructure.
           </p>
         </div>
       </section>
 
-      <section className="py-24 bg-white">
+      {/* FILTER BAR / STATUS */}
+      {activeFilter && (
+        <div className="bg-slate-50 border-b border-slate-100 py-6">
+           <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                 <Search className="w-5 h-5 text-brand-600" />
+                 <span className="text-slate-600 font-medium">Showing results for: <span className="text-slate-900 font-black uppercase tracking-wider ml-1">{activeFilter}</span></span>
+              </div>
+              <Link href="/blogs" className="flex items-center gap-2 text-slate-400 hover:text-red-500 transition-colors font-bold uppercase tracking-widest text-[10px]">
+                 <XCircle className="w-4 h-4" /> Clear Filter
+              </Link>
+           </div>
+        </div>
+      )}
+
+      {/* BLOG LISTING */}
+      <section className="py-24">
         <div className="max-w-[1440px] mx-auto px-6">
           {blogs.length === 0 ? (
-            <div className="py-20 text-center space-y-6">
-                <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto">
-                    <FileText className="w-10 h-10 text-slate-200" />
+            <div className="py-32 text-center space-y-8 bg-slate-50 rounded-[3rem] border-2 border-dashed border-slate-200 max-w-4xl mx-auto">
+                <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto shadow-sm">
+                    <FileText className="w-12 h-12 text-slate-200" />
                 </div>
-                <h3 className="text-2xl font-bold text-slate-400 uppercase tracking-widest">No articles published yet.</h3>
-                <p className="text-slate-400 font-light">Check back soon for high-impact healthcare engineering insights.</p>
+                <div className="space-y-4">
+                   <h3 className="text-3xl font-black text-slate-900 uppercase tracking-tighter">No Articles Found</h3>
+                   <p className="text-slate-500 font-light max-w-md mx-auto">We couldn't find any published articles matching your current selection. Try exploring other categories.</p>
+                </div>
+                <Link href="/blogs" className="inline-flex bg-brand-600 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl shadow-brand-600/20 hover:bg-slate-900 transition-all transform hover:-translate-y-1">
+                   Back to All Articles
+                </Link>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12 lg:gap-16">
               {blogs.map((post) => (
                 <article key={post.id} className="group flex flex-col h-full bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden hover:shadow-2xl hover:shadow-brand-600/10 transition-all duration-500">
-                  <div className="aspect-[16/10] bg-slate-100 relative overflow-hidden">
+                  <Link href={`/blogs/${post.slug}`} className="aspect-[16/10] bg-slate-100 relative overflow-hidden block">
                     <div className="absolute top-6 left-6 z-10">
                       <span className="bg-brand-600 text-white px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg shadow-brand-600/30">
                         {post.category}
@@ -125,7 +121,7 @@ export default async function BlogListingPage() {
                       />
                     )}
                     <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors" />
-                  </div>
+                  </Link>
 
                   <div className="p-8 lg:p-10 flex-grow flex flex-col">
                     <div className="flex items-center gap-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6">
@@ -180,10 +176,4 @@ export default async function BlogListingPage() {
       </section>
     </div>
   );
-}
-
-function FileText({ className }: { className?: string }) {
-    return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-    )
 }

@@ -95,6 +95,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
   const [content, setContent] = useState(initialData?.content || '');
   const [excerpt, setExcerpt] = useState(initialData?.excerpt || '');
   const [category, setCategory] = useState(initialData?.category || 'Healthcare');
+  const [tags, setTags] = useState<string>(initialData?.tags?.join(', ') || '');
   const [coverImage, setCoverImage] = useState(initialData?.coverImage || '');
   const [published, setPublished] = useState(initialData?.published || false);
   const [metaTitle, setMetaTitle] = useState(initialData?.metaTitle || '');
@@ -228,10 +229,22 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
       setSavingStep('Finalizing content...');
       const finalContent = await processContentImages(content);
       setSavingStep('Saving data...');
+      const tagsArray = tags.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
       const res = await fetch(id ? `/api/blogs/${id}` : '/api/blogs', {
         method: id ? 'PUT' : 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, slug, content: finalContent, excerpt, category, coverImage: finalCoverImage, published, metaTitle, metaDescription })
+        body: JSON.stringify({
+          title,
+          slug,
+          content: finalContent,
+          excerpt,
+          category,
+          tags: tagsArray,
+          coverImage: finalCoverImage,
+          published,
+          metaTitle,
+          metaDescription
+        })
       });
       if (res.ok) { clearDraft(); router.push('/admin/blogs'); router.refresh(); }
       else { const err = await res.json(); alert(err.error || 'Save failed'); }
@@ -350,7 +363,34 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
            <div className="bg-slate-900 rounded-[2.5rem] p-8 text-white space-y-8">
               <div className="flex items-center gap-3"><Globe className="w-5 h-5 text-brand-500" /><h3 className="text-lg font-bold uppercase text-xs">SEO</h3></div>
               <div className="space-y-6">
-                 <div className="space-y-2"><label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Category</label><select value={category} onChange={(e) => setCategory(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-brand-500 text-sm font-medium"><option className="bg-slate-900" value="Modular OT">Modular OT</option><option className="bg-slate-900" value="MGPS">MGPS</option><option className="bg-slate-900" value="Nurse Call">Nurse Call</option><option className="bg-slate-900" value="Hospital Furniture">Hospital Furniture</option><option className="bg-slate-900" value="Healthcare">Healthcare</option></select></div>
+                 <div className="space-y-2">
+                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Category</label>
+                    <input
+                      type="text"
+                      value={category}
+                      onChange={(e) => setCategory(e.target.value)}
+                      list="category-suggestions"
+                      placeholder="e.g. Healthcare, Modular OT"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-brand-500 text-sm font-medium"
+                    />
+                    <datalist id="category-suggestions">
+                       <option value="Modular OT" />
+                       <option value="MGPS" />
+                       <option value="Nurse Call" />
+                       <option value="Hospital Furniture" />
+                       <option value="Healthcare" />
+                    </datalist>
+                 </div>
+                 <div className="space-y-2">
+                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Tags (Comma Separated)</label>
+                    <input
+                      type="text"
+                      value={tags}
+                      onChange={(e) => setTags(e.target.value)}
+                      placeholder="e.g. NABH, Sterility, OT Design"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-brand-500 text-sm"
+                    />
+                 </div>
                  <div className="space-y-2"><label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Meta Title</label><input type="text" value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-brand-500 text-sm" /></div>
                  <div className="space-y-2"><label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Meta Description</label><textarea value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} className="w-full h-24 bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-brand-500 text-sm resize-none" /></div>
               </div>

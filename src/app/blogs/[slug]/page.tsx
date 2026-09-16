@@ -169,7 +169,7 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
       {/* 2. MAIN LAYOUT GRID */}
       <section className="py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
 
             {/* Left Content Column */}
             <div className="flex-grow lg:w-2/3 min-w-0">
@@ -191,12 +191,12 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
               {hasContent ? (
                 <div className="article-content-shell">
                   <div
-                    className="prose prose-content prose-slate prose-lg md:prose-xl max-w-none
+                    className="prose prose-content prose-slate prose-base md:prose-lg max-w-none
                     prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tighter prose-headings:text-slate-900
                     prose-p:text-slate-600 prose-p:font-light prose-p:leading-relaxed
                     prose-strong:font-black prose-strong:text-slate-900
-                    prose-img:rounded-[2.5rem] prose-img:shadow-2xl prose-img:mx-auto prose-img:my-16
-                    prose-blockquote:border-l-4 prose-blockquote:border-brand-600 prose-blockquote:bg-slate-50 prose-blockquote:py-8 prose-blockquote:px-10 prose-blockquote:rounded-r-[2rem] prose-blockquote:font-light prose-blockquote:italic prose-blockquote:text-slate-700
+                    prose-img:rounded-[2rem] prose-img:shadow-2xl prose-img:mx-auto prose-img:my-12
+                    prose-blockquote:border-l-4 prose-blockquote:border-brand-600 prose-blockquote:bg-slate-50 prose-blockquote:py-6 prose-blockquote:px-8 prose-blockquote:rounded-r-2xl prose-blockquote:font-light prose-blockquote:italic prose-blockquote:text-slate-700
                     prose-a:text-brand-600 prose-a:font-bold prose-a:no-underline hover:prose-a:underline
                     prose-li:text-slate-600 prose-li:font-light prose-li:marker:text-brand-600"
                     dangerouslySetInnerHTML={{ __html: normalizeRichText(blog.content) }}

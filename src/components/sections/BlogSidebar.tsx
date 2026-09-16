@@ -13,12 +13,12 @@ import {
 } from 'lucide-react';
 
 interface BlogSidebarProps {
-  category: string;
+  categories: string[];
   tags: string[];
   allCategories: string[];
 }
 
-export default function BlogSidebar({ category, tags, allCategories }: BlogSidebarProps) {
+export default function BlogSidebar({ categories, tags, allCategories }: BlogSidebarProps) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [formData, setFormData] = useState({
     name: '',
@@ -169,10 +169,11 @@ export default function BlogSidebar({ category, tags, allCategories }: BlogSideb
               key={cat}
               href={`/blogs?category=${encodeURIComponent(cat)}`}
               className={`flex items-center justify-between px-4 py-2.5 rounded-xl border transition-all text-xs font-bold uppercase tracking-wider ${
-                cat === category
+                categories.includes(cat)
                 ? 'bg-brand-50 border-brand-200 text-brand-600 shadow-sm'
                 : 'bg-slate-50 border-slate-100 text-slate-600 hover:bg-white hover:border-brand-500 hover:text-brand-600 hover:shadow-sm'
               }`}
+
             >
               <span>{cat}</span>
               <ChevronRight className="w-4 h-4 opacity-40" />

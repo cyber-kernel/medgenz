@@ -12,6 +12,7 @@ import {
   Globe,
   Clock,
   FileText,
+  Folder,
   MoreVertical,
   CheckCircle2,
   AlertCircle
@@ -21,7 +22,7 @@ interface Blog {
   id: string;
   title: string;
   slug: string;
-  category: string;
+  categories: string[];
   published: boolean;
   createdAt: string;
   coverImage: string;
@@ -65,7 +66,7 @@ export default function AdminBlogsPage() {
 
   const filteredBlogs = blogs.filter(b =>
     b.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    b.category.toLowerCase().includes(searchTerm.toLowerCase())
+    b.categories.some(cat => cat.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   return (
@@ -75,9 +76,15 @@ export default function AdminBlogsPage() {
           <h1 className="text-4xl font-black text-slate-900 tracking-tighter uppercase">Manage <span className="text-brand-600">Blogs</span></h1>
           <p className="text-slate-500 font-medium mt-2">Create and edit your industry insights.</p>
         </div>
-        <Link href="/admin/blogs/new" className="inline-flex items-center gap-3 bg-brand-600 text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-widest hover:bg-brand-500 transition-all shadow-xl shadow-brand-600/20">
-          <Plus className="w-5 h-5" /> New Post
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link href="/admin/categories" className="inline-flex items-center gap-3 bg-white border border-slate-100 text-slate-600 px-6 py-4 rounded-2xl font-bold uppercase tracking-widest hover:bg-slate-50 transition-all shadow-sm">
+            <Folder className="w-5 h-5" /> Categories
+          </Link>
+          <Link href="/admin/blogs/new" className="inline-flex items-center gap-3 bg-brand-600 text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-widest hover:bg-brand-500 transition-all shadow-xl shadow-brand-600/20">
+            <Plus className="w-5 h-5" /> New Post
+          </Link>
+        </div>
+
       </div>
 
       <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden">
@@ -133,9 +140,13 @@ export default function AdminBlogsPage() {
                     </div>
                   </td>
                   <td className="px-8 py-6">
-                    <span className="px-3 py-1 bg-slate-100 text-slate-600 rounded-lg text-[10px] font-bold uppercase tracking-widest border border-slate-200">
-                      {blog.category}
-                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {blog.categories.map((cat, idx) => (
+                        <span key={idx} className="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[9px] font-bold uppercase tracking-widest border border-slate-200">
+                          {cat}
+                        </span>
+                      ))}
+                    </div>
                   </td>
                   <td className="px-8 py-6">
                     {blog.published ? (

@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${title} | MedGenz Blog`,
     description,
-    keywords: [blog.category, ...(blog.tags || []), "healthcare", "hospital infrastructure", blog.title],
+    keywords: [...(blog.categories || []), ...(blog.tags || []), "healthcare", "hospital infrastructure", blog.title],
     authors: [{ name: blog.authorName }],
     alternates: {
       canonical: `https://www.medgenz.com/blogs/${blog.slug}`,
@@ -65,10 +65,10 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
     notFound();
   }
 
-  // Fetch related blogs from same category
+  // Fetch related blogs from any of the same categories
   const relatedBlogs = await prisma.blog.findMany({
     where: {
-      category: blog.category,
+      categories: { hasSome: blog.categories },
       slug: { not: blog.slug },
       published: true
     },
@@ -76,13 +76,14 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
     orderBy: { createdAt: 'desc' }
   });
 
-  // Fetch all unique categories for sidebar
-  const categoriesRaw = await prisma.blog.findMany({
+  // Fetch all unique categories across all blogs
+  const allBlogs = await prisma.blog.findMany({
     where: { published: true },
-    select: { category: true },
-    distinct: ['category']
+    select: { categories: true }
   });
-  const allCategories = categoriesRaw.map(c => c.category);
+  const categorySet = new Set<string>();
+  allBlogs.forEach(b => b.categories.forEach(c => categorySet.add(c)));
+  const allCategories = Array.from(categorySet).sort();
 
   const hasContent = !isContentEmpty(blog.content);
 
@@ -106,8 +107,8 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
       {
         "@type": "ListItem",
         "position": 3,
-        "name": blog.category,
-        "item": `https://www.medgenz.com/blogs?category=${encodeURIComponent(blog.category)}`
+        "name": blog.categories[0] || 'Healthcare',
+        "item": `https://www.medgenz.com/blogs?category=${encodeURIComponent(blog.categories[0] || 'Healthcare')}`
       },
       {
         "@type": "ListItem",
@@ -133,7 +134,7 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
           <nav className="flex items-center gap-2 mb-10 text-[10px] font-bold uppercase tracking-widest text-slate-400">
              <Link href="/blogs" className="hover:text-brand-400 transition-colors">Knowledge Hub</Link>
              <span className="opacity-30">/</span>
-             <span className="text-brand-500">{blog.category}</span>
+             <span className="text-brand-500">{blog.categories.join(' & ')}</span>
           </nav>
 
           <div className="max-w-5xl">
@@ -234,7 +235,7 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
             {/* Sticky Sidebar */}
             <div className="w-full lg:w-1/3">
               <BlogSidebar
-                category={blog.category}
+                categories={blog.categories}
                 tags={blog.tags}
                 allCategories={allCategories}
               />

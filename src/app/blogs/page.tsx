@@ -33,7 +33,7 @@ export default async function BlogListingPage({ searchParams }: BlogListingPageP
   // Build where clause
   const whereClause: any = { published: true };
   if (category) {
-    whereClause.category = category;
+    whereClause.categories = { has: category };
   }
   if (tag) {
     whereClause.tags = { has: tag };
@@ -46,8 +46,40 @@ export default async function BlogListingPage({ searchParams }: BlogListingPageP
 
   const activeFilter = category || tag;
 
+  // JSON-LD Structured Data
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "MedGenz Healthcare Insights",
+    "description": "Insights and trends in hospital infrastructure and medical engineering.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "MedGenz",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/og-medgenz-logo-2.jpg"
+      }
+    },
+    "blogPost": blogs.map(post => ({
+      "@type": "BlogPosting",
+      "headline": post.title,
+      "description": post.excerpt,
+      "image": post.coverImage,
+      "datePublished": post.createdAt.toISOString(),
+      "articleSection": post.categories.join(', '),
+      "author": {
+        "@type": "Person",
+        "name": "MedGenz Admin"
+      }
+    }))
+  };
+
   return (
     <div className="font-inter min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* BLOG HERO */}
       <section className="relative py-24 md:py-32 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
         <div className="absolute inset-0 z-0 opacity-60">
@@ -107,10 +139,12 @@ export default async function BlogListingPage({ searchParams }: BlogListingPageP
               {blogs.map((post) => (
                 <article key={post.id} className="group flex flex-col h-full bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden hover:shadow-2xl hover:shadow-brand-600/10 transition-all duration-500">
                   <Link href={`/blogs/${post.slug}`} className="aspect-[16/10] bg-slate-100 relative overflow-hidden block">
-                    <div className="absolute top-6 left-6 z-10">
-                      <span className="bg-brand-600 text-white px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg shadow-brand-600/30">
-                        {post.category}
-                      </span>
+                    <div className="absolute top-6 left-6 z-10 flex flex-wrap gap-2">
+                      {post.categories.map((cat, idx) => (
+                        <span key={idx} className="bg-brand-600 text-white px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest shadow-lg shadow-brand-600/30">
+                          {cat}
+                        </span>
+                      ))}
                     </div>
                     {post.coverImage && (
                       <Image

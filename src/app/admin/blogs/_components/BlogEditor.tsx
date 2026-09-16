@@ -94,7 +94,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
   const [slug, setSlug] = useState(initialData?.slug || '');
   const [content, setContent] = useState(initialData?.content || '');
   const [excerpt, setExcerpt] = useState(initialData?.excerpt || '');
-  const [category, setCategory] = useState(initialData?.category || 'Healthcare');
+  const [categories, setCategories] = useState<string>(initialData?.categories?.join(', ') || 'Healthcare');
   const [tags, setTags] = useState<string>(initialData?.tags?.join(', ') || '');
   const [coverImage, setCoverImage] = useState(initialData?.coverImage || '');
   const [published, setPublished] = useState(initialData?.published || false);
@@ -230,6 +230,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
       const finalContent = await processContentImages(content);
       setSavingStep('Saving data...');
       const tagsArray = tags.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
+      const categoriesArray = categories.split(',').map(cat => cat.trim()).filter(cat => cat !== '');
       const res = await fetch(id ? `/api/blogs/${id}` : '/api/blogs', {
         method: id ? 'PUT' : 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -238,7 +239,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
           slug,
           content: finalContent,
           excerpt,
-          category,
+          categories: categoriesArray,
           tags: tagsArray,
           coverImage: finalCoverImage,
           published,
@@ -364,11 +365,11 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
               <div className="flex items-center gap-3"><Globe className="w-5 h-5 text-brand-500" /><h3 className="text-lg font-bold uppercase text-xs">SEO</h3></div>
               <div className="space-y-6">
                  <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Category</label>
+                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Categories (Comma Separated)</label>
                     <input
                       type="text"
-                      value={category}
-                      onChange={(e) => setCategory(e.target.value)}
+                      value={categories}
+                      onChange={(e) => setCategories(e.target.value)}
                       list="category-suggestions"
                       placeholder="e.g. Healthcare, Modular OT"
                       className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-brand-500 text-sm font-medium"
@@ -381,6 +382,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
                        <option value="Healthcare" />
                     </datalist>
                  </div>
+
                  <div className="space-y-2">
                     <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Tags (Comma Separated)</label>
                     <input

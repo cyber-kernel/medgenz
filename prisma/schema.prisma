@@ -22,7 +22,7 @@ model Blog {
   content         String   @db.Text
   excerpt         String?  @db.Text
   coverImage      String?
-  category        String   @default("Healthcare")
+  categories      String[] @default(["Healthcare"])
   tags            String[] @default([])
   authorName      String   @default("MedGenz Admin")
   readingTime     String?

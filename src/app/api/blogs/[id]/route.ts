@@ -34,7 +34,7 @@ export async function PUT(
 
   try {
     const body = await request.json();
-    const { title, content, excerpt, coverImage, category, tags, authorName, metaTitle, metaDescription, published, slug: manualSlug } = body;
+    const { title, content, excerpt, coverImage, categories, tags, authorName, metaTitle, metaDescription, published, slug: manualSlug } = body;
 
     const existingBlog = await prisma.blog.findUnique({ where: { id: params.id } });
     if (!existingBlog) {
@@ -60,7 +60,7 @@ export async function PUT(
         content,
         excerpt,
         coverImage,
-        category,
+        categories: categories || ["Healthcare"],
         tags: tags || [],
         authorName,
         metaTitle,

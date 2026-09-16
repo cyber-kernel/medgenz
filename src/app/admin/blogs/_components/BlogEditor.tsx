@@ -117,7 +117,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
         const data = JSON.parse(savedDraft);
         if (!initialData || confirm('Restore unsaved blog draft?')) {
             setTitle(data.title || ''); setSlug(data.slug || ''); setContent(data.content || '');
-            setExcerpt(data.excerpt || ''); setCategory(data.category || 'Healthcare');
+            setExcerpt(data.excerpt || ''); setCategories(data.categories || 'Healthcare');
             setCoverImage(data.coverImage || ''); setPublished(data.published || false);
             setMetaTitle(data.metaTitle || ''); setMetaDescription(data.metaDescription || '');
         }
@@ -131,11 +131,11 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
     if (!isDraftLoaded) return;
     const timer = setTimeout(() => {
       localStorage.setItem(`medgenz-blog-draft-${id || 'new'}`, JSON.stringify({
-        title, slug, content, excerpt, category, coverImage, published, metaTitle, metaDescription
+        title, slug, content, excerpt, categories, coverImage, published, metaTitle, metaDescription
       }));
     }, 2000);
     return () => clearTimeout(timer);
-  }, [title, slug, content, excerpt, category, coverImage, published, metaTitle, metaDescription, isDraftLoaded, id]);
+  }, [title, slug, content, excerpt, categories, coverImage, published, metaTitle, metaDescription, isDraftLoaded, id]);
 
   // Detect image clicks
   useEffect(() => {

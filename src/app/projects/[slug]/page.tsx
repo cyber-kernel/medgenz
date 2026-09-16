@@ -1,5 +1,31 @@
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { notFound } from 'next/navigation';
+import {
+  CheckCircle,
+  Zap,
+  ShieldCheck
+} from "lucide-react";
+import { prisma } from '@/lib/prisma';
+import type { Metadata } from 'next';
+import { isContentEmpty, normalizeRichText } from '@/lib/content-utils';
 import ProjectSidebar from '@/components/sections/ProjectSidebar';
-...
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const project = await prisma.project.findUnique({
+    where: { slug },
+  });
+
+  if (!project) return { title: "Project Not Found" };
+
+  return {
+    title: `${project.metaTitle || project.title} | MedGenz Projects`,
+    description: project.metaDescription || project.brief?.replace(/<[^>]*>/g, '').slice(0, 160),
+  };
+}
+
 export default async function ProjectDeepDive({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const project = await prisma.project.findUnique({

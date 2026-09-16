@@ -5,7 +5,7 @@ import { ArrowRight, Calendar } from 'lucide-react';
 import { Blog } from '@prisma/client';
 
 interface RelatedBlogsProps {
-  blogs: Blog[];
+  blogs: Pick<Blog, 'id' | 'title' | 'slug' | 'excerpt' | 'coverImage' | 'categories' | 'createdAt'>[];
 }
 
 export default function RelatedBlogs({ blogs }: RelatedBlogsProps) {

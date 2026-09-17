@@ -35,7 +35,7 @@ export default function AMCCMCCalculator() {
   }, [price, type, category, age]);
 
   return (
-    <div className="w-full max-w-5xl mx-auto py-8 px-4 md:px-6 font-inter">
+    <div className="w-full max-w-none mx-auto py-2 px-0 font-inter">
       <div className="bg-white rounded-[2rem] shadow-xl border border-slate-100 overflow-hidden grid lg:grid-cols-2">
 
         <div className="p-6 md:p-10 space-y-6 bg-slate-50/50">

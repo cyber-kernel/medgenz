@@ -1,10 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
-import { ShieldCheck, Zap, Activity, CheckCircle2, Star, Plus } from 'lucide-react';
+import { CheckCircle2, Star } from 'lucide-react';
 import AMCCMCCalculator from '@/components/sections/AMCCMCCalculator';
-import ClientMarquee from '@/components/sections/ClientMarquee';
 import ECGCTA from '@/components/sections/ECGCTA';
-import Certifications from '@/components/sections/Certifications';
 import SiteFAQ from '@/components/SiteFAQ';
 
 const faqs = [
@@ -24,6 +22,21 @@ const faqs = [
     q: "What is your emergency response time?",
     a: "For hospitals within Delhi NCR, our response time is under 4-6 hours. For other locations across India, we guarantee an engineer on-site within 24 hours of a breakdown report."
   }
+];
+
+const reviews = [
+  { name: 'Dr. Ananya Mehta', role: 'Medical Director', hospital: 'Bengaluru', rating: 5, quote: 'The quarterly service reports have made our NABH documentation much easier to manage.' },
+  { name: 'Dr. Rajiv Menon', role: 'Chief Administrator', hospital: 'Kochi', rating: 5, quote: 'Their response process is structured and dependable, especially for critical-care equipment.' },
+  { name: 'Dr. Neha Sharma', role: 'Hospital Director', hospital: 'New Delhi', rating: 4, quote: 'The AMC team gives our biomedical staff clear updates after every preventive visit.' },
+  { name: 'Dr. Arjun Patel', role: 'Operations Head', hospital: 'Ahmedabad', rating: 5, quote: 'We have seen fewer unexpected interruptions since moving our ICU equipment to their maintenance plan.' },
+  { name: 'Dr. Kavita Rao', role: 'Chief Medical Officer', hospital: 'Hyderabad', rating: 5, quote: 'The engineers are professional, punctual, and careful around live clinical areas.' },
+  { name: 'Dr. Sandeep Iyer', role: 'Biomedical Services Lead', hospital: 'Chennai', rating: 4, quote: 'The service documentation is practical and useful during internal equipment audits.' },
+  { name: 'Dr. Priya Kapoor', role: 'Hospital Administrator', hospital: 'Jaipur', rating: 5, quote: 'CMC gave us predictable maintenance budgeting without compromising on spare-part quality.' },
+  { name: 'Dr. Vikram Singh', role: 'Medical Superintendent', hospital: 'Lucknow', rating: 5, quote: 'Their preventive maintenance schedule is followed consistently across our wards.' },
+  { name: 'Dr. Meera Nair', role: 'Director of Clinical Services', hospital: 'Thiruvananthapuram', rating: 4, quote: 'The support desk keeps our team informed from the first call through closure.' },
+  { name: 'Dr. Rohit Bansal', role: 'Facility Director', hospital: 'Gurugram', rating: 5, quote: 'The team understands hospital operations and works around patient-care priorities.' },
+  { name: 'Dr. Shalini Deshpande', role: 'Quality Head', hospital: 'Pune', rating: 5, quote: 'Calibration records and visit summaries are delivered in a format our quality team can use.' },
+  { name: 'Dr. Aditya Verma', role: 'Chief Operating Officer', hospital: 'Indore', rating: 4, quote: 'A responsive maintenance partner with clear communication and sensible contract options.' },
 ];
 
 export const metadata = {
@@ -54,35 +67,32 @@ export default function AMCCMCPage() {
           </p>
         </div>
       </section>
-      {/* 3. CALCULATOR SECTION */}
-      <section className="py-12 md:py-20 bg-slate-50 border-y border-slate-100">
+      {/* 3. CALCULATOR AND CONTRACT INFORMATION */}
+      <section className="py-10 md:py-16 bg-slate-50 border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-6 text-center mb-8">
           <span className="text-brand-600 font-bold uppercase tracking-widest text-[10px] mb-1 block">Interactive Tool</span>
           <h2 className="text-xl md:text-3xl font-black text-slate-900 uppercase tracking-tighter">Estimate Your <span className="text-brand-600">Contract Cost</span></h2>
           <div className="w-12 h-1 bg-brand-600 mx-auto rounded-full mt-3" />
         </div>
-        <AMCCMCCalculator />
-      </section>
-
-      
-      {/* 2. EDUCATION SECTION */}
-      <section className="py-12 md:py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 lg:gap-16 items-start">
-          <div className="space-y-4">
+        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-[minmax(0,1.15fr)_minmax(340px,0.85fr)] gap-6 lg:gap-8 items-start text-left">
+          <div className="min-w-0 rounded-[2rem] bg-white/50">
+            <AMCCMCCalculator />
+          </div>
+          <div className="space-y-4 pt-2 lg:pt-8">
             <h2 className="text-2xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter text-center md:text-left">Maintenance <span className="text-brand-600">Simplified</span></h2>
             <p className="text-slate-600 leading-relaxed font-light text-sm md:text-base text-center md:text-left">
               Medical equipment requires more than just repairs; it needs a continuous lifecycle management strategy. Our contracts are designed to shift the burden of maintenance from doctors to engineers.
             </p>
 
-            <div className="grid grid-cols-1 gap-6 pt-6">
-              <div className="bg-slate-50 p-8 rounded-[2rem] border border-slate-100 space-y-4">
+            <div className="grid grid-cols-1 gap-4 pt-4">
+              <div className="bg-white p-6 md:p-7 rounded-[2rem] border border-slate-100 space-y-3 shadow-sm">
                 <h3 className="text-xl font-bold text-slate-900 uppercase tracking-tight">What is AMC?</h3>
                 <p className="text-sm text-slate-500 leading-relaxed font-light">
                   An <strong>Annual Maintenance Contract</strong> covers the labor charges for service and preventive maintenance. If a part breaks, it is billed separately. Ideal for new equipment still under component warranty.
                 </p>
               </div>
 
-              <div className="bg-brand-600 p-8 rounded-[2rem] text-white shadow-xl shadow-brand-600/20 space-y-4">
+              <div className="bg-brand-600 p-6 md:p-7 rounded-[2rem] text-white shadow-xl shadow-brand-600/20 space-y-3">
                 <h3 className="text-xl font-bold uppercase tracking-tight text-white">What is CMC?</h3>
                 <p className="text-sm text-brand-50 leading-relaxed font-light">
                   A <strong>Comprehensive Maintenance Contract</strong> is the "Ultimate" protection. It covers labor, service, and the full cost of all spare parts. It provides a fixed annual budget with zero financial surprises.
@@ -91,9 +101,9 @@ export default function AMCCMCPage() {
             </div>
           </div>
 
-          <div className="relative pt-12 md:pt-0">
+          <div className="relative pt-2 lg:pt-8">
             <div className="absolute -top-12 -left-12 w-64 h-64 bg-brand-600/5 rounded-full blur-[80px]" />
-            <div className="relative bg-slate-50 rounded-[3rem] p-10 border border-slate-100 space-y-8 shadow-sm">
+            <div className="relative bg-white rounded-[2rem] p-7 md:p-8 border border-slate-100 space-y-6 shadow-sm">
               <h3 className="text-xl font-black text-slate-900 uppercase tracking-widest text-center">MedGenz Advantage</h3>
               <div className="space-y-6">
                 {[
@@ -120,26 +130,32 @@ export default function AMCCMCPage() {
 
       {/* 4. RATING SECTION */}
       <section className="py-12 md:py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-16">
-          <div className="text-center md:text-left space-y-1">
-            <div className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter">4.9<span className="text-brand-600">/5</span></div>
-            <p className="text-slate-400 font-bold uppercase tracking-widest text-[9px]">Customer Satisfaction Rating</p>
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-10 md:mb-14">
+            <p className="text-brand-600 font-black uppercase tracking-[0.25em] text-[10px] md:text-xs mb-3">Hospital Partner Feedback</p>
+            <h2 className="text-2xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter">Trusted by <span className="text-brand-600">Clinical Teams</span></h2>
+            <div className="w-16 h-1 bg-brand-600 mx-auto rounded-full mt-4" />
           </div>
-          <div className="flex flex-col items-center md:items-start gap-4">
-            <div className="flex text-yellow-400">
-              {[...Array(5)].map((_, i) => <Star key={i} className="w-8 h-8 fill-current" />)}
-            </div>
-            <p className="text-slate-500 max-w-sm text-center md:text-left leading-relaxed font-light">
-              "MedGenz has maintained our entire ICU wing for 5 years. Their CMC plan is the most reliable in the North India region."
-            </p>
-            <p className="text-xs font-bold text-slate-900 uppercase tracking-widest">— Fortis Associate Hospital, Delhi</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {reviews.map((review) => (
+              <article key={review.name} className="rounded-2xl border border-slate-100 bg-slate-50 p-5 shadow-sm">
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <div className="flex text-yellow-400" aria-label={`${review.rating} out of 5 stars`}>
+                    {[...Array(5)].map((_, index) => <Star key={index} className={`h-4 w-4 ${index < review.rating ? 'fill-current' : 'text-slate-200'}`} />)}
+                  </div>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Partner feedback</span>
+                </div>
+                <p className="text-sm leading-relaxed text-slate-600 font-light">“{review.quote}”</p>
+                <div className="border-t border-slate-200 mt-5 pt-4">
+                  <p className="text-xs font-black uppercase tracking-wider text-slate-900">{review.name}</p>
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-brand-600 mt-1">{review.role}</p>
+                  <p className="text-xs text-slate-400 mt-1">{review.hospital}</p>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
-
-      <ClientMarquee />
-
-      <Certifications />
 
       <SiteFAQ title="Contract FAQs" faqs={faqs.map((faq) => ({ question: faq.q, answer: faq.a }))} />
 

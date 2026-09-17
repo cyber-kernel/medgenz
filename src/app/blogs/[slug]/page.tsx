@@ -100,8 +100,8 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
     notFound();
   }
 
-  // Fetch related blogs from any of the same categories
-  const relatedBlogs = await prisma.blog.findMany({
+  // Prefer category matches, then fill the row with the latest published articles.
+  const categoryRelatedBlogs = await prisma.blog.findMany({
     where: {
       categories: { hasSome: blog.categories },
       slug: { not: blog.slug },
@@ -119,6 +119,29 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
     take: 3,
     orderBy: { createdAt: 'desc' }
   });
+
+  const relatedBlogIds = new Set(categoryRelatedBlogs.map((relatedBlog) => relatedBlog.id));
+  const fallbackRelatedBlogs = categoryRelatedBlogs.length < 3
+    ? await prisma.blog.findMany({
+        where: {
+          published: true,
+          slug: { not: blog.slug },
+          ...(categoryRelatedBlogs.length ? { id: { notIn: Array.from(relatedBlogIds) } } : {}),
+        },
+        select: {
+          id: true,
+          title: true,
+          slug: true,
+          excerpt: true,
+          coverImage: true,
+          categories: true,
+          createdAt: true,
+        },
+        take: 3 - categoryRelatedBlogs.length,
+        orderBy: { createdAt: 'desc' },
+      })
+    : [];
+  const relatedBlogs = [...categoryRelatedBlogs, ...fallbackRelatedBlogs];
 
   // Fetch all unique categories across all blogs
   const allBlogs = await prisma.blog.findMany({

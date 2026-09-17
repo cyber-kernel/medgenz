@@ -95,11 +95,14 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
   const [content, setContent] = useState(initialData?.content || '');
   const [excerpt, setExcerpt] = useState(initialData?.excerpt || '');
   const [categories, setCategories] = useState<string>(initialData?.categories?.join(', ') || 'Healthcare');
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(initialData?.categories || ['Healthcare']);
+  const [availableCategories, setAvailableCategories] = useState<string[]>([]);
   const [tags, setTags] = useState<string>(initialData?.tags?.join(', ') || '');
   const [coverImage, setCoverImage] = useState(initialData?.coverImage || '');
   const [published, setPublished] = useState(initialData?.published || false);
   const [metaTitle, setMetaTitle] = useState(initialData?.metaTitle || '');
   const [metaDescription, setMetaDescription] = useState(initialData?.metaDescription || '');
+  const [faqs, setFaqs] = useState<Array<{ question: string; answer: string }>>(initialData?.faqs || []);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const quillRef = useRef<any>(null);
@@ -107,6 +110,12 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
 
   // Initialize
   useEffect(() => { setupQuill(); }, []);
+
+  useEffect(() => {
+    fetch('/api/categories').then((res) => res.ok ? res.json() : []).then((data) => {
+      setAvailableCategories(data.map((category: { name: string }) => category.name));
+    }).catch(() => undefined);
+  }, []);
 
   // Persistence: Load Draft
   useEffect(() => {
@@ -117,9 +126,9 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
         const data = JSON.parse(savedDraft);
         if (!initialData || confirm('Restore unsaved blog draft?')) {
             setTitle(data.title || ''); setSlug(data.slug || ''); setContent(data.content || '');
-            setExcerpt(data.excerpt || ''); setCategories(data.categories || 'Healthcare');
+            setExcerpt(data.excerpt || ''); setCategories(data.categories || 'Healthcare'); setSelectedCategories(data.selectedCategories || data.categories?.split(',').map((value: string) => value.trim()).filter(Boolean) || ['Healthcare']);
             setCoverImage(data.coverImage || ''); setPublished(data.published || false);
-            setMetaTitle(data.metaTitle || ''); setMetaDescription(data.metaDescription || '');
+            setMetaTitle(data.metaTitle || ''); setMetaDescription(data.metaDescription || ''); setFaqs(data.faqs || []);
         }
       } catch (e) {}
     }
@@ -131,11 +140,11 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
     if (!isDraftLoaded) return;
     const timer = setTimeout(() => {
       localStorage.setItem(`medgenz-blog-draft-${id || 'new'}`, JSON.stringify({
-        title, slug, content, excerpt, categories, coverImage, published, metaTitle, metaDescription
+        title, slug, content, excerpt, categories, selectedCategories, coverImage, published, metaTitle, metaDescription, faqs
       }));
     }, 2000);
     return () => clearTimeout(timer);
-  }, [title, slug, content, excerpt, categories, coverImage, published, metaTitle, metaDescription, isDraftLoaded, id]);
+  }, [title, slug, content, excerpt, categories, selectedCategories, coverImage, published, metaTitle, metaDescription, faqs, isDraftLoaded, id]);
 
   // Detect image clicks
   useEffect(() => {
@@ -230,7 +239,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
       const finalContent = await processContentImages(content);
       setSavingStep('Saving data...');
       const tagsArray = tags.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
-      const categoriesArray = categories.split(',').map(cat => cat.trim()).filter(cat => cat !== '');
+      const categoriesArray = selectedCategories.length ? selectedCategories : ['Healthcare'];
       const res = await fetch(id ? `/api/blogs/${id}` : '/api/blogs', {
         method: id ? 'PUT' : 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -244,7 +253,8 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
           coverImage: finalCoverImage,
           published,
           metaTitle,
-          metaDescription
+          metaDescription,
+          faqs: faqs.filter((faq) => faq.question.trim() && faq.answer.trim())
         })
       });
       if (res.ok) { clearDraft(); router.push('/admin/blogs'); router.refresh(); }
@@ -354,6 +364,10 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
              <div className="space-y-4"><label className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2"><FileText className="w-3 h-3" /> Content</label><div className="prose prose-slate max-w-none"><QuillComp ref={quillRef} theme="snow" value={content} onChange={setContent} modules={quillModules} className="min-h-[400px] border-none" scrollingContainer="body" /></div></div>
           </div>
           <div className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm space-y-6"><div className="flex items-center gap-3 mb-2"><Sparkles className="w-5 h-5 text-brand-600" /><h3 className="text-xl font-bold text-slate-900 uppercase text-xs">Excerpt</h3></div><textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value)} className="w-full h-32 p-6 rounded-2xl bg-slate-50 border-none outline-none focus:ring-4 focus:ring-brand-600/10 transition-all font-medium text-slate-600" /></div>
+          <div className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm space-y-5">
+            <div className="flex items-center justify-between"><h3 className="text-xl font-bold text-slate-900 uppercase text-xs">Article FAQs</h3><button type="button" onClick={() => setFaqs([...faqs, { question: '', answer: '' }])} className="text-[10px] font-black uppercase tracking-widest text-brand-600">Add FAQ</button></div>
+            {faqs.map((faq, index) => <div key={index} className="space-y-3 rounded-2xl bg-slate-50 p-4"><div className="flex gap-2"><input value={faq.question} onChange={(e) => setFaqs(faqs.map((item, i) => i === index ? { ...item, question: e.target.value } : item))} placeholder="Question" className="flex-1 rounded-xl border-none px-4 py-3 text-sm font-bold outline-none" /><button type="button" onClick={() => setFaqs(faqs.filter((_, i) => i !== index))} className="p-2 text-red-400" aria-label="Remove FAQ"><Trash2 className="w-4 h-4" /></button></div><textarea value={faq.answer} onChange={(e) => setFaqs(faqs.map((item, i) => i === index ? { ...item, answer: e.target.value } : item))} placeholder="Answer" className="w-full rounded-xl border-none px-4 py-3 text-sm outline-none" rows={3} /></div>)}
+          </div>
         </div>
         <div className="lg:col-span-4 space-y-8">
            <div className="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm space-y-6">
@@ -365,22 +379,10 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
               <div className="flex items-center gap-3"><Globe className="w-5 h-5 text-brand-500" /><h3 className="text-lg font-bold uppercase text-xs">SEO</h3></div>
               <div className="space-y-6">
                  <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Categories (Comma Separated)</label>
-                    <input
-                      type="text"
-                      value={categories}
-                      onChange={(e) => setCategories(e.target.value)}
-                      list="category-suggestions"
-                      placeholder="e.g. Healthcare, Modular OT"
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-brand-500 text-sm font-medium"
-                    />
-                    <datalist id="category-suggestions">
-                       <option value="Modular OT" />
-                       <option value="MGPS" />
-                       <option value="Nurse Call" />
-                       <option value="Hospital Furniture" />
-                       <option value="Healthcare" />
-                    </datalist>
+                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Categories (select in display order)</label>
+                    <div className="space-y-2">{[...new Set([...selectedCategories, ...availableCategories])].map((category) => <label key={category} className="flex items-center gap-3 rounded-xl bg-white/5 px-3 py-2 text-sm"><input type="checkbox" checked={selectedCategories.includes(category)} onChange={() => setSelectedCategories(selectedCategories.includes(category) ? selectedCategories.filter((item) => item !== category) : [...selectedCategories, category])} className="accent-brand-600" />{category}</label>)}</div>
+                    <input type="text" value={categories} onChange={(e) => { setCategories(e.target.value); setSelectedCategories(e.target.value.split(',').map((value) => value.trim()).filter(Boolean)); }} placeholder="Add category names, comma separated" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-brand-500 text-sm font-medium" />
+                    <div className="space-y-1">{selectedCategories.map((category, index) => <div key={`${category}-${index}`} className="flex items-center justify-between rounded-lg bg-brand-600/10 px-3 py-2 text-xs"><span>{index + 1}. {category}</span><span className="flex gap-1"><button type="button" disabled={index === 0} onClick={() => setSelectedCategories(selectedCategories.map((item, i) => i === index - 1 ? selectedCategories[index] : i === index ? selectedCategories[index - 1] : item))} className="px-1 disabled:opacity-30" aria-label="Move category up">↑</button><button type="button" disabled={index === selectedCategories.length - 1} onClick={() => setSelectedCategories(selectedCategories.map((item, i) => i === index ? selectedCategories[index + 1] : i === index + 1 ? selectedCategories[index] : item))} className="px-1 disabled:opacity-30" aria-label="Move category down">↓</button></span></div>)}</div>
                  </div>
 
                  <div className="space-y-2">

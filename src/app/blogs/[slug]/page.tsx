@@ -7,6 +7,7 @@ import type { Metadata } from "next";
 import { isContentEmpty, normalizeRichText } from "@/lib/content-utils";
 import BlogSidebar from "@/components/sections/BlogSidebar";
 import RelatedBlogs from "@/components/sections/RelatedBlogs";
+import SiteFAQ from "@/components/SiteFAQ";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -27,6 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       published: true,
       content: true,
       readingTime: true,
+      faqs: true,
     },
   });
 
@@ -90,6 +92,7 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
       published: true,
       content: true,
       readingTime: true,
+      faqs: true,
     },
   });
 
@@ -287,6 +290,7 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
       </section>
 
       {/* 3. RELATED ARTICLES */}
+      <SiteFAQ faqs={Array.isArray(blog.faqs) ? blog.faqs as { question: string; answer: string }[] : []} title="Article FAQs" />
       <RelatedBlogs blogs={relatedBlogs} />
     </div>
   );

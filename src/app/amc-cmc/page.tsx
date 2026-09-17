@@ -5,6 +5,7 @@ import AMCCMCCalculator from '@/components/sections/AMCCMCCalculator';
 import ClientMarquee from '@/components/sections/ClientMarquee';
 import ECGCTA from '@/components/sections/ECGCTA';
 import Certifications from '@/components/sections/Certifications';
+import SiteFAQ from '@/components/SiteFAQ';
 
 const faqs = [
   {
@@ -140,31 +141,7 @@ export default function AMCCMCPage() {
 
       <Certifications />
 
-      {/* 5. FAQ SECTION */}
-      <section className="py-24 bg-white border-t border-slate-100">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter">Contract <span className="text-brand-600">FAQs</span></h2>
-            <div className="w-16 h-1 bg-brand-600 mx-auto rounded-full mt-4" />
-          </div>
-
-          <div className="space-y-4">
-            {faqs.map((faq, i) => (
-              <details key={i} className="group bg-slate-50 rounded-[2rem] border border-slate-100 overflow-hidden" open={i === 0}>
-                <summary className="flex items-center justify-between p-6 md:p-8 font-bold text-slate-900 cursor-pointer hover:bg-slate-100 transition-all uppercase tracking-tight text-sm md:text-lg">
-                  <span className="flex items-center gap-4">
-                    <span className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-brand-600 text-xs shadow-sm group-open:bg-brand-600 group-open:text-white transition-all">{i + 1}</span>
-                    {faq.q}
-                  </span>
-                </summary>
-                <div className="px-6 md:px-8 pb-8 text-slate-500 text-sm md:text-base leading-relaxed font-light border-t border-slate-200/50 pt-6">
-                  {faq.a}
-                </div>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+      <SiteFAQ title="Contract FAQs" faqs={faqs.map((faq) => ({ question: faq.q, answer: faq.a }))} />
 
       <ECGCTA />
     </div>

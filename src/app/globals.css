@@ -56,6 +56,38 @@ details[open] > summary::after {
   transform: rotate(225deg) translateY(-2px);
 }
 
+/* Keep legacy service FAQs visually aligned with SiteFAQ. */
+section details.group {
+  border: 1px solid rgb(241 245 249);
+  border-radius: 2rem;
+  background: rgb(248 250 252);
+  overflow: hidden;
+}
+
+section details.group > summary {
+  padding: 1.5rem 2rem;
+  background: transparent;
+  color: rgb(15 23 42);
+  font-weight: 700;
+}
+
+section details.group > summary:hover {
+  background: rgb(241 245 249);
+}
+
+section details.group > div,
+section details.group > p {
+  margin-top: 0;
+  padding: 1.5rem 2rem 2rem;
+  border-top: 1px solid rgb(226 232 240 / 0.5);
+  color: rgb(100 116 139);
+  line-height: 1.625;
+}
+
+.site-faq details > summary::after {
+  display: none;
+}
+
 .animate-on-scroll {
   @apply opacity-0 translate-y-4 transition-all duration-700 ease-out;
 }

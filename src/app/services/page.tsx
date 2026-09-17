@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ShieldCheck, CheckCircle, ArrowRight, Activity, Layout, Layers, Wind, Settings, Microscope, Scissors } from "lucide-react";
 import type { Metadata } from "next";
 import { getFAQSchema } from "@/lib/structured-data";
+import SiteFAQ from "@/components/SiteFAQ";
 import ClientMarquee from "@/components/sections/ClientMarquee";
 
 export const metadata: Metadata = {
@@ -196,27 +197,7 @@ export default function ServicesPage() {
 
       <ClientMarquee />
 
-      {/* FAQ - Scaled Down */}
-      <section className="py-16 md:py-24 bg-slate-50 border-y border-slate-200">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <p className="text-brand-600 font-black uppercase tracking-[0.25em] text-[10px] md:text-xs mb-4">Common Questions</p>
-            <h2 className="text-2xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter mb-6">Answers for hospital buyers and project teams</h2>
-            <p className="text-slate-600 text-sm md:text-lg leading-relaxed font-light">These questions help clarify how MedGenz supports planning, installation, and long-term healthcare infrastructure performance.</p>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-2">
-            {faqs.map((faq, index) => (
-              <details key={index} className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-lg transition-all">
-                <summary className="cursor-pointer list-none text-base md:text-lg font-black text-slate-900 flex items-center justify-between gap-4 uppercase tracking-tighter">
-                  <span className="flex items-start gap-3"><span className="text-brand-600 shrink-0">{index + 1}.</span>{faq.question}</span>
-                </summary>
-                <p className="mt-4 text-slate-600 leading-relaxed text-sm md:text-base font-light">{faq.answer}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+      <SiteFAQ faqs={faqs} description="These questions help clarify how MedGenz supports planning, installation, and long-term healthcare infrastructure performance." />
 
       {/* Trust Banner - Scaled Down */}
       <section className="py-16 md:py-24 bg-brand-600 relative overflow-hidden">

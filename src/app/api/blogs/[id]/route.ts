@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth/next";
 import slugify from "slugify";
+import { categorySlug, normalizeCategoryNames } from "@/lib/blog-categories";
 
 export async function GET(
   request: Request,
@@ -18,6 +19,7 @@ export async function GET(
         excerpt: true,
         coverImage: true,
         categories: true,
+        categoryLinks: { orderBy: { position: "asc" }, include: { category: { select: { id: true, name: true } } } },
         tags: true,
         authorName: true,
         readingTime: true,
@@ -33,7 +35,7 @@ export async function GET(
       return NextResponse.json({ error: "Blog not found" }, { status: 404 });
     }
 
-    return NextResponse.json(blog);
+    return NextResponse.json({ ...blog, categories: blog.categoryLinks.length ? blog.categoryLinks.map((link) => link.category.name) : blog.categories });
   } catch (error) {
     return NextResponse.json({ error: "Failed to fetch blog" }, { status: 500 });
   }
@@ -51,7 +53,7 @@ export async function PUT(
 
   try {
     const body = await request.json();
-    const { title, content, excerpt, coverImage, categories, tags, authorName, metaTitle, metaDescription, published, slug: manualSlug } = body;
+    const { title, content, excerpt, coverImage, categories, tags, authorName, metaTitle, metaDescription, published, slug: manualSlug, faqs } = body;
 
     const existingBlog = await prisma.blog.findUnique({
       where: { id: params.id },
@@ -75,6 +77,8 @@ export async function PUT(
       slug = manualSlug;
     }
 
+    const categoryNames = normalizeCategoryNames(categories);
+    const selectedCategories = categoryNames.length ? categoryNames : ["Healthcare"];
     const updatedBlog = await prisma.blog.update({
       where: { id: params.id },
       data: {
@@ -83,13 +87,22 @@ export async function PUT(
         content,
         excerpt,
         coverImage,
-        categories: categories || ["Healthcare"],
+        categories: selectedCategories,
         tags: tags || [],
         authorName,
         metaTitle,
         metaDescription,
         published,
+        faqs: Array.isArray(faqs) ? faqs : [],
       },
+    });
+
+    await prisma.$transaction(async (tx) => {
+      await tx.blogCategory.deleteMany({ where: { blogId: params.id } });
+      for (const [position, name] of selectedCategories.entries()) {
+        const category = await tx.category.upsert({ where: { name }, update: {}, create: { name, slug: categorySlug(name) } });
+        await tx.blogCategory.create({ data: { blogId: params.id, categoryId: category.id, position } });
+      }
     });
 
     return NextResponse.json(updatedBlog);

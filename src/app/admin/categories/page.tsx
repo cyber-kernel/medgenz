@@ -12,7 +12,9 @@ import {
   MoreVertical,
   Edit2,
   ExternalLink,
-  Plus
+  Plus,
+  Trash2,
+  Save
 } from 'lucide-react';
 
 interface Blog {
@@ -22,36 +24,60 @@ interface Blog {
   categories: string[];
 }
 
+interface Category {
+  id: string;
+  name: string;
+  blogs: { position: number; blog: Blog }[];
+}
+
 export default function AdminCategoriesPage() {
-  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [categoriesData, setCategoriesData] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [newCategory, setNewCategory] = useState('');
 
   useEffect(() => {
-    fetch('/api/blogs')
+    fetch('/api/categories')
       .then(res => res.json())
       .then(data => {
-        setBlogs(data);
+        setCategoriesData(data);
         setLoading(false);
       });
   }, []);
 
-  // Extract unique categories and map blogs to them
-  const categoryMap: Record<string, Blog[]> = {};
-  blogs.forEach(blog => {
-    if (blog.categories && Array.isArray(blog.categories)) {
-      blog.categories.forEach(cat => {
-        if (!categoryMap[cat]) categoryMap[cat] = [];
-        categoryMap[cat].push(blog);
-      });
-    }
-  });
-
-  const categories = Object.keys(categoryMap).sort();
-
-  const filteredCategories = categories.filter(cat =>
-    cat.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredCategories = categoriesData.filter(category =>
+    category.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const createCategory = async () => {
+    if (!newCategory.trim()) return;
+    const res = await fetch('/api/categories', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: newCategory }) });
+    if (res.ok) { setNewCategory(''); setCategoriesData([...categoriesData, { ...(await res.json()), blogs: [] }].sort((a, b) => a.name.localeCompare(b.name))); }
+    else alert((await res.json()).error || 'Unable to create category');
+  };
+
+  const renameCategory = async (category: Category) => {
+    const name = prompt('Rename category', category.name)?.trim();
+    if (!name || name === category.name) return;
+    const res = await fetch('/api/categories', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: category.id, name }) });
+    if (res.ok) setCategoriesData(categoriesData.map((item) => item.id === category.id ? { ...item, name } : item));
+    else alert((await res.json()).error || 'Unable to rename category');
+  };
+
+  const deleteCategory = async (category: Category) => {
+    if (!confirm(`Remove category "${category.name}"? Articles will remain published in their other categories.`)) return;
+    const res = await fetch(`/api/categories?id=${category.id}`, { method: 'DELETE' });
+    if (res.ok) setCategoriesData(categoriesData.filter((item) => item.id !== category.id));
+  };
+
+  const reorderArticles = async (category: Category, index: number, direction: -1 | 1) => {
+    const next = [...category.blogs];
+    const target = index + direction;
+    if (target < 0 || target >= next.length) return;
+    [next[index], next[target]] = [next[target], next[index]];
+    const res = await fetch(`/api/categories/${category.id}/order`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ blogIds: next.map((link) => link.blog.id) }) });
+    if (res.ok) setCategoriesData(categoriesData.map((item) => item.id === category.id ? { ...item, blogs: next.map((link, position) => ({ ...link, position })) } : item));
+  };
 
   return (
     <div className="p-8 space-y-8">
@@ -64,6 +90,8 @@ export default function AdminCategoriesPage() {
           <Plus className="w-5 h-5" /> New Article
         </Link>
       </div>
+
+      <div className="flex gap-3"><input value={newCategory} onChange={(e) => setNewCategory(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && createCategory()} placeholder="Create a category" className="flex-1 rounded-2xl border border-slate-100 bg-white px-5 py-4 outline-none focus:ring-4 focus:ring-brand-600/10" /><button onClick={createCategory} className="inline-flex items-center gap-2 rounded-2xl bg-slate-900 px-6 py-4 text-xs font-black uppercase tracking-widest text-white"><Plus className="w-4 h-4" /> Add</button></div>
 
       <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden">
         <div className="p-8 border-b border-slate-50 flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -87,39 +115,40 @@ export default function AdminCategoriesPage() {
             [...Array(6)].map((_, i) => (
               <div key={i} className="h-64 bg-white rounded-3xl animate-pulse border border-slate-100" />
             ))
-          ) : filteredCategories.map((cat) => (
-            <div key={cat} className="bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col group">
+          ) : filteredCategories.map((category) => (
+            <div key={category.id} className="bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col group">
               <div className="p-6 border-b border-slate-50 flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-brand-50 flex items-center justify-center text-brand-600">
                     <Folder className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="font-black text-slate-900 uppercase tracking-tight text-lg leading-none">{cat}</h3>
-                    <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mt-1.5">{categoryMap[cat].length} Linked Blogs</p>
+                    <h3 className="font-black text-slate-900 uppercase tracking-tight text-lg leading-none">{category.name}</h3>
+                    <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mt-1.5">{category.blogs.length} Linked Blogs</p>
                   </div>
                 </div>
+                <div className="flex gap-1"><button onClick={() => renameCategory(category)} className="p-2 text-slate-400 hover:text-blue-600" aria-label="Rename category"><Edit2 className="w-4 h-4" /></button><button onClick={() => deleteCategory(category)} className="p-2 text-slate-400 hover:text-red-600" aria-label="Delete category"><Trash2 className="w-4 h-4" /></button></div>
               </div>
 
               <div className="p-4 space-y-1 flex-grow overflow-y-auto max-h-60">
-                {categoryMap[cat].map(blog => (
+                {category.blogs.map((link, index) => (
                   <Link
-                    key={blog.id}
-                    href={`/admin/blogs/${blog.id}/edit`}
+                    key={link.blog.id}
+                    href={`/admin/blogs/${link.blog.id}/edit`}
                     className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 transition-colors group/item"
                   >
                     <div className="flex items-center gap-3 overflow-hidden">
                       <FileText className="w-3.5 h-3.5 text-slate-300 shrink-0" />
-                      <span className="text-xs font-bold text-slate-600 truncate">{blog.title}</span>
+                      <span className="text-xs font-bold text-slate-600 truncate">{index + 1}. {link.blog.title}</span>
                     </div>
-                    <Edit2 className="w-3 h-3 text-slate-300 opacity-0 group-hover/item:opacity-100 transition-opacity shrink-0" />
+                    <span className="flex gap-1" onClick={(e) => e.preventDefault()}><button onClick={() => reorderArticles(category, index, -1)} disabled={index === 0} className="text-xs disabled:opacity-30" aria-label="Move article up">↑</button><button onClick={() => reorderArticles(category, index, 1)} disabled={index === category.blogs.length - 1} className="text-xs disabled:opacity-30" aria-label="Move article down">↓</button></span>
                   </Link>
                 ))}
               </div>
 
               <div className="p-4 bg-slate-50 border-t border-slate-100 mt-auto">
                 <Link
-                  href={`/blogs?category=${encodeURIComponent(cat)}`}
+                  href={`/blogs?category=${encodeURIComponent(category.name)}`}
                   target="_blank"
                   className="w-full py-3.5 bg-white border border-slate-200 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-brand-600 hover:border-brand-500 transition-all flex items-center justify-center gap-2 shadow-sm"
                 >

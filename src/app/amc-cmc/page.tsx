@@ -69,43 +69,43 @@ export default function AMCCMCPage() {
         </div>
       </section>
       {/* 3. CALCULATOR AND CONTRACT INFORMATION */}
-      <section className="py-10 md:py-16 bg-slate-50 border-y border-slate-100">
-        <div className="max-w-7xl mx-auto px-6 text-center mb-8">
+      <section className="py-5 md:py-7 bg-slate-50 border-y border-slate-100">
+        <div className="max-w-7xl mx-auto px-6 text-center mb-4 md:mb-5">
           <span className="text-brand-600 font-bold uppercase tracking-widest text-[10px] mb-1 block">Interactive Tool</span>
-          <h2 className="text-xl md:text-3xl font-black text-slate-900 uppercase tracking-tighter">Estimate Your <span className="text-brand-600">Contract Cost</span></h2>
-          <div className="w-12 h-1 bg-brand-600 mx-auto rounded-full mt-3" />
+          <h2 className="text-xl md:text-2xl font-black text-slate-900 uppercase tracking-tighter">Estimate Your <span className="text-brand-600">Contract Cost</span></h2>
+          <div className="w-12 h-1 bg-brand-600 mx-auto rounded-full mt-2" />
         </div>
-        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-[minmax(0,1.15fr)_minmax(340px,0.85fr)] gap-6 lg:gap-8 items-start text-left">
+        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-[minmax(0,1.15fr)_minmax(340px,0.85fr)] gap-4 lg:gap-6 items-start text-left">
           <div className="min-w-0 rounded-[2rem] bg-white/50">
             <AMCCMCCalculator />
           </div>
-          <div className="space-y-3 pt-2 lg:pt-4">
-            <h2 className="text-2xl md:text-3xl font-black text-slate-900 uppercase tracking-tighter text-center md:text-left">Maintenance <span className="text-brand-600">Simplified</span></h2>
-            <p className="text-slate-600 leading-relaxed font-light text-xs md:text-sm text-center md:text-left">
+          <div className="space-y-2 pt-1 lg:pt-2">
+            <h2 className="text-xl md:text-2xl font-black text-slate-900 uppercase tracking-tighter text-center md:text-left">Maintenance <span className="text-brand-600">Simplified</span></h2>
+            <p className="text-slate-600 leading-snug font-light text-[11px] md:text-xs text-center md:text-left">
               Medical equipment requires more than just repairs; it needs a continuous lifecycle management strategy. Our contracts are designed to shift the burden of maintenance from doctors to engineers.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
-              <div className="bg-white p-4 md:p-5 rounded-2xl border border-slate-100 space-y-2 shadow-sm">
-                <h3 className="text-base md:text-lg font-bold text-slate-900 uppercase tracking-tight">What is AMC?</h3>
-                <p className="text-xs text-slate-500 leading-relaxed font-light">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 pt-1">
+              <div className="bg-white p-3 md:p-4 rounded-2xl border border-slate-100 space-y-1.5 shadow-sm">
+                <h3 className="text-sm md:text-base font-bold text-slate-900 uppercase tracking-tight">What is AMC?</h3>
+                <p className="text-[11px] text-slate-500 leading-snug font-light">
                   An <strong>Annual Maintenance Contract</strong> covers the labor charges for service and preventive maintenance. If a part breaks, it is billed separately. Ideal for new equipment still under component warranty.
                 </p>
               </div>
 
-              <div className="bg-brand-600 p-4 md:p-5 rounded-2xl text-white shadow-xl shadow-brand-600/20 space-y-2">
-                <h3 className="text-base md:text-lg font-bold uppercase tracking-tight text-white">What is CMC?</h3>
-                <p className="text-xs text-brand-50 leading-relaxed font-light">
+              <div className="bg-brand-600 p-3 md:p-4 rounded-2xl text-white shadow-xl shadow-brand-600/20 space-y-1.5">
+                <h3 className="text-sm md:text-base font-bold uppercase tracking-tight text-white">What is CMC?</h3>
+                <p className="text-[11px] text-brand-50 leading-snug font-light">
                   A <strong>Comprehensive Maintenance Contract</strong> is the "Ultimate" protection. It covers labor, service, and the full cost of all spare parts. It provides a fixed annual budget with zero financial surprises.
                 </p>
               </div>
             </div>
 
-            <div className="relative pt-1">
+            <div className="relative pt-0.5">
             <div className="absolute -top-12 -left-12 w-64 h-64 bg-brand-600/5 rounded-full blur-[80px]" />
-              <div className="relative bg-white rounded-2xl p-4 md:p-5 border border-slate-100 space-y-3 shadow-sm">
-                <h3 className="text-lg md:text-xl font-black text-slate-900 uppercase tracking-widest text-center whitespace-nowrap">MedGenz Advantage</h3>
-                <div className="grid grid-cols-2 gap-x-3 gap-y-3">
+              <div className="relative bg-white rounded-2xl p-3 md:p-4 border border-slate-100 space-y-2 shadow-sm">
+                <h3 className="text-base md:text-lg font-black text-slate-900 uppercase tracking-widest text-center whitespace-nowrap">MedGenz Advantage</h3>
+                <div className="grid grid-cols-2 gap-x-3 gap-y-2">
                   {[
                     { t: "NABL Calibration", d: "Standard on all critical devices." },
                     { t: "24/7 Helpline", d: "Direct access to biomedical experts." },
@@ -115,8 +115,8 @@ export default function AMCCMCPage() {
                     <div key={i} className="flex gap-2">
                       <CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" />
                       <div>
-                        <p className="font-bold text-slate-900 uppercase text-[10px] tracking-wider">{item.t}</p>
-                        <p className="text-[11px] text-slate-500 font-light leading-tight">{item.d}</p>
+                        <p className="font-bold text-slate-900 uppercase text-[9px] tracking-wider">{item.t}</p>
+                        <p className="text-[10px] text-slate-500 font-light leading-tight">{item.d}</p>
                       </div>
                     </div>
                   ))}

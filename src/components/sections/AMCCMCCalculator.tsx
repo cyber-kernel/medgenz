@@ -38,7 +38,7 @@ export default function AMCCMCCalculator() {
     <div className="w-full max-w-none mx-auto py-2 px-0 font-inter">
       <div className="bg-white rounded-[2rem] shadow-xl border border-slate-100 overflow-hidden grid lg:grid-cols-2">
 
-        <div className="p-5 md:p-7 space-y-4 bg-slate-50/50">
+        <div className="p-4 md:p-5 space-y-3 bg-slate-50/50">
           <div className="flex items-center gap-3 mb-1">
             <div className="w-10 h-10 rounded-lg bg-brand-600 flex items-center justify-center text-white shadow-lg shadow-brand-600/20">
               <Calculator className="w-5 h-5" />
@@ -49,7 +49,7 @@ export default function AMCCMCCalculator() {
             </div>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             {/* Equipment Price */}
             <div className="space-y-2">
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Purchase Price (₹)</label>
@@ -59,7 +59,7 @@ export default function AMCCMCCalculator() {
                   type="number"
                   value={price}
                   onChange={(e) => setPrice(Number(e.target.value))}
-                  className="w-full bg-white border border-slate-200 rounded-xl py-4 pl-10 pr-4 outline-none focus:border-brand-600 focus:ring-4 focus:ring-brand-600/5 transition-all font-bold text-slate-900 text-base"
+                  className="w-full bg-white border border-slate-200 rounded-xl py-3 pl-10 pr-4 outline-none focus:border-brand-600 focus:ring-4 focus:ring-brand-600/5 transition-all font-bold text-slate-900 text-base"
                 />
               </div>
               <input
@@ -69,7 +69,7 @@ export default function AMCCMCCalculator() {
                 step="50000"
                 value={price}
                 onChange={(e) => setPrice(Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-600"
+                className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-600"
               />
             </div>
 
@@ -79,7 +79,7 @@ export default function AMCCMCCalculator() {
                 type="button"
                 onClick={() => setType('amc')}
                 className={cn(
-                  "p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-1 group",
+                  "p-3 rounded-xl border-2 transition-all flex flex-col items-center gap-1 group",
                   type === 'amc' ? "bg-brand-600 border-brand-600 text-white shadow-lg shadow-brand-600/20" : "bg-white border-slate-100 text-slate-400 hover:border-brand-200"
                 )}
               >
@@ -90,7 +90,7 @@ export default function AMCCMCCalculator() {
                 type="button"
                 onClick={() => setType('cmc')}
                 className={cn(
-                  "p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-1 group",
+                  "p-3 rounded-xl border-2 transition-all flex flex-col items-center gap-1 group",
                   type === 'cmc' ? "bg-brand-600 border-brand-600 text-white shadow-lg shadow-brand-600/20" : "bg-white border-slate-100 text-slate-400 hover:border-brand-200"
                 )}
               >
@@ -108,7 +108,7 @@ export default function AMCCMCCalculator() {
                     key={cat.id}
                     onClick={() => setCategory(cat)}
                     className={cn(
-                      "flex items-center justify-center p-3 rounded-lg border text-center transition-all",
+                      "flex items-center justify-center p-2 rounded-lg border text-center transition-all",
                       category.id === cat.id ? "bg-white border-brand-600 ring-2 ring-brand-600/10" : "bg-white/50 border-slate-100 opacity-60 hover:opacity-100 hover:border-brand-200"
                     )}
                   >
@@ -127,7 +127,7 @@ export default function AMCCMCCalculator() {
                     key={v}
                     onClick={() => setAge(v)}
                     className={cn(
-                      "flex-1 py-3 rounded-lg text-xs font-black transition-all",
+                      "flex-1 py-2 rounded-lg text-xs font-black transition-all",
                       age === v ? "bg-slate-900 text-white" : "bg-white text-slate-400 hover:bg-slate-100"
                     )}
                   >
@@ -140,11 +140,11 @@ export default function AMCCMCCalculator() {
         </div>
 
         {/* RIGHT: OUTPUT */}
-        <div className="p-5 md:p-7 bg-white flex flex-col justify-center border-t lg:border-t-0 lg:border-l border-slate-100">
-          <div className="space-y-5">
+        <div className="p-4 md:p-5 bg-white flex flex-col justify-center border-t lg:border-t-0 lg:border-l border-slate-100">
+          <div className="space-y-3">
             <div className="text-center space-y-2">
               <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Estimated Annual Fee</p>
-              <div className="text-5xl md:text-6xl font-black text-slate-900 tracking-tighter">
+              <div className="text-5xl md:text-6xl font-black text-slate-900 tracking-tighter leading-none">
                 ₹{estimate.toLocaleString()}
                 <span className="text-sm text-slate-400 align-baseline ml-2 font-bold uppercase tracking-widest">/ Year</span>
               </div>
@@ -152,7 +152,7 @@ export default function AMCCMCCalculator() {
 
             <div className="space-y-3 max-w-sm mx-auto">
               <h4 className="text-[10px] font-black text-brand-600 uppercase tracking-[0.2em] border-b border-slate-100 pb-2 text-center">Included in {type.toUpperCase()}</h4>
-              <div className="space-y-2.5">
+              <div className="space-y-1.5">
                 {[
                   "4 Preventive Maintenance visits",
                   "Unlimited Breakdown Calls",
@@ -169,14 +169,14 @@ export default function AMCCMCCalculator() {
               </div>
             </div>
 
-            <div className="bg-brand-50 border border-brand-100 rounded-xl p-3 flex gap-2">
+            <div className="bg-brand-50 border border-brand-100 rounded-xl p-2 flex gap-2">
               <AlertCircle className="w-4 h-4 text-brand-600 shrink-0" />
               <p className="text-[9px] text-brand-900 leading-relaxed">
                 Algorithm-based estimate. Actual quotes vary by model and location.
               </p>
             </div>
 
-            <button className="w-full bg-slate-900 text-white py-3 rounded-xl font-black uppercase tracking-widest text-[10px] hover:bg-brand-600 transition-all shadow-lg shadow-slate-900/10 mt-2">
+            <button className="w-full bg-slate-900 text-white py-2.5 rounded-xl font-black uppercase tracking-widest text-[10px] hover:bg-brand-600 transition-all shadow-lg shadow-slate-900/10 mt-1">
               Get Formal Proposal
             </button>
           </div>

@@ -1,7 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
-import { CheckCircle2, Star } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 import AMCCMCCalculator from '@/components/sections/AMCCMCCalculator';
+import ReviewSlider from '@/components/sections/ReviewSlider';
 import ECGCTA from '@/components/sections/ECGCTA';
 import SiteFAQ from '@/components/SiteFAQ';
 
@@ -78,7 +79,7 @@ export default function AMCCMCPage() {
           <div className="min-w-0 rounded-[2rem] bg-white/50">
             <AMCCMCCalculator />
           </div>
-          <div className="space-y-4 pt-2 lg:pt-8">
+          <div className="space-y-4 pt-2 lg:pt-5">
             <h2 className="text-2xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter text-center md:text-left">Maintenance <span className="text-brand-600">Simplified</span></h2>
             <p className="text-slate-600 leading-relaxed font-light text-sm md:text-base text-center md:text-left">
               Medical equipment requires more than just repairs; it needs a continuous lifecycle management strategy. Our contracts are designed to shift the burden of maintenance from doctors to engineers.
@@ -99,27 +100,27 @@ export default function AMCCMCPage() {
                 </p>
               </div>
             </div>
-          </div>
 
-          <div className="relative pt-2 lg:pt-8">
+            <div className="relative pt-2 lg:pt-3">
             <div className="absolute -top-12 -left-12 w-64 h-64 bg-brand-600/5 rounded-full blur-[80px]" />
-            <div className="relative bg-white rounded-[2rem] p-7 md:p-8 border border-slate-100 space-y-6 shadow-sm">
-              <h3 className="text-xl font-black text-slate-900 uppercase tracking-widest text-center">MedGenz Advantage</h3>
-              <div className="space-y-6">
-                {[
-                  { t: "NABL Calibration", d: "Standard on all critical devices." },
-                  { t: "24/7 Helpline", d: "Direct access to biomedical experts." },
-                  { t: "OEM Spare Parts", d: "Zero compromise on component quality." },
-                  { t: "Software Updates", d: "Keeping your devices technologically current." }
-                ].map((item, i) => (
-                  <div key={i} className="flex gap-4">
-                    <CheckCircle2 className="w-6 h-6 text-green-500 shrink-0" />
-                    <div>
-                      <p className="font-bold text-slate-900 uppercase text-xs tracking-wider">{item.t}</p>
-                      <p className="text-sm text-slate-500 font-light">{item.d}</p>
+              <div className="relative bg-white rounded-[2rem] p-6 md:p-7 border border-slate-100 space-y-4 shadow-sm">
+                <h3 className="text-xl font-black text-slate-900 uppercase tracking-widest text-center whitespace-nowrap">MedGenz Advantage</h3>
+                <div className="space-y-4">
+                  {[
+                    { t: "NABL Calibration", d: "Standard on all critical devices." },
+                    { t: "24/7 Helpline", d: "Direct access to biomedical experts." },
+                    { t: "OEM Spare Parts", d: "Zero compromise on component quality." },
+                    { t: "Software Updates", d: "Keeping your devices technologically current." }
+                  ].map((item, i) => (
+                    <div key={i} className="flex gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-green-500 shrink-0" />
+                      <div>
+                        <p className="font-bold text-slate-900 uppercase text-xs tracking-wider">{item.t}</p>
+                        <p className="text-sm text-slate-500 font-light">{item.d}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -136,24 +137,7 @@ export default function AMCCMCPage() {
             <h2 className="text-2xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter">Trusted by <span className="text-brand-600">Clinical Teams</span></h2>
             <div className="w-16 h-1 bg-brand-600 mx-auto rounded-full mt-4" />
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {reviews.map((review) => (
-              <article key={review.name} className="rounded-2xl border border-slate-100 bg-slate-50 p-5 shadow-sm">
-                <div className="flex items-center justify-between gap-3 mb-4">
-                  <div className="flex text-yellow-400" aria-label={`${review.rating} out of 5 stars`}>
-                    {[...Array(5)].map((_, index) => <Star key={index} className={`h-4 w-4 ${index < review.rating ? 'fill-current' : 'text-slate-200'}`} />)}
-                  </div>
-                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Partner feedback</span>
-                </div>
-                <p className="text-sm leading-relaxed text-slate-600 font-light">“{review.quote}”</p>
-                <div className="border-t border-slate-200 mt-5 pt-4">
-                  <p className="text-xs font-black uppercase tracking-wider text-slate-900">{review.name}</p>
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-brand-600 mt-1">{review.role}</p>
-                  <p className="text-xs text-slate-400 mt-1">{review.hospital}</p>
-                </div>
-              </article>
-            ))}
-          </div>
+          <ReviewSlider reviews={reviews} />
         </div>
       </section>
 

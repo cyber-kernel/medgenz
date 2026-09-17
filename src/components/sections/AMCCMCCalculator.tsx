@@ -38,7 +38,7 @@ export default function AMCCMCCalculator() {
     <div className="w-full max-w-none mx-auto py-2 px-0 font-inter">
       <div className="bg-white rounded-[2rem] shadow-xl border border-slate-100 overflow-hidden grid lg:grid-cols-2">
 
-        <div className="p-6 md:p-10 space-y-6 bg-slate-50/50">
+        <div className="p-5 md:p-7 space-y-4 bg-slate-50/50">
           <div className="flex items-center gap-3 mb-1">
             <div className="w-10 h-10 rounded-lg bg-brand-600 flex items-center justify-center text-white shadow-lg shadow-brand-600/20">
               <Calculator className="w-5 h-5" />
@@ -49,9 +49,9 @@ export default function AMCCMCCalculator() {
             </div>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-4">
             {/* Equipment Price */}
-            <div className="space-y-3">
+            <div className="space-y-2">
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Purchase Price (₹)</label>
               <div className="relative group">
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-base">₹</span>
@@ -100,7 +100,7 @@ export default function AMCCMCCalculator() {
             </div>
 
             {/* Category Grid */}
-            <div className="space-y-3">
+            <div className="space-y-2">
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Category</label>
               <div className="grid grid-cols-2 gap-3">
                 {CATEGORIES.map((cat) => (
@@ -140,8 +140,8 @@ export default function AMCCMCCalculator() {
         </div>
 
         {/* RIGHT: OUTPUT */}
-        <div className="p-6 md:p-10 bg-white flex flex-col justify-center border-t lg:border-t-0 lg:border-l border-slate-100">
-          <div className="space-y-8">
+        <div className="p-5 md:p-7 bg-white flex flex-col justify-center border-t lg:border-t-0 lg:border-l border-slate-100">
+          <div className="space-y-5">
             <div className="text-center space-y-2">
               <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Estimated Annual Fee</p>
               <div className="text-5xl md:text-6xl font-black text-slate-900 tracking-tighter">
@@ -150,9 +150,9 @@ export default function AMCCMCCalculator() {
               </div>
             </div>
 
-            <div className="space-y-4 max-w-sm mx-auto">
+            <div className="space-y-3 max-w-sm mx-auto">
               <h4 className="text-[10px] font-black text-brand-600 uppercase tracking-[0.2em] border-b border-slate-100 pb-2 text-center">Included in {type.toUpperCase()}</h4>
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 {[
                   "4 Preventive Maintenance visits",
                   "Unlimited Breakdown Calls",
@@ -176,7 +176,7 @@ export default function AMCCMCCalculator() {
               </p>
             </div>
 
-            <button className="w-full bg-slate-900 text-white py-3.5 rounded-xl font-black uppercase tracking-widest text-[10px] hover:bg-brand-600 transition-all shadow-lg shadow-slate-900/10 mt-4">
+            <button className="w-full bg-slate-900 text-white py-3 rounded-xl font-black uppercase tracking-widest text-[10px] hover:bg-brand-600 transition-all shadow-lg shadow-slate-900/10 mt-2">
               Get Formal Proposal
             </button>
           </div>

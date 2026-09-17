@@ -19,6 +19,20 @@ const socialLinks = [
     href: 'https://www.facebook.com/medgenz.india.pvt.ltd',
     color: 'bg-[#1877F2]',
   },
+  {
+    name: 'Instagram',
+    icon: Instagram,
+    href: 'https://www.instagram.com/medgenz_india_pvt_ltd/',
+    color: 'bg-[#E4405F]',
+  },
+];
+
+const serviceLinks = [
+  { name: 'Modular Operation Theatre', href: '/services/modular-operation-theatre' },
+  { name: 'Medical Gas Pipeline System', href: '/services/medical-gas-pipeline-system' },
+  { name: 'Hospital Furniture', href: '/services/hospital-furniture' },
+  { name: 'Nurse Call System', href: '/services/nurse-call-system' },
+  { name: 'Curtain Track System', href: '/services/curtain-track-system' },
 ];
 
 const quickLinks = [
@@ -39,7 +53,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-[#1c1e21] pt-16 md:pt-20 pb-8 md:pb-10 px-4 md:px-6 border-t border-gray-800">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-10 md:gap-12 mb-12 md:mb-20">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-5 gap-10 md:gap-12 mb-12 md:mb-20">
         <div className="col-span-2">
           <div className="flex items-center gap-2 mb-6">
             <div className="bg-white p-2 rounded shadow-sm">
@@ -68,6 +82,19 @@ export default function Footer() {
               </a>
             ))}
           </div>
+        </div>
+
+        <div>
+          <h4 className="text-white font-bold mb-6">Services</h4>
+          <ul className="space-y-4 text-[13px] md:text-sm text-gray-400">
+            {serviceLinks.map((link) => (
+              <li key={link.name}>
+                <Link href={link.href} className="hover:text-brand-500 transition-colors">
+                  {link.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div>

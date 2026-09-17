@@ -2,12 +2,13 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { Calendar, User, ArrowLeft, ArrowRight, Share2, Facebook, Twitter, Linkedin, Clock, Bookmark } from "lucide-react";
+import { Calendar, User, ArrowLeft, ArrowRight, Clock, Bookmark } from "lucide-react";
 import type { Metadata } from "next";
 import { isContentEmpty, normalizeRichText } from "@/lib/content-utils";
 import BlogSidebar from "@/components/sections/BlogSidebar";
 import RelatedBlogs from "@/components/sections/RelatedBlogs";
 import SiteFAQ from "@/components/SiteFAQ";
+import BlogShareButtons from "@/components/sections/BlogShareButtons";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -281,16 +282,10 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
               <div className="mt-24 pt-12 border-t border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-10">
                  <div className="flex items-center gap-6">
                     <span className="text-xs font-black text-slate-900 uppercase tracking-[0.2em]">Share Insight:</span>
-                    <div className="flex gap-3">
-                       {[
-                         { icon: Facebook, label: 'Facebook' },
-                         { icon: Linkedin, label: 'LinkedIn' }
-                       ].map((item) => (
-                         <button key={item.label} className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-brand-600 hover:text-white transition-all shadow-sm hover:shadow-lg hover:shadow-brand-600/20">
-                            <item.icon className="w-5 h-5" />
-                         </button>
-                       ))}
-                    </div>
+                    <BlogShareButtons
+                     url={`https://www.medgenz.com/blogs/${blog.slug}`}
+                     title={blog.title}
+                    />
                  </div>
 
                  <Link href="/blogs" className="flex items-center gap-3 text-brand-600 font-black uppercase tracking-widest text-[11px] hover:gap-5 transition-all group">

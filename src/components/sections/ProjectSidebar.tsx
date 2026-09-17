@@ -4,13 +4,8 @@ import React from 'react';
 import {
   Phone,
   Mail,
-  ShieldCheck,
-  CheckCircle,
   ArrowRight,
-  ClipboardCheck,
-  FileSearch,
-  Users,
-  Clock
+  FileSearch
 } from 'lucide-react';
 
 interface ProjectSidebarProps {
@@ -47,7 +42,6 @@ export default function ProjectSidebar({ specs, location, service }: ProjectSide
 
         <div className="relative z-10 mb-4">
           <div className="flex items-center gap-2.5 mb-1.5">
-            <ShieldCheck className="w-5 h-5 text-brand-500" />
             <h3 className="text-base font-black uppercase tracking-tighter">Compliance <span className="text-brand-500">Ready</span></h3>
           </div>
           <p className="text-slate-400 text-[10px] font-light leading-snug">
@@ -57,14 +51,13 @@ export default function ProjectSidebar({ specs, location, service }: ProjectSide
 
         <div className="grid grid-cols-2 gap-2 relative z-10">
           {[
-            { icon: CheckCircle, text: 'NABH Protocol' },
-            { icon: ClipboardCheck, text: 'ISO Certified' },
-            { icon: Users, text: 'Expert Team' },
-            { icon: Clock, text: 'On-Time' }
+            'NABH Protocol',
+            'ISO Certified',
+            'Expert Team',
+            'On-Time'
           ].map((item, i) => (
             <div key={i} className="flex items-center gap-2 p-2 rounded-lg bg-white/5 border border-white/5">
-              <item.icon className="w-3 h-3 text-brand-500 shrink-0" />
-              <span className="text-[8px] font-bold uppercase tracking-widest text-slate-300 truncate">{item.text}</span>
+              <span className="text-[8px] font-bold uppercase tracking-widest text-slate-300 truncate">{item}</span>
             </div>
           ))}
         </div>

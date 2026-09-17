@@ -898,20 +898,20 @@ export default async function MGPSProductPage({ params }: { params: Promise<{ sl
       </section>
 
       {/* INTERNAL ENGINEERING */}
-      <section className="py-12 md:py-24 px-4 md:px-6 bg-white border-b border-gray-200">
+      <section className="py-6 md:py-10 px-6 md:px-10 bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-8 md:mb-16">
+          <div className="text-center mb-6 md:mb-10">
             <span className="text-brand-600 font-bold uppercase tracking-widest text-[10px] md:text-sm mb-1 md:mb-2 block">Internal Engineering</span>
-            <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4 text-gray-900 uppercase tracking-tighter">Anatomy of <span className="text-brand-600">Safety</span></h2>
-            <div className="w-16 md:w-20 h-1 bg-brand-600 mx-auto rounded-full mb-4 md:mb-6"></div>
+            <h2 className="text-2xl md:text-3xl font-bold mb-2 md:mb-3 text-gray-900 uppercase tracking-tighter">Anatomy of <span className="text-brand-600">Safety</span></h2>
+            <div className="w-12 h-1 bg-brand-600 mx-auto rounded-full mb-3 md:mb-4"></div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+          <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-2 md:gap-3">
             {data.engineering.map((eng, i) => (
-              <div key={i} className="bg-gray-50 rounded-3xl p-8 shadow-sm border border-gray-100 border-t-4 border-t-brand-600 flex flex-col h-full hover:-translate-y-2 transition-transform duration-300">
-                <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-tighter">{eng.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed mb-6 flex-grow font-light">{eng.desc}</p>
-                <ul className="list-none text-gray-700 text-sm space-y-2 font-medium border-t border-gray-100 pt-4">
+              <div key={i} className="bg-gray-50 rounded-xl p-2 md:p-3 shadow-sm border border-gray-100 border-t-4 border-t-brand-600 flex flex-col hover:-translate-y-1 transition-transform duration-300">
+                <h3 className="text-[10px] sm:text-xs md:text-base font-bold text-gray-900 mb-2 uppercase tracking-tighter">{eng.title}</h3>
+                <p className="text-[10px] md:text-xs text-gray-600 leading-relaxed mb-3 font-light">{eng.desc}</p>
+                <ul className="list-none text-[10px] md:text-xs text-gray-700 space-y-1 font-medium border-t border-gray-100 pt-2">
                   {eng.bullets.map((b, bi) => (
                     <li key={bi} className="flex items-start gap-2 uppercase tracking-widest text-[10px]">
                       <span className="text-brand-50 font-bold bg-brand-600 rounded-full w-4 h-4 flex items-center justify-center shrink-0">•</span> {b}
@@ -925,20 +925,20 @@ export default async function MGPSProductPage({ params }: { params: Promise<{ sl
       </section>
 
       {/* APPLICATIONS */}
-      <section className="py-12 md:py-24 px-4 md:px-6 bg-white border-b border-gray-200">
+      <section className="py-6 md:py-10 px-6 md:px-10 bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-10 md:mb-16">
+          <div className="text-center mb-6 md:mb-10">
             <span className="text-brand-600 font-bold uppercase tracking-widest text-[10px] md:text-sm mb-1 md:mb-2 block">Where We Install</span>
-            <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4 text-gray-900 uppercase tracking-tighter">Key <span className="text-brand-600">Applications</span></h2>
-            <div className="w-16 md:w-20 h-1 bg-brand-600 mx-auto rounded-full mb-4 md:mb-6"></div>
+            <h2 className="text-2xl md:text-3xl font-bold mb-2 md:mb-3 text-gray-900 uppercase tracking-tighter">Key <span className="text-brand-600">Applications</span></h2>
+            <div className="w-12 h-1 bg-brand-600 mx-auto rounded-full mb-3 md:mb-4"></div>
           </div>
-          <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
             {data.applications.map((app, i) => (
-              <div key={i} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow flex flex-col">
-                <div className="aspect-square relative p-2 bg-gray-50">
+              <div key={i} className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow flex flex-col">
+                <div className="aspect-[3/2] relative p-1 bg-gray-50">
                   <Image src={app.image} alt={app.title} fill className="object-cover rounded-xl" />
                 </div>
-                <div className="p-3 md:p-4 text-center flex-grow flex items-center justify-center">
+                <div className="p-2 text-center flex-grow flex items-center justify-center">
                   <h3 className="font-bold text-gray-900 text-[10px] sm:text-xs md:text-sm leading-tight uppercase tracking-tighter">{app.title}</h3>
                 </div>
               </div>
@@ -948,18 +948,18 @@ export default async function MGPSProductPage({ params }: { params: Promise<{ sl
       </section>
 
       {/* WHY CHOOSE MEDGENZ */}
-      <section className="py-12 md:py-16 px-4 md:px-6 bg-white border-b border-gray-100">
-        <div className="max-w-7xl mx-auto bg-slate-50 p-8 md:p-12 rounded-[2rem] border border-slate-100">
-          <div className="text-center mb-8 md:mb-12 relative z-10">
+      <section className="py-6 md:py-10 px-4 md:px-6 bg-white border-b border-gray-100">
+        <div className="max-w-5xl mx-auto bg-slate-50 p-2 md:p-4 rounded-2xl border border-slate-100">
+          <div className="text-center mb-5 md:mb-8 relative z-10">
             <h2 className="text-2xl md:text-3xl font-bold mb-3 text-gray-900 uppercase tracking-tighter">Why Choose <span className="text-brand-600">MedGenz?</span></h2>
             <div className="w-12 h-1 bg-brand-600 mx-auto rounded-full mb-4"></div>
             <p className="text-gray-500 text-sm max-w-2xl mx-auto font-light">We don't just supply equipment; we engineer and execute complete turnkey hospital ecosystems.</p>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5 relative z-10">
+          <div className="max-w-4xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 relative z-10">
             {data.whyChoose.map((point, i) => (
-              <div key={i} className="bg-white p-3 md:p-6 rounded-2xl border border-slate-100 hover:shadow-md transition-all duration-300">
-                <div className="w-9 h-9 md:w-12 md:h-12 mb-3 md:mb-4 relative">
+              <div key={i} className="bg-white p-2 rounded-xl border border-slate-100 hover:shadow-md transition-all duration-300">
+                <div className="w-8 h-8 md:w-10 md:h-10 mb-2 relative">
                   <Image src={point.icon} alt={point.title} fill className="object-contain" />
                 </div>
                 <h3 className="text-[10px] sm:text-xs md:text-base font-bold text-gray-900 mb-2 uppercase tracking-tighter">{point.title}</h3>

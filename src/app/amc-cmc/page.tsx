@@ -79,44 +79,44 @@ export default function AMCCMCPage() {
           <div className="min-w-0 rounded-[2rem] bg-white/50">
             <AMCCMCCalculator />
           </div>
-          <div className="space-y-4 pt-2 lg:pt-5">
-            <h2 className="text-2xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter text-center md:text-left">Maintenance <span className="text-brand-600">Simplified</span></h2>
-            <p className="text-slate-600 leading-relaxed font-light text-sm md:text-base text-center md:text-left">
+          <div className="space-y-3 pt-2 lg:pt-4">
+            <h2 className="text-2xl md:text-3xl font-black text-slate-900 uppercase tracking-tighter text-center md:text-left">Maintenance <span className="text-brand-600">Simplified</span></h2>
+            <p className="text-slate-600 leading-relaxed font-light text-xs md:text-sm text-center md:text-left">
               Medical equipment requires more than just repairs; it needs a continuous lifecycle management strategy. Our contracts are designed to shift the burden of maintenance from doctors to engineers.
             </p>
 
-            <div className="grid grid-cols-1 gap-4 pt-4">
-              <div className="bg-white p-6 md:p-7 rounded-[2rem] border border-slate-100 space-y-3 shadow-sm">
-                <h3 className="text-xl font-bold text-slate-900 uppercase tracking-tight">What is AMC?</h3>
-                <p className="text-sm text-slate-500 leading-relaxed font-light">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+              <div className="bg-white p-4 md:p-5 rounded-2xl border border-slate-100 space-y-2 shadow-sm">
+                <h3 className="text-base md:text-lg font-bold text-slate-900 uppercase tracking-tight">What is AMC?</h3>
+                <p className="text-xs text-slate-500 leading-relaxed font-light">
                   An <strong>Annual Maintenance Contract</strong> covers the labor charges for service and preventive maintenance. If a part breaks, it is billed separately. Ideal for new equipment still under component warranty.
                 </p>
               </div>
 
-              <div className="bg-brand-600 p-6 md:p-7 rounded-[2rem] text-white shadow-xl shadow-brand-600/20 space-y-3">
-                <h3 className="text-xl font-bold uppercase tracking-tight text-white">What is CMC?</h3>
-                <p className="text-sm text-brand-50 leading-relaxed font-light">
+              <div className="bg-brand-600 p-4 md:p-5 rounded-2xl text-white shadow-xl shadow-brand-600/20 space-y-2">
+                <h3 className="text-base md:text-lg font-bold uppercase tracking-tight text-white">What is CMC?</h3>
+                <p className="text-xs text-brand-50 leading-relaxed font-light">
                   A <strong>Comprehensive Maintenance Contract</strong> is the "Ultimate" protection. It covers labor, service, and the full cost of all spare parts. It provides a fixed annual budget with zero financial surprises.
                 </p>
               </div>
             </div>
 
-            <div className="relative pt-2 lg:pt-3">
+            <div className="relative pt-1">
             <div className="absolute -top-12 -left-12 w-64 h-64 bg-brand-600/5 rounded-full blur-[80px]" />
-              <div className="relative bg-white rounded-[2rem] p-6 md:p-7 border border-slate-100 space-y-4 shadow-sm">
-                <h3 className="text-xl font-black text-slate-900 uppercase tracking-widest text-center whitespace-nowrap">MedGenz Advantage</h3>
-                <div className="space-y-4">
+              <div className="relative bg-white rounded-2xl p-4 md:p-5 border border-slate-100 space-y-3 shadow-sm">
+                <h3 className="text-lg md:text-xl font-black text-slate-900 uppercase tracking-widest text-center whitespace-nowrap">MedGenz Advantage</h3>
+                <div className="grid grid-cols-2 gap-x-3 gap-y-3">
                   {[
                     { t: "NABL Calibration", d: "Standard on all critical devices." },
                     { t: "24/7 Helpline", d: "Direct access to biomedical experts." },
                     { t: "OEM Spare Parts", d: "Zero compromise on component quality." },
                     { t: "Software Updates", d: "Keeping your devices technologically current." }
                   ].map((item, i) => (
-                    <div key={i} className="flex gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-green-500 shrink-0" />
+                    <div key={i} className="flex gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" />
                       <div>
-                        <p className="font-bold text-slate-900 uppercase text-xs tracking-wider">{item.t}</p>
-                        <p className="text-sm text-slate-500 font-light">{item.d}</p>
+                        <p className="font-bold text-slate-900 uppercase text-[10px] tracking-wider">{item.t}</p>
+                        <p className="text-[11px] text-slate-500 font-light leading-tight">{item.d}</p>
                       </div>
                     </div>
                   ))}

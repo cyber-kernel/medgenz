@@ -81,22 +81,22 @@ export default function AMCCMCPage() {
           </div>
           <div className="space-y-2 pt-1 lg:pt-2">
             <h2 className="text-xl md:text-2xl font-black text-slate-900 uppercase tracking-tighter text-center md:text-left">Maintenance <span className="text-brand-600">Simplified</span></h2>
-            <p className="text-slate-600 leading-snug font-light text-[11px] md:text-xs text-center md:text-left">
-              Medical equipment requires more than just repairs; it needs a continuous lifecycle management strategy. Our contracts are designed to shift the burden of maintenance from doctors to engineers.
+            <p className="text-slate-600 leading-snug font-light text-sm text-center md:text-left">
+              Medical equipment needs continuous lifecycle care, not just repairs. Our contracts move the maintenance responsibility from doctors to trained engineers.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2 pt-1">
               <div className="bg-white p-3 md:p-4 rounded-2xl border border-slate-100 space-y-1.5 shadow-sm">
                 <h3 className="text-sm md:text-base font-bold text-slate-900 uppercase tracking-tight">What is AMC?</h3>
-                <p className="text-[11px] text-slate-500 leading-snug font-light">
-                  An <strong>Annual Maintenance Contract</strong> covers the labor charges for service and preventive maintenance. If a part breaks, it is billed separately. Ideal for new equipment still under component warranty.
+                <p className="text-sm text-slate-500 leading-snug font-light">
+                  An <strong>Annual Maintenance Contract</strong> covers service and preventive-maintenance labor. Spare parts are billed separately, making it ideal for newer equipment under component warranty.
                 </p>
               </div>
 
               <div className="bg-brand-600 p-3 md:p-4 rounded-2xl text-white shadow-xl shadow-brand-600/20 space-y-1.5">
                 <h3 className="text-sm md:text-base font-bold uppercase tracking-tight text-white">What is CMC?</h3>
-                <p className="text-[11px] text-brand-50 leading-snug font-light">
-                  A <strong>Comprehensive Maintenance Contract</strong> is the "Ultimate" protection. It covers labor, service, and the full cost of all spare parts. It provides a fixed annual budget with zero financial surprises.
+                <p className="text-sm text-brand-50 leading-snug font-light">
+                  A <strong>Comprehensive Maintenance Contract</strong> covers labor, service, and all spare parts. It provides complete protection with a fixed annual budget and no unexpected repair costs.
                 </p>
               </div>
             </div>
@@ -115,8 +115,8 @@ export default function AMCCMCPage() {
                     <div key={i} className="flex gap-2">
                       <CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" />
                       <div>
-                        <p className="font-bold text-slate-900 uppercase text-[9px] tracking-wider">{item.t}</p>
-                        <p className="text-[10px] text-slate-500 font-light leading-tight">{item.d}</p>
+                        <p className="font-bold text-slate-900 uppercase text-xs tracking-wider">{item.t}</p>
+                        <p className="text-xs text-slate-500 font-light leading-tight">{item.d}</p>
                       </div>
                     </div>
                   ))}

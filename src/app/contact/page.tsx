@@ -102,7 +102,7 @@ export default function ContactPage() {
     "@type": "ContactPage",
     "mainEntity": {
       "@type": "Organization",
-      "name": "MedGenz",
+      "name": "MedGenz India Pvt. Ltd.",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Plot No. 87 F/F kh No. 31/25, sector-3, matiala",

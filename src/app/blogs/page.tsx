@@ -63,7 +63,7 @@ export default async function BlogListingPage({ searchParams }: BlogListingPageP
     "description": "Insights and trends in hospital infrastructure and medical engineering.",
     "publisher": {
       "@type": "Organization",
-      "name": "MedGenz",
+      "name": "MedGenz India Pvt. Ltd.",
       "logo": {
         "@type": "ImageObject",
         "url": "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/og-medgenz-logo-2.jpg"

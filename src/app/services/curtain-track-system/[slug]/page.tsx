@@ -392,7 +392,7 @@ export default async function CTSProductPage({ params }: { params: Promise<{ slu
     "description": data.heroDesc,
     "brand": {
       "@type": "Brand",
-      "name": "MedGenz"
+      "name": "MedGenz India Pvt. Ltd."
     },
     "image": data.heroImage,
     "offers": {

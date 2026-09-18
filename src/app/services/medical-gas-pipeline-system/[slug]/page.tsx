@@ -804,7 +804,7 @@ export default async function MGPSProductPage({ params }: { params: Promise<{ sl
     "description": data.heroDesc,
     "brand": {
       "@type": "Brand",
-      "name": "MedGenz"
+      "name": "MedGenz India Pvt. Ltd."
     },
     "image": data.heroImage,
     "offers": {

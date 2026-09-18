@@ -796,7 +796,7 @@ export default async function FurnitureProductPage({ params }: { params: Promise
     "description": data.heroDesc,
     "brand": {
       "@type": "Brand",
-      "name": "MedGenz"
+      "name": "MedGenz India Pvt. Ltd."
     },
     "image": data.heroImage,
     "offers": {

@@ -111,7 +111,7 @@ export default function ServicesPage() {
     "serviceType": "Healthcare Infrastructure Manufacturing & Installation",
     "provider": {
       "@type": "Organization",
-      "name": "MedGenz",
+      "name": "MedGenz India Pvt. Ltd.",
       "url": "https://www.medgenz.com"
     },
     "hasOfferCatalog": {

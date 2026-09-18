@@ -10,8 +10,8 @@ export interface SchemaOrgType {
 export const getOrganizationSchema = (): SchemaOrgType => ({
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "MedGenz India Private Limited",
-  legalName: "MedGenz India Private Limited",
+  name: "MedGenz India Pvt. Ltd.",
+  legalName: "MedGenz India Pvt. Ltd.",
   alternateName: "MedGenz",
   url: "https://www.medgenz.com",
   logo: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
@@ -51,7 +51,7 @@ export const getOrganizationSchema = (): SchemaOrgType => ({
 export const getLocalBusinessSchema = (): SchemaOrgType => ({
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  name: "MedGenz India Private Limited",
+  name: "MedGenz India Pvt. Ltd.",
   alternateName: "MedGenz",
   image: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
   description:
@@ -90,7 +90,7 @@ export const getServiceSchema = (
   url: serviceUrl,
   provider: {
     "@type": "Organization",
-    name: "MedGenz",
+    name: "MedGenz India Pvt. Ltd.",
     url: "https://www.medgenz.com",
     logo: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
   },
@@ -174,7 +174,7 @@ export const getArticleSchema = (article: ArticleData): SchemaOrgType => ({
   },
   publisher: {
     "@type": "Organization",
-    name: "MedGenz",
+    name: "MedGenz India Pvt. Ltd.",
     logo: {
       "@type": "ImageObject",
       url: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
@@ -202,11 +202,11 @@ export const getProductSchema = (product: ProductData): SchemaOrgType => ({
   url: product.url,
   brand: {
     "@type": "Brand",
-    name: "MedGenz",
+    name: "MedGenz India Pvt. Ltd.",
   },
   manufacturer: {
     "@type": "Organization",
-    name: "MedGenz",
+    name: "MedGenz India Pvt. Ltd.",
   },
   ...(product.price && {
     offers: {
@@ -233,7 +233,7 @@ export const getContactPointSchema = (): SchemaOrgType => ({
 export const getWebsiteSchema = (): SchemaOrgType => ({
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "MedGenz India Private Limited",
+  name: "MedGenz India Pvt. Ltd.",
   alternateName: "MedGenz",
   url: "https://www.medgenz.com",
   potentialAction: {

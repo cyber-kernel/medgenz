@@ -10,6 +10,40 @@ import RelatedBlogs from "@/components/sections/RelatedBlogs";
 import SiteFAQ from "@/components/SiteFAQ";
 import BlogShareButtons from "@/components/sections/BlogShareButtons";
 
+interface TableOfContentsItem {
+  id: string;
+  label: string;
+  level: number;
+}
+
+function getTableOfContents(html: string): { items: TableOfContentsItem[]; content: string } {
+  const usedIds = new Set<string>();
+  const items: TableOfContentsItem[] = [];
+  const content = normalizeRichText(html).replace(
+    /<h([2-6])([^>]*)>([\s\S]*?)<\/h\1>/gi,
+    (heading, level, attributes, innerHtml) => {
+      const label = innerHtml.replace(/<[^>]*>/g, '').replace(/&nbsp;/gi, ' ').trim();
+      if (!label) return heading;
+
+      const baseId = label
+        .toLowerCase()
+        .replace(/&amp;/g, 'and')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '') || `section-${items.length + 1}`;
+      let id = baseId;
+      let suffix = 2;
+      while (usedIds.has(id)) id = `${baseId}-${suffix++}`;
+      usedIds.add(id);
+      items.push({ id, label, level: Number(level) });
+
+      const withoutId = attributes.replace(/\sid=(['"]).*?\1/gi, '');
+      return `<h${level}${withoutId} id="${id}">${innerHtml}</h${level}>`;
+    }
+  );
+
+  return { items, content };
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const blog = await prisma.blog.findUnique({
@@ -154,6 +188,7 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
   const allCategories = Array.from(categorySet).sort();
 
   const hasContent = !isContentEmpty(blog.content);
+  const tableOfContents = getTableOfContents(blog.content || '');
 
   // JSON-LD Breadcrumb
   const breadcrumbJsonLd = {
@@ -268,7 +303,7 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
                     prose-blockquote:border-l-4 prose-blockquote:border-brand-600 prose-blockquote:bg-slate-50 prose-blockquote:py-6 prose-blockquote:px-8 prose-blockquote:rounded-r-2xl prose-blockquote:font-light prose-blockquote:italic prose-blockquote:text-slate-700
                     prose-a:text-brand-600 prose-a:font-bold prose-a:no-underline hover:prose-a:underline
                     prose-li:text-slate-600 prose-li:font-light prose-li:marker:text-brand-600"
-                    dangerouslySetInnerHTML={{ __html: normalizeRichText(blog.content) }}
+                    dangerouslySetInnerHTML={{ __html: tableOfContents.content }}
                   />
                 </div>
               ) : (
@@ -298,8 +333,8 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
             <div className="w-full lg:w-1/3">
               <BlogSidebar
                 categories={blog.categories}
-                tags={blog.tags}
                 allCategories={allCategories}
+                tableOfContents={tableOfContents.items}
               />
             </div>
 

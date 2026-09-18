@@ -20,6 +20,7 @@ import {
 import ECGCTA from '@/components/sections/ECGCTA';
 import ClientMarquee from '@/components/sections/ClientMarquee';
 import Certifications from '@/components/sections/Certifications';
+import SiteFAQ from '@/components/SiteFAQ';
 
 // Note: metadata must be in a separate file or handled differently in a Client Component if using the metadata API.
 // For now, I'll keep it within the component scope or move it to a layout if needed by the framework.
@@ -265,30 +266,12 @@ export default function NurseCallSystemHub() {
       <Certifications />
       <ClientMarquee />
 
-      {/* FAQ */}
-      <section className="py-12 md:py-24 px-4 md:px-6 bg-white border-b border-gray-200 font-inter">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-3 uppercase tracking-tighter">Frequently Asked <span className="text-brand-600">Questions</span></h2>
-            <p className="text-gray-500 text-sm md:text-base">Technical details regarding our Turnkey Nurse Call Systems.</p>
-          </div>
-          <div className="space-y-4">
-            {faqs.map((faq, i) => (
-              <details key={i} className="group bg-gray-50 rounded-lg md:rounded-xl border border-gray-200 shadow-sm overflow-hidden" open={i === 0}>
-                <summary className="flex items-center justify-between p-3 md:p-5 font-bold text-gray-900 cursor-pointer hover:bg-white transition-colors">
-                  <span className="text-xs sm:text-sm md:text-lg flex items-start gap-2 md:gap-3">
-                    <span className="text-brand-600 shrink-0">{i + 1}.</span>
-                    {faq.q}
-                  </span>
-                </summary>
-                <div className="px-3 md:px-5 pb-3 md:pb-5 pt-1 text-gray-600 text-xs md:text-base leading-relaxed border-t border-gray-100 mt-2 font-light">
-                  <p className="mt-1 md:mt-2">{faq.a}</p>
-                </div>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+      <SiteFAQ
+        title="Frequently Asked Questions"
+        eyebrow="Common Questions"
+        description="Technical details regarding our Turnkey Nurse Call Systems."
+        faqs={faqs.map((faq) => ({ question: faq.q, answer: faq.a }))}
+      />
 
       <ECGCTA />
     </div>

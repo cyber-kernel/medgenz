@@ -175,9 +175,9 @@ export default function AboutClient() {
           >
             <div>
               <span className="text-brand-600 font-bold uppercase tracking-widest text-sm mb-3 block">Who We Are</span>
-              <h2 className="text-3xl md:text-5xl font-black text-slate-900 leading-tight tracking-tighter uppercase">
+              <h2 className="text-3xl md:text-5xl font-black text-slate-900 leading-tight pb-2 tracking-tighter uppercase whitespace-nowrap">
                 Setting the Standard in <br />
-                <span className="text-brand-600">Medical Engineering</span>
+                <span className="text-brand-600 py-2">Medical Engineering</span>
               </h2>
             </div>
 

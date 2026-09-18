@@ -10,10 +10,10 @@ function cn(...inputs: ClassValue[]) {
 }
 
 const CATEGORIES = [
-  { id: 'icu', name: 'ICU & Critical Care', rate: 1.1 },
-  { id: 'ot', name: 'Operation Theatre', rate: 1.2 },
-  { id: 'imaging', name: 'Imaging (X-Ray/C-Arm)', rate: 1.15 },
-  { id: 'ward', name: 'General Ward Equipment', rate: 1.0 },
+  { id: 'icu', name: 'Modular Operating Theatre', rate: 1.1 },
+  { id: 'ot', name: 'MGPS', rate: 1.2 },
+  { id: 'imaging', name: 'Hospital Furniture', rate: 1.15 },
+  { id: 'ward', name: 'Modular ICU', rate: 1.0 },
 ];
 
 export default function AMCCMCCalculator() {
@@ -144,9 +144,11 @@ export default function AMCCMCCalculator() {
           <div className="space-y-3">
             <div className="text-center space-y-2">
               <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Estimated Annual Fee</p>
-              <div className="text-5xl md:text-6xl font-black text-slate-900 tracking-tighter leading-none">
-                ₹{estimate.toLocaleString()}
-                <span className="text-sm text-slate-400 align-baseline ml-2 font-bold uppercase tracking-widest">/ Year</span>
+              <div className="flex flex-wrap items-end justify-center gap-2 leading-none">
+                <span className="text-[clamp(2.2rem,4vw,4rem)] font-black text-slate-900 tracking-tighter break-words">
+                  ₹{estimate.toLocaleString()}
+                </span>
+                <span className="text-[10px] md:text-xs text-slate-400 font-bold uppercase tracking-[0.2em] whitespace-nowrap">/ Year</span>
               </div>
             </div>
 
@@ -160,12 +162,16 @@ export default function AMCCMCCalculator() {
                   "Reports for NABH Audit",
                   type === 'cmc' ? "Spare Parts Replacement" : "Spare Parts (as actuals)",
                   "Response under 24 hours"
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <CheckCircle2 className={cn("w-4 h-4 shrink-0 mt-0.5", i === 4 && type === 'amc' ? "text-slate-300" : "text-green-500")} />
-                    <p className={cn("text-xs md:text-sm font-medium", i === 4 && type === 'amc' ? "text-slate-400 italic" : "text-slate-600")}>{item}</p>
-                  </div>
-                ))}
+                ].map((item, i) => {
+                  const isMuted = i === 4 && type === 'amc';
+
+                  return (
+                    <div key={i} className="flex items-start gap-3">
+                      <CheckCircle2 className={cn("w-4 h-4 shrink-0 mt-0.5", isMuted ? "text-slate-300" : "text-green-500")} />
+                      <p className={cn("text-xs md:text-sm font-medium leading-relaxed", isMuted ? "text-slate-500" : "text-slate-600")}>{item}</p>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 

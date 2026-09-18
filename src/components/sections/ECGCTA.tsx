@@ -4,8 +4,8 @@ import { Phone, MessageSquare, Calendar } from 'lucide-react';
 
 export default function ECGCTA() {
   return (
-    <section className="py-16 md:py-24 px-4 md:px-6 bg-white border-t border-gray-100">
-        <div className="max-w-5xl mx-auto bg-[#1c1e21] rounded-[2rem] p-8 md:p-16 text-center relative overflow-hidden shadow-2xl shadow-brand-900/20 border border-gray-800 group">
+    <section className="py-12 md:py-18 px-4 md:px-6 bg-white border-t border-gray-100">
+        <div className="max-w-4xl mx-auto bg-[#1c1e21] rounded-[1.5rem] p-6 md:p-10 text-center relative overflow-hidden shadow-2xl shadow-brand-900/20 border border-gray-800 group">
 
             <div className="absolute top-0 right-0 w-64 h-64 bg-brand-600 rounded-full blur-[80px] opacity-20 -mr-20 -mt-20 pointer-events-none transition-opacity duration-700 group-hover:opacity-30"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-600 rounded-full blur-[80px] opacity-20 -ml-20 -mb-20 pointer-events-none transition-opacity duration-700 group-hover:opacity-30"></div>

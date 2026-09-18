@@ -100,29 +100,6 @@ export default function AMCCMCPage() {
                 </p>
               </div>
             </div>
-
-            <div className="relative pt-0.5">
-            <div className="absolute -top-12 -left-12 w-64 h-64 bg-brand-600/5 rounded-full blur-[80px]" />
-              <div className="relative bg-white rounded-2xl p-3 md:p-4 border border-slate-100 space-y-2 shadow-sm">
-                <h3 className="text-base md:text-lg font-black text-slate-900 uppercase tracking-widest text-center whitespace-nowrap">MedGenz Advantage</h3>
-                <div className="grid grid-cols-2 gap-x-3 gap-y-2">
-                  {[
-                    { t: "NABL Calibration", d: "Standard on all critical devices." },
-                    { t: "24/7 Helpline", d: "Direct access to biomedical experts." },
-                    { t: "OEM Spare Parts", d: "Zero compromise on component quality." },
-                    { t: "Software Updates", d: "Keeping your devices technologically current." }
-                  ].map((item, i) => (
-                    <div key={i} className="flex gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" />
-                      <div>
-                        <p className="font-bold text-slate-900 uppercase text-xs tracking-wider">{item.t}</p>
-                        <p className="text-xs text-slate-500 font-light leading-tight">{item.d}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>

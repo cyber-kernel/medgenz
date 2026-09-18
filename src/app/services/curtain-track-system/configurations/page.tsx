@@ -12,6 +12,7 @@ import {
 import ECGCTA from '@/components/sections/ECGCTA';
 import ClientMarquee from '@/components/sections/ClientMarquee';
 import Certifications from '@/components/sections/Certifications';
+import SiteFAQ from '@/components/SiteFAQ';
 
 const configurations = [
   {
@@ -266,24 +267,23 @@ export default function CTSConfigurations() {
 
       {/* WHY CHOOSE MEDGENZ */}
       <section className="py-6 md:py-10 px-6 md:px-10 bg-white border-b border-gray-100">
-        <div className="max-w-5xl mx-auto bg-slate-50 p-2 md:p-4 rounded-2xl border border-slate-100 shadow-sm">
-          <div className="text-center mb-5 md:mb-8 relative z-10">
-            <h2 className="text-2xl md:text-3xl font-bold mb-3 text-gray-900 uppercase tracking-tighter">Why Choose <span className="text-brand-600">MedGenz?</span></h2>
-            <div className="w-12 h-1 bg-brand-600 mx-auto rounded-full mb-4"></div>
-            <p className="text-gray-500 text-sm max-w-2xl mx-auto font-light">We don't just supply tracks; we engineer and execute complete turnkey privacy systems.</p>
-          </div>
 
-          <div className="max-w-4xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 relative z-10">
-            {whyChoose.map((point, i) => (
-              <div key={i} className="bg-white p-2 rounded-xl border border-slate-100 hover:shadow-md transition-all duration-300">
-                <div className="w-8 h-8 md:w-10 md:h-10 mb-2 relative">
-                  <Image src={point.icon} alt={point.title} fill className="object-contain" />
-                </div>
-                <h3 className="text-[10px] sm:text-xs md:text-base font-bold text-gray-900 mb-2 uppercase tracking-tighter">{point.title}</h3>
-                <p className="text-[10px] md:text-xs text-gray-600 leading-relaxed font-light">{point.desc}</p>
+        <div className="text-center mb-5 md:mb-8 relative z-10">
+          <h2 className="text-2xl md:text-3xl font-bold mb-3 text-gray-900 uppercase tracking-tighter">Why Choose <span className="text-brand-600">MedGenz?</span></h2>
+          <div className="w-12 h-1 bg-brand-600 mx-auto rounded-full mb-4"></div>
+          <p className="text-gray-500 text-sm max-w-2xl mx-auto font-light">We don't just supply tracks; we engineer and execute complete turnkey privacy systems.</p>
+        </div>
+
+        <div className="max-w-4xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 relative z-10">
+          {whyChoose.map((point, i) => (
+            <div key={i} className="bg-white p-2 rounded-xl border border-slate-100 hover:shadow-md transition-all duration-300">
+              <div className="w-8 h-8 md:w-10 md:h-10 mb-2 relative">
+                <Image src={point.icon} alt={point.title} fill className="object-contain" />
               </div>
-            ))}
-          </div>
+              <h3 className="text-[10px] sm:text-xs md:text-base font-bold text-gray-900 mb-2 uppercase tracking-tighter">{point.title}</h3>
+              <p className="text-[10px] md:text-xs text-gray-600 leading-relaxed font-light">{point.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -326,31 +326,12 @@ export default function CTSConfigurations() {
       <Certifications />
       <ClientMarquee />
 
-      {/* FAQ */}
-      <section className="py-12 md:py-24 px-4 md:px-6 bg-white border-b border-gray-200">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-10 md:mb-14">
-            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-3 text-center uppercase tracking-tighter">Frequently Asked <span className="text-brand-600">Questions</span></h2>
-            <div className="w-16 h-1 bg-brand-600 mx-auto rounded-full mb-4"></div>
-            <p className="text-gray-500 text-sm md:text-base text-center font-light">Technical details regarding our hospital curtain track configurations.</p>
-          </div>
-          <div className="space-y-4">
-            {faqs.map((faq, i) => (
-              <details key={i} className="group bg-gray-50 rounded-lg md:rounded-xl border border-gray-200 shadow-sm overflow-hidden" open={i === 0}>
-                <summary className="flex items-center justify-between p-3 md:p-5 font-bold text-gray-900 cursor-pointer hover:bg-white transition-colors">
-                  <span className="text-sm md:text-base pr-4 flex items-start gap-3 text-left font-bold">
-                    <span className="text-brand-600 shrink-0">{i + 1}.</span>
-                    {faq.q}
-                  </span>
-                </summary>
-                <div className="px-3 md:px-5 pb-3 md:pb-5 pt-1 text-gray-600 text-xs md:text-base leading-relaxed border-t border-gray-100 mt-2 font-light">
-                  <p className="mt-1 md:mt-2">{faq.a}</p>
-                </div>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+      <SiteFAQ
+        title="Frequently Asked Questions"
+        eyebrow="Common Questions"
+        description="Technical details regarding our hospital curtain track configurations."
+        faqs={faqs.map((faq) => ({ question: faq.q, answer: faq.a }))}
+      />
 
       <ECGCTA />
     </div>

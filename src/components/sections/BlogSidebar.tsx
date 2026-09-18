@@ -26,21 +26,32 @@ export default function BlogSidebar({ categories, allCategories, tableOfContents
     <aside className="lg:sticky lg:top-28 space-y-4">
 
       {/* 1. TABLE OF CONTENTS */}
-      <div className="rounded-2xl border border-slate-200 bg-slate-950 p-5 text-white shadow-xl">
-        <div className="mb-4 flex items-center gap-2.5">
-          <ListTree className="h-5 w-5 text-brand-500" />
-          <h3 className="text-sm font-black uppercase tracking-[0.16em]">On this page</h3>
+      <div className="relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 p-5 text-white shadow-xl shadow-slate-900/10">
+        <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-brand-600/20 blur-2xl" />
+        <div className="relative mb-4 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600/15 text-brand-500">
+              <ListTree className="h-4 w-4" />
+            </div>
+            <div>
+              <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-brand-400">Navigate</p>
+              <h3 className="text-sm font-black uppercase tracking-[0.12em]">On this page</h3>
+            </div>
+          </div>
+          <span className="rounded-full border border-white/10 px-2 py-1 text-[9px] font-bold text-slate-400">
+            {String(tableOfContents.length).padStart(2, '0')}
+          </span>
         </div>
         {tableOfContents.length > 0 ? (
-          <nav aria-label="Table of contents">
-            <ol className="space-y-1.5">
+          <nav aria-label="Table of contents" className="relative border-l border-white/10 pl-2">
+            <ol className="space-y-1">
               {tableOfContents.map((item, index) => (
                 <li key={item.id} style={{ paddingLeft: `${Math.max(0, item.level - 2) * 0.75}rem` }}>
                   <a
                     href={`#${item.id}`}
-                    className="flex gap-2 rounded-lg px-2.5 py-2 text-[11px] font-bold leading-snug text-slate-300 transition-colors hover:bg-white/10 hover:text-brand-400"
+                    className="group flex gap-2 rounded-lg px-2.5 py-2 text-[11px] font-bold leading-snug text-slate-300 transition-colors hover:bg-white/10 hover:text-brand-400 focus-visible:bg-white/10 focus-visible:text-brand-400 focus-visible:outline-none"
                   >
-                    <span className="shrink-0 text-brand-500">{String(index + 1).padStart(2, '0')}</span>
+                    <span className="shrink-0 text-brand-500 transition-transform group-hover:translate-x-0.5">{String(index + 1).padStart(2, '0')}</span>
                     <span>{item.label}</span>
                   </a>
                 </li>

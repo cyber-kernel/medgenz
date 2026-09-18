@@ -37,7 +37,14 @@ function getTableOfContents(html: string): { items: TableOfContentsItem[]; conte
       items.push({ id, label, level: Number(level) });
 
       const withoutId = attributes.replace(/\sid=(['"]).*?\1/gi, '');
-      return `<h${level}${withoutId} id="${id}">${innerHtml}</h${level}>`;
+      const withScrollMargin = withoutId.replace(
+        /\sclass=(['"])(.*?)\1/i,
+        (_match: string, quote: string, classes: string) => ` class=${quote}${classes} scroll-mt-32 md:scroll-mt-40 target:bg-brand-50 target:px-3 target:py-2 target:rounded-xl${quote}`
+      );
+      const headingAttributes = withScrollMargin.includes('class=')
+        ? withScrollMargin
+        : `${withScrollMargin} class="scroll-mt-32 md:scroll-mt-40 target:bg-brand-50 target:px-3 target:py-2 target:rounded-xl"`;
+      return `<h${level}${headingAttributes} id="${id}">${innerHtml}</h${level}>`;
     }
   );
 
@@ -295,7 +302,7 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
               {hasContent ? (
                 <div className="article-content-shell">
                   <div
-                    className="prose prose-content prose-slate prose-sm md:prose-base max-w-none
+                    className="prose prose-content prose-slate prose-sm md:prose-base max-w-none scroll-smooth
                     prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tight prose-headings:text-slate-900
                     prose-p:text-slate-600 prose-p:font-light prose-p:leading-relaxed
                     prose-strong:font-black prose-strong:text-slate-900

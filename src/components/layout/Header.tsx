@@ -257,127 +257,82 @@ export default function Header() {
           {/* =====================================================
               MOBILE MENU BUTTON
           ===================================================== */}
-          <button
-            type="button"
-            aria-label="Open menu"
-            className={cn(
-              'md:hidden',
-              'p-2',
-              'rounded-lg',
-              'backdrop-blur-md',
-
-              shouldBeSolid
-                ? 'bg-slate-100'
-                : 'bg-white/10'
-            )}
-            onClick={() => setIsMobileMenuOpen(true)}
-          >
-            <Menu
+          <div className="relative md:hidden">
+            <button
+              type="button"
+              aria-expanded={isMobileMenuOpen}
+              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
               className={cn(
-                'w-6 h-6',
-
-                shouldUseDarkText
-                  ? 'text-slate-900'
-                  : 'text-white'
+                'relative flex size-10 items-center justify-center overflow-hidden',
+                'rounded-lg backdrop-blur-md transition-colors',
+                shouldBeSolid ? 'bg-slate-100' : 'bg-white/10'
               )}
-            />
-          </button>
+              onClick={() => setIsMobileMenuOpen((open) => !open)}
+            >
+              <span className="relative flex size-6 items-center justify-center">
+                <Menu
+                  aria-hidden="true"
+                  className={cn(
+                    'absolute size-6 transition-all duration-200',
+                    isMobileMenuOpen
+                      ? 'rotate-90 scale-75 opacity-0'
+                      : 'rotate-0 scale-100 opacity-100',
+                    shouldUseDarkText ? 'text-slate-900' : 'text-white'
+                  )}
+                />
+                <X
+                  aria-hidden="true"
+                  className={cn(
+                    'absolute size-6 transition-all duration-200',
+                    isMobileMenuOpen
+                      ? 'rotate-0 scale-100 opacity-100'
+                      : '-rotate-90 scale-75 opacity-0',
+                    shouldUseDarkText ? 'text-slate-900' : 'text-white'
+                  )}
+                />
+              </span>
+            </button>
+
+            <div
+              className={cn(
+                'absolute right-0 top-full mt-2 w-max min-w-[22vw] max-w-[calc(100vw-1rem)]',
+                'overflow-hidden rounded-xl border border-slate-200 bg-white p-1 shadow-2xl',
+                'origin-top transition-all duration-300 ease-out',
+                'uppercase tracking-widest',
+                isMobileMenuOpen
+                  ? 'visible scale-y-100 opacity-100'
+                  : 'invisible scale-y-0 opacity-0 pointer-events-none'
+              )}
+            >
+              <div className="flex flex-col gap-1 text-[9px] font-black leading-tight">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={cn(
+                      'whitespace-nowrap rounded-md px-2 py-2 text-center transition-colors',
+                      pathname === link.href
+                        ? 'bg-brand-50 text-brand-600'
+                        : 'text-slate-900 hover:bg-slate-50 hover:text-brand-600'
+                    )}
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+                <Link
+                  href="/contact"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="mt-1 whitespace-nowrap rounded-md bg-brand-600 px-2 py-2 text-center text-white transition-colors hover:bg-slate-900"
+                >
+                  Contact Us
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </nav>
 
-      {/* =========================================================
-          MOBILE MENU
-      ========================================================= */}
-      <div
-        className={cn(
-          'fixed top-[140px] left-4 right-4',
-          'bg-white',
-          'z-[110]',
-          'flex flex-col',
-          'items-center',
-          'justify-start',
-          'gap-2',
-          'p-6',
-          'rounded-2xl',
-          'border border-slate-100',
-          'shadow-2xl',
-          'max-h-[calc(100vh-156px)]',
-          'overflow-y-auto',
-          'text-base',
-          'font-black',
-          'transition-all',
-          'duration-500',
-          'uppercase',
-          'tracking-widest',
-
-          isMobileMenuOpen
-            ? 'translate-x-0 opacity-100'
-            : 'translate-x-full opacity-0 pointer-events-none'
-        )}
-      >
-        {/* Close */}
-        <button
-          type="button"
-          aria-label="Close menu"
-          className="
-            absolute
-            top-8
-            right-8
-            text-slate-900
-            hover:text-brand-600
-            transition-colors
-          "
-          onClick={() => setIsMobileMenuOpen(false)}
-        >
-          <X className="w-10 h-10" />
-        </button>
-
-        {/* Mobile Links */}
-        {navLinks.map((link) => (
-          <Link
-            key={link.name}
-            href={link.href}
-            onClick={() => setIsMobileMenuOpen(false)}
-            className={cn(
-              'w-full',
-              'py-3',
-              'text-center',
-              'hover:text-brand-600',
-              'transition-all',
-              'transform',
-              'hover:scale-110',
-
-              pathname === link.href
-                ? 'text-brand-600 underline underline-offset-8'
-                : 'text-slate-900'
-            )}
-          >
-            {link.name}
-          </Link>
-        ))}
-
-        {/* Mobile Contact */}
-        <Link
-          href="/contact"
-          onClick={() => setIsMobileMenuOpen(false)}
-          className="
-            bg-brand-600
-            text-white
-            w-full
-            max-w-xs
-            px-6
-            py-3
-            rounded-xl
-            text-center
-            hover:bg-slate-900
-            transition-all
-            shadow-2xl
-            shadow-brand-600/40
-          "
-        >
-          Contact Us
-        </Link>
-      </div>
     </>
   );
 }

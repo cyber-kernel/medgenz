@@ -1,6 +1,6 @@
 'use client';
 
-import { Facebook, Instagram, Linkedin } from 'lucide-react';
+import { Facebook, Instagram, Linkedin, Youtube } from 'lucide-react';
 
 interface BlogShareButtonsProps {
   url: string;
@@ -28,6 +28,12 @@ export default function BlogShareButtons({ url, title }: BlogShareButtonsProps) 
       icon: Instagram,
       href: 'https://www.instagram.com/medgenz_india_pvt_ltd/',
       className: 'hover:bg-[#E4405F] hover:text-white hover:border-[#E4405F]',
+    },
+    {
+      label: 'Visit MedGenz on YouTube',
+      icon: Youtube,
+      href: 'https://www.youtube.com/@MedGenzIndiaPvtLtd',
+      className: 'hover:bg-[#FF0000] hover:text-white hover:border-[#FF0000]',
     },
   ];
 

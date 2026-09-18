@@ -25,6 +25,12 @@ const socialLinks = [
     href: 'https://www.instagram.com/medgenz_india_pvt_ltd/',
     color: 'bg-[#E4405F]',
   },
+  {
+    name: 'YouTube',
+    icon: Youtube,
+    href: 'https://www.youtube.com/@MedGenzIndiaPvtLtd',
+    color: 'bg-[#FF0000]',
+  },
 ];
 
 const serviceLinks = [

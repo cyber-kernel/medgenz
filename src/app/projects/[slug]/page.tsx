@@ -62,7 +62,7 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
              <span className="text-brand-500">{project.location}</span>
           </nav>
 
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             <div className="flex items-center justify-center gap-4 mb-6">
                 {project.service && (
                   <span className="bg-brand-600 text-white text-[9px] font-black px-4 py-1.5 rounded-full tracking-widest shadow-lg shadow-brand-600/20">

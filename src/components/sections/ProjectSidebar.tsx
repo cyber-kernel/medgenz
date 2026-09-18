@@ -16,7 +16,7 @@ interface ProjectSidebarProps {
 
 export default function ProjectSidebar({ specs, location, service }: ProjectSidebarProps) {
   return (
-    <aside className="lg:sticky lg:top-28 space-y-4">
+    <aside className="lg:sticky lg:top-36 space-y-4">
 
       {/* 1. PROJECT HIGHLIGHTS - Professional & Compact */}
       {specs.length > 0 && (

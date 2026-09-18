@@ -268,11 +268,72 @@ section details.group > p {
 }
 
 .prose-content img,
-.prose-content table,
 .prose-content iframe,
 .prose-content video {
   max-width: 100% !important;
   height: auto;
+}
+
+.prose-content .article-table-wrap {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 2rem 0 2.5rem;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid rgb(226 232 240);
+  border-radius: 1rem;
+  background: white;
+  box-shadow: 0 12px 30px rgb(15 23 42 / 0.06);
+}
+
+.prose-content .article-table-wrap table {
+  width: 100% !important;
+  min-width: 640px !important;
+  max-width: none !important;
+  margin: 0 !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  table-layout: auto !important;
+  font-size: 0.9rem;
+  line-height: 1.45 !important;
+}
+
+.prose-content .article-table-wrap th,
+.prose-content .article-table-wrap td {
+  min-width: 8rem !important;
+  padding: 0.85rem 1rem !important;
+  border-right: 1px solid rgb(226 232 240) !important;
+  border-bottom: 1px solid rgb(226 232 240) !important;
+  vertical-align: top !important;
+  text-align: left !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+}
+
+.prose-content .article-table-wrap th:last-child,
+.prose-content .article-table-wrap td:last-child {
+  border-right: 0 !important;
+}
+
+.prose-content .article-table-wrap tr:last-child td {
+  border-bottom: 0 !important;
+}
+
+.prose-content .article-table-wrap thead th,
+.prose-content .article-table-wrap tr:first-child th {
+  background: rgb(15 23 42) !important;
+  color: white !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.02em;
+}
+
+.prose-content .article-table-wrap tbody tr:nth-child(even) td {
+  background: rgb(248 250 252) !important;
+}
+
+.prose-content .article-table-wrap tbody tr:hover td {
+  background: rgb(255 248 227) !important;
 }
 
 .prose-content a,

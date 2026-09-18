@@ -48,7 +48,11 @@ function getTableOfContents(html: string): { items: TableOfContentsItem[]; conte
     }
   );
 
-  return { items, content };
+  const responsiveContent = content
+    .replace(/<table\b([^>]*)>/gi, '<div class="article-table-wrap"><table$1>')
+    .replace(/<\/table>/gi, '</table></div>');
+
+  return { items, content: responsiveContent };
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {

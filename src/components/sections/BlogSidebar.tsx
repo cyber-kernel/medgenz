@@ -23,7 +23,7 @@ interface BlogSidebarProps {
 
 export default function BlogSidebar({ categories, allCategories, tableOfContents }: BlogSidebarProps) {
   return (
-    <aside className="lg:sticky lg:top-28 space-y-4">
+    <aside className="lg:sticky lg:top-36 space-y-4">
 
       {/* 1. TABLE OF CONTENTS */}
       <div className="relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 p-5 text-white shadow-xl shadow-slate-900/10">

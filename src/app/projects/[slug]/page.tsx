@@ -55,15 +55,15 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
           </div>
         )}
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <nav className="flex items-center gap-2 mb-8 text-[10px] font-bold uppercase tracking-widest text-slate-400">
+        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
+          <nav className="flex items-center justify-center gap-2 mb-8 text-[10px] font-bold uppercase tracking-widest text-slate-400">
              <Link href="/projects" className="hover:text-brand-400 transition-colors">Project Portfolio</Link>
              <span className="opacity-30">/</span>
              <span className="text-brand-500">{project.location}</span>
           </nav>
 
-          <div className="max-w-4xl">
-            <div className="flex items-center gap-4 mb-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center justify-center gap-4 mb-6">
                 {project.service && (
                   <span className="bg-brand-600 text-white text-[9px] font-black px-4 py-1.5 rounded-full tracking-widest shadow-lg shadow-brand-600/20">
                       {project.service}

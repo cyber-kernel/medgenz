@@ -172,6 +172,31 @@ section details.group > p {
   margin-right: auto;
 }
 
+/* Keep long admin documents inside the editor instead of scrolling the page. */
+.admin-rich-text-editor {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.admin-rich-text-editor .ql-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  flex: 0 0 auto;
+  background: white;
+}
+
+.admin-rich-text-editor .ql-container {
+  height: 28rem;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.admin-rich-text-editor .ql-editor {
+  min-height: 100%;
+}
+
 /* Floating Image Toolbar */
 .image-action-toolbar {
   position: absolute;
@@ -334,6 +359,14 @@ section details.group > p {
 
 .prose-content .article-table-wrap tbody tr:hover td {
   background: rgb(255 248 227) !important;
+}
+
+.prose-content a {
+  @apply font-bold text-brand-600 no-underline;
+}
+
+.prose-content a:hover {
+  @apply underline;
 }
 
 .prose-content a,

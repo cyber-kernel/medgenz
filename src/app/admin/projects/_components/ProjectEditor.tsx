@@ -437,20 +437,20 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
              <div className="space-y-4">
                 <h3 className="text-xl font-bold text-slate-900 uppercase">Brief</h3>
                 <div className="prose prose-slate max-w-none" data-section="brief">
-                    <QuillComp ref={(e: any) => { if(e) quillRefs.current.brief = e; }} theme="snow" value={brief} onChange={setBrief} modules={briefModules} className="min-h-[260px] border-none" scrollingContainer="body" />
+                    <QuillComp ref={(e: any) => { if(e) quillRefs.current.brief = e; }} theme="snow" value={brief} onChange={setBrief} modules={briefModules} className="admin-rich-text-editor border-none" />
                 </div>
              </div>
              <div className="grid md:grid-cols-2 gap-10">
                 <div className="space-y-4">
                     <h3 className="text-xl font-bold text-slate-900 uppercase">Challenge</h3>
                     <div className="prose prose-slate max-w-none" data-section="challenge">
-                        <QuillComp ref={(e: any) => { if(e) quillRefs.current.challenge = e; }} theme="snow" value={challenge} onChange={setChallenge} modules={challengeModules} className="min-h-[260px] border-none" scrollingContainer="body" />
+                        <QuillComp ref={(e: any) => { if(e) quillRefs.current.challenge = e; }} theme="snow" value={challenge} onChange={setChallenge} modules={challengeModules} className="admin-rich-text-editor border-none" />
                     </div>
                 </div>
                 <div className="space-y-4">
                     <h3 className="text-xl font-bold text-slate-900 uppercase">Solution</h3>
                     <div className="prose prose-slate max-w-none" data-section="solution">
-                        <QuillComp ref={(e: any) => { if(e) quillRefs.current.solution = e; }} theme="snow" value={solution} onChange={setSolution} modules={solutionModules} className="min-h-[260px] border-none" scrollingContainer="body" />
+                        <QuillComp ref={(e: any) => { if(e) quillRefs.current.solution = e; }} theme="snow" value={solution} onChange={setSolution} modules={solutionModules} className="admin-rich-text-editor border-none" />
                     </div>
                 </div>
              </div>

@@ -20,7 +20,7 @@ function getTableOfContents(html: string): { items: TableOfContentsItem[]; conte
   const usedIds = new Set<string>();
   const items: TableOfContentsItem[] = [];
   const content = normalizeRichText(html).replace(
-    /<h([2-6])([^>]*)>([\s\S]*?)<\/h\1>/gi,
+    /<h([1-2])([^>]*)>([\s\S]*?)<\/h\1>/gi,
     (heading, level, attributes, innerHtml) => {
       const label = innerHtml.replace(/<[^>]*>/g, '').replace(/&nbsp;/gi, ' ').trim();
       if (!label) return heading;

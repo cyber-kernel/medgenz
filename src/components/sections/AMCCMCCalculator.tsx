@@ -24,12 +24,9 @@ export default function AMCCMCCalculator() {
   const [estimate, setEstimate] = useState<number>(0);
 
   useEffect(() => {
-    // Base Rates: AMC = 4%, CMC = 8%
-    const basePercent = type === 'amc' ? 0.04 : 0.08;
+    const basePercent = type === 'amc' ? 0.10 : 0.15;
 
-    // Age Multiplier: +5% per year after year 3
     const ageMultiplier = age > 3 ? 1 + (age - 3) * 0.05 : 1.0;
-
     const calculated = price * basePercent * category.rate * ageMultiplier;
     setEstimate(Math.round(calculated));
   }, [price, type, category, age]);
@@ -99,6 +96,8 @@ export default function AMCCMCCalculator() {
               </button>
             </div>
 
+          </div>
+
             {/* Category Grid */}
             <div className="space-y-2">
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Category</label>
@@ -136,7 +135,6 @@ export default function AMCCMCCalculator() {
                 ))}
               </div>
             </div>
-          </div>
         </div>
 
         {/* RIGHT: OUTPUT */}

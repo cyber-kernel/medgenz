@@ -235,7 +235,7 @@ export const getWebsiteSchema = (): SchemaOrgType => ({
   "@type": "WebSite",
   name: "MedGenz India Pvt. Ltd.",
   alternateName: "MedGenz",
-  url: "https://www.medgenz.com",
+  url: "https://www.medgenz.com/",
   potentialAction: {
     "@type": "SearchAction",
     target: {

@@ -314,7 +314,7 @@ export default function MGPSHub() {
                 <div className="text-[9px] md:text-xs font-bold text-brand-600 flex items-center gap-1 md:gap-2 mt-auto">Open Document <ExternalLink className="w-3 h-3 md:w-4 md:h-4" /></div>
               </div>
             </a>
-            <Link href="#" className="group bg-white rounded-lg md:rounded-2xl border border-gray-200 shadow-sm hover:shadow-md hover:border-brand-300 transition-all overflow-hidden flex flex-col text-center md:text-left">
+            <a href="/MedGenz_HTM_02-01_Medical_Gas_Pipeline_System_Checklist.pdf" target="_blank" rel="noreferrer" className="group bg-white rounded-lg md:rounded-2xl border border-gray-200 shadow-sm hover:shadow-md hover:border-brand-300 transition-all overflow-hidden flex flex-col text-center md:text-left">
               <div className="h-16 md:h-40 bg-gray-100 flex items-center justify-center border-b border-gray-200 group-hover:bg-brand-50 transition-colors relative">
                 <FileText className="w-8 h-8 md:w-16 md:h-16 text-red-300 group-hover:text-red-500 transition-colors" />
               </div>
@@ -323,7 +323,7 @@ export default function MGPSHub() {
                 <p className="hidden md:block text-xs text-gray-500 mb-4 flex-grow font-light">PDF Document • Safety Standards</p>
                 <div className="text-[9px] md:text-xs font-bold text-brand-600 flex items-center gap-1 md:gap-2 mt-auto">Open Document <ExternalLink className="w-3 h-3 md:w-4 md:h-4" /></div>
               </div>
-            </Link>
+            </a>
           </div>
         </div>
       </section>

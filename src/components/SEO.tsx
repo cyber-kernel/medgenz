@@ -10,7 +10,7 @@ interface SEOProps {
 }
 
 const defaultSEO = {
-  title: 'MedGenz | Modular Operation Theatres & Medical Gas Pipeline System NABH and ISO certified turnkey solutions',
+  title: 'MedGenz India Pvt. Ltd. | Healthcare Infrastructure Solutions',
   description: 'MedGenz India Private Limited provides NABH and ISO certified turnkey solutions for Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure.',
   image: '/images/og-image.jpg',
   url: 'https://www.medgenz.com',
@@ -42,7 +42,7 @@ export default function SEO({
       <meta property="og:image" content={seoImage} />
       <meta property="og:url" content={seoUrl} />
       <meta property="og:type" content={seoType} />
-      <meta property="og:site_name" content="MedGenz" />
+      <meta property="og:site_name" content="MedGenz India Pvt. Ltd." />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />

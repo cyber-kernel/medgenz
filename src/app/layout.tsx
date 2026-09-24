@@ -7,7 +7,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import FAQAccordionController from "@/components/FAQAccordionController";
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { getOrganizationSchema, getWebsiteSchema } from "@/lib/structured-data";
+import { getOrganizationSchema } from "@/lib/structured-data";
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -38,7 +38,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "MedGenz | Modular Operation Theatres & Medical Gas Pipeline System NABH and ISO certified turnkey solutions",
+  title: "MedGenz India Pvt. Ltd. | Healthcare Infrastructure Solutions",
   description: "MedGenz India Private Limited provides NABH and ISO certified turnkey solutions for Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure.",
   keywords: [
     "Modular Operation Theatre",
@@ -68,8 +68,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: "https://www.medgenz.com",
-    siteName: "MedGenz India Private Limited",
-    title: "MedGenz | Modular Operation Theatres & Medical Gas Pipeline System NABH and ISO certified turnkey solutions",
+      siteName: "MedGenz India Pvt. Ltd.",
+      title: "MedGenz India Pvt. Ltd. | Healthcare Infrastructure Solutions",
     description:
       "MedGenz India Private Limited provides NABH and ISO certified turnkey solutions for Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure.",
     images: [
@@ -84,7 +84,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "MedGenz | Modular Operation Theatres & Medical Gas Pipeline System NABH and ISO certified turnkey solutions",
+    title: "MedGenz India Pvt. Ltd. | Healthcare Infrastructure Solutions",
     description:
       "MedGenz India Private Limited provides NABH and ISO certified turnkey solutions for Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure.",
     creator: "@medgenz",
@@ -113,7 +113,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const organizationSchema = getOrganizationSchema();
-  const websiteSchema = getWebsiteSchema();
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -130,7 +129,7 @@ export default function RootLayout({
         />
         {/* End Google Tag Manager */}
 
-        {/* Structured Data - Organization & Website */}
+        {/* Structured Data - Organization */}
         <script
           key="org-schema"
           type="application/ld+json"
@@ -139,15 +138,6 @@ export default function RootLayout({
             __html: JSON.stringify(organizationSchema),
           }}
         />
-        <script
-          key="site-schema"
-          type="application/ld+json"
-          suppressHydrationWarning
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(websiteSchema),
-          }}
-        />
-
         {/* Preconnect for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

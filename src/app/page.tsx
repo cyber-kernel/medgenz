@@ -6,6 +6,7 @@ import HomeSlider from '@/components/HomeSlider';
 import ClientMarquee from '@/components/sections/ClientMarquee';
 import ECGCTA from '@/components/sections/ECGCTA';
 import Testimonials from '@/components/sections/Testimonials';
+import { getWebsiteSchema } from '@/lib/structured-data';
 
 const stats = [
   { label: "Projects Done", value: "150+" },
@@ -145,6 +146,7 @@ const testimonials = [
 
 
 export default function Home() {
+  const websiteSchema = getWebsiteSchema();
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -171,6 +173,10 @@ export default function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
 
       {/* 1. HERO SECTION - Integrated Slider */}
@@ -214,7 +220,7 @@ export default function Home() {
             <span className="text-brand-600 font-bold uppercase tracking-widest text-[10px] block">Who We Are</span>
             <h2 className="text-xl md:text-3xl font-black text-slate-900 leading-tight uppercase tracking-tighter">Premier Manufacturer of <br /><span className="text-brand-600">Hospital Infrastructure</span></h2>
             <p className="text-slate-600 text-sm md:text-base leading-relaxed font-light">
-              Welcome to MedGenz. We are an ISO 9001:2015, ISO 13485:2016, and CE Certified organization engaged in Manufacturing, Supplying, and Exporting a wide array of Medical Gas Pipeline Systems (MGPS), Modular Operation Theatres, ICU Pendants, and Nurse Call Systems.
+              Welcome to MedGenz India Pvt. Ltd. We are an ISO 9001:2015, ISO 13485:2016, and CE Certified organization engaged in Manufacturing, Supplying, and Exporting a wide array of Medical Gas Pipeline Systems (MGPS), Modular Operation Theatres, ICU Pendants, and Nurse Call Systems.
             </p>
             <div className="space-y-3">
               {["Turnkey Hospital Projects", "Certified Quality Management", "In-house Manufacturing & R&D"].map((item, i) => (

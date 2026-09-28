@@ -33,7 +33,6 @@ export async function GET(request: Request) {
       { path: "/services/hospital-furniture", lastmod: new Date().toISOString(), priority: "0.8" },
       { path: "/services/nurse-call-system", lastmod: new Date().toISOString(), priority: "0.8" },
       { path: "/services/curtain-track-system", lastmod: new Date().toISOString(), priority: "0.8" },
-      { path: "/services/ivf-lab-setups", lastmod: new Date().toISOString(), priority: "0.8" },
       { path: "/services/surgical-pendants", lastmod: new Date().toISOString(), priority: "0.8" },
     ];
 

@@ -190,11 +190,25 @@ section details.group > p {
 .admin-rich-text-editor .ql-container {
   height: 28rem;
   min-height: 0;
-  overflow-y: auto;
+  overflow: auto;
 }
 
 .admin-rich-text-editor .ql-editor {
   min-height: 100%;
+}
+
+.admin-rich-text-editor .ql-editor table {
+  width: 100%;
+  min-width: 640px;
+  table-layout: auto;
+  border-collapse: collapse;
+}
+
+.admin-rich-text-editor .ql-editor th,
+.admin-rich-text-editor .ql-editor td {
+  min-width: 8rem;
+  padding: 0.5rem;
+  vertical-align: top;
 }
 
 /* Floating Image Toolbar */
@@ -324,9 +338,27 @@ section details.group > p {
   line-height: 1.45 !important;
 }
 
+.prose-content table {
+  display: table !important;
+  width: 100% !important;
+  min-width: 640px !important;
+  max-width: none !important;
+  table-layout: auto !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+}
+
+.prose-content tr {
+  display: table-row !important;
+}
+
 .prose-content .article-table-wrap th,
-.prose-content .article-table-wrap td {
+.prose-content .article-table-wrap td,
+.prose-content th,
+.prose-content td {
+  display: table-cell !important;
   min-width: 8rem !important;
+  max-width: none !important;
   padding: 0.85rem 1rem !important;
   border-right: 1px solid rgb(226 232 240) !important;
   border-bottom: 1px solid rgb(226 232 240) !important;
@@ -346,7 +378,10 @@ section details.group > p {
 }
 
 .prose-content .article-table-wrap thead th,
-.prose-content .article-table-wrap tr:first-child th {
+.prose-content .article-table-wrap tr:first-child th,
+.prose-content .article-table-wrap tr:first-child td,
+.prose-content tr:first-child th,
+.prose-content tr:first-child td {
   background: rgb(15 23 42) !important;
   color: white !important;
   font-weight: 800 !important;

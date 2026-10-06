@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Calendar, User, ArrowLeft, ArrowRight, Clock, Bookmark } from "lucide-react";
 import type { Metadata } from "next";
-import { isContentEmpty, normalizeRichText } from "@/lib/content-utils";
+import { isContentEmpty, wrapRichTextTables } from "@/lib/content-utils";
 import BlogSidebar from "@/components/sections/BlogSidebar";
 import RelatedBlogs from "@/components/sections/RelatedBlogs";
 import SiteFAQ from "@/components/SiteFAQ";
@@ -19,7 +19,7 @@ interface TableOfContentsItem {
 function getTableOfContents(html: string): { items: TableOfContentsItem[]; content: string } {
   const usedIds = new Set<string>();
   const items: TableOfContentsItem[] = [];
-  const content = normalizeRichText(html).replace(
+  const content = wrapRichTextTables(html).replace(
     /<h([1-2])([^>]*)>([\s\S]*?)<\/h\1>/gi,
     (heading, level, attributes, innerHtml) => {
       const label = innerHtml.replace(/<[^>]*>/g, '').replace(/&nbsp;/gi, ' ').trim();
@@ -48,11 +48,7 @@ function getTableOfContents(html: string): { items: TableOfContentsItem[]; conte
     }
   );
 
-  const responsiveContent = content
-    .replace(/<table\b([^>]*)>/gi, '<div class="article-table-wrap"><table$1>')
-    .replace(/<\/table>/gi, '</table></div>');
-
-  return { items, content: responsiveContent };
+  return { items, content };
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {

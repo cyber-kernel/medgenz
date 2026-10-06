@@ -197,6 +197,11 @@ section details.group > p {
   min-height: 100%;
 }
 
+.admin-rich-text-editor .ql-editor tr:first-child td {
+  background: #f1f5f9;
+  font-weight: 700;
+}
+
 /* Floating Image Toolbar */
 .image-action-toolbar {
   position: absolute;
@@ -351,6 +356,12 @@ section details.group > p {
   color: white !important;
   font-weight: 800 !important;
   letter-spacing: 0.02em;
+}
+
+.prose-content .article-table-wrap tr:first-child td {
+  background: rgb(241 245 249) !important;
+  color: rgb(15 23 42) !important;
+  font-weight: 800 !important;
 }
 
 .prose-content .article-table-wrap tbody tr:nth-child(even) td {

@@ -35,3 +35,9 @@ export function normalizeRichText(html: string | null | undefined): string {
     .replace(/&nbsp;|&#160;|&#xA0;/gi, ' ')
     .replace(/\u00a0/g, ' ');
 }
+
+export function wrapRichTextTables(html: string | null | undefined): string {
+  return normalizeRichText(html)
+    .replace(/<table\b([^>]*)>/gi, '<div class="article-table-wrap"><table$1>')
+    .replace(/<\/table>/gi, '</table></div>');
+}

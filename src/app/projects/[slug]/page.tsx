@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { prisma } from '@/lib/prisma';
 import type { Metadata } from 'next';
-import { isContentEmpty, normalizeRichText } from '@/lib/content-utils';
+import { isContentEmpty, wrapRichTextTables } from '@/lib/content-utils';
 import ProjectSidebar from '@/components/sections/ProjectSidebar';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -104,7 +104,7 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
                     <div className="article-content-shell">
                       <div
                         className="prose prose-content prose-slate prose-sm md:prose-base max-w-none text-left"
-                        dangerouslySetInnerHTML={{ __html: normalizeRichText(project.brief) }}
+                        dangerouslySetInnerHTML={{ __html: wrapRichTextTables(project.brief) }}
                       />
                     </div>
                   </div>
@@ -120,7 +120,7 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
                           </h3>
                           <div
                             className="prose prose-content prose-slate prose-sm text-slate-600 leading-relaxed"
-                            dangerouslySetInnerHTML={{ __html: normalizeRichText(project.challenge) }}
+                            dangerouslySetInnerHTML={{ __html: wrapRichTextTables(project.challenge) }}
                           />
                        </div>
                      )}
@@ -131,7 +131,7 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
                           </h3>
                           <div
                             className="prose prose-content prose-slate prose-sm text-slate-600 leading-relaxed"
-                            dangerouslySetInnerHTML={{ __html: normalizeRichText(project.solution) }}
+                            dangerouslySetInnerHTML={{ __html: wrapRichTextTables(project.solution) }}
                           />
                        </div>
                      )}

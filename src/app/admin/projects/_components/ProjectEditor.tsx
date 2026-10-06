@@ -24,6 +24,7 @@ import {
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import ReactCrop, { type Crop } from 'react-image-crop';
+import { installQuillTablePasteHandler, normalizeQuillTableMarkup } from '@/lib/quill-table-paste';
 import 'react-image-crop/dist/ReactCrop.css';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), {
@@ -108,9 +109,9 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
   const [published, setPublished] = useState(initialData?.published || false);
 
   // Content
-  const [brief, setBrief] = useState(initialData?.brief || '');
-  const [challenge, setChallenge] = useState(initialData?.challenge || '');
-  const [solution, setSolution] = useState(initialData?.solution || '');
+  const [brief, setBrief] = useState(normalizeQuillTableMarkup(initialData?.brief));
+  const [challenge, setChallenge] = useState(normalizeQuillTableMarkup(initialData?.challenge));
+  const [solution, setSolution] = useState(normalizeQuillTableMarkup(initialData?.solution));
 
   // JSON Fields
   const [highlights, setHighlights] = useState<string[]>(initialData?.highlights || ['', '']);
@@ -139,7 +140,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
             setTitle(data.title || ''); setSlug(data.slug || ''); setSubtitle(data.subtitle || '');
             setService(data.service || 'Modular OT'); setLocation(data.location || '');
             setHeroImage(data.heroImage || ''); setPublished(data.published || false);
-            setBrief(data.brief || ''); setChallenge(data.challenge || ''); setSolution(data.solution || '');
+            setBrief(normalizeQuillTableMarkup(data.brief)); setChallenge(normalizeQuillTableMarkup(data.challenge)); setSolution(normalizeQuillTableMarkup(data.solution));
             setHighlights(data.highlights || ['', '']); setSpecs(data.specs || [{label: '', value: ''}]);
             setMetaTitle(data.metaTitle || ''); setMetaDescription(data.metaDescription || '');
         }
@@ -437,20 +438,20 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
              <div className="space-y-4">
                 <h3 className="text-xl font-bold text-slate-900 uppercase">Brief</h3>
                 <div className="prose prose-slate max-w-none" data-section="brief">
-                    <QuillComp ref={(e: any) => { if(e) quillRefs.current.brief = e; }} theme="snow" value={brief} onChange={setBrief} modules={briefModules} className="admin-rich-text-editor border-none" />
+                    <QuillComp ref={(e: any) => { if(e) { quillRefs.current.brief = e; installQuillTablePasteHandler(e.getEditor()); } }} theme="snow" value={brief} onChange={setBrief} modules={briefModules} className="admin-rich-text-editor border-none" />
                 </div>
              </div>
              <div className="grid md:grid-cols-2 gap-10">
                 <div className="space-y-4">
                     <h3 className="text-xl font-bold text-slate-900 uppercase">Challenge</h3>
                     <div className="prose prose-slate max-w-none" data-section="challenge">
-                        <QuillComp ref={(e: any) => { if(e) quillRefs.current.challenge = e; }} theme="snow" value={challenge} onChange={setChallenge} modules={challengeModules} className="admin-rich-text-editor border-none" />
+                        <QuillComp ref={(e: any) => { if(e) { quillRefs.current.challenge = e; installQuillTablePasteHandler(e.getEditor()); } }} theme="snow" value={challenge} onChange={setChallenge} modules={challengeModules} className="admin-rich-text-editor border-none" />
                     </div>
                 </div>
                 <div className="space-y-4">
                     <h3 className="text-xl font-bold text-slate-900 uppercase">Solution</h3>
                     <div className="prose prose-slate max-w-none" data-section="solution">
-                        <QuillComp ref={(e: any) => { if(e) quillRefs.current.solution = e; }} theme="snow" value={solution} onChange={setSolution} modules={solutionModules} className="admin-rich-text-editor border-none" />
+                        <QuillComp ref={(e: any) => { if(e) { quillRefs.current.solution = e; installQuillTablePasteHandler(e.getEditor()); } }} theme="snow" value={solution} onChange={setSolution} modules={solutionModules} className="admin-rich-text-editor border-none" />
                     </div>
                 </div>
              </div>

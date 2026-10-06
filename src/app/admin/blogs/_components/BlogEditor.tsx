@@ -20,6 +20,7 @@ import {
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import ReactCrop, { type Crop } from 'react-image-crop';
+import { installQuillTablePasteHandler, normalizeQuillTableMarkup } from '@/lib/quill-table-paste';
 import 'react-image-crop/dist/ReactCrop.css';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), {
@@ -92,7 +93,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
 
   const [title, setTitle] = useState(initialData?.title || '');
   const [slug, setSlug] = useState(initialData?.slug || '');
-  const [content, setContent] = useState(initialData?.content || '');
+  const [content, setContent] = useState(normalizeQuillTableMarkup(initialData?.content));
   const [excerpt, setExcerpt] = useState(initialData?.excerpt || '');
   const [categories, setCategories] = useState<string>(initialData?.categories?.join(', ') || 'Healthcare');
   const [selectedCategories, setSelectedCategories] = useState<string[]>(initialData?.categories || ['Healthcare']);
@@ -125,7 +126,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
       try {
         const data = JSON.parse(savedDraft);
         if (!initialData || confirm('Restore unsaved blog draft?')) {
-            setTitle(data.title || ''); setSlug(data.slug || ''); setContent(data.content || '');
+            setTitle(data.title || ''); setSlug(data.slug || ''); setContent(normalizeQuillTableMarkup(data.content));
             setExcerpt(data.excerpt || ''); setCategories(data.categories || 'Healthcare'); setSelectedCategories(data.selectedCategories || data.categories?.split(',').map((value: string) => value.trim()).filter(Boolean) || ['Healthcare']);
             setCoverImage(data.coverImage || ''); setPublished(data.published || false);
             setMetaTitle(data.metaTitle || ''); setMetaDescription(data.metaDescription || ''); setFaqs(data.faqs || []);
@@ -361,7 +362,7 @@ export default function BlogEditor({ initialData, id }: BlogEditorProps) {
         <div className="lg:col-span-8 space-y-8">
           <div className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm space-y-8">
              <div className="space-y-2"><label className="text-xs font-black text-slate-400 uppercase tracking-widest">Title</label><input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full text-3xl font-black text-slate-900 outline-none border-none focus:ring-0 p-0" required /></div>
-             <div className="space-y-4"><label className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2"><FileText className="w-3 h-3" /> Content</label><div className="prose prose-slate max-w-none"><QuillComp ref={quillRef} theme="snow" value={content} onChange={setContent} modules={quillModules} className="admin-rich-text-editor border-none" /></div></div>
+             <div className="space-y-4"><label className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2"><FileText className="w-3 h-3" /> Content</label><div className="prose prose-slate max-w-none"><QuillComp ref={(instance: any) => { quillRef.current = instance; if (instance) installQuillTablePasteHandler(instance.getEditor()); }} theme="snow" value={content} onChange={setContent} modules={quillModules} className="admin-rich-text-editor border-none" /></div></div>
           </div>
           <div className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm space-y-6"><div className="flex items-center gap-3 mb-2"><Sparkles className="w-5 h-5 text-brand-600" /><h3 className="text-xl font-bold text-slate-900 uppercase text-xs">Excerpt</h3></div><textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value)} className="w-full h-32 p-6 rounded-2xl bg-slate-50 border-none outline-none focus:ring-4 focus:ring-brand-600/10 transition-all font-medium text-slate-600" /></div>
           <div className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm space-y-5">

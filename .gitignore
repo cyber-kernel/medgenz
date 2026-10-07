@@ -39,6 +39,8 @@ next-env.d.ts
 /prisma/migrations/*
 !/prisma/migrations/20260917100000_add_categories_and_blog_faqs/
 !/prisma/migrations/20260917100000_add_categories_and_blog_faqs/migration.sql
+!/prisma/migrations/20261007100000_add_contact_submissions/
+!/prisma/migrations/20261007100000_add_contact_submissions/migration.sql
 .prisma
 
 # uploads

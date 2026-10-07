@@ -21,6 +21,7 @@ export default function ContactPage() {
 
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
+  const [autoReplyStatus, setAutoReplyStatus] = useState<'sent' | 'failed'>('sent');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -51,6 +52,7 @@ export default function ContactPage() {
         }
 
         setStatus('success');
+        setAutoReplyStatus(result.autoReplyStatus === 'sent' ? 'sent' : 'failed');
         setFormData({ name: '', email: '', phone: '', subject: 'General Inquiry', designation: '', message: '' });
       } else {
         setStatus('error');
@@ -189,7 +191,9 @@ export default function ContactPage() {
                   </div>
                   <h3 className="text-3xl font-black text-slate-900 uppercase tracking-tighter">Inquiry Sent Successfully!</h3>
                   <p className="text-slate-500 text-lg font-light max-w-md mx-auto">
-                    Thank you for contacting MedGenz. Our engineering team will review your requirements and get back to you shortly.
+                    {autoReplyStatus === 'sent'
+                      ? 'Thank you for contacting MedGenz. A confirmation email has been sent, and our team will review your requirements.'
+                      : 'Your inquiry has been received, but we could not send the confirmation email. Our team will review your requirements.'}
                   </p>
                   <button
                     onClick={() => setStatus('idle')}

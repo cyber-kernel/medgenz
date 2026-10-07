@@ -79,3 +79,16 @@ model Project {
 
   @@index([slug])
 }
+
+model ContactSubmission {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  phone       String?
+  subject     String
+  designation String?
+  message     String   @db.Text
+  createdAt   DateTime @default(now())
+
+  @@index([createdAt])
+}

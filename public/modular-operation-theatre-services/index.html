@@ -531,8 +531,7 @@
   <script>
     (function () {
       /* Paste your Google Apps Script Web App URL here (see medgenz-leads-apps-script.gs) */
-      var FORM_ENDPOINT = '';
-
+      var FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwcx5hQc0NDzhAmdt7MrI-iRaCOy5lI7HepcyoTKz2WVcZ5mp5_zcbgI85p8EHyeBsL/exec';
       function track(name, extra) {
         var payload = { event: name };
         if (extra) for (var k in extra) payload[k] = extra[k];

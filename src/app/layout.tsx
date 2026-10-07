@@ -38,7 +38,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "MedGenz India Pvt. Ltd. | Healthcare Infrastructure Solutions",
+  title: "MedGenz India Pvt. Ltd. | We Manufacture And Setup Modular Operation theatre",
   description: "MedGenz India Private Limited provides NABH and ISO certified turnkey solutions for Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure.",
   keywords: [
     "Modular Operation Theatre",
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: "https://www.medgenz.com",
       siteName: "MedGenz India Pvt. Ltd.",
-      title: "MedGenz India Pvt. Ltd. | Healthcare Infrastructure Solutions",
+      title: "MedGenz India Pvt. Ltd. | We Manufacture And Setup Modular Operation theatre",
     description:
       "MedGenz India Private Limited provides NABH and ISO certified turnkey solutions for Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure.",
     images: [
@@ -84,7 +84,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "MedGenz India Pvt. Ltd. | Healthcare Infrastructure Solutions",
+    title: "MedGenz India Pvt. Ltd. | We Manufacture And Setup Modular Operation theatre",
     description:
       "MedGenz India Private Limited provides NABH and ISO certified turnkey solutions for Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure.",
     creator: "@medgenz",

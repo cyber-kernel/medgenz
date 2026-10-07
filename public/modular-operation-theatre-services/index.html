@@ -675,15 +675,29 @@
         d.page = location.href;
         return d;
       }
-      function sendLead(data) {
+      function sendLead(data, isPopup) {
         var minWait = new Promise(function (r) { setTimeout(r, 700); });   // "Sending..." is always visible for a moment
-        var req = fetch(FORM_ENDPOINT, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
-          body: JSON.stringify(data),
-          keepalive: true
-        });
+        var req;
+        var payload = JSON.stringify(data);
+        var queued = false;
+        if (isPopup && navigator.sendBeacon) {
+          try {
+            queued = navigator.sendBeacon(FORM_ENDPOINT, new Blob([payload], { type: 'text/plain;charset=UTF-8' }));
+          } catch (error) {
+            console.warn('Could not queue popup lead with sendBeacon; falling back to fetch.', error);
+          }
+        }
+        if (queued) {
+          req = Promise.resolve();
+        } else {
+          req = fetch(FORM_ENDPOINT, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+            body: payload,
+            keepalive: true
+          });
+        }
         return Promise.all([req, minWait]);
       }
 
@@ -706,7 +720,7 @@
           btn.innerHTML = '<svg class="spin inline-block w-4 h-4 mr-2 -mt-0.5" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="3" opacity=".25"/><path d="M21 12a9 9 0 00-9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>Sending...';
           var data = collectData(form, isPopup);
 
-          sendLead(data).then(function () {
+          sendLead(data, isPopup).then(function () {
             formSubmitted = true;
             track(eventName, { designation: data.designation });
             form.reset();

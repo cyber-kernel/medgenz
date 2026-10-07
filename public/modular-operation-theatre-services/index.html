@@ -77,8 +77,61 @@
       transform: translateX(0);
     }
 
+    .whatsapp-bubble {
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: all .35s ease;
+      pointer-events: none;
+    }
+
+    .whatsapp-bubble.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    @keyframes action-ring {
+      0% {
+        transform: scale(.9);
+        opacity: .65;
+      }
+
+      100% {
+        transform: scale(1.35);
+        opacity: 0;
+      }
+    }
+
+    @keyframes badge-pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(220, 38, 38, .45);
+      }
+
+      50% {
+        box-shadow: 0 0 0 5px rgba(220, 38, 38, 0);
+      }
+    }
+
+    .floating-action::before {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      border: 2px solid currentColor;
+      border-radius: inherit;
+      animation: action-ring 2.4s ease-out infinite;
+      pointer-events: none;
+    }
+
+    .notification-badge {
+      animation: badge-pulse 1.8s ease-out infinite;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .marquee-track {
+        animation: none !important;
+      }
+
+      .floating-action::before,
+      .notification-badge {
         animation: none !important;
       }
     }
@@ -175,16 +228,23 @@
   <!-- End Google Tag Manager (noscript) -->
   <!-- NAV -->
   <header class="bg-white border-b border-slate-200 sticky top-0 z-40 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 h-16 md:h-20 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 md:h-20 flex items-center justify-between">
       <a href="https://www.medgenz.com" class="flex items-center">
-        <img src="images/logo/medgenz-sticker.png" alt="MedGenz" class="h-10 md:h-16 w-auto">
+        <img src="images/logo/medgenz-sticker.png" alt="MedGenz" class="h-8 sm:h-10 md:h-16 w-auto">
       </a>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 sm:gap-3">
         <a href="tel:+919716412630" data-event="call_click_nav"
           class="hidden sm:inline text-sm font-semibold text-ink-900">+91 97164 12630</a>
         <a href="https://wa.me/918383939473" target="_blank" rel="noopener" data-event="whatsapp_click_nav"
-          class="bg-[#25D366] hover:bg-[#1ebe5b] text-white text-sm font-semibold px-5 py-2 rounded-full transition-colors">Chat
-          on WhatsApp</a>
+          aria-label="Chat with MedGenz on WhatsApp"
+          class="inline-flex shrink-0 items-center gap-1.5 bg-[#25D366] hover:bg-[#1ebe5b] text-white text-sm font-semibold px-3 sm:px-5 py-2 rounded-full whitespace-nowrap transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
+            class="w-5 h-5 shrink-0">
+            <path
+              d="M20.52 3.48A11.82 11.82 0 0 0 12.1 0C5.56 0 .24 5.32.24 11.86c0 2.09.55 4.13 1.6 5.93L.14 24l6.36-1.67a11.88 11.88 0 0 0 5.6 1.42h.01c6.53 0 11.85-5.32 11.85-11.86 0-3.17-1.23-6.15-3.44-8.41ZM12.1 21.73a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.77.99 1.01-3.67-.24-.38a9.82 9.82 0 0 1-1.51-5.22c0-5.46 4.44-9.9 9.9-9.9a9.83 9.83 0 0 1 7 2.9 9.84 9.84 0 0 1 2.9 7c0 5.46-4.44 9.9-9.9 9.9Zm5.43-7.41c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.8-1.49-1.78-1.66-2.08-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.1 4.49.71.31 1.26.5 1.69.64.71.23 1.35.2 1.86.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z" />
+          </svg>
+          <span><span class="hidden sm:inline">Chat on </span>WhatsApp</span>
+        </a>
       </div>
     </div>
   </header>
@@ -277,6 +337,27 @@
     </div>
   </section>
 
+  <!-- OUR SERVICES -->
+  <div class="marquee bg-ink-900 text-white overflow-hidden py-2 text-xs sm:text-sm font-medium"
+    aria-label="Our operation theatre services">
+    <div class="marquee-track m-left" data-marquee style="animation-duration: 18s">
+      <div class="flex shrink-0 items-center gap-6 sm:gap-8 pr-6 sm:pr-8">
+        <span>Modular Operation Theatre</span><span
+          class="inline-block w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0"></span>
+        <span>Medical Gas Pipeline System</span><span
+          class="inline-block w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0"></span>
+        <span>Hospital Furniture</span><span
+          class="inline-block w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0"></span>
+        <span>Nurse Call System</span><span
+          class="inline-block w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0"></span>
+        <span>Curtain Track System</span><span
+          class="inline-block w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0"></span>
+        <span>Surgical Pendants</span><span
+          class="inline-block w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0"></span>
+      </div>
+    </div>
+  </div>
+
   <!-- GLOBAL CERTIFICATIONS -->
   <section class="max-w-7xl mx-auto px-6 py-12">
     <h2 class="text-lg font-semibold text-ink-900 mb-6 flex items-center gap-2">
@@ -359,7 +440,27 @@
     </div>
   </footer>
 
-  <!-- FLOATING CALL BUTTON -->
+  <!-- FLOATING CONTACT BUTTONS -->
+  <div class="fixed left-5 z-40 flex items-center lg:hidden"
+    style="bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));">
+    <div style="filter: drop-shadow(0 6px 8px rgba(0,0,0,.28));">
+      <a href="https://wa.me/918383939473" target="_blank" rel="noopener" data-event="whatsapp_click_float"
+        aria-label="Chat with MedGenz on WhatsApp (1 notification)"
+        class="floating-action relative w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#1ebe5b] text-white flex items-center justify-center transition">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
+          class="w-6 h-6">
+          <path
+            d="M20.52 3.48A11.82 11.82 0 0 0 12.1 0C5.56 0 .24 5.32.24 11.86c0 2.09.55 4.13 1.6 5.93L.14 24l6.36-1.67a11.88 11.88 0 0 0 5.6 1.42h.01c6.53 0 11.85-5.32 11.85-11.86 0-3.17-1.23-6.15-3.44-8.41ZM12.1 21.73a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.77.99 1.01-3.67-.24-.38a9.82 9.82 0 0 1-1.51-5.22c0-5.46 4.44-9.9 9.9-9.9a9.83 9.83 0 0 1 7 2.9 9.84 9.84 0 0 1 2.9 7c0 5.46-4.44 9.9-9.9 9.9Zm5.43-7.41c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.8-1.49-1.78-1.66-2.08-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.1 4.49.71.31 1.26.5 1.69.64.71.23 1.35.2 1.86.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z" />
+        </svg>
+        <span aria-hidden="true"
+          class="notification-badge absolute -top-1 -right-1 min-w-5 h-5 px-1 rounded-full bg-red-600 border-2 border-white text-white text-xs font-bold leading-none flex items-center justify-center">1</span>
+      </a>
+    </div>
+    <div id="whatsappBubble"
+      class="whatsapp-bubble ml-3 bg-ink-900 text-white text-xs font-semibold px-3 py-2 rounded-full shadow-lg whitespace-nowrap">
+      WhatsApp Now</div>
+  </div>
+
   <div class="fixed right-5 z-40 flex items-center lg:hidden"
     style="bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));">
     <div id="callBubble"
@@ -367,11 +468,13 @@
       Call Now</div>
     <div style="filter: drop-shadow(0 6px 8px rgba(0,0,0,.28));">
       <a href="tel:+919716412630" id="callBtn" data-event="call_click_float" aria-label="Call MedGenz"
-        class="w-16 h-16 rounded-full grad-brand hover:brightness-95 text-ink-900 flex items-center justify-center transition">
+        class="floating-action relative w-14 h-14 rounded-full grad-brand hover:brightness-95 text-ink-900 flex items-center justify-center transition">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
           <path
             d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11.4 11.4 0 003.6.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.6a1 1 0 01-.25 1z" />
         </svg>
+        <span aria-hidden="true"
+          class="notification-badge absolute -top-1 -right-1 min-w-5 h-5 px-1 rounded-full bg-red-600 border-2 border-white text-white text-xs font-bold leading-none flex items-center justify-center">1</span>
       </a>
     </div>
   </div>
@@ -632,9 +735,15 @@
         }
       }, 12000);
 
-      /* ---------- Floating call bubble toggles every 3s ---------- */
+      /* ---------- Floating contact bubbles alternate every 3s ---------- */
       var bubble = document.getElementById('callBubble');
-      setInterval(function () { bubble.classList.toggle('show'); }, 3000);
+      var whatsappBubble = document.getElementById('whatsappBubble');
+      var showCallBubble = true;
+      setInterval(function () {
+        bubble.classList.toggle('show', showCallBubble);
+        whatsappBubble.classList.toggle('show', !showCallBubble);
+        showCallBubble = !showCallBubble;
+      }, 3000);
 
       /* ---------- Certification clicks ---------- */
       document.querySelectorAll('[data-cert]').forEach(function (img) {

@@ -530,7 +530,7 @@
 
   <script>
     (function () {
-      /* Paste your Google Apps Script Web App URL here (see medgenz-leads-apps-script.gs) */
+      /* Keep this page self-contained for static landing-page deployments. */
       var FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwcx5hQc0NDzhAmdt7MrI-iRaCOy5lI7HepcyoTKz2WVcZ5mp5_zcbgI85p8EHyeBsL/exec';
       function track(name, extra) {
         var payload = { event: name };
@@ -677,16 +677,13 @@
       }
       function sendLead(data) {
         var minWait = new Promise(function (r) { setTimeout(r, 700); });   // "Sending..." is always visible for a moment
-        var req;
-        if (!FORM_ENDPOINT) {
-          console.warn('FORM_ENDPOINT is empty: lead was NOT sent', data);
-          req = Promise.resolve();
-        } else {
-          var ctrl = window.AbortController ? new AbortController() : null;
-          var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 15000);   // slow / hanging network -> error after 15s
-          req = fetch(FORM_ENDPOINT, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data), signal: ctrl ? ctrl.signal : undefined })
-            .then(function (r) { clearTimeout(timer); return r; }, function (e) { clearTimeout(timer); throw e; });
-        }
+        var req = fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+          body: JSON.stringify(data),
+          keepalive: true
+        });
         return Promise.all([req, minWait]);
       }
 

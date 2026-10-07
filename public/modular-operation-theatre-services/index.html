@@ -754,7 +754,7 @@
       /* ---------- data-event buttons ---------- */
       document.addEventListener('click', function (e) {
         var el = e.target.closest('[data-event]');
-        if (el) track(el.getAttribute('data-event'));
+        if (el) track(el.getAttribute('data-event'), { link_url: el.getAttribute('href') || '' });
       });
     })();
   </script>

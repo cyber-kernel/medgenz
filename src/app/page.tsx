@@ -150,9 +150,8 @@ export default function Home() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "MedGenz India Private Limited",
-    "legalName": "MedGenz India Private Limited",
-    "alternateName": "MedGenz",
+    "name": "MedGenz India Pvt. Ltd.",
+    "legalName": "MedGenz India Pvt. Ltd.",
     "url": "https://www.medgenz.com",
     "logo": "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/og-medgenz-logo-2-transparent.webp",
     "description": "Premier ISO certified manufacturer of Modular Operation Theatres (MOT), Medical Gas Pipeline Systems (MGPS), and turnkey hospital infrastructure in India.",

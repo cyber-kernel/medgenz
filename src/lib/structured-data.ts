@@ -12,7 +12,6 @@ export const getOrganizationSchema = (): SchemaOrgType => ({
   "@type": "Organization",
   name: "MedGenz India Pvt. Ltd.",
   legalName: "MedGenz India Pvt. Ltd.",
-  alternateName: "MedGenz",
   url: "https://www.medgenz.com",
   logo: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
   description:
@@ -52,7 +51,6 @@ export const getLocalBusinessSchema = (): SchemaOrgType => ({
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: "MedGenz India Pvt. Ltd.",
-  alternateName: "MedGenz",
   image: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
   description:
     "Leading manufacturer of Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure.",
@@ -234,7 +232,6 @@ export const getWebsiteSchema = (): SchemaOrgType => ({
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "MedGenz India Pvt. Ltd.",
-  alternateName: "MedGenz",
   url: "https://www.medgenz.com/",
   potentialAction: {
     "@type": "SearchAction",

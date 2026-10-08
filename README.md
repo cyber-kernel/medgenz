@@ -10,6 +10,7 @@ This project is a high-performance migration of the MedGenz static website to Ne
 - **Icons**: Lucide React
 - **Animation**: Framer Motion
 
+
 ## Structure
 - `/src/app`: Application routes and pages.
 - `/src/components`: Reusable UI components.

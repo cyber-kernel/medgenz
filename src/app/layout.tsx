@@ -38,6 +38,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  applicationName: "MedGenz India Pvt. Ltd.",
   title: "MedGenz India Pvt. Ltd. | We Manufacture And Setup Modular Operation theatre",
   description: "MedGenz India Private Limited provides NABH and ISO certified turnkey solutions for Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure.",
   keywords: [

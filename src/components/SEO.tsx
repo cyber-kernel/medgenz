@@ -25,7 +25,7 @@ export default function SEO({
   type,
   schema
 }: SEOProps) {
-  const seoTitle = title ? `${title} | MedGenz` : defaultSEO.title;
+  const seoTitle = title ? `${title} | MedGenz India Pvt. Ltd.` : defaultSEO.title;
   const seoDescription = description || defaultSEO.description;
   const seoImage = image || defaultSEO.image;
   const seoUrl = url || defaultSEO.url;

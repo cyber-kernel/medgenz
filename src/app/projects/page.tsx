@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { MapPin, ArrowRight, FolderKanban } from "lucide-react";
+import { MapPin, ArrowRight, FolderKanban, User } from "lucide-react";
 import ClientMarquee from "@/components/sections/ClientMarquee";
 import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
@@ -115,6 +115,9 @@ export default async function ProjectsPage() {
                     <h3 className="text-2xl font-black text-slate-900 mb-4 group-hover:text-brand-600 transition-colors uppercase tracking-tighter line-clamp-1" style={{ wordBreak: 'normal', overflowWrap: 'break-word' }}>
                       {p.title}
                     </h3>
+                    <div className="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">
+                      <User className="w-3.5 h-3.5 text-brand-600" /> <span className="normal-case">MedGenz</span>
+                    </div>
                     <p className="text-slate-500 leading-relaxed mb-8 flex-grow font-light line-clamp-3" style={{ wordBreak: 'normal', overflowWrap: 'break-word' }}>
                       {stripHtml(p.brief)}
                     </p>

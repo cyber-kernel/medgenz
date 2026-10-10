@@ -65,7 +65,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       coverImage: true,
       createdAt: true,
       updatedAt: true,
-      authorName: true,
       slug: true,
       published: true,
       content: true,
@@ -83,7 +82,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: `${title} | MedGenz Blog`,
     description,
     keywords: [...(blog.categories || []), ...(blog.tags || []), "healthcare", "hospital infrastructure", blog.title],
-    authors: [{ name: blog.authorName }],
+    authors: [{ name: "MedGenz India Pvt. Ltd." }],
     alternates: {
       canonical: `https://www.medgenz.com/blogs/${blog.slug}`,
     },
@@ -104,7 +103,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         : [],
       publishedTime: blog.createdAt.toISOString(),
       modifiedTime: blog.updatedAt.toISOString(),
-      authors: [blog.authorName],
+      authors: ["MedGenz India Pvt. Ltd."],
     },
     twitter: {
       card: "summary_large_image",
@@ -129,7 +128,6 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
       coverImage: true,
       createdAt: true,
       updatedAt: true,
-      authorName: true,
       slug: true,
       published: true,
       content: true,
@@ -258,7 +256,7 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
                      <User className="w-6 h-6" />
                   </div>
                   <div>
-                     <div className="text-white text-[11px] font-black leading-none mb-1 uppercase tracking-wider">{blog.authorName}</div>
+                     <div className="text-white text-[11px] font-black leading-none mb-1 normal-case tracking-wider">MedGenz India Pvt. Ltd.</div>
                      <div className="text-slate-500 text-[9px] font-bold uppercase tracking-widest">Medical Infrastructure Expert</div>
                   </div>
                </div>

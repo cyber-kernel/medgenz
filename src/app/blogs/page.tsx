@@ -77,8 +77,8 @@ export default async function BlogListingPage({ searchParams }: BlogListingPageP
       "datePublished": post.createdAt.toISOString(),
       "articleSection": post.categories.join(', '),
       "author": {
-        "@type": "Person",
-        "name": "MedGenz Admin"
+        "@type": "Organization",
+        "name": "MedGenz"
       }
     }))
   };
@@ -169,7 +169,7 @@ export default async function BlogListingPage({ searchParams }: BlogListingPageP
                   <div className="p-8 lg:p-10 flex-grow flex flex-col">
                     <div className="flex items-center gap-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6">
                       <span className="flex items-center gap-2 border-r border-slate-200 pr-6"><Calendar className="w-3.5 h-3.5 text-brand-600" /> {new Date(post.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
-                      <span className="flex items-center gap-2"><User className="w-3.5 h-3.5 text-brand-600" /> Admin</span>
+                      <span className="flex items-center gap-2 normal-case"><User className="w-3.5 h-3.5 text-brand-600" /> MedGenz</span>
                     </div>
 
                     <h2 className="text-2xl lg:text-3xl font-black text-slate-900 mb-6 leading-tight group-hover:text-brand-600 transition-colors uppercase tracking-tighter line-clamp-2 min-h-[3.5rem] lg:min-h-[4.5rem]" style={{ wordBreak: 'normal', overflowWrap: 'break-word' }}>

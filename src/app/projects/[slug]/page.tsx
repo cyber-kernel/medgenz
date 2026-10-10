@@ -5,7 +5,8 @@ import { notFound } from 'next/navigation';
 import {
   CheckCircle,
   Zap,
-  ShieldCheck
+  ShieldCheck,
+  User
 } from "lucide-react";
 import { prisma } from '@/lib/prisma';
 import type { Metadata } from 'next';
@@ -79,6 +80,10 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
                 {project.subtitle}
               </p>
             )}
+            <div className="flex items-center justify-center gap-2 mt-6 text-slate-300 text-xs font-bold normal-case tracking-normal">
+              <User className="w-4 h-4 text-brand-500" />
+              <span>MedGenz India Pvt. Ltd.</span>
+            </div>
           </div>
         </div>
       </section>

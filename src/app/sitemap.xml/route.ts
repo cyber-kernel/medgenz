@@ -28,6 +28,7 @@ export async function GET(request: Request) {
       { path: "/projects", lastmod: new Date().toISOString(), priority: "0.8" },
       { path: "/blogs", lastmod: new Date().toISOString(), priority: "0.8" },
       { path: "/contact", lastmod: new Date().toISOString(), priority: "0.7" },
+      { path: "/careers", lastmod: new Date().toISOString(), priority: "0.6" },
       { path: "/services/modular-operation-theatre", lastmod: new Date().toISOString(), priority: "0.8" },
       { path: "/services/medical-gas-pipeline-system", lastmod: new Date().toISOString(), priority: "0.8" },
       { path: "/services/hospital-furniture", lastmod: new Date().toISOString(), priority: "0.8" },

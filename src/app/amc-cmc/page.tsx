@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { CheckCircle2 } from 'lucide-react';
 import AMCCMCCalculator from '@/components/sections/AMCCMCCalculator';
+import ClientMarquee from '@/components/sections/ClientMarquee';
 import ReviewSlider from '@/components/sections/ReviewSlider';
 import ECGCTA from '@/components/sections/ECGCTA';
 import SiteFAQ from '@/components/SiteFAQ';
@@ -68,6 +69,7 @@ export default function AMCCMCPage() {
           </p>
         </div>
       </section>
+      <ClientMarquee />
       {/* 3. CALCULATOR AND CONTRACT INFORMATION */}
       <section className="py-5 md:py-7 bg-slate-50 border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-6 text-center mb-4 md:mb-5">

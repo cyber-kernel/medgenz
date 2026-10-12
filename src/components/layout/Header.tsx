@@ -19,6 +19,7 @@ const navLinks = [
   { name: 'Projects', href: '/projects' },
   { name: 'AMC/CMC', href: '/amc-cmc' },
   { name: 'Blogs', href: '/blogs' },
+  { name: 'Careers', href: '/careers' },
 ];
 
 export default function Header() {

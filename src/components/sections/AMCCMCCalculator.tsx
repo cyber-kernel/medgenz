@@ -24,7 +24,7 @@ export default function AMCCMCCalculator() {
   const [estimate, setEstimate] = useState<number>(0);
 
   useEffect(() => {
-    const basePercent = type === 'amc' ? 0.10 : 0.15;
+    const basePercent = type === 'amc' ? 0.07 : 0.12;
 
     const ageMultiplier = age > 3 ? 1 + (age - 3) * 0.05 : 1.0;
     const calculated = price * basePercent * category.rate * ageMultiplier;
@@ -49,7 +49,7 @@ export default function AMCCMCCalculator() {
           <div className="space-y-3">
             {/* Equipment Price */}
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Purchase Price (₹)</label>
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Purchase Product Price (₹)</label>
               <div className="relative group">
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-base">₹</span>
                 <input

@@ -8,6 +8,7 @@ const allowedSubjects = [
   "MGPS Installation",
   "Hospital Furniture",
   "IVF Lab Setup",
+  "Career Application",
 ];
 
 const allowedDesignations = [
@@ -114,9 +115,12 @@ export async function POST(request: Request) {
       from: `"MedGenz Website" <${SMTP_USER}>`,
       to: receiver,
       replyTo: values.email,
-      subject: `MedGenz Inquiry: ${values.subject}`,
+      subject:
+        values.subject === "Career Application"
+          ? `MedGenz Career Application: ${values.name}`
+          : `MedGenz Inquiry: ${values.subject}`,
       text: [
-        "New message from the MedGenz website contact form",
+        `New message from the MedGenz website ${values.subject === "Career Application" ? "careers" : "contact"} form`,
         `Name: ${values.name}`,
         `Email: ${values.email}`,
         `Phone: ${values.phone || "Not provided"}`,
@@ -130,7 +134,7 @@ export async function POST(request: Request) {
       ].join("\n"),
       html: `
         <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; border: 1px solid #eee; padding: 20px; border-radius: 10px;">
-          <h2 style="color: #E6A100; border-bottom: 2px solid #E6A100; padding-bottom: 10px;">New Website Inquiry</h2>
+          <h2 style="color: #E6A100; border-bottom: 2px solid #E6A100; padding-bottom: 10px;">${values.subject === "Career Application" ? "New Career Application" : "New Website Inquiry"}</h2>
           <p><strong>Name:</strong> ${safeValues.name}</p>
           <p><strong>Email:</strong> ${safeValues.email}</p>
           <p><strong>Phone:</strong> ${safeValues.phone || "Not provided"}</p>
@@ -147,15 +151,21 @@ export async function POST(request: Request) {
 
     const autoReplySubjectTemplate =
       process.env.CONTACT_AUTOREPLY_SUBJECT?.trim() ||
-      "We received your {{subject}} inquiry | MedGenz";
+      (values.subject === "Career Application"
+        ? "We received your career application | MedGenz"
+        : "We received your {{subject}} inquiry | MedGenz");
     const autoReplyTextTemplate =
       process.env.CONTACT_AUTOREPLY_TEXT?.trim() ||
       [
         "Hello {{name}},",
         "",
-        "Thank you for reaching out to MedGenz. We have received your inquiry and our team will review your requirements and get back to you as soon as possible.",
+        values.subject === "Career Application"
+          ? "Thank you for applying to MedGenz. We have received your application and our team will review it and get back to you if your experience matches our current requirements."
+          : "Thank you for reaching out to MedGenz. We have received your inquiry and our team will review your requirements and get back to you as soon as possible.",
         "",
-        "Your inquiry: {{subject}}",
+        values.subject === "Career Application"
+          ? "Your application: {{subject}}"
+          : "Your inquiry: {{subject}}",
         "",
         "If you need to add anything, reply to this email and our team will be happy to help.",
         "",
@@ -179,10 +189,12 @@ export async function POST(request: Request) {
             <div style="padding:34px 36px;">
               <p style="margin:0 0 18px;font-size:16px;line-height:1.7;">Hello ${safeValues.name},</p>
               <p style="margin:0 0 24px;color:#475569;font-size:15px;line-height:1.8;">
-                We have received your inquiry. Our team will review your requirements and get back to you as soon as possible.
+                ${values.subject === "Career Application"
+                  ? "We have received your application. Our team will review it and get back to you if your experience matches our current requirements."
+                  : "We have received your inquiry. Our team will review your requirements and get back to you as soon as possible."}
               </p>
               <div style="padding:18px 20px;background:#fffbeb;border:1px solid #fde68a;border-radius:12px;">
-                <p style="margin:0 0 6px;color:#92400e;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;">Your inquiry</p>
+                <p style="margin:0 0 6px;color:#92400e;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;">${values.subject === "Career Application" ? "Your application" : "Your inquiry"}</p>
                 <p style="margin:0;color:#1e293b;font-size:15px;font-weight:700;">${safeValues.subject}</p>
               </div>
               <p style="margin:24px 0 0;color:#475569;font-size:14px;line-height:1.8;">

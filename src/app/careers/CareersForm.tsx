@@ -5,9 +5,8 @@ import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
 
 const workSegments = [
   "Hospital Equipments",
-  "Facade Solutions",
-  "Building and Construction",
-  "Electric vehicle Equipments",
+  "Medical Gas Pipeline",
+  "Modular Operation Theatre",
   "Cleanroom Equipments",
 ];
 

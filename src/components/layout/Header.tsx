@@ -16,6 +16,7 @@ const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'About Us', href: '/about' },
   { name: 'Services', href: '/services' },
+  { name: '3D OT', href: '/3d-ot' },
   { name: 'Projects', href: '/projects' },
   { name: 'AMC/CMC', href: '/amc-cmc' },
   { name: 'Blogs', href: '/blogs' },
@@ -44,7 +45,7 @@ export default function Header() {
     return null;
   }
 
-  const transparentRoutes = ['/', '/about', '/services', '/projects', '/blogs', '/contact'];
+  const transparentRoutes = ['/', '/about', '/services', '/projects', '/blogs', '/contact', '/3d-ot'];
   const shouldBeSolid = !transparentRoutes.includes(pathname ?? '') || isScrolled;
   const shouldUseDarkText = shouldBeSolid;
 

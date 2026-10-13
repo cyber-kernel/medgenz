@@ -45,6 +45,7 @@ const quickLinks = [
   { name: 'Home', href: '/' },
   { name: 'About Us', href: '/about' },
   { name: 'Services', href: '/services' },
+  { name: '3D OT Studio', href: '/3d-ot' },
   { name: 'Projects', href: '/projects' },
   { name: 'Privacy Policy', href: '/privacy-policy' },
 ];

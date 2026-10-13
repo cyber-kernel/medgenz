@@ -430,7 +430,7 @@ export default function ProjectEditor({ initialData, id }: ProjectEditorProps) {
              </div>
              <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-2"><label className="text-xs font-black text-slate-400 uppercase tracking-widest">Location</label><div className="flex items-center gap-2 border-b-2 border-slate-50 focus-within:border-brand-600 p-2"><MapPin className="w-4 h-4 text-slate-400" /><input type="text" value={location} onChange={(e) => setLocation(e.target.value)} className="w-full text-slate-900 outline-none" /></div></div>
-                <div className="space-y-2"><label className="text-xs font-black text-slate-400 uppercase tracking-widest">Service</label><select value={service} onChange={(e) => setService(e.target.value)} className="w-full text-slate-900 border-b-2 border-slate-50 focus:border-brand-600 outline-none p-2 font-bold"><option>Modular OT</option><option>MGPS</option><option>Hospital Furniture</option><option>IVF Lab</option><option>Nurse Call</option></select></div>
+                <div className="space-y-2"><label className="text-xs font-black text-slate-400 uppercase tracking-widest">Service</label><input type="text" value={service} onChange={(e) => setService(e.target.value)} className="w-full text-slate-900 border-b-2 border-slate-50 focus:border-brand-600 outline-none p-2 font-bold" /></div>
              </div>
           </div>
 

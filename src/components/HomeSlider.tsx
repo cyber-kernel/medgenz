@@ -62,9 +62,9 @@ export default function HomeSlider() {
             </span>
 
             {/* Small Heading - Reduced margin */}
-            <h2 className="text-white text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] mb-3 opacity-80 px-4">
+            <p className="text-white text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] mb-3 opacity-80 px-4">
               Premier Modular Operation Theatre Manufacturers in India
-            </h2>
+            </p>
 
             {/* Large Dynamic Heading - Adjusted size for better fit */}
             <h1 className="text-[1.5rem] sm:text-3xl md:text-5xl lg:text-6xl font-black leading-[1.0] mb-3 text-white tracking-tight uppercase">

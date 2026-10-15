@@ -1,0 +1,23 @@
+# MedGenz India Pvt. Ltd.
+
+> MedGenz provides modular operation theatres, medical gas pipeline systems, ICU pendants, nurse call systems, hospital furniture, and hospital infrastructure services in India.
+
+## Main pages
+- [Home](https://www.medgenz.com/)
+- [About MedGenz](https://www.medgenz.com/about)
+- [Services](https://www.medgenz.com/services)
+- [Projects](https://www.medgenz.com/projects)
+- [Blogs](https://www.medgenz.com/blogs)
+- [Contact](https://www.medgenz.com/contact)
+
+## Service information
+- [Modular operation theatres](https://www.medgenz.com/services/modular-operation-theatre)
+- [Medical gas pipeline systems](https://www.medgenz.com/services/medical-gas-pipeline-system)
+- [Hospital furniture](https://www.medgenz.com/services/hospital-furniture)
+- [Nurse call systems](https://www.medgenz.com/services/nurse-call-system)
+- [Curtain track systems](https://www.medgenz.com/services/curtain-track-system)
+
+## Policies and discovery
+- [Privacy policy](https://www.medgenz.com/privacy-policy)
+- [Terms of use](https://www.medgenz.com/terms-of-use)
+- [XML sitemap](https://www.medgenz.com/sitemap.xml)

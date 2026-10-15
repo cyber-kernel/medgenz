@@ -6,7 +6,10 @@ import HomeSlider from '@/components/HomeSlider';
 import ClientMarquee from '@/components/sections/ClientMarquee';
 import ECGCTA from '@/components/sections/ECGCTA';
 import Testimonials from '@/components/sections/Testimonials';
-import { getWebsiteSchema } from '@/lib/structured-data';
+import SiteFAQ from '@/components/SiteFAQ';
+import { getFAQSchema, getWebsiteSchema } from '@/lib/structured-data';
+
+const homePageModified = '2026-10-15';
 
 const stats = [
   { label: "Projects Done", value: "150+" },
@@ -143,39 +146,54 @@ const testimonials = [
   }
 ];
 
+const homeFaqs = [
+  {
+    question: 'What hospital infrastructure solutions does MedGenz provide?',
+    answer:
+      'MedGenz provides modular operation theatres, medical gas pipeline systems, ICU pendants, nurse call systems, hospital furniture, and turnkey hospital infrastructure services. Project scope is tailored to each facility.',
+  },
+  {
+    question: 'Does MedGenz work on hospital projects across India?',
+    answer:
+      'MedGenz serves healthcare facilities across India. Contact the team to discuss your location, requirements, and project scope.',
+  },
+  {
+    question: 'What standards apply to cleanroom air classification?',
+    answer:
+      'ISO 14644-1 specifies classification of air cleanliness in cleanrooms and clean zones based on airborne particle concentration. It has a defined scope and is not, by itself, a complete operating-theatre design specification.',
+  },
+];
+
 
 
 export default function Home() {
   const websiteSchema = getWebsiteSchema();
-  const jsonLd = {
+  const pageSchema = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "MedGenz India Pvt. Ltd.",
-    "legalName": "MedGenz India Pvt. Ltd.",
-    "url": "https://www.medgenz.com",
-    "logo": "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/og-medgenz-logo-2-transparent.webp",
-    "description": "Premier ISO certified manufacturer of Modular Operation Theatres (MOT), Medical Gas Pipeline Systems (MGPS), and turnkey hospital infrastructure in India.",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "New Delhi",
-      "addressCountry": "India"
-    },
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "+91-9716412630",
-      "contactType": "Sales"
-    }
+    "@type": "WebPage",
+    "@id": "https://www.medgenz.com/#webpage",
+    "url": "https://www.medgenz.com/",
+    "name": "MedGenz India Pvt. Ltd. | We Manufacture And Setup Modular Operation theatre",
+    "description": "MedGenz India Private Limited provides turnkey solutions for Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure.",
+    "inLanguage": "en",
+    "dateModified": homePageModified,
+    "author": { "@id": "https://www.medgenz.com/#organization" },
+    "isPartOf": { "@id": "https://www.medgenz.com/#website" },
   };
 
   return (
     <div className="relative font-inter">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
       />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(getFAQSchema(homeFaqs)) }}
       />
 
       {/* 1. HERO SECTION - Integrated Slider */}
@@ -217,7 +235,7 @@ export default function Home() {
 
           <div className="space-y-6">
             <span className="text-brand-600 font-bold uppercase tracking-widest text-[10px] block">Who We Are</span>
-            <h2 className="text-xl md:text-3xl font-black text-slate-900 leading-tight uppercase tracking-tighter">Premier Manufacturer of <br /><span className="text-brand-600">Hospital Infrastructure</span></h2>
+            <h2 className="text-xl md:text-3xl font-black text-slate-900 leading-tight uppercase tracking-tighter">What hospital infrastructure does MedGenz provide?</h2>
             <p className="text-slate-600 text-sm md:text-base leading-relaxed font-light">
               Welcome to MedGenz India Pvt. Ltd. We are an ISO 9001:2015, ISO 13485:2016, and CE Certified organization engaged in Manufacturing, Supplying, and Exporting a wide array of Medical Gas Pipeline Systems (MGPS), Modular Operation Theatres, ICU Pendants, and Nurse Call Systems.
             </p>
@@ -244,7 +262,7 @@ export default function Home() {
       <section className="py-12 md:py-16 bg-slate-50 border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-10">
-            <h2 className="text-xl md:text-3xl font-black text-slate-900 mb-3 uppercase tracking-tighter">Core <span className="text-brand-600">Expertise</span></h2>
+            <h2 className="text-xl md:text-3xl font-black text-slate-900 mb-3 uppercase tracking-tighter">What healthcare infrastructure solutions does MedGenz provide?</h2>
             <div className="w-10 h-1 bg-brand-600 mx-auto rounded-full" />
             <p className="mt-5 text-slate-500 text-xs md:text-sm max-w-xl mx-auto font-light">Providing a comprehensive range of turnkey healthcare solutions tailored to complex medical requirements.</p>
           </div>
@@ -284,7 +302,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-10">
             <span className="text-brand-600 font-bold uppercase tracking-widest text-[9px] mb-1 block">Client Stories</span>
-            <h2 className="text-xl md:text-3xl font-black text-slate-900 mb-3 uppercase tracking-tighter">Trusted by <span className="text-brand-600">Professionals</span></h2>
+            <h2 className="text-xl md:text-3xl font-black text-slate-900 mb-3 uppercase tracking-tighter">What do healthcare professionals say about MedGenz?</h2>
             <div className="w-10 h-1 bg-brand-600 mx-auto rounded-full" />
           </div>
 
@@ -293,6 +311,72 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <section className="border-t border-slate-100 bg-white py-12 md:py-16">
+        <div className="mx-auto max-w-4xl px-6">
+          <h2 className="mb-5 text-2xl font-black tracking-tight text-slate-900 md:text-3xl">
+            Which standards inform healthcare infrastructure planning?
+          </h2>
+          <p className="mb-8 leading-relaxed text-slate-600">
+            Standards have specific scopes. For example, cleanroom air classification and
+            healthcare quality accreditation address different parts of facility planning;
+            neither reference alone is a complete operating-theatre design specification.
+          </p>
+          <div className="space-y-6">
+            <figure className="border-l-4 border-brand-600 pl-5">
+              <blockquote className="leading-relaxed text-slate-700">
+                <p>
+                  “ISO 14644-1:2015 specifies the classification of air cleanliness in terms
+                  of concentration of airborne particles in cleanrooms and clean zones.”
+                </p>
+              </blockquote>
+              <figcaption className="mt-2 text-sm text-slate-500">
+                <cite>
+                  <a
+                    href="https://www.iso.org/standard/53394.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-brand-700 underline"
+                  >
+                    ISO 14644-1:2015, International Organization for Standardization
+                  </a>
+                </cite>
+              </figcaption>
+            </figure>
+            <figure className="border-l-4 border-brand-600 pl-5">
+              <blockquote className="leading-relaxed text-slate-700">
+                <p>
+                  “NABH accreditation and certification programmes are open to all types of
+                  healthcare organisations, regardless of their size, ownership, or location.”
+                </p>
+              </blockquote>
+              <figcaption className="mt-2 text-sm text-slate-500">
+                <cite>
+                  <a
+                    href="https://nabh.co/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-brand-700 underline"
+                  >
+                    National Accreditation Board for Hospitals &amp; Healthcare Providers
+                  </a>
+                </cite>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <SiteFAQ
+        faqs={homeFaqs}
+        title="Common questions about MedGenz"
+        eyebrow="Hospital infrastructure FAQs"
+      />
+
+      <p className="mx-auto max-w-7xl px-6 pb-8 text-xs text-slate-500">
+        Page content by MedGenz India Pvt. Ltd. · Last updated{' '}
+        <time dateTime={homePageModified}>October 15, 2026</time>
+      </p>
 
       <ECGCTA />
     </div>

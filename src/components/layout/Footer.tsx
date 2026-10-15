@@ -48,6 +48,7 @@ const quickLinks = [
   { name: '3D OT Studio', href: '/3d-ot' },
   { name: 'Projects', href: '/projects' },
   { name: 'Privacy Policy', href: '/privacy-policy' },
+  { name: 'Terms of Use', href: '/terms-of-use' },
 ];
 
 export default function Footer() {
@@ -92,7 +93,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="text-white font-bold mb-6">Services</h4>
+          <h2 className="text-white font-bold mb-6">Services</h2>
           <ul className="space-y-4 text-[13px] md:text-sm text-gray-400">
             {serviceLinks.map((link) => (
               <li key={link.name}>
@@ -105,7 +106,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="text-white font-bold mb-6">Quick Links</h4>
+          <h2 className="text-white font-bold mb-6">Quick Links</h2>
           <ul className="space-y-4 text-[13px] md:text-sm text-gray-400">
             {quickLinks.map((link) => (
               <li key={link.name}>
@@ -118,7 +119,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="text-white font-bold mb-6">Contact Info</h4>
+          <h2 className="text-white font-bold mb-6">Contact Info</h2>
           <ul className="space-y-5 text-[13px] md:text-sm text-gray-400">
             <li className="flex items-start gap-3">
               <MapPin className="w-5 h-5 text-brand-500 shrink-0 mt-0.5" />

@@ -10,6 +10,7 @@ export interface SchemaOrgType {
 export const getOrganizationSchema = (): SchemaOrgType => ({
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": "https://www.medgenz.com/#organization",
   name: "MedGenz India Pvt. Ltd.",
   legalName: "MedGenz India Pvt. Ltd.",
   url: "https://www.medgenz.com",
@@ -231,8 +232,12 @@ export const getContactPointSchema = (): SchemaOrgType => ({
 export const getWebsiteSchema = (): SchemaOrgType => ({
   "@context": "https://schema.org",
   "@type": "WebSite",
+  "@id": "https://www.medgenz.com/#website",
   name: "MedGenz India Pvt. Ltd.",
   url: "https://www.medgenz.com/",
+  publisher: {
+    "@id": "https://www.medgenz.com/#organization",
+  },
   potentialAction: {
     "@type": "SearchAction",
     target: {

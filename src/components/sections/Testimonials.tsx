@@ -156,9 +156,9 @@ export default function Testimonials({
               </div>
 
               <div className="min-w-0">
-                <h4 className="font-bold text-slate-900 text-xs md:text-sm truncate">
+                <h3 className="font-bold text-slate-900 text-xs md:text-sm truncate">
                   {testimonial.name}
-                </h4>
+                </h3>
 
                 <p className="text-slate-500 text-[10px] md:text-xs font-medium truncate">
                   {testimonial.role}
@@ -177,4 +177,3 @@ export default function Testimonials({
     </div>
   );
 }
-

@@ -49,10 +49,13 @@ In Vercel, open **Settings → Environment Variables** and add these values for
 | `SMTP_PASS` | The provider-issued SMTP/app password |
 | `CONTACT_RECEIVER` | `info@medgenz.com` |
 | `DATABASE_URL` | Production PostgreSQL URL; verify it is already configured |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare Turnstile public site key for the contact form |
+| `TURNSTILE_SECRET_KEY` | Cloudflare Turnstile secret key used to verify submissions |
 
 The project falls back to `info@medgenz.com` if `CONTACT_RECEIVER` is omitted,
 but configuring it explicitly is recommended. Never prefix these server-side
-variables with `NEXT_PUBLIC_`.
+variables with `NEXT_PUBLIC_` except for the Turnstile public site key, which
+must be exposed to the browser.
 
 For local testing, copy the equivalent values into `.env.local`. That file is
 ignored by Git; never commit it.

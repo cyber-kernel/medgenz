@@ -39,6 +39,31 @@ function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+async function verifyTurnstile(token: string) {
+  const secretKey = process.env.TURNSTILE_SECRET_KEY;
+  if (!secretKey || !token) {
+    return false;
+  }
+
+  try {
+    const verificationResponse = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ secret: secretKey, response: token }),
+    });
+
+    if (!verificationResponse.ok) {
+      return false;
+    }
+
+    const result = (await verificationResponse.json()) as { success?: boolean };
+    return Boolean(result.success);
+  } catch (error) {
+    console.error("Turnstile verification failed:", error);
+    return false;
+  }
+}
+
 export async function POST(request: Request) {
   try {
     const body: unknown = await request.json();
@@ -55,6 +80,8 @@ export async function POST(request: Request) {
       designation: typeof fields.designation === "string" ? fields.designation.trim() : "",
       message: typeof fields.message === "string" ? fields.message.trim() : "",
     };
+    const captchaToken = typeof fields.captchaToken === "string" ? fields.captchaToken.trim() : "";
+    const turnstileEnabled = Boolean(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY && process.env.TURNSTILE_SECRET_KEY);
 
     if (
       !values.name ||
@@ -69,6 +96,13 @@ export async function POST(request: Request) {
     ) {
       return NextResponse.json(
         { error: "Please check the required fields and try again." },
+        { status: 400 }
+      );
+    }
+
+    if (turnstileEnabled && !(await verifyTurnstile(captchaToken))) {
+      return NextResponse.json(
+        { error: "Please complete the CAPTCHA challenge." },
         { status: 400 }
       );
     }

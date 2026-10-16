@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { Phone, Mail, MapPin, MessageSquare, Clock, Loader2, CheckCircle2, AlertCircle, ChevronDown } from "lucide-react";
+
+const turnstileEnabled = Boolean(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY);
 
 interface ContactDetail {
   text: string;
@@ -19,9 +21,48 @@ export default function ContactPage() {
     message: ''
   });
 
+  const [captchaToken, setCaptchaToken] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
   const [autoReplyStatus, setAutoReplyStatus] = useState<'sent' | 'failed'>('sent');
+  const turnstileRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!turnstileEnabled || typeof window === 'undefined') {
+      return;
+    }
+
+    const renderTurnstile = () => {
+      if (!turnstileRef.current || !(window as any).turnstile) {
+        return;
+      }
+
+      (window as any).turnstile.render(turnstileRef.current, {
+        sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '',
+        callback: (token: string) => setCaptchaToken(token),
+        'expired-callback': () => setCaptchaToken(''),
+        'error-callback': () => setCaptchaToken(''),
+      });
+    };
+
+    if ((window as any).turnstile) {
+      renderTurnstile();
+      return;
+    }
+
+    const scriptId = 'turnstile-script';
+    const existingScript = document.getElementById(scriptId) as HTMLScriptElement | null;
+
+    if (!existingScript) {
+      const script = document.createElement('script');
+      script.id = scriptId;
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+      script.async = true;
+      script.defer = true;
+      script.onload = renderTurnstile;
+      document.body.appendChild(script);
+    }
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -29,6 +70,13 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (turnstileEnabled && !captchaToken) {
+      setStatus('error');
+      setErrorMsg('Please complete the CAPTCHA challenge to continue.');
+      return;
+    }
+
     setStatus('loading');
     setErrorMsg('');
 
@@ -36,7 +84,7 @@ export default function ContactPage() {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({ ...formData, captchaToken })
       });
 
       const result = await response.json();
@@ -54,6 +102,11 @@ export default function ContactPage() {
         setStatus('success');
         setAutoReplyStatus(result.autoReplyStatus === 'sent' ? 'sent' : 'failed');
         setFormData({ name: '', email: '', phone: '', subject: 'General Inquiry', designation: '', message: '' });
+        setCaptchaToken('');
+
+        if (typeof window !== 'undefined' && (window as any).turnstile) {
+          (window as any).turnstile.reset();
+        }
       } else {
         setStatus('error');
         setErrorMsg(result.error || 'Failed to send message.');
@@ -294,6 +347,15 @@ export default function ContactPage() {
                       className="w-full px-8 py-5 rounded-2xl bg-white border border-slate-100 focus:border-brand-600 focus:ring-4 focus:ring-brand-600/10 outline-none transition-all resize-none font-medium"
                     ></textarea>
                   </div>
+
+                  {turnstileEnabled && (
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Verification</label>
+                      <div className="rounded-2xl border border-slate-200 bg-white p-4">
+                        <div ref={turnstileRef} className="min-h-[65px]" />
+                      </div>
+                    </div>
+                  )}
 
                   {status === 'error' && (
                     <div className="flex items-center gap-3 p-4 bg-red-50 text-red-600 rounded-xl border border-red-100">

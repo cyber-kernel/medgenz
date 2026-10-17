@@ -10,24 +10,15 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/images/brand-logo-mg/favicon-png-mg/mg-favicon1.png",
+      "src": "/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/images/brand-logo-mg/favicon-png-mg/mg-favicon1.png",
+      "src": "/icons/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
-      "sizes": "540x720",
-      "type": "image/webp",
-      "form_factor": "narrow"
+      "type": "image/png"
     }
   ],
   "categories": ["business", "medical"],
@@ -39,7 +30,7 @@
       "url": "/contact",
       "icons": [
         {
-          "src": "/images/brand-logo-mg/favicon-png-mg/mg-favicon1.png",
+          "src": "/icons/icon-192.png",
           "sizes": "192x192",
           "type": "image/png"
         }
@@ -52,21 +43,11 @@
       "url": "/services",
       "icons": [
         {
-          "src": "/images/brand-logo-mg/favicon-png-mg/mg-favicon1.png",
+          "src": "/icons/icon-192.png",
           "sizes": "192x192",
           "type": "image/png"
         }
       ]
     }
-  ],
-  "share_target": {
-    "action": "/share",
-    "method": "POST",
-    "enctype": "application/x-www-form-urlencoded",
-    "params": {
-      "title": "title",
-      "text": "text",
-      "url": "url"
-    }
-  }
+  ]
 }

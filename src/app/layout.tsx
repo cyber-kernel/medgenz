@@ -3,6 +3,7 @@ import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 import ScrollReveal from "@/components/ScrollReveal";
 import FAQAccordionController from "@/components/FAQAccordionController";
 import { clsx, type ClassValue } from 'clsx';
@@ -59,7 +60,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/medgenz-favicon-new2.webp",
-    apple: "/medgenz-favicon-new2.webp",
+    apple: "/icons/icon-180.png",
   },
   manifest: "/manifest.json",
   openGraph: {
@@ -156,6 +157,7 @@ export default function RootLayout({
         {/* End Google Tag Manager (noscript) */}
 
         <Header />
+        <ServiceWorkerRegistration />
         <ScrollReveal />
         <FAQAccordionController />
         <main>{children}</main>

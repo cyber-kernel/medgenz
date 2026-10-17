@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
+
+const turnstileEnabled = Boolean(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY);
 
 const workSegments = [
   "Hospital Equipments",
@@ -40,12 +42,61 @@ const initialFormData: CareersFormData = {
 
 export default function CareersForm() {
   const [formData, setFormData] = useState(initialFormData);
+  const [captchaToken, setCaptchaToken] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [autoReplySent, setAutoReplySent] = useState(true);
+  const turnstileRef = useRef<HTMLDivElement | null>(null);
+  const isSuccess = status === "success";
+
+  useEffect(() => {
+    if (!turnstileEnabled || isSuccess || typeof window === "undefined") {
+      return;
+    }
+
+    const renderTurnstile = () => {
+      if (!turnstileRef.current || !(window as any).turnstile) {
+        return;
+      }
+
+      (window as any).turnstile.render(turnstileRef.current, {
+        sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
+        callback: (token: string) => setCaptchaToken(token),
+        "expired-callback": () => setCaptchaToken(""),
+        "error-callback": () => setCaptchaToken(""),
+      });
+    };
+
+    if ((window as any).turnstile) {
+      renderTurnstile();
+      return;
+    }
+
+    const scriptId = "turnstile-script";
+    const existingScript = document.getElementById(scriptId) as HTMLScriptElement | null;
+
+    if (!existingScript) {
+      const script = document.createElement("script");
+      script.id = scriptId;
+      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+      script.async = true;
+      script.defer = true;
+      script.onload = renderTurnstile;
+      document.body.appendChild(script);
+    } else {
+      existingScript.addEventListener("load", renderTurnstile, { once: true });
+    }
+  }, [isSuccess]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (turnstileEnabled && !captchaToken) {
+      setStatus("error");
+      setErrorMessage("Please complete the CAPTCHA challenge to continue.");
+      return;
+    }
+
     setStatus("loading");
     setErrorMessage("");
 
@@ -68,6 +119,7 @@ export default function CareersForm() {
           subject: "Career Application",
           designation: "Personal",
           message,
+          captchaToken,
         }),
       });
       const result = await response.json();
@@ -81,6 +133,10 @@ export default function CareersForm() {
       setAutoReplySent(result.autoReplyStatus === "sent");
       setStatus("success");
       setFormData(initialFormData);
+      setCaptchaToken("");
+      if (typeof window !== "undefined" && (window as any).turnstile) {
+        (window as any).turnstile.reset();
+      }
     } catch {
       setErrorMessage("An unexpected error occurred. Please try again.");
       setStatus("error");
@@ -263,6 +319,12 @@ export default function CareersForm() {
                 >
                   <AlertCircle className="h-5 w-5 shrink-0" />
                   <p>{errorMessage}</p>
+                </div>
+              )}
+
+              {turnstileEnabled && (
+                <div>
+                  <div ref={turnstileRef} className="min-h-[65px]" />
                 </div>
               )}
 

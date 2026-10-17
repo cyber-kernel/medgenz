@@ -104,11 +104,11 @@ export default function Header() {
             </a>
 
             <a
-              href="mailto:support@medgenz.in"
+              href="mailto:support@medgenz.com"
               className="flex items-center gap-2 hover:text-brand-400 transition-colors whitespace-nowrap"
             >
               <Mail className="w-3 h-3 text-brand-500" />
-              support@medgenz.in
+              support@medgenz.com
             </a>
             
           </div>

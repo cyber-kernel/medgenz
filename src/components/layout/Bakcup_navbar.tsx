@@ -71,9 +71,9 @@ export default function Header() {
               <Phone className="w-3 h-3 text-brand-500" />
               +91 8130118081
             </a>
-            <a href="mailto:support@medgenz.in" className="flex items-center gap-2 hover:text-brand-400 transition-colors">
+            <a href="mailto:support@medgenz.com" className="flex items-center gap-2 hover:text-brand-400 transition-colors">
               <Mail className="w-3 h-3 text-brand-500" />
-              support@medgenz.in
+              support@medgenz.com
             </a>
           </div>
         </div>

@@ -199,9 +199,23 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
-      {/* 1. HERO SECTION - Integrated Slider */}
-      <section className="relative min-h-[90vh] md:min-h-screen flex items-center pt-24 md:pt-32">
-        <HomeSlider />
+      {/* 1. HERO SECTION - Brand Film */}
+      <section className="relative overflow-hidden bg-slate-950 pt-[119px] lg:pt-[135px]">
+        <div className="hidden" aria-hidden="true">
+          <HomeSlider />
+        </div>
+        <video
+          className="block h-auto w-full"
+          src="/MedGenzBrandFilm-1535x590.mp4"
+          width="1535"
+          height="590"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-label="MedGenz brand film"
+        />
       </section>
 
       {/* 2. STATS SECTION - Scaled Down */}

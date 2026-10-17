@@ -46,7 +46,7 @@ export default function Header() {
   }
 
   const transparentRoutes = ['/', '/about', '/services', '/projects', '/blogs', '/contact', '/3d-ot'];
-  const shouldBeSolid = !transparentRoutes.includes(pathname ?? '') || isScrolled;
+  const shouldBeSolid = pathname === '/' || !transparentRoutes.includes(pathname ?? '') || isScrolled;
   const shouldUseDarkText = shouldBeSolid;
 
   return (
@@ -124,8 +124,8 @@ export default function Header() {
           'transition-all duration-500',
 
           isScrolled
-            ? 'top-[44px] md:top-[31px] py-0'
-            : 'top-[44px] md:top-[31px] py-1',
+            ? 'top-[47px] md:top-[31px] py-0'
+            : 'top-[47px] md:top-[31px] py-1',
 
           shouldBeSolid
             ? 'bg-white/95 backdrop-blur-xl shadow-xl border-b border-slate-100'

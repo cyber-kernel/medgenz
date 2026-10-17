@@ -10,6 +10,7 @@ import RelatedBlogs from "@/components/sections/RelatedBlogs";
 import SiteFAQ from "@/components/SiteFAQ";
 import BlogShareButtons from "@/components/sections/BlogShareButtons";
 import { withSeoMetadata } from "@/lib/seo-metadata";
+import { getPageAuthorSchema } from "@/lib/structured-data";
 
 interface TableOfContentsItem {
   id: string;
@@ -83,7 +84,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: `${title} | MedGenz Blog`,
     description,
     keywords: [...(blog.categories || []), ...(blog.tags || []), "healthcare", "hospital infrastructure", blog.title],
-    authors: [{ name: "MedGenz India Pvt. Ltd." }],
+    authors: [{ name: "MedGenz" }],
     alternates: {
       canonical: `https://www.medgenz.com/blogs/${blog.slug}`,
     },
@@ -104,7 +105,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         : [],
       publishedTime: blog.createdAt.toISOString(),
       modifiedTime: blog.updatedAt.toISOString(),
-      authors: ["MedGenz India Pvt. Ltd."],
+      authors: ["MedGenz"],
     },
     twitter: {
       card: "summary_large_image",
@@ -246,17 +247,11 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
     datePublished: blog.createdAt.toISOString(),
     dateModified: blog.updatedAt.toISOString(),
     author: {
-      "@type": "Organization",
-      name: "MedGenz India Pvt. Ltd.",
-      url: "https://www.medgenz.com/",
-      sameAs: [
-        "https://www.linkedin.com/company/medgenz/",
-        "https://www.facebook.com/medgenz.india.pvt.ltd",
-      ],
+      ...getPageAuthorSchema(),
     },
     publisher: {
       "@type": "Organization",
-      name: "MedGenz India Pvt. Ltd.",
+      name: "MedGenz",
       logo: {
         "@type": "ImageObject",
         url: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
@@ -302,7 +297,7 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
                      <User className="w-6 h-6" />
                   </div>
                   <div>
-                     <div className="text-white text-[11px] font-black leading-none mb-1 normal-case tracking-wider">MedGenz India Pvt. Ltd.</div>
+                     <div className="text-white text-[11px] font-black leading-none mb-1 normal-case tracking-wider">MedGenz</div>
                      <div className="text-slate-500 text-[9px] font-bold uppercase tracking-widest">Medical Infrastructure Expert</div>
                   </div>
                </div>

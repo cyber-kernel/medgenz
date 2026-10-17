@@ -8,6 +8,27 @@ import ClientMarquee from '@/components/sections/ClientMarquee';
 import Certifications from '@/components/sections/Certifications';
 import SiteFAQ from '@/components/SiteFAQ';
 import { withSeoMetadata } from '@/lib/seo-metadata';
+import EvidenceReferences from '@/components/sections/EvidenceReferences';
+import {
+  PAGE_CONTENT_UPDATED_AT,
+  getWebPageSchema,
+  type SourceReference,
+} from '@/lib/structured-data';
+
+const curtainReferences: SourceReference[] = [
+  {
+    label: "WHO Guidelines on core components of infection prevention and control programmes",
+    url: "https://www.who.int/publications/i/item/9789241549929",
+    context:
+      "sets out facility-level infection prevention and control programme guidance; it does not establish efficacy for a particular curtain fabric or track.",
+  },
+  {
+    label: "WHO Global Guidelines for the Prevention of Surgical Site Infection",
+    url: "https://www.who.int/publications/i/item/9789241550475",
+    context:
+      "summarizes evidence-based recommendations for perioperative infection prevention.",
+  },
+];
 
 interface ConfigItem {
   title: string;
@@ -97,7 +118,7 @@ const ctsProducts: Record<string, ProductData> = {
       { title: "In-House Bending", desc: "Precision machines bend tracks for exact fits without structural weakness.", icon: "/images/why-choose-medgenz-symbols/in-house-assemble.webp" },
       { title: "ISO Certified", desc: "Our processes strictly adhere to ISO 9001:2015 standards.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Our teams travel directly to hospital sites anywhere in India.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "We provide comprehensive maintenance and track adjustment services.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Overhauling a Major Cardiac ICU",
@@ -392,23 +413,35 @@ export default async function CTSProductPage({ params }: { params: Promise<{ slu
     "@type": "Product",
     "name": data.title,
     "description": data.heroDesc,
+    "url": `https://www.medgenz.com/services/curtain-track-system/${slug}`,
     "brand": {
       "@type": "Brand",
-      "name": "MedGenz India Pvt. Ltd."
+      "name": "MedGenz"
     },
     "image": data.heroImage,
-    "offers": {
-      "@type": "Offer",
-      "url": `https://www.medgenz.com/services/curtain-track-system/${slug}`,
-      "availability": "https://schema.org/InStock"
+    "manufacturer": {
+      "@id": "https://www.medgenz.com/#organization"
     }
   };
+  const webpageJsonLd = getWebPageSchema({
+    name: data.title,
+    description: data.heroDesc,
+    url: `https://www.medgenz.com/services/curtain-track-system/${slug}`,
+    dateModified: PAGE_CONTENT_UPDATED_AT,
+    citation: curtainReferences,
+  });
 
   return (
     <div className="pt-20 font-inter">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(webpageJsonLd).replace(/</g, "\\u003c"),
+        }}
       />
       {/* CLEAN PRODUCT HEADER */}
       <section className="pt-28 pb-8 md:pt-40 md:pb-16 bg-white border-b border-gray-100 uppercase tracking-tighter">
@@ -594,6 +627,7 @@ export default async function CTSProductPage({ params }: { params: Promise<{ slu
       <Certifications />
       <ClientMarquee />
 
+      <EvidenceReferences references={curtainReferences} />
       <SiteFAQ
         title="Frequently Asked Questions"
         eyebrow="Common Questions"

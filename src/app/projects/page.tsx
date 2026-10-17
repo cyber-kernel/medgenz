@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import { stripHtml } from "@/lib/content-utils";
 import { withSeoMetadata } from "@/lib/seo-metadata";
+import PageStructuredData from "@/components/PageStructuredData";
 
 export const dynamic = 'force-dynamic';
 
@@ -51,6 +52,12 @@ export default async function ProjectsPage() {
 
   return (
     <div className="font-inter">
+      <PageStructuredData
+        type="CollectionPage"
+        name="MedGenz Hospital Projects"
+        description="Explore published MedGenz hospital infrastructure projects and case studies from across India."
+        url="https://www.medgenz.com/projects"
+      />
       {/* 1. HERO SECTION */}
       <section className="relative py-24 md:py-32 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
         <div className="absolute inset-0 z-0 opacity-80">

@@ -8,6 +8,27 @@ import ClientMarquee from '@/components/sections/ClientMarquee';
 import Certifications from '@/components/sections/Certifications';
 import SiteFAQ from '@/components/SiteFAQ';
 import { withSeoMetadata } from '@/lib/seo-metadata';
+import EvidenceReferences from '@/components/sections/EvidenceReferences';
+import {
+  PAGE_CONTENT_UPDATED_AT,
+  getWebPageSchema,
+  type SourceReference,
+} from '@/lib/structured-data';
+
+const mgpsReferences: SourceReference[] = [
+  {
+    label: "NHS Health Technical Memorandum 02-01: Medical gas pipeline systems",
+    url: "https://www.england.nhs.uk/publication/medical-gas-pipeline-systems-htm-02-01/",
+    context:
+      "provides UK healthcare engineering guidance for medical gas pipeline systems; local codes and project specifications also apply.",
+  },
+  {
+    label: "WHO Medical equipment maintenance programme overview",
+    url: "https://www.who.int/publications/i/item/9789241501538",
+    context:
+      "describes inspection, safety checks, preventive maintenance, and corrective maintenance for medical equipment.",
+  },
+];
 
 interface ConfigItem {
   title: string;
@@ -136,7 +157,7 @@ const productData: Record<string, ProductData> = {
       { title: "Turnkey Solutions", desc: "By providing turnkey manifolds and panels solutions, we eliminate delays and ensure strict pressure quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our pipelines and oxygen products strictly adhere to ISO 9001:2015, ensuring medical-grade safety outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere in the country.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance and AMC support.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Averting Catastrophe During a City Blackout",
@@ -214,7 +235,7 @@ const productData: Record<string, ProductData> = {
       { title: "Rapid Installation", desc: "By following streamlined execution and precision planning, we ensure faster project completion with minimal disruption and maximum efficiency.", icon: "/images/why-choose-medgenz-symbols/rapid-installation-icon.webp" },
       { title: "ISO & CE Certified", desc: "Our pipelines and MGPS products strictly adhere to ISO 9001:2015, ensuring medical-grade safety outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere in the country.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance and AMC support.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Preventing Regulator Freeze-Ups in a Maternity Hospital",
@@ -284,7 +305,7 @@ const productData: Record<string, ProductData> = {
       { title: "Rapid Installation", desc: "By following streamlined execution and precision planning, we ensure faster project completion with minimal disruption and maximum efficiency.", icon: "/images/why-choose-medgenz-symbols/rapid-installation-icon.webp" },
       { title: "ISO & CE Certified", desc: "Our pipelines and MGPS products strictly adhere to ISO 9001:2015, ensuring medical-grade safety outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere in the country.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance and AMC support.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Stopping Ventilator Failure in a Delhi ICU",
@@ -363,7 +384,7 @@ const productData: Record<string, ProductData> = {
       { title: "Rapid Installation", desc: "By following streamlined execution and precision planning, we ensure faster project completion with minimal disruption and maximum efficiency.", icon: "/images/why-choose-medgenz-symbols/in-house-assemble.webp" },
       { title: "ISO & CE Certified", desc: "Our pipelines and suction products strictly adhere to ISO 9001:2015, ensuring medical-grade safety outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere in the country.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance and AMC support.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Preventing Suction Failure in a High-Volume ER",
@@ -442,7 +463,7 @@ const productData: Record<string, ProductData> = {
       { title: "Expert In-House Teams", desc: "Our specialized brazing technicians handle the entire installation, eliminating third-party errors and delays.", icon: "/images/why-choose-medgenz-symbols/in-house-team.webp" },
       { title: "ISO & CE Certified", desc: "Our pipelines and MGPS products strictly adhere to ISO 9001:2015, ensuring medical-grade safety outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere in the country.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance and AMC support.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Preventing Oxygen Combustion in a Delhi Hospital",
@@ -521,7 +542,7 @@ const productData: Record<string, ProductData> = {
       { title: "Expert In-House Teams", desc: "Our specialized brazing technicians handle the entire installation, eliminating third-party errors and delays.", icon: "/images/why-choose-medgenz-symbols/in-house-team.webp" },
       { title: "ISO & CE Certified", desc: "Our pipelines and MGPS products strictly adhere to ISO 9001:2015, ensuring medical-grade safety outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere in the country.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance and AMC support.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Isolating a Leak in a Mumbai ICU",
@@ -599,7 +620,7 @@ const productData: Record<string, ProductData> = {
       { title: "Rapid Installation", desc: "Our specialize technician install extruded panels turnkey, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/in-house-assemble.webp" },
       { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade safety outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere in the country.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance and AMC support.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Organizing the Chaos in a Delhi ICU",
@@ -678,7 +699,7 @@ const productData: Record<string, ProductData> = {
       { title: "Turnkey Solutions", desc: "By providing outlets and panels turnkey, we eliminate delays and ensure strict pressure quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade safety outcomes.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere in the country.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance and AMC support.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Eliminating Oxygen Waste in a Mumbai ICU",
@@ -756,7 +777,7 @@ const productData: Record<string, ProductData> = {
       { title: "Turnkey Supply", desc: "By Supplying our own tubes and adaptors, we eliminate delays and ensure strict pressure quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade safety outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams supply directly to your hospital site anywhere in the country.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance and spare parts support.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Preventing Oxygen Leaks in a Delhi ICU",
@@ -804,23 +825,35 @@ export default async function MGPSProductPage({ params }: { params: Promise<{ sl
     "@type": "Product",
     "name": data.title,
     "description": data.heroDesc,
+    "url": `https://www.medgenz.com/services/medical-gas-pipeline-system/${slug}`,
     "brand": {
       "@type": "Brand",
-      "name": "MedGenz India Pvt. Ltd."
+      "name": "MedGenz"
     },
     "image": data.heroImage,
-    "offers": {
-      "@type": "Offer",
-      "url": `https://www.medgenz.com/services/medical-gas-pipeline-system/${slug}`,
-      "availability": "https://schema.org/InStock"
+    "manufacturer": {
+      "@id": "https://www.medgenz.com/#organization"
     }
   };
+  const webpageJsonLd = getWebPageSchema({
+    name: data.title,
+    description: data.heroDesc,
+    url: `https://www.medgenz.com/services/medical-gas-pipeline-system/${slug}`,
+    dateModified: PAGE_CONTENT_UPDATED_AT,
+    citation: mgpsReferences,
+  });
 
   return (
     <div className="pt-20 font-inter">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(webpageJsonLd).replace(/</g, "\\u003c"),
+        }}
       />
       {/* CLEAN PRODUCT HEADER */}
       <section className="pt-28 pb-8 md:pt-40 md:pb-16 bg-white border-b border-gray-100 uppercase tracking-tighter">
@@ -1008,6 +1041,7 @@ export default async function MGPSProductPage({ params }: { params: Promise<{ sl
       <Certifications />
       <ClientMarquee />
 
+      <EvidenceReferences references={mgpsReferences} />
       <SiteFAQ
         title="Frequently Asked Questions"
         eyebrow="Common Questions"

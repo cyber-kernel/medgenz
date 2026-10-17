@@ -157,7 +157,7 @@ export default function ContactPage() {
     "@type": "ContactPage",
     "mainEntity": {
       "@type": "Organization",
-      "name": "MedGenz India Pvt. Ltd.",
+      "name": "MedGenz",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Plot No. 87 F/F kh No. 31/25, sector-3, matiala",
@@ -215,7 +215,7 @@ export default function ContactPage() {
                   <item.icon className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-slate-900 mb-2 uppercase tracking-widest text-sm">{item.title}</h3>
+                  <h2 className="text-lg font-bold text-slate-900 mb-2 uppercase tracking-widest text-sm">{item.title}</h2>
                   {item.details.map((detail, d_i) => (
                     detail.href ? (
                       <a key={d_i} href={detail.href} className="block text-slate-500 font-light leading-relaxed hover:text-brand-600 transition-colors">

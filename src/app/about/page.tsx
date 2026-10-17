@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { withSeoMetadata } from "@/lib/seo-metadata";
+import PageStructuredData from "@/components/PageStructuredData";
 
 // Dynamic import to keep client component separate
 const AboutClient = dynamic(() => import("./client"), {
@@ -41,5 +42,14 @@ export const metadata: Metadata = withSeoMetadata({
 }, "/about");
 
 export default function AboutPage() {
-  return <AboutClient />;
+  return (
+    <>
+      <PageStructuredData
+        name="About MedGenz"
+        description="Discover MedGenz, an Indian manufacturer of modular operating theatres, medical gas systems, and hospital infrastructure."
+        url="https://www.medgenz.com/about"
+      />
+      <AboutClient />
+    </>
+  );
 }

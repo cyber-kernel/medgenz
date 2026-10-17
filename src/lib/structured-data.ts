@@ -6,12 +6,102 @@ export interface SchemaOrgType {
   [key: string]: any;
 }
 
+export interface SourceReference {
+  label: string;
+  url: string;
+  context: string;
+}
+
+export const PAGE_CONTENT_UPDATED_AT = "2026-10-17";
+
+export const healthcareServiceReferences = {
+  medicalGas: [
+    {
+      label: "NHS Health Technical Memorandum 02-01: Medical gas pipeline systems",
+      url: "https://www.england.nhs.uk/publication/medical-gas-pipeline-systems-htm-02-01/",
+      context:
+        "NHS guidance on medical gas pipeline systems; local codes and project-specific requirements still apply.",
+    },
+    {
+      label: "WHO Medical equipment maintenance programme overview",
+      url: "https://www.who.int/publications/i/item/9789241501538",
+      context:
+        "WHO guidance on establishing medical-equipment maintenance programmes.",
+    },
+  ],
+  hospitalFurniture: [
+    {
+      label: "WHO Medical equipment maintenance programme overview",
+      url: "https://www.who.int/publications/i/item/9789241501538",
+      context:
+        "WHO guidance on establishing medical-equipment maintenance programmes.",
+    },
+    {
+      label: "WHO Quality health services: a planning guide",
+      url: "https://www.who.int/publications/i/item/9789240011632",
+      context:
+        "WHO guidance for planning quality health services; it does not certify a specific product.",
+    },
+  ],
+  nurseCall: [
+    {
+      label: "WHO Quality health services: a planning guide",
+      url: "https://www.who.int/publications/i/item/9789240011632",
+      context:
+        "WHO guidance on planning quality health services and related systems.",
+    },
+  ],
+  curtainTracks: [
+    {
+      label: "WHO Guidelines on Core Components of Infection Prevention and Control Programmes",
+      url: "https://www.who.int/publications/i/item/9789241549929",
+      context:
+        "WHO infection-prevention guidance; it does not certify a specific curtain, track, or antimicrobial treatment.",
+    },
+  ],
+} satisfies Record<string, SourceReference[]>;
+
+export const getPageAuthorSchema = () => ({
+  "@type": "Organization",
+  "@id": "https://www.medgenz.com/#organization",
+  name: "MedGenz",
+  url: "https://www.medgenz.com/",
+  sameAs: [
+    "https://www.linkedin.com/company/medgenz/",
+    "https://www.facebook.com/medgenz.india.pvt.ltd",
+    "https://www.instagram.com/medgenz_india_pvt_ltd/",
+    "https://www.youtube.com/@MedGenzIndiaPvtLtd",
+  ],
+});
+
+export const getWebPageSchema = (page: {
+  type?: string;
+  name: string;
+  description: string;
+  url: string;
+  dateModified?: string;
+  citation?: SourceReference[];
+}): SchemaOrgType => ({
+  "@context": "https://schema.org",
+  "@type": page.type || "WebPage",
+  "@id": `${page.url}#webpage`,
+  url: page.url,
+  name: page.name,
+  description: page.description,
+  author: getPageAuthorSchema(),
+  publisher: { "@id": "https://www.medgenz.com/#organization" },
+  ...(page.dateModified ? { dateModified: page.dateModified } : {}),
+  ...(page.citation?.length
+    ? { citation: page.citation.map((source) => source.url) }
+    : {}),
+});
+
 // Organization schema - used on home page
 export const getOrganizationSchema = (): SchemaOrgType => ({
   "@context": "https://schema.org",
   "@type": "Organization",
   "@id": "https://www.medgenz.com/#organization",
-  name: "MedGenz India Pvt. Ltd.",
+  name: "MedGenz",
   legalName: "MedGenz India Pvt. Ltd.",
   url: "https://www.medgenz.com",
   logo: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
@@ -35,8 +125,9 @@ export const getOrganizationSchema = (): SchemaOrgType => ({
   },
   sameAs: [
     "https://www.linkedin.com/company/medgenz/",
-    "https://youtube.com/@medgenzindiapvtltd",
+    "https://www.facebook.com/medgenz.india.pvt.ltd",
     "https://www.instagram.com/medgenz_india_pvt_ltd/",
+    "https://www.youtube.com/@MedGenzIndiaPvtLtd",
   ],
   knowsAbout: [
     "Modular Operation Theatres",
@@ -51,7 +142,7 @@ export const getOrganizationSchema = (): SchemaOrgType => ({
 export const getLocalBusinessSchema = (): SchemaOrgType => ({
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  name: "MedGenz India Pvt. Ltd.",
+  name: "MedGenz",
   image: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
   description:
     "Leading manufacturer of Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure.",
@@ -89,7 +180,8 @@ export const getServiceSchema = (
   url: serviceUrl,
   provider: {
     "@type": "Organization",
-    name: "MedGenz India Pvt. Ltd.",
+    "@id": "https://www.medgenz.com/#organization",
+    name: "MedGenz",
     url: "https://www.medgenz.com",
     logo: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
   },
@@ -173,7 +265,8 @@ export const getArticleSchema = (article: ArticleData): SchemaOrgType => ({
   },
   publisher: {
     "@type": "Organization",
-    name: "MedGenz India Pvt. Ltd.",
+    "@id": "https://www.medgenz.com/#organization",
+    name: "MedGenz",
     logo: {
       "@type": "ImageObject",
       url: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
@@ -201,11 +294,12 @@ export const getProductSchema = (product: ProductData): SchemaOrgType => ({
   url: product.url,
   brand: {
     "@type": "Brand",
-    name: "MedGenz India Pvt. Ltd.",
+    name: "MedGenz",
   },
   manufacturer: {
     "@type": "Organization",
-    name: "MedGenz India Pvt. Ltd.",
+    "@id": "https://www.medgenz.com/#organization",
+    name: "MedGenz",
   },
   ...(product.price && {
     offers: {

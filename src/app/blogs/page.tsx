@@ -4,6 +4,7 @@ import { ArrowRight, Calendar, User, Search, XCircle, FileText } from "lucide-re
 import { prisma } from "@/lib/prisma";
 import type { Metadata } from "next";
 import { withSeoMetadata } from "@/lib/seo-metadata";
+import PageStructuredData from "@/components/PageStructuredData";
 
 export const dynamic = 'force-dynamic';
 
@@ -61,7 +62,7 @@ export default async function BlogListingPage({ searchParams }: BlogListingPageP
     "description": "Insights and trends in hospital infrastructure and medical engineering.",
     "publisher": {
       "@type": "Organization",
-      "name": "MedGenz India Pvt. Ltd.",
+      "name": "MedGenz",
       "logo": {
         "@type": "ImageObject",
         "url": "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/og-medgenz-logo-2.jpg"
@@ -83,6 +84,12 @@ export default async function BlogListingPage({ searchParams }: BlogListingPageP
 
   return (
     <div className="font-inter min-h-screen bg-white">
+      <PageStructuredData
+        type="CollectionPage"
+        name="MedGenz Healthcare Infrastructure Blog"
+        description="Read MedGenz articles on modular operating theatre design, medical gas systems, hospital engineering, and healthcare infrastructure."
+        url="https://www.medgenz.com/blogs"
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

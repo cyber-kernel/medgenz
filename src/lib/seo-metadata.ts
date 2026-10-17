@@ -58,6 +58,17 @@ export function withSeoMetadata(metadata: Metadata, pathname: string): Metadata 
     title,
     description,
     keywords: normalizeKeywords(metadata.keywords),
+    openGraph: {
+      ...metadata.openGraph,
+      siteName: "MedGenz",
+      title,
+      description,
+    },
+    twitter: {
+      ...metadata.twitter,
+      title,
+      description,
+    },
     alternates: {
       ...metadata.alternates,
       canonical,

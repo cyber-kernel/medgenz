@@ -7,6 +7,24 @@ import Certifications from '@/components/sections/Certifications';
 import ECGCTA from '@/components/sections/ECGCTA';
 import SiteFAQ from '@/components/SiteFAQ';
 import { withSeoMetadata } from '@/lib/seo-metadata';
+import PageStructuredData from '@/components/PageStructuredData';
+import EvidenceReferences from '@/components/sections/EvidenceReferences';
+import { getServiceSchema, type SourceReference } from '@/lib/structured-data';
+
+const motReferences: SourceReference[] = [
+  {
+    label: "ISO 14644-1: Cleanrooms and associated controlled environments",
+    url: "https://www.iso.org/standard/53394.html",
+    context:
+      "defines classification of air cleanliness by airborne particle concentration; it does not certify a specific product or installation.",
+  },
+  {
+    label: "WHO Global Guidelines for the Prevention of Surgical Site Infection",
+    url: "https://www.who.int/publications/i/item/9789241550475",
+    context:
+      "summarizes evidence-based recommendations for perioperative infection prevention.",
+  },
+];
 
 export const metadata = withSeoMetadata({
   title: "Modular Operation Theatre Manufacturer | MedGenz",
@@ -85,8 +103,26 @@ const faqs = [
 ];
 
 export default function MOTPage() {
+  const serviceSchema = getServiceSchema(
+    "Modular Operation Theatre",
+    "Design, manufacture, and installation of modular operating theatre systems and components.",
+    "https://www.medgenz.com/services/modular-operation-theatre",
+  );
+
   return (
     <div className="pt-20 font-inter">
+      <PageStructuredData
+        name="Modular Operation Theatre"
+        description="Explore modular operating theatre design, components, cleanroom systems, and installation services from MedGenz."
+        url="https://www.medgenz.com/services/modular-operation-theatre"
+        citation={motReferences}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(serviceSchema).replace(/</g, "\\u003c"),
+        }}
+      />
       {/* CLEAN PRODUCT HEADER */}
       <section className="pt-28 pb-8 md:pt-40 md:pb-16 bg-white border-b border-gray-100 uppercase tracking-tighter">
         <div className="max-w-7xl mx-auto px-4 md:px-6">
@@ -108,7 +144,7 @@ export default function MOTPage() {
             </p>
 
             <div className="mb-8 border-l-4 border-brand-600 bg-brand-50 rounded-r-xl p-4 md:p-5 shadow-sm">
-              <h3 className="text-[11px] md:text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">System Execution Blueprint</h3>
+              <h2 className="text-[11px] md:text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">System Execution Blueprint</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-3 gap-x-6 text-sm md:text-base text-gray-800 font-medium">
                 <div className="flex items-center gap-2.5">
                   <CheckCircle className="w-4 h-4 text-green-500 shrink-0" /> SS-304 & PUF Paneling
@@ -157,12 +193,12 @@ export default function MOTPage() {
 
             <div className="grid grid-cols-2 gap-4 md:gap-6">
               <div className="border-l-4 border-brand-600 pl-3 md:pl-4">
-                <div className="text-xl md:text-2xl font-black text-gray-900">Zero</div>
-                <div className="text-[10px] md:text-sm font-bold text-gray-500 uppercase tracking-widest mt-1">Infection Risk Design</div>
+                <div className="text-xl md:text-2xl font-black text-gray-900">4</div>
+                <div className="text-[10px] md:text-sm font-bold text-gray-500 uppercase tracking-widest mt-1">Integrated System Categories</div>
               </div>
               <div className="border-l-4 border-brand-600 pl-3 md:pl-4">
-                <div className="text-xl md:text-2xl font-black text-gray-900">100%</div>
-                <div className="text-[10px] md:text-sm font-bold text-gray-500 uppercase tracking-widest mt-1">NABH Compliant</div>
+                <div className="text-xl md:text-2xl font-black text-gray-900">16</div>
+                <div className="text-[10px] md:text-sm font-bold text-gray-500 uppercase tracking-widest mt-1">Listed OT Components</div>
               </div>
             </div>
           </div>
@@ -253,7 +289,7 @@ export default function MOTPage() {
                 <FileText className="w-8 h-8 md:w-16 md:h-16 text-brand-300 group-hover:text-brand-500 transition-colors" />
               </div>
               <div className="p-2 md:p-5 flex flex-col flex-grow items-center md:items-start">
-                <h4 className="font-bold text-gray-900 group-hover:text-brand-700 text-[10px] md:text-base leading-tight mb-1">MOT Layout Drawing</h4>
+                <h3 className="font-bold text-gray-900 group-hover:text-brand-700 text-[10px] md:text-base leading-tight mb-1">MOT Layout Drawing</h3>
                 <p className="hidden md:block text-xs text-gray-500 mb-4 flex-grow font-light">DWG Format • OT Zoning Guides</p>
                 <div className="text-[9px] md:text-xs font-bold text-brand-600 flex items-center gap-1 md:gap-2 mt-auto">Open Document <ExternalLink className="w-3 h-3 md:w-4 md:h-4" /></div>
               </div>
@@ -337,6 +373,7 @@ export default function MOTPage() {
         faqs={faqs.map((faq) => ({ question: faq.q, answer: faq.a }))}
       />
 
+      <EvidenceReferences references={motReferences} />
       <ECGCTA />
     </div>
   );

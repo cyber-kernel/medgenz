@@ -2,10 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { ShieldCheck, CheckCircle, ArrowRight, Activity, Layout, Layers, Wind, Settings, Microscope, Scissors } from "lucide-react";
 import type { Metadata } from "next";
-import { getFAQSchema } from "@/lib/structured-data";
 import SiteFAQ from "@/components/SiteFAQ";
 import ClientMarquee from "@/components/sections/ClientMarquee";
 import { withSeoMetadata } from "@/lib/seo-metadata";
+import PageStructuredData from "@/components/PageStructuredData";
 
 export const metadata: Metadata = withSeoMetadata({
   title: "Hospital Infrastructure Services | MedGenz",
@@ -109,7 +109,7 @@ export default function ServicesPage() {
     "serviceType": "Healthcare Infrastructure Manufacturing & Installation",
     "provider": {
       "@type": "Organization",
-      "name": "MedGenz India Pvt. Ltd.",
+      "name": "MedGenz",
       "url": "https://www.medgenz.com"
     },
     "hasOfferCatalog": {
@@ -128,13 +128,15 @@ export default function ServicesPage() {
 
   return (
     <div className="font-inter">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      <PageStructuredData
+        type="CollectionPage"
+        name="Hospital Infrastructure Services"
+        description="Explore MedGenz modular operating theatres, medical gas pipeline systems, hospital furniture, nurse call systems, and related services."
+        url="https://www.medgenz.com/services"
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(getFAQSchema(faqs)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       {/* Hero - Scaled Down */}
       <section className="relative py-24 md:py-32 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
@@ -167,7 +169,7 @@ export default function ServicesPage() {
                   <Image src={cat.image} alt={cat.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   <div className="absolute bottom-6 left-8">
-                      <h3 className="text-xl md:text-3xl font-black text-white uppercase tracking-tighter leading-tight">{cat.title}</h3>
+                      <h2 className="text-xl md:text-3xl font-black text-white uppercase tracking-tighter leading-tight">{cat.title}</h2>
                   </div>
                 </div>
                 <div className="p-6 flex flex-col flex-grow">

@@ -8,6 +8,21 @@ import ClientMarquee from '@/components/sections/ClientMarquee';
 import Certifications from '@/components/sections/Certifications';
 import SiteFAQ from '@/components/SiteFAQ';
 import { withSeoMetadata } from '@/lib/seo-metadata';
+import EvidenceReferences from '@/components/sections/EvidenceReferences';
+import {
+  PAGE_CONTENT_UPDATED_AT,
+  getWebPageSchema,
+  type SourceReference,
+} from '@/lib/structured-data';
+
+const nurseCallReferences: SourceReference[] = [
+  {
+    label: "WHO Quality health services: a planning guide",
+    url: "https://www.who.int/publications/i/item/9789240011632",
+    context:
+      "offers a facility-level framework for planning and improving quality health services; it is not a product specification for nurse-call systems.",
+  },
+];
 
 interface ConfigItem {
   title: string;
@@ -118,7 +133,7 @@ const ncsProducts: Record<string, ProductData> = {
       { title: "Turnkey Solutions", desc: "By providing End to End panels and ceilings system solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Eliminating Patient Communication Lag in a Lucknow Hospital",
@@ -188,7 +203,7 @@ const ncsProducts: Record<string, ProductData> = {
       { title: "Turnkey Solutions", desc: "By providing End to End panels and ceilings system solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Eliminating Missed Patient Calls across a 300-Bed Bhopal Facility",
@@ -258,7 +273,7 @@ const ncsProducts: Record<string, ProductData> = {
       { title: "Turnkey Solutions", desc: "By providing End to End panels and ceilings system solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Eliminating Washroom Emergency Delays in a Jaipur Super-Specialty Facility",
@@ -299,8 +314,43 @@ export default async function NCSProductPage({ params }: { params: Promise<{ slu
     notFound();
   }
 
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: data.title,
+    description: data.heroDesc,
+    url: `https://www.medgenz.com/services/nurse-call-system/${slug}`,
+    image: data.heroImage,
+    brand: {
+      "@type": "Brand",
+      name: "MedGenz",
+    },
+    manufacturer: {
+      "@id": "https://www.medgenz.com/#organization",
+    },
+  };
+  const webpageJsonLd = getWebPageSchema({
+    name: data.title,
+    description: data.heroDesc,
+    url: `https://www.medgenz.com/services/nurse-call-system/${slug}`,
+    dateModified: PAGE_CONTENT_UPDATED_AT,
+    citation: nurseCallReferences,
+  });
+
   return (
     <div className="pt-20 font-inter">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(productJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(webpageJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       {/* CLEAN PRODUCT HEADER */}
       <section className="pt-28 pb-8 md:pt-40 md:pb-16 bg-white border-b border-gray-100 uppercase tracking-tighter">
         <div className="max-w-7xl mx-auto px-4 md:px-6">
@@ -487,6 +537,7 @@ export default async function NCSProductPage({ params }: { params: Promise<{ slu
       <Certifications />
       <ClientMarquee />
 
+      <EvidenceReferences references={nurseCallReferences} />
       <SiteFAQ
         title="Frequently Asked Questions"
         eyebrow="Common Questions"

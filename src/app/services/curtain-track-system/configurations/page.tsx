@@ -14,14 +14,35 @@ import ClientMarquee from '@/components/sections/ClientMarquee';
 import Certifications from '@/components/sections/Certifications';
 import SiteFAQ from '@/components/SiteFAQ';
 import { withSeoMetadata } from '@/lib/seo-metadata';
+import PageStructuredData from '@/components/PageStructuredData';
+import EvidenceReferences from '@/components/sections/EvidenceReferences';
+import {
+  PAGE_CONTENT_UPDATED_AT,
+  type SourceReference,
+} from '@/lib/structured-data';
+
+const configurationReferences: SourceReference[] = [
+  {
+    label: "WHO Guidelines on Core Components of Infection Prevention and Control Programmes",
+    url: "https://www.who.int/publications/i/item/9789241549929",
+    context:
+      "WHO guidance for infection prevention and control programmes in health care; it does not certify a specific curtain, track, or antimicrobial treatment.",
+  },
+  {
+    label: "WHO Global Guidelines for the Prevention of Surgical Site Infection",
+    url: "https://www.who.int/publications/i/item/9789241550475",
+    context:
+      "WHO recommendations on surgical-site infection prevention, provided as general clinical context rather than product-performance evidence.",
+  },
+];
 
 const configurations = [
   {
     id: "aluminum-tracks",
     title: "Heavy-Duty Aluminum Tracks",
     desc: [
-      "Extruded from premium high-grade aluminum alloy, these rigid tracks form the indestructible backbone of the hospital partition system. Engineered to support the weight of heavy, fire-retardant privacy curtains without sagging or bowing over time.",
-      "Anti-Microbial Coating: Every millimeter of the track is treated with a specialized 50-micron epoxy powder coat. This critical surface treatment actively repels bacteria and prevents the spread of hospital-acquired infections (HAIs) in sterile environments like ICUs."
+      "Extruded from high-grade aluminum alloy, these rigid tracks support hospital privacy curtains. Confirm span, loading, and mounting requirements for the selected layout before installation.",
+      "The listed configuration includes a 50-micron epoxy powder coat. Surface coatings do not replace routine cleaning or infection-prevention procedures; request product-specific test documentation for antimicrobial claims."
     ],
     image: "/images/hospital-curtain-track-system/heavy-duty-aluminum-tracks.webp"
   },
@@ -100,7 +121,7 @@ const whyChoose = [
   { title: "In-House Bending", desc: "We utilize precision machines to bend our own tracks, ensuring exact fits without structural weakness.", icon: "/images/why-choose-medgenz-symbols/in-house-assemble.webp" },
   { title: "ISO Certified Quality", desc: "Our extrusions and coatings strictly adhere to ISO 9001:2015, guaranteeing long-lasting healthcare safety.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
   { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our installation teams travel directly to hospital sites anywhere in India.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-  { title: "Lifetime Support", desc: "From replacing damaged curtains to track adjustments, we provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+  { title: "After-Sales Support", desc: "Ask about available maintenance and replacement support for your selected system and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
 ];
 
 const specs = [
@@ -114,7 +135,7 @@ const specs = [
 const faqs = [
   {
     q: "What materials are used in your hospital cubicle curtain tracks?",
-    a: "Our hospital curtain tracks are manufactured from heavy-duty extruded aluminum alloy. They feature a specialized 50-micron anti-microbial powder coating to actively repel bacteria and maintain strict hygiene standards in critical care areas."
+    a: "The listed configuration uses extruded aluminum alloy with a 50-micron powder coat. Confirm the coating specification for your project, and follow the facility's cleaning and infection-prevention procedures."
   },
   {
     q: "Do the curtain tracks operate silently?",
@@ -126,7 +147,7 @@ const faqs = [
   },
   {
     q: "Are the hospital privacy curtains fire-retardant?",
-    a: "Yes, we provide premium, chemically treated fire-retardant privacy curtains. Furthermore, the curtains feature an open-mesh top design that complies with international fire safety codes, ensuring ceiling sprinklers can easily penetrate the fabric in case of an emergency."
+    a: "Fire performance and sprinkler compatibility depend on the selected curtain and local requirements. Ask for the product's fire-test documentation and have the design reviewed against the facility's applicable fire code."
   }
 ];
 
@@ -138,6 +159,14 @@ export const metadata = withSeoMetadata({
 export default function CTSConfigurations() {
   return (
     <div className="pt-20 font-inter">
+      <PageStructuredData
+        type="WebPage"
+        name="Hospital Curtain Track Components | MedGenz"
+        description="Explore hospital curtain tracks, silent gliders, privacy curtains, and telescopic IV tracks from MedGenz."
+        url="https://www.medgenz.com/services/curtain-track-system/configurations"
+        dateModified={PAGE_CONTENT_UPDATED_AT}
+        citation={configurationReferences}
+      />
       {/* PRODUCT HEADER */}
       <section className="pt-28 pb-8 md:pt-40 md:pb-16 bg-white border-b border-gray-100 relative">
         <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
@@ -288,18 +317,18 @@ export default function CTSConfigurations() {
         </div>
       </section>
 
-      {/* CASE STUDY */}
+      {/* APPLICATION NOTE */}
       <section className="py-12 md:py-20 px-4 md:px-6 bg-brand-50 border-b border-gray-200">
         <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl border border-brand-100 p-8 md:p-12 relative overflow-hidden">
           <div className="absolute top-4 right-6 text-brand-100 opacity-30 text-8xl font-serif leading-none">&quot;</div>
           <div className="relative z-10">
-            <span className="text-brand-600 font-bold uppercase tracking-widest text-[10px] md:text-xs mb-3 block">Quick Case Study</span>
-            <h3 className="text-xl md:text-3xl font-bold text-gray-900 mb-4 uppercase tracking-tighter">Eliminating Sleep Disruption in the Intensive Care Unit</h3>
+            <span className="text-brand-600 font-bold uppercase tracking-widest text-[10px] md:text-xs mb-3 block">Application Note</span>
+            <h3 className="text-xl md:text-3xl font-bold text-gray-900 mb-4 uppercase tracking-tighter">Selecting Quiet-Running Curtain Hardware</h3>
             <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-4 font-light">
-              A prominent cardiac hospital was facing constant complaints regarding patient sleep disruption in their 20-bed ICU. The culprit was their outdated partition system; the metal ring hooks scraped loudly against the rolled-steel tracks every time nurses quickly pulled the curtains during midnight emergencies, causing extreme noise pollution.
+              Curtain movement can add to background noise in patient-care areas. Low-friction gliders are designed to move more quietly than metal rings, but actual sound levels depend on the track, installation, maintenance, and how the curtains are used.
             </p>
             <p className="text-gray-600 text-sm md:text-base leading-relaxed">
-              <strong>The Solution:</strong> <span className="font-light">MedGenz was contracted to completely overhaul the ward. We installed our Heavy-Duty Aluminum Tracks fitted with Virgin Nylon Silent Gliders. The result was immediate—medical staff could now draw the anti-microbial privacy curtains instantly and completely silently, dramatically improving patient rest and overall ICU acoustics.</span>
+              <strong>Selection tip:</strong> <span className="font-light">Evaluate a sample track and glider in the intended environment, and confirm that the chosen system meets the facility's cleaning, durability, and fire-safety requirements.</span>
             </p>
           </div>
         </div>
@@ -334,6 +363,7 @@ export default function CTSConfigurations() {
         faqs={faqs.map((faq) => ({ question: faq.q, answer: faq.a }))}
       />
 
+      <EvidenceReferences references={configurationReferences} />
       <ECGCTA />
     </div>
   );

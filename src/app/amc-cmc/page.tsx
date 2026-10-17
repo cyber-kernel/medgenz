@@ -7,6 +7,7 @@ import ReviewSlider from '@/components/sections/ReviewSlider';
 import ECGCTA from '@/components/sections/ECGCTA';
 import SiteFAQ from '@/components/SiteFAQ';
 import { withSeoMetadata } from '@/lib/seo-metadata';
+import PageStructuredData from '@/components/PageStructuredData';
 
 export const metadata = withSeoMetadata({
   title: 'Hospital Equipment AMC & CMC | MedGenz',
@@ -50,6 +51,12 @@ const reviews = [
 
 export default function AMCCMCPage() {
   return (
+    <>
+    <PageStructuredData
+      name="Hospital Equipment AMC and CMC Services"
+      description="Compare annual and comprehensive maintenance contracts for hospital equipment, including ICU and operating theatre systems."
+      url="https://www.medgenz.com/amc-cmc"
+    />
     <div className="pt-20 md:pt-28 font-inter">
       {/* 1. HERO SECTION */}
       <section className="relative py-12 md:py-20 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
@@ -126,5 +133,6 @@ export default function AMCCMCPage() {
 
       <ECGCTA />
     </div>
+    </>
   );
 }

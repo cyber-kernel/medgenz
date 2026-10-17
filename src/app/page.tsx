@@ -7,7 +7,7 @@ import ClientMarquee from '@/components/sections/ClientMarquee';
 import ECGCTA from '@/components/sections/ECGCTA';
 import Testimonials from '@/components/sections/Testimonials';
 import SiteFAQ from '@/components/SiteFAQ';
-import { getFAQSchema, getWebsiteSchema } from '@/lib/structured-data';
+import { getWebsiteSchema } from '@/lib/structured-data';
 import { withSeoMetadata } from '@/lib/seo-metadata';
 
 const homePageModified = '2026-10-15';
@@ -181,8 +181,8 @@ export default function Home() {
     "@type": "WebPage",
     "@id": "https://www.medgenz.com/#webpage",
     "url": "https://www.medgenz.com/",
-    "name": "MedGenz India Pvt. Ltd. | We Manufacture And Setup Modular Operation theatre",
-    "description": "MedGenz India Private Limited provides turnkey solutions for Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure.",
+    "name": "MedGenz | Modular OTs & Hospital Infrastructure",
+    "description": "MedGenz delivers modular operating theatres, medical gas systems, and hospital infrastructure solutions across India.",
     "inLanguage": "en",
     "dateModified": homePageModified,
     "author": { "@id": "https://www.medgenz.com/#organization" },
@@ -199,11 +199,6 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(getFAQSchema(homeFaqs)) }}
-      />
-
       {/* 1. HERO SECTION - Integrated Slider */}
       <section className="relative min-h-[90vh] md:min-h-screen flex items-center pt-24 md:pt-32">
         <HomeSlider />

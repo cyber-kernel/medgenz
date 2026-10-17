@@ -8,6 +8,27 @@ import ClientMarquee from '@/components/sections/ClientMarquee';
 import Certifications from '@/components/sections/Certifications';
 import SiteFAQ from '@/components/SiteFAQ';
 import { withSeoMetadata } from '@/lib/seo-metadata';
+import EvidenceReferences from '@/components/sections/EvidenceReferences';
+import {
+  PAGE_CONTENT_UPDATED_AT,
+  getWebPageSchema,
+  type SourceReference,
+} from '@/lib/structured-data';
+
+const furnitureReferences: SourceReference[] = [
+  {
+    label: "WHO Medical equipment maintenance programme overview",
+    url: "https://www.who.int/publications/i/item/9789241501538",
+    context:
+      "outlines inspection, safety checks, preventive maintenance, and corrective maintenance for medical equipment.",
+  },
+  {
+    label: "WHO Quality health services: a planning guide",
+    url: "https://www.who.int/publications/i/item/9789240011632",
+    context:
+      "provides a health-system framework for planning quality services at facility level.",
+  },
+];
 
 interface ConfigItem {
   title: string;
@@ -120,7 +141,7 @@ const productData: Record<string, ProductData> = {
       { title: "In-House Production", desc: "By manufacturing our own bed frames with robotic welding, we guarantee zero structural defects and maximum load limits.", icon: "/images/why-choose-medgenz-symbols/in-house-assemble.webp" },
       { title: "NABH & IEC Compliant", desc: "Our electrical actuators and bed structures strictly adhere to international medical device safety regulations (IEC 60601-2-52).", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our installation teams deploy equipment directly to your hospital site anywhere in the country.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide replacement actuators, castor wheels, and AMC support.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Reducing Response Time in the CCU",
@@ -201,7 +222,7 @@ const productData: Record<string, ProductData> = {
       { title: "In-House Production", desc: "By manufacturing our own bed frames with robotic welding, we guarantee zero structural defects and maximum load limits.", icon: "/images/why-choose-medgenz-symbols/in-house-assemble.webp" },
       { title: "NABH & ISO Compliant", desc: "Our bed structures and materials strictly adhere to national hospital outfitting and safety regulations.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our installation teams deploy equipment directly to your hospital site anywhere in the country.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide replacement parts, castors, and AMC support.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Equipping a 200-Bed Community Hospital",
@@ -282,7 +303,7 @@ const productData: Record<string, ProductData> = {
       { title: "In-House Assembly", desc: "Our trolleys are built and load-tested in-house to ensure smooth castor operation and structural integrity under pressure.", icon: "/images/why-choose-medgenz-symbols/in-house-assemble.webp" },
       { title: "NABH Compliant", desc: "Our crash carts strictly adhere to national safety guidelines regarding narcotic security and rapid access.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our logistics team ensures rapid deployment to any facility nationwide.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "We provide replacement castors, drawer tracks, locking mechanisms, and complete support post-installation.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Shaving Seconds Off Code Blue Responses",
@@ -467,7 +488,7 @@ const productData: Record<string, ProductData> = {
       { title: "Quality Control", desc: "Every compressor pump is stress-tested for 48 hours to ensure zero pressure loss before dispatch.", icon: "/images/why-choose-medgenz-symbols/in-house-assemble.webp" },
       { title: "Clinical Validation", desc: "Our alternating pressure therapies conform to rigorous wound care standards for Stage IV ulcer treatment.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our logistics team ensures rapid deployment to any facility nationwide.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "We provide replacement mattress cells, pump motors, and complete AMC support post-installation.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Halting Tissue Necrosis in Long-Term Care",
@@ -538,7 +559,7 @@ const productData: Record<string, ProductData> = {
       { title: "In-House Quality", desc: "Built and hydraulically tested in-house to ensure zero fluid leaks or mechanism jams under heavy load.", icon: "/images/why-choose-medgenz-symbols/in-house-assemble.webp" },
       { title: "NABH Compliant", desc: "Strictly adheres to national safety guidelines regarding side-rail entrapment and dynamic load limits.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our logistics team ensures rapid deployment to any facility nationwide.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "We provide replacement castors, hydraulic pumps, side rails, and complete AMC support post-installation.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Halving Transit Time in the ER",
@@ -603,7 +624,7 @@ const productData: Record<string, ProductData> = {
       { title: "In-House Quality", desc: "Our lockers and tables are built and load-tested in-house to ensure structural integrity and smooth operation.", icon: "/images/why-choose-medgenz-symbols/in-house-assemble.webp" },
       { title: "NABH Compliant", desc: "Strictly adhere to safety guidelines regarding infection control surfaces and stability.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, we ensure rapid deployment nationwide.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "We provide replacement castors, gas springs, and complete support post-installation.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Improving Patient Autonomy",
@@ -668,7 +689,7 @@ const productData: Record<string, ProductData> = {
     whyChoose: [
       { title: "In-House Quality", desc: "Built and stress-tested in-house to ensure anti-tip stability under heavy multi-pump loads.", icon: "/images/why-choose-medgenz-symbols/in-house-assemble.webp" },
       { title: "NABH Compliant", desc: "Strictly adhere to safety guidelines regarding hygiene surfaces and fall prevention.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
-      { title: "Lifetime Support", desc: "We provide replacement castors, hooks, and height-adjustment knobs post-installation.", icon: "/images/why-choose-medgenz-symbols/support.webp" },
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" },
       { title: "Bulk Availability", desc: "Headquartered in Delhi NCR, we maintain large stocks for immediate nationwide dispatch.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" }
     ],
     caseStudy: {
@@ -748,7 +769,7 @@ const productData: Record<string, ProductData> = {
       { title: "In-House Assembly", desc: "Tables are welded and upholstered in-house to ensure frames won't wobble and foam won't sag.", icon: "/images/why-choose-medgenz-symbols/in-house-assemble.webp" },
       { title: "NABH Compliant", desc: "Meets strict national safety guidelines regarding hygiene surfaces and load stability.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our logistics team ensures rapid deployment nationwide.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "We provide replacement upholstery, mechanical ratchets, and complete support post-installation.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Streamlining Throughput in a Busy OPD",
@@ -796,23 +817,35 @@ export default async function FurnitureProductPage({ params }: { params: Promise
     "@type": "Product",
     "name": data.title,
     "description": data.heroDesc,
+    "url": `https://www.medgenz.com/services/hospital-furniture/${slug}`,
     "brand": {
       "@type": "Brand",
-      "name": "MedGenz India Pvt. Ltd."
+      "name": "MedGenz"
     },
     "image": data.heroImage,
-    "offers": {
-      "@type": "Offer",
-      "url": `https://www.medgenz.com/services/hospital-furniture/${slug}`,
-      "availability": "https://schema.org/InStock"
+    "manufacturer": {
+      "@id": "https://www.medgenz.com/#organization"
     }
   };
+  const webpageJsonLd = getWebPageSchema({
+    name: data.title,
+    description: data.heroDesc,
+    url: `https://www.medgenz.com/services/hospital-furniture/${slug}`,
+    dateModified: PAGE_CONTENT_UPDATED_AT,
+    citation: furnitureReferences,
+  });
 
   return (
     <div className="pt-20 font-inter">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(webpageJsonLd).replace(/</g, "\\u003c"),
+        }}
       />
       {/* CLEAN PRODUCT HEADER */}
       <section className="pt-28 pb-8 md:pt-40 md:pb-16 bg-white border-b border-gray-100 uppercase tracking-tighter">
@@ -998,6 +1031,7 @@ export default async function FurnitureProductPage({ params }: { params: Promise
       <Certifications />
       <ClientMarquee />
 
+      <EvidenceReferences references={furnitureReferences} />
       <SiteFAQ
         title="Frequently Asked Questions"
         eyebrow="Common Questions"

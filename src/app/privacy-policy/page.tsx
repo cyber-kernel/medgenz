@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { withSeoMetadata } from '@/lib/seo-metadata';
+import PageStructuredData from "@/components/PageStructuredData";
 
 export const metadata = withSeoMetadata({
   title: 'Privacy Policy | MedGenz',
@@ -10,6 +11,12 @@ export const metadata = withSeoMetadata({
 
 export default function PrivacyPolicyPage() {
   return (
+    <>
+    <PageStructuredData
+      name="MedGenz Privacy Policy"
+      description="Read how MedGenz handles personal information submitted through this website."
+      url="https://www.medgenz.com/privacy-policy"
+    />
     <div className="min-h-screen bg-slate-50 pt-28 pb-16 md:pt-36 font-inter">
       <div className="max-w-4xl mx-auto px-6">
         <Link
@@ -99,5 +106,6 @@ export default function PrivacyPolicyPage() {
         </article>
       </div>
     </div>
+    </>
   );
 }

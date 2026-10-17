@@ -13,6 +13,8 @@ import type { Metadata } from 'next';
 import { isContentEmpty, wrapRichTextTables } from '@/lib/content-utils';
 import ProjectSidebar from '@/components/sections/ProjectSidebar';
 import { withSeoMetadata } from '@/lib/seo-metadata';
+import PageStructuredData from '@/components/PageStructuredData';
+import { getPageAuthorSchema } from '@/lib/structured-data';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -51,9 +53,35 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
   const hasBrief = !isContentEmpty(project.brief);
   const hasChallenge = !isContentEmpty(project.challenge);
   const hasSolution = !isContentEmpty(project.solution);
+  const projectUrl = `https://www.medgenz.com/projects/${project.slug}`;
+  const projectSchema = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "@id": `${projectUrl}#project`,
+    name: project.title,
+    description: project.metaDescription || project.brief?.replace(/<[^>]*>/g, " ").trim(),
+    url: projectUrl,
+    ...(project.heroImage ? { image: project.heroImage } : {}),
+    datePublished: project.createdAt.toISOString(),
+    dateModified: project.updatedAt.toISOString(),
+    author: getPageAuthorSchema(),
+    publisher: { "@id": "https://www.medgenz.com/#organization" },
+  };
 
   return (
     <div className="pt-24 md:pt-32 font-inter bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(projectSchema).replace(/</g, "\\u003c"),
+        }}
+      />
+      <PageStructuredData
+        name={project.title}
+        description={project.metaDescription || project.brief?.replace(/<[^>]*>/g, " ").trim() || "MedGenz hospital infrastructure project case study."}
+        url={projectUrl}
+        dateModified={project.updatedAt.toISOString()}
+      />
       {/* 1. PROJECT HERO - Elite & Professional */}
       <section className="relative py-12 md:py-20 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">
         {project.heroImage && (
@@ -89,7 +117,23 @@ export default async function ProjectDeepDive({ params }: { params: Promise<{ sl
             )}
             <div className="flex items-center justify-center gap-2 mt-6 text-slate-300 text-xs font-bold normal-case tracking-normal">
               <User className="w-4 h-4 text-brand-500" />
-              <span>MedGenz India Pvt. Ltd.</span>
+              <span>MedGenz</span>
+            </div>
+            <div className="mt-2 text-xs text-slate-300 normal-case tracking-normal">
+              Published{" "}
+              <time dateTime={project.createdAt.toISOString()}>
+                {new Intl.DateTimeFormat("en-IN", {
+                  dateStyle: "long",
+                  timeZone: "UTC",
+                }).format(project.createdAt)}
+              </time>
+              {" · "}Updated{" "}
+              <time dateTime={project.updatedAt.toISOString()}>
+                {new Intl.DateTimeFormat("en-IN", {
+                  dateStyle: "long",
+                  timeZone: "UTC",
+                }).format(project.updatedAt)}
+              </time>
             </div>
           </div>
         </div>

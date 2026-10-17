@@ -25,6 +25,12 @@ import ECGCTA from '@/components/sections/ECGCTA';
 import ClientMarquee from '@/components/sections/ClientMarquee';
 import Certifications from '@/components/sections/Certifications';
 import SiteFAQ from '@/components/SiteFAQ';
+import PageStructuredData from '@/components/PageStructuredData';
+import EvidenceReferences from '@/components/sections/EvidenceReferences';
+import {
+  healthcareServiceReferences,
+  PAGE_CONTENT_UPDATED_AT,
+} from '@/lib/structured-data';
 
 const architecture = [
   {
@@ -158,6 +164,14 @@ export default function MGPSHub() {
   }, [slides.length]);
 
   return (
+    <>
+    <PageStructuredData
+      name="Medical Gas Pipeline Systems"
+      description="Explore medical gas pipeline design, installation, testing, and equipment for healthcare facilities across India."
+      url="https://www.medgenz.com/services/medical-gas-pipeline-system"
+      dateModified={PAGE_CONTENT_UPDATED_AT}
+      citation={healthcareServiceReferences.medicalGas}
+    />
     <div className="pt-20 font-inter">
       {/* CLEAN PRODUCT HEADER */}
       <section className="pt-28 pb-8 md:pt-40 md:pb-16 bg-white border-b border-gray-100 uppercase tracking-tighter">
@@ -184,7 +198,7 @@ export default function MGPSHub() {
             </p>
 
             <div className="mb-8 border-l-4 border-brand-600 bg-brand-50 rounded-r-xl p-4 md:p-5 shadow-sm">
-                <h3 className="text-[11px] md:text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">System Execution Blueprint</h3>
+                <h2 className="text-[11px] md:text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">System Execution Blueprint</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-3 gap-x-6 text-sm md:text-base text-gray-800 font-medium normal-case tracking-normal">
                     <div className="flex items-center gap-2.5">
                         <CheckCircle className="w-4 h-4 text-green-500 shrink-0" /> BS EN 13348 Copper
@@ -309,7 +323,7 @@ export default function MGPSHub() {
                 <FileText className="w-8 h-8 md:w-16 md:h-16 text-brand-300 group-hover:text-brand-500 transition-colors" />
               </div>
               <div className="p-2 md:p-5 flex flex-col flex-grow items-center md:items-start">
-                <h4 className="font-bold text-gray-900 group-hover:text-brand-700 text-[10px] md:text-base leading-tight mb-1">MGPS Layout Drawing</h4>
+                <h3 className="font-bold text-gray-900 group-hover:text-brand-700 text-[10px] md:text-base leading-tight mb-1">MGPS Layout Drawing</h3>
                 <p className="hidden md:block text-xs text-gray-500 mb-4 flex-grow font-light">DWG Format • For Hospital Architects</p>
                 <div className="text-[9px] md:text-xs font-bold text-brand-600 flex items-center gap-1 md:gap-2 mt-auto">Open Document <ExternalLink className="w-3 h-3 md:w-4 md:h-4" /></div>
               </div>
@@ -360,6 +374,7 @@ export default function MGPSHub() {
       <Certifications />
       <ClientMarquee />
 
+      <EvidenceReferences references={healthcareServiceReferences.medicalGas} />
       <SiteFAQ
         title="Frequently Asked Questions"
         eyebrow="Common Questions"
@@ -369,5 +384,6 @@ export default function MGPSHub() {
 
       <ECGCTA />
     </div>
+    </>
   );
 }

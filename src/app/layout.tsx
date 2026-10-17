@@ -40,7 +40,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  applicationName: "MedGenz India Pvt. Ltd.",
+  applicationName: "MedGenz",
   title: "MedGenz | Modular OTs & Hospital Infrastructure",
   description: "MedGenz delivers modular operating theatres, medical gas systems, and hospital infrastructure solutions across India.",
   keywords: [
@@ -49,9 +49,9 @@ export const metadata: Metadata = {
     "Hospital Furniture",
     "Healthcare Infrastructure",
   ],
-  authors: [{ name: "MedGenz India Private Limited" }],
-  creator: "MedGenz India Private Limited",
-  publisher: "MedGenz India Private Limited",
+  authors: [{ name: "MedGenz" }],
+  creator: "MedGenz",
+  publisher: "MedGenz",
   formatDetection: {
     email: false,
     telephone: false,
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: "https://www.medgenz.com",
-      siteName: "MedGenz India Pvt. Ltd.",
+      siteName: "MedGenz",
       title: "MedGenz | Modular OTs & Hospital Infrastructure",
     description:
         "MedGenz delivers modular operating theatres, medical gas systems, and hospital infrastructure solutions across India.",

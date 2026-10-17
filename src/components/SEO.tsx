@@ -10,8 +10,8 @@ interface SEOProps {
 }
 
 const defaultSEO = {
-  title: 'MedGenz India Pvt. Ltd. | We Manufacture And Setup Modular Operation theatre',
-  description: 'MedGenz India Private Limited provides NABH and ISO certified turnkey solutions for Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure.',
+  title: 'MedGenz | Modular OTs & Hospital Infrastructure',
+  description: 'MedGenz delivers modular operating theatres, medical gas systems, and hospital infrastructure solutions across India.',
   image: '/images/og-image.jpg',
   url: 'https://www.medgenz.com',
   type: 'website',
@@ -25,8 +25,8 @@ export default function SEO({
   type,
   schema
 }: SEOProps) {
-  const seoTitle = title ? `${title} | MedGenz India Pvt. Ltd.` : defaultSEO.title;
-  const seoDescription = description || defaultSEO.description;
+  const seoTitle = (title ? `${title} | MedGenz` : defaultSEO.title).slice(0, 59).trim();
+  const seoDescription = (description || defaultSEO.description).slice(0, 159).trim();
   const seoImage = image || defaultSEO.image;
   const seoUrl = url || defaultSEO.url;
   const seoType = type || defaultSEO.type;
@@ -35,6 +35,7 @@ export default function SEO({
     <>
       <title>{seoTitle}</title>
       <meta name="description" content={seoDescription} />
+      <meta name="keywords" content="Modular OT, Medical Gas Pipeline, Hospital Furniture, Healthcare Infrastructure" />
 
       {/* Open Graph */}
       <meta property="og:title" content={seoTitle} />
@@ -42,7 +43,7 @@ export default function SEO({
       <meta property="og:image" content={seoImage} />
       <meta property="og:url" content={seoUrl} />
       <meta property="og:type" content={seoType} />
-      <meta property="og:site_name" content="MedGenz India Pvt. Ltd." />
+      <meta property="og:site_name" content="MedGenz" />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />

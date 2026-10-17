@@ -2,6 +2,46 @@ import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle, Activity, ShieldCheck, Zap, Phone, ArrowRight } from "lucide-react";
 import { withSeoMetadata } from "@/lib/seo-metadata";
+import PageStructuredData from "@/components/PageStructuredData";
+import EvidenceReferences from "@/components/sections/EvidenceReferences";
+import SiteFAQ from "@/components/SiteFAQ";
+import {
+  PAGE_CONTENT_UPDATED_AT,
+  type SourceReference,
+} from "@/lib/structured-data";
+
+const pendantReferences: SourceReference[] = [
+  {
+    label: "NHS Health Technical Memorandum 02-01: Medical gas pipeline systems",
+    url: "https://www.england.nhs.uk/publication/medical-gas-pipeline-systems-htm-02-01/",
+    context:
+      "Guidance for medical gas pipeline systems, relevant to the planning, installation, verification, and maintenance of gas services integrated into medical pendants.",
+  },
+  {
+    label: "WHO Medical equipment maintenance programme overview",
+    url: "https://www.who.int/publications/i/item/9789241501538",
+    context:
+      "WHO guidance on establishing maintenance programmes for medical equipment; facility-specific schedules and manufacturer instructions still apply.",
+  },
+];
+
+const pendantFaqs = [
+  {
+    question: "What services can an operating theatre pendant support?",
+    answer:
+      "Depending on the specified model and project design, a pendant may carry medical gas outlets, electrical sockets, data connections, and equipment shelves. Confirm the required services and outlet standards with the project team.",
+  },
+  {
+    question: "How much load can a MedGenz pendant support?",
+    answer:
+      "The listed range is 150 kg to 300 kg depending on the arm configuration. Confirm the approved load rating for the selected model and ensure the ceiling support and installation are designed for that load.",
+  },
+  {
+    question: "How should a medical pendant be maintained?",
+    answer:
+      "Maintenance should follow the equipment manufacturer's instructions and the facility's maintenance programme. Medical gas connections must also be verified and maintained under applicable local requirements.",
+  },
+];
 
 export const metadata = withSeoMetadata({
   title: "OT Ceiling Pendants | MedGenz",
@@ -38,6 +78,14 @@ const variants = [
 export default function PendantsPage() {
   return (
     <div className="pt-20">
+      <PageStructuredData
+        type="WebPage"
+        name="OT Ceiling Pendants | MedGenz"
+        description="Explore ceiling-mounted operating theatre pendants for medical gas, power, and equipment support in modular OTs."
+        url="https://www.medgenz.com/services/surgical-pendants"
+        dateModified={PAGE_CONTENT_UPDATED_AT}
+        citation={pendantReferences}
+      />
       <section className="relative py-24 bg-slate-900 text-white overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-40">
            <Image
@@ -63,7 +111,7 @@ export default function PendantsPage() {
             <div className="space-y-8">
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900">Why are Ceiling Pendants <span className="text-brand-600">Critical?</span></h2>
               <p className="text-slate-600 text-lg leading-relaxed">
-                Floor clutter is a severe hazard. Tangled hoses and cables compromise workflows and create trip hazards. Our pendants keep the floor 100% clear and sterile while delivering utilities exactly where needed.
+                Floor clutter from hoses and cables can obstruct movement and complicate workflows. Ceiling-mounted pendants help organize utility connections above the work area and position them where the clinical team needs them.
               </p>
               <div className="grid grid-cols-2 gap-6">
                 <div className="border-l-4 border-brand-600 pl-4">
@@ -122,6 +170,14 @@ export default function PendantsPage() {
           </div>
         </div>
       </section>
+
+      <EvidenceReferences references={pendantReferences} />
+      <SiteFAQ
+        title="Operating Theatre Pendant Questions"
+        eyebrow="Common Questions"
+        description="Review service planning, load capacity, and maintenance considerations for ceiling-mounted medical pendants."
+        faqs={pendantFaqs}
+      />
 
       <section className="py-24 bg-brand-600">
         <div className="max-w-5xl mx-auto px-6 text-center text-white">

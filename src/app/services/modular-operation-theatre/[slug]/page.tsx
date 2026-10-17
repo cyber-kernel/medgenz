@@ -7,8 +7,29 @@ import ECGCTA from '@/components/sections/ECGCTA';
 import ClientMarquee from '@/components/sections/ClientMarquee';
 import Certifications from '@/components/sections/Certifications';
 import ConfigurationImageSlider from '@/components/sections/ConfigurationImageSlider';
+import EvidenceReferences from '@/components/sections/EvidenceReferences';
 import SiteFAQ from '@/components/SiteFAQ';
 import { withSeoMetadata } from '@/lib/seo-metadata';
+import {
+  PAGE_CONTENT_UPDATED_AT,
+  getWebPageSchema,
+  type SourceReference,
+} from '@/lib/structured-data';
+
+const motReferences: SourceReference[] = [
+  {
+    label: "ISO 14644-1: Cleanrooms and associated controlled environments",
+    url: "https://www.iso.org/standard/53394.html",
+    context:
+      "defines classification of air cleanliness by airborne particle concentration; it does not certify a specific product or installation.",
+  },
+  {
+    label: "WHO Global Guidelines for the Prevention of Surgical Site Infection",
+    url: "https://www.who.int/publications/i/item/9789241550475",
+    context:
+      "summarizes evidence-based recommendations for perioperative infection prevention.",
+  },
+];
 
 interface ConfigItem {
   title: string;
@@ -130,7 +151,7 @@ const motProducts: Record<string, ProductData> = {
       { title: "Turnkey Solutions", desc: "By providing End to End Wall Panel solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Overcoming OT Contamination in a Legacy Hospital",
@@ -220,7 +241,7 @@ const motProducts: Record<string, ProductData> = {
       { title: "Turnkey Solutions", desc: "By providing End to End panels and ceilings system solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Solving Infection Rates in a Bihar Hospital",
@@ -331,7 +352,7 @@ const motProducts: Record<string, ProductData> = {
       { title: "Turnkey Solutions", desc: "By providing End to End panel and door solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Securing Positive Pressure in a UP Clinic",
@@ -410,7 +431,7 @@ const motProducts: Record<string, ProductData> = {
       { title: "Turnkey Solutions", desc: "From sub-base grinding to final panel integration, we handle the entire cleanroom floor execution.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & NABH Certified", desc: "Our materials and installation processes strictly adhere to NABH norms for sterile medical facilities.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Protecting Sensitive Equipment in Mumbai",
@@ -480,7 +501,7 @@ const motProducts: Record<string, ProductData> = {
       { title: "Turnkey Solutions", desc: "By providing End to End laminar airflow solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Eliminating Surgical Infections in a Punjab Neurosurgery Center",
@@ -551,7 +572,7 @@ const motProducts: Record<string, ProductData> = {
       { title: "Turnkey Solutions", desc: "By providing End to End Hepa-Filteration solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Passing Particle Counts in a UP Hospital",
@@ -643,7 +664,7 @@ const motProducts: Record<string, ProductData> = {
       { title: "Turnkey Solutions", desc: "By providing End to End HVAC system solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Stabilizing OT Humidity in Maharashtra",
@@ -732,7 +753,7 @@ const motProducts: Record<string, ProductData> = {
       { title: "Turnkey Solutions", desc: "By providing End to End pressure control solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Fixing the \"Jammed Door\" Crisis in a Haryana Hospital",
@@ -797,7 +818,7 @@ const motProducts: Record<string, ProductData> = {
       { title: "Turnkey HVAC", desc: "We design, fabricate, and install the complete duct network, ensuring perfect air balancing.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our fabrication processes adhere to SMACNA standards for cleanroom ducting.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Onsite fabrication teams ensure perfect fitment regardless of hospital layout complexities.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Comprehensive AMC includes annual duct cleaning and air balancing services.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Fixing the Sweating Ceiling in Delhi",
@@ -886,7 +907,7 @@ const motProducts: Record<string, ProductData> = {
       { title: "Turnkey Solutions", desc: "By providing End to End panel and cabinet solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Streamlining Workflows in a Punjab Cardiac Center",
@@ -967,7 +988,7 @@ const motProducts: Record<string, ProductData> = {
       { title: "Turnkey Solutions", desc: "By providing End to End Surgical Pendant solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Eliminating Cable Clutter in a Delhi Trauma Center",
@@ -1060,7 +1081,7 @@ const motProducts: Record<string, ProductData> = {
       { title: "Turnkey Solutions", desc: "By providing End to End Scrub Station solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Eliminating Cross-Contamination in an Orthopedic Wing",
@@ -1146,7 +1167,7 @@ const motProducts: Record<string, ProductData> = {
       { title: "Turnkey Solutions", desc: "By providing End to End diagnostic monitor solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Enhancing Clarity in Neurosurgery",
@@ -1213,7 +1234,7 @@ const motProducts: Record<string, ProductData> = {
       { title: "Turnkey Solutions", desc: "We handle End to End Storage Cabinet solutions, eliminating delays and ensuring quality.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our products strictly adhere to ISO 9001:2015 for cleanroom storage standards.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Teams travel to your site for precision wall-integrated installation.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Comprehensive lifetime maintenance and AMC support after project handover.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Maximizing Space in a Cardiac Center",
@@ -1302,7 +1323,7 @@ const motProducts: Record<string, ProductData> = {
       { title: "Turnkey Solutions", desc: "By providing End to End instrumentation solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Passing NABH Audits in a Corporate Hospital",
@@ -1326,7 +1347,7 @@ const motProducts: Record<string, ProductData> = {
   'peripheral-cleanroom-lights': {
     title: "Peripheral Cleanroom Lights",
     tagline: "Cleanroom Grade Ambient Illumination",
-    heroDesc: "General ambient lighting in an operating theatre cannot be ordinary. Standard commercial fixtures gather dust, disrupt airflow, and harbor dangerous bacteria. We manufacture flush-mounted, IP65-rated Peripheral LED light panels seamlessly engineered to integrate into Modular OT ceilings, ensuring a Class 100 sterile environment while providing brilliant, glare-free illumination for the entire surgical team.",
+    heroDesc: "General ambient lighting in an operating theatre must be coordinated with ceiling, cleaning, and ventilation requirements. MedGenz peripheral LED panels are designed for flush integration into modular OT ceilings, with sealed housings and diffusers selected to provide ambient illumination around the surgical field.",
     atAGlance: ["IP65 Dust & Moisture Proof", "Flush Ceiling Integration", "Aerodynamic LAF Profile", "Anti-Glare Diffusers"],
     configurations: [
       {
@@ -1373,12 +1394,12 @@ const motProducts: Record<string, ProductData> = {
       { title: "Turnkey Solutions", desc: "By providing end-to-end lighting solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Service and maintenance options can be agreed for the project and product configuration.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
-      title: "Resolving Laminar Air Flow Turbulence with Flush Lighting",
-      context: "A newly built specialty clinic was failing its NABH cleanroom validation tests. Smoke flow tests revealed that standard, bulky commercial LED panels installed in the OT ceiling were creating severe air turbulence. This turbulence was pulling non-sterile ambient air directly into the sterile surgical zone.",
-      solution: "We removed the commercial panels and retrofitted the ceiling with MedGenz Flush-Mounted IP65 Peripheral LED Panels. The perfectly flat aerodynamic profile allowed the Laminar Air Flow to travel downwards in a completely undisturbed \"piston effect\". The clinic passed their Class 100 validation test on the very next attempt, ensuring surgical safety."
+      title: "Application note: coordinating ceiling lights and airflow",
+      context: "Peripheral luminaires are part of the operating-theatre ceiling layout. Fixture profiles, ceiling penetrations, service access, cleaning requirements, and ventilation design should be coordinated during project planning. ISO 14644-1 classifies cleanroom air cleanliness by airborne particle concentration; it does not prescribe luminaire shape or guarantee infection outcomes.",
+      solution: "Select and install luminaires against the approved room design and project specifications. Confirm enclosure and cleaning details in manufacturer documentation, coordinate the ceiling layout with the ventilation designer, and verify room performance during commissioning."
     },
     specs: [
       { label: "Housing Frame Material", value: "Powder Coated CRCA Sheet / Extruded Aluminum" },
@@ -1391,9 +1412,6 @@ const motProducts: Record<string, ProductData> = {
       { q: "Why can't we use standard LED panels in a Modular OT?", a: "Standard commercial LED panels are not hermetically sealed (IP65 rated), meaning they harbor dust and bacteria inside the fixture. Furthermore, their frames often protrude slightly from the ceiling, which disrupts the critical downward push of the Laminar Air Flow system, causing dangerous air turbulence." },
       { q: "What does an IP65 rating mean for OT lights?", a: "IP65 signifies that the light fixture is completely dust-tight and highly protected against low-pressure water jets from any direction. This is absolutely essential because Operating Theatres undergo rigorous chemical fumigation and high-pressure cleaning routines to maintain absolute sterility." },
       { q: "How do peripheral lights differ from the main Surgical Dome lights?", a: "The main surgical dome light hangs over the patient and provides intense, highly-focused, shadowless illumination directly into the deep surgical cavity. Peripheral LED lights are installed flush into the surrounding ceiling to provide bright, glare-free ambient illumination for the nurses, anesthesiologists, and the rest of the room." },
-      { q: "Why is IP65 lights important?", a: "They are hermetically sealed against dust and moisture, surviving daily chemical washdowns." },
-      { q: "Do they disrupt LAF?", a: "No, their flush aerodynamic profile ensures sterile air travels downwards without turbulence." },
-      { q: "How do they differ from Dome lights?", a: "Dome lights are for the surgical cavity; peripheral lights provide ambient room sight." }
     ],
     heroImage: "/images/mot-product-page-images/ot-peripheral-led-light-images/rectangular-peripheral-led-light.webp"
   },
@@ -1463,7 +1481,7 @@ const motProducts: Record<string, ProductData> = {
       { title: "Turnkey Solutions", desc: "By providing End to End OT Lighting solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Eliminating Deep Cavity Shadows in a Teaching Hospital",
@@ -1590,7 +1608,7 @@ const motProducts: Record<string, ProductData> = {
       { title: "Turnkey Solutions", desc: "By providing End to End OT Table solutions, we eliminate delays and ensure strict quality control.", icon: "/images/why-choose-medgenz-symbols/turnkey-solution.webp" },
       { title: "ISO & CE Certified", desc: "Our processes and products strictly adhere to ISO 9001:2015, ensuring medical-grade outcomes.", icon: "/images/why-choose-medgenz-symbols/certified.webp" },
       { title: "Pan-India Execution", desc: "Headquartered in Delhi NCR, our engineering teams travel directly to your hospital site anywhere.", icon: "/images/why-choose-medgenz-symbols/pan-india.webp" },
-      { title: "Lifetime Support", desc: "Our relationship doesn't end after handover. We provide comprehensive lifetime maintenance on all tables.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
+      { title: "After-Sales Support", desc: "Ask about available maintenance, replacement parts, and AMC services for your selected product and service agreement.", icon: "/images/why-choose-medgenz-symbols/support.webp" }
     ],
     caseStudy: {
       title: "Empowering Complex Orthopedics in Punjab",
@@ -1657,40 +1675,24 @@ export default async function MOTProductPage({ params }: { params: Promise<{ slu
     "@type": "Product",
     "name": data.title,
     "description": data.heroDesc,
+    "url": `https://www.medgenz.com/services/modular-operation-theatre/${slug}`,
     "brand": {
       "@type": "Brand",
-      "name": "MedGenz India Pvt. Ltd."
+      "name": "MedGenz"
     },
     "image": data.heroImage,
-    "offers": {
-      "@type": "Offer",
-      "url": `https://www.medgenz.com/services/modular-operation-theatre/${slug}`,
-      "availability": "https://schema.org/InStock"
+    "manufacturer": {
+      "@id": "https://www.medgenz.com/#organization"
     }
   };
 
-  const webpageJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "@id": `https://www.medgenz.com/services/modular-operation-theatre/${slug}#webpage`,
-    "url": `https://www.medgenz.com/services/modular-operation-theatre/${slug}`,
-    "name": data.title,
-    "description": data.heroDesc,
-    "dateModified": "2026-10-17",
-    "author": {
-      "@type": "Organization",
-      "@id": "https://www.medgenz.com/#organization",
-      "name": "MedGenz India Pvt. Ltd.",
-      "url": "https://www.medgenz.com/",
-    },
-    "publisher": {
-      "@id": "https://www.medgenz.com/#organization",
-    },
-    "citation": [
-      "https://www.iso.org/standard/53394.html",
-      "https://www.who.int/publications/i/item/9789241550475",
-    ],
-  };
+  const webpageJsonLd = getWebPageSchema({
+    name: data.title,
+    description: data.heroDesc,
+    url: `https://www.medgenz.com/services/modular-operation-theatre/${slug}`,
+    dateModified: PAGE_CONTENT_UPDATED_AT,
+    citation: motReferences,
+  });
 
   return (
     <div className="pt-20 font-inter">
@@ -2006,37 +2008,7 @@ export default async function MOTProductPage({ params }: { params: Promise<{ slu
       <Certifications />
       <ClientMarquee />
 
-      <section aria-labelledby="standards-references" className="bg-slate-50 py-12 md:py-16">
-        <div className="mx-auto max-w-7xl px-6">
-          <h2 id="standards-references" className="text-xl font-bold text-slate-900 md:text-2xl">
-            Standards and clinical references
-          </h2>
-          <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-700">
-            <li>
-              <a
-                href="https://www.iso.org/standard/53394.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-brand-700 underline underline-offset-4"
-              >
-                ISO 14644-1: Cleanrooms and associated controlled environments
-              </a>
-              {" "}describes classification of air cleanliness by particle concentration; it does not certify a specific product or installation.
-            </li>
-            <li>
-              <a
-                href="https://www.who.int/publications/i/item/9789241550475"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-brand-700 underline underline-offset-4"
-              >
-                WHO Global Guidelines for the Prevention of Surgical Site Infection
-              </a>
-              {" "}provide evidence-based context for perioperative infection prevention.
-            </li>
-          </ul>
-        </div>
-      </section>
+      <EvidenceReferences references={motReferences} />
 
       <SiteFAQ
         title="Frequently Asked Questions"

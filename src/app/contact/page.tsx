@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ContactClient from "./client";
 import { withSeoMetadata } from "@/lib/seo-metadata";
+import PageStructuredData from "@/components/PageStructuredData";
 
 export const metadata: Metadata = withSeoMetadata({
   title: "Contact MedGenz | Hospital Solutions",
@@ -10,5 +11,14 @@ export const metadata: Metadata = withSeoMetadata({
 }, "/contact");
 
 export default function ContactPage() {
-  return <ContactClient />;
+  return (
+    <>
+      <PageStructuredData
+        name="Contact MedGenz"
+        description="Contact MedGenz about modular operating theatres, medical gas systems, and hospital infrastructure."
+        url="https://www.medgenz.com/contact"
+      />
+      <ContactClient />
+    </>
+  );
 }

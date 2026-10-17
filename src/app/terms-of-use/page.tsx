@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { withSeoMetadata } from "@/lib/seo-metadata";
+import PageStructuredData from "@/components/PageStructuredData";
 
 export const metadata: Metadata = withSeoMetadata({
   title: "Terms of Use | MedGenz",
@@ -8,6 +9,12 @@ export const metadata: Metadata = withSeoMetadata({
 
 export default function TermsOfUsePage() {
   return (
+    <>
+    <PageStructuredData
+      name="MedGenz Terms of Use"
+      description="Terms governing use of the MedGenz India Private Limited website."
+      url="https://www.medgenz.com/terms-of-use"
+    />
     <main className="min-h-screen bg-slate-50 px-6 pb-16 pt-28 font-inter md:pt-36">
       <article className="mx-auto max-w-4xl rounded-[2.5rem] border border-slate-100 bg-white p-8 leading-relaxed text-slate-700 shadow-xl md:p-14">
         <h1 className="mb-8 text-3xl font-black tracking-tight text-slate-900 md:text-4xl">
@@ -71,5 +78,6 @@ export default function TermsOfUsePage() {
         </section>
       </article>
     </main>
+    </>
   );
 }

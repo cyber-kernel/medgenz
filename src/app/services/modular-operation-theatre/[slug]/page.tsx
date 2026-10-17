@@ -8,6 +8,7 @@ import ClientMarquee from '@/components/sections/ClientMarquee';
 import Certifications from '@/components/sections/Certifications';
 import ConfigurationImageSlider from '@/components/sections/ConfigurationImageSlider';
 import SiteFAQ from '@/components/SiteFAQ';
+import { withSeoMetadata } from '@/lib/seo-metadata';
 
 interface ConfigItem {
   title: string;
@@ -1617,10 +1618,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const data = motProducts[slug];
   if (!data) return { title: 'Product Not Found' };
-  return {
+  return withSeoMetadata({
     title: `${data.title} | Modular OT Specialists | MedGenz`,
     description: data.heroDesc,
-  };
+    keywords: [data.title, "Modular OT", "Operating Theatre"],
+  }, `/services/modular-operation-theatre/${slug}`);
 }
 
 export default async function MOTProductPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -1667,11 +1669,42 @@ export default async function MOTProductPage({ params }: { params: Promise<{ slu
     }
   };
 
+  const webpageJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `https://www.medgenz.com/services/modular-operation-theatre/${slug}#webpage`,
+    "url": `https://www.medgenz.com/services/modular-operation-theatre/${slug}`,
+    "name": data.title,
+    "description": data.heroDesc,
+    "dateModified": "2026-10-17",
+    "author": {
+      "@type": "Organization",
+      "@id": "https://www.medgenz.com/#organization",
+      "name": "MedGenz India Pvt. Ltd.",
+      "url": "https://www.medgenz.com/",
+    },
+    "publisher": {
+      "@id": "https://www.medgenz.com/#organization",
+    },
+    "citation": [
+      "https://www.iso.org/standard/53394.html",
+      "https://www.who.int/publications/i/item/9789241550475",
+    ],
+  };
+
   return (
     <div className="pt-20 font-inter">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(webpageJsonLd).replace(/</g, "\\u003c"),
+        }}
       />
       {/* CLEAN PRODUCT HEADER */}
       <section className="pt-28 pb-8 md:pt-40 md:pb-16 bg-white border-b border-gray-100 uppercase tracking-tighter">
@@ -1972,6 +2005,38 @@ export default async function MOTProductPage({ params }: { params: Promise<{ slu
 
       <Certifications />
       <ClientMarquee />
+
+      <section aria-labelledby="standards-references" className="bg-slate-50 py-12 md:py-16">
+        <div className="mx-auto max-w-7xl px-6">
+          <h2 id="standards-references" className="text-xl font-bold text-slate-900 md:text-2xl">
+            Standards and clinical references
+          </h2>
+          <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-700">
+            <li>
+              <a
+                href="https://www.iso.org/standard/53394.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-brand-700 underline underline-offset-4"
+              >
+                ISO 14644-1: Cleanrooms and associated controlled environments
+              </a>
+              {" "}describes classification of air cleanliness by particle concentration; it does not certify a specific product or installation.
+            </li>
+            <li>
+              <a
+                href="https://www.who.int/publications/i/item/9789241550475"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-brand-700 underline underline-offset-4"
+              >
+                WHO Global Guidelines for the Prevention of Surgical Site Infection
+              </a>
+              {" "}provide evidence-based context for perioperative infection prevention.
+            </li>
+          </ul>
+        </div>
+      </section>
 
       <SiteFAQ
         title="Frequently Asked Questions"

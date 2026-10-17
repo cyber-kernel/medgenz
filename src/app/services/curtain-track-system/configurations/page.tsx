@@ -13,6 +13,7 @@ import ECGCTA from '@/components/sections/ECGCTA';
 import ClientMarquee from '@/components/sections/ClientMarquee';
 import Certifications from '@/components/sections/Certifications';
 import SiteFAQ from '@/components/SiteFAQ';
+import { withSeoMetadata } from '@/lib/seo-metadata';
 
 const configurations = [
   {
@@ -129,10 +130,10 @@ const faqs = [
   }
 ];
 
-export const metadata = {
-  title: "Hospital Curtain Track Configurations & Components | MedGenz",
-  description: "Explore heavy-duty hospital curtain tracks, silent glider hooks, anti-microbial fabrics, and telescopic IV tracks manufactured by MedGenz.",
-};
+export const metadata = withSeoMetadata({
+  title: "Hospital Curtain Track Components | MedGenz",
+  description: "Explore hospital curtain tracks, silent gliders, privacy curtains, and telescopic IV tracks from MedGenz.",
+}, "/services/curtain-track-system/configurations");
 
 export default function CTSConfigurations() {
   return (

@@ -7,6 +7,7 @@ import ECGCTA from '@/components/sections/ECGCTA';
 import ClientMarquee from '@/components/sections/ClientMarquee';
 import Certifications from '@/components/sections/Certifications';
 import SiteFAQ from '@/components/SiteFAQ';
+import { withSeoMetadata } from '@/lib/seo-metadata';
 
 interface ConfigItem {
   title: string;
@@ -283,10 +284,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const data = ncsProducts[slug];
   if (!data) return { title: 'Product Not Found' };
-  return {
+  return withSeoMetadata({
     title: `${data.title} | Nurse Call System | MedGenz`,
     description: data.heroDesc,
-  };
+    keywords: [data.title, "Nurse Call System", "Hospital Communication"],
+  }, `/services/nurse-call-system/${slug}`);
 }
 
 export default async function NCSProductPage({ params }: { params: Promise<{ slug: string }> }) {

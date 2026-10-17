@@ -7,6 +7,7 @@ import ECGCTA from '@/components/sections/ECGCTA';
 import ClientMarquee from '@/components/sections/ClientMarquee';
 import Certifications from '@/components/sections/Certifications';
 import SiteFAQ from '@/components/SiteFAQ';
+import { withSeoMetadata } from '@/lib/seo-metadata';
 
 interface ConfigItem {
   title: string;
@@ -775,10 +776,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const data = productData[slug];
   if (!data) return { title: 'Product Not Found' };
-  return {
+  return withSeoMetadata({
     title: `${data.title} | Hospital Furniture | MedGenz`,
     description: data.heroDesc,
-  };
+    keywords: [data.title, "Hospital Furniture", "Medical Equipment"],
+  }, `/services/hospital-furniture/${slug}`);
 }
 
 export default async function FurnitureProductPage({ params }: { params: Promise<{ slug: string }> }) {

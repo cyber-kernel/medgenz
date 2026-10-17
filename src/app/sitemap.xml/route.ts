@@ -1,9 +1,10 @@
 import { prisma } from "@/lib/prisma";
+import { SITE_URL } from "@/lib/seo-metadata";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
-  const baseUrl = process.env.NEXTAUTH_URL || "https://www.medgenz.com";
+  const baseUrl = SITE_URL;
 
   try {
     // Fetch all published blogs
@@ -22,38 +23,47 @@ export async function GET(request: Request) {
 
     // Define all public static pages and service product routes.
     const staticPaths = [
-      { path: "/", lastmod: new Date().toISOString(), priority: "1.0" },
-      { path: "/about", lastmod: new Date().toISOString(), priority: "0.9" },
-      { path: "/services", lastmod: new Date().toISOString(), priority: "0.9" },
-      { path: "/projects", lastmod: new Date().toISOString(), priority: "0.8" },
-      { path: "/blogs", lastmod: new Date().toISOString(), priority: "0.8" },
-      { path: "/contact", lastmod: new Date().toISOString(), priority: "0.7" },
-      { path: "/careers", lastmod: new Date().toISOString(), priority: "0.6" },
-      { path: "/services/modular-operation-theatre", lastmod: new Date().toISOString(), priority: "0.8" },
-      { path: "/services/medical-gas-pipeline-system", lastmod: new Date().toISOString(), priority: "0.8" },
-      { path: "/services/hospital-furniture", lastmod: new Date().toISOString(), priority: "0.8" },
-      { path: "/services/nurse-call-system", lastmod: new Date().toISOString(), priority: "0.8" },
-      { path: "/services/curtain-track-system", lastmod: new Date().toISOString(), priority: "0.8" },
-      { path: "/services/surgical-pendants", lastmod: new Date().toISOString(), priority: "0.8" },
+      { path: "/", priority: "1.0" },
+      { path: "/about", priority: "0.9" },
+      { path: "/services", priority: "0.9" },
+      { path: "/projects", priority: "0.8" },
+      { path: "/blogs", priority: "0.8" },
+      { path: "/contact", priority: "0.7" },
+      { path: "/careers", priority: "0.6" },
+      { path: "/3d-ot", priority: "0.6" },
+      { path: "/amc-cmc", priority: "0.6" },
+      { path: "/privacy-policy", priority: "0.3" },
+      { path: "/terms-of-use", priority: "0.3" },
+      { path: "/services/modular-operation-theatre", priority: "0.8" },
+      { path: "/services/medical-gas-pipeline-system", priority: "0.8" },
+      { path: "/services/hospital-furniture", priority: "0.8" },
+      { path: "/services/nurse-call-system", priority: "0.8" },
+      { path: "/services/curtain-track-system", priority: "0.8" },
+      { path: "/services/curtain-track-system/configurations", priority: "0.7" },
+      { path: "/services/surgical-pendants", priority: "0.8" },
     ];
 
     const serviceProductPaths = [
-      ...["wall-panels", "ceiling-systems", "ot-doors", "flooring-systems", "laminar-airflow", "hepa-filtration", "air-handling-units", "pressure-control", "hvac-ducting", "surgeon-control-panel", "peripheral-cleanroom-lights", "environment-monitoring", "surgical-ot-lights", "surgical-pendants", "scrub-stations", "storage-cabinets", "x-ray-viewers"].map((slug) => `/services/modular-operation-theatre/${slug}`),
+      ...["wall-panels", "ceiling-systems", "ot-doors", "flooring-systems", "laminar-airflow", "hepa-filtration", "air-handling-units", "pressure-control", "hvac-ducting", "surgeon-control-panel", "peripheral-cleanroom-lights", "environment-monitoring", "surgical-ot-lights", "surgical-pendants", "scrub-stations", "storage-cabinets", "x-ray-viewers", "surgical-tables"].map((slug) => `/services/modular-operation-theatre/${slug}`),
       ...["oxygen-supply-system", "nitrous-oxide-system", "medical-air-system", "central-vacuum-system", "copper-pipeline-network", "gas-control-safety", "bed-head-panels", "gas-outlets-terminals", "accessories-consumables"].map((slug) => `/services/medical-gas-pipeline-system/${slug}`),
       ...["icu-beds", "electric-bed", "crash-cart-trollies", "fowler-ward-beds", "lockers-overbedtables", "support-therapy-beds", "speciality-beds", "transport-emergency-beds", "examination-tables", "iv-stand-accessories"].map((slug) => `/services/hospital-furniture/${slug}`),
       ...["bedside-hardware", "emergency-indicators", "central-control-displays"].map((slug) => `/services/nurse-call-system/${slug}`),
       ...["aluminum-tracks", "silent-gliders", "roof-suspensions", "custom-layouts", "curtains", "iv-tracks"].map((slug) => `/services/curtain-track-system/${slug}`),
-    ].map((path) => ({ path, lastmod: new Date().toISOString(), priority: "0.7" }));
+    ].map((path) => ({ path, priority: "0.7" }));
 
     const staticPages = [...staticPaths, ...serviceProductPaths];
 
     // Build XML
+    const escapeXml = (value: string) =>
+      value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;").replace(/'/g, "&apos;");
+
     const urls = [
       ...staticPages.map(
         (page) =>
           `  <url>
-    <loc>${baseUrl}${page.path}</loc>
-    <lastmod>${page.lastmod}</lastmod>
+    <loc>${baseUrl}${escapeXml(page.path)}</loc>
+    ${"lastmod" in page && page.lastmod ? `<lastmod>${page.lastmod}</lastmod>` : ""}
     <changefreq>${page.path === "/" ? "daily" : "weekly"}</changefreq>
     <priority>${page.priority}</priority>
   </url>`
@@ -61,7 +71,7 @@ export async function GET(request: Request) {
       ...blogs.map(
         (blog) =>
           `  <url>
-    <loc>${baseUrl}/blogs/${blog.slug}</loc>
+    <loc>${baseUrl}/blogs/${escapeXml(blog.slug)}</loc>
     <lastmod>${blog.updatedAt.toISOString()}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -70,7 +80,7 @@ export async function GET(request: Request) {
       ...projects.map(
         (project) =>
           `  <url>
-    <loc>${baseUrl}/projects/${project.slug}</loc>
+    <loc>${baseUrl}/projects/${escapeXml(project.slug)}</loc>
     <lastmod>${project.updatedAt.toISOString()}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

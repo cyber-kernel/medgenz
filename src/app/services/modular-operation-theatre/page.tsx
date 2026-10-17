@@ -6,11 +6,13 @@ import ClientMarquee from '@/components/sections/ClientMarquee';
 import Certifications from '@/components/sections/Certifications';
 import ECGCTA from '@/components/sections/ECGCTA';
 import SiteFAQ from '@/components/SiteFAQ';
+import { withSeoMetadata } from '@/lib/seo-metadata';
 
-export const metadata = {
-  title: "Modular Operation Theatre Manufacturers | Turnkey OT Setup",
-  description: "Leading Modular Operation Theatre (MOT) manufacturers in India. We provide NABH-compliant, Class 100 turnkey OT setups, Laminar Air Flow, and cleanroom solutions.",
-};
+export const metadata = withSeoMetadata({
+  title: "Modular Operation Theatre Manufacturer | MedGenz",
+  description: "Explore turnkey modular operating theatres, OT air systems, cleanroom panels, and installation services from MedGenz in India.",
+  keywords: ["Modular OT", "Operation Theatre", "OT Manufacturer"],
+}, "/services/modular-operation-theatre");
 
 const architecture = [
   {

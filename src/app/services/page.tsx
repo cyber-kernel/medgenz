@@ -5,10 +5,11 @@ import type { Metadata } from "next";
 import { getFAQSchema } from "@/lib/structured-data";
 import SiteFAQ from "@/components/SiteFAQ";
 import ClientMarquee from "@/components/sections/ClientMarquee";
+import { withSeoMetadata } from "@/lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: "Turnkey Hospital Infrastructure Services | MedGenz | MOT, MGPS, Hospital Furniture",
-  description: "Expert manufacturers and installers of Modular Operation Theatres (MOT), Medical Gas Pipeline Systems (MGPS), Hospital Furniture, ICU Beds, IVF Labs, and Nurse Call Systems in India.",
+export const metadata: Metadata = withSeoMetadata({
+  title: "Hospital Infrastructure Services | MedGenz",
+  description: "Explore modular operating theatres, medical gas systems, hospital furniture, ICU beds, IVF labs, and nurse call systems from MedGenz.",
   keywords: [
     "Modular Operation Theatre",
     "MOT manufacturer",
@@ -20,9 +21,6 @@ export const metadata: Metadata = {
     "Hospital equipment India",
     "NABH compliant OT",
   ],
-  alternates: {
-    canonical: "https://www.medgenz.com/services",
-  },
   openGraph: {
     type: "website",
     url: "https://www.medgenz.com/services",
@@ -44,7 +42,7 @@ export const metadata: Metadata = {
     description:
       "Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital equipment manufacturing.",
   },
-};
+}, "/services");
 
 const serviceCategories = [
   {

@@ -9,6 +9,7 @@ import BlogSidebar from "@/components/sections/BlogSidebar";
 import RelatedBlogs from "@/components/sections/RelatedBlogs";
 import SiteFAQ from "@/components/SiteFAQ";
 import BlogShareButtons from "@/components/sections/BlogShareButtons";
+import { withSeoMetadata } from "@/lib/seo-metadata";
 
 interface TableOfContentsItem {
   id: string;
@@ -78,7 +79,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const title = blog.metaTitle || blog.title;
   const description = blog.metaDescription || blog.excerpt || "Read this insightful article from MedGenz about hospital infrastructure and medical equipment.";
 
-  return {
+  return withSeoMetadata({
     title: `${title} | MedGenz Blog`,
     description,
     keywords: [...(blog.categories || []), ...(blog.tags || []), "healthcare", "hospital infrastructure", blog.title],
@@ -111,7 +112,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description,
       creator: "@medgenz",
     },
-  };
+  }, `/blogs/${blog.slug}`);
 }
 
 export default async function SingleBlogPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -227,11 +228,56 @@ export default async function SingleBlogPage({ params }: { params: Promise<{ slu
     ]
   };
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: blog.title,
+    description: (blog.metaDescription || blog.excerpt || "")
+      .replace(/<[^>]*>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim(),
+    ...(blog.coverImage
+      ? {
+          image: blog.coverImage.startsWith("http")
+            ? blog.coverImage
+            : `https://www.medgenz.com/${blog.coverImage.replace(/^\/+/, "")}`,
+        }
+      : {}),
+    datePublished: blog.createdAt.toISOString(),
+    dateModified: blog.updatedAt.toISOString(),
+    author: {
+      "@type": "Organization",
+      name: "MedGenz India Pvt. Ltd.",
+      url: "https://www.medgenz.com/",
+      sameAs: [
+        "https://www.linkedin.com/company/medgenz/",
+        "https://www.facebook.com/medgenz.india.pvt.ltd",
+      ],
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "MedGenz India Pvt. Ltd.",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.medgenz.com/images/brand-logo-mg/medgenz-logo/medgenz_logo_v3.webp",
+      },
+    },
+    mainEntityOfPage: `https://www.medgenz.com/blogs/${blog.slug}`,
+  };
+
   return (
     <div className="pt-20 font-inter bg-white">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(articleJsonLd).replace(/</g, "\\u003c"),
+        }}
       />
       {/* 1. ARTICLE HERO - Clean & Minimal */}
       <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 bg-slate-950 text-white overflow-hidden uppercase tracking-tighter">

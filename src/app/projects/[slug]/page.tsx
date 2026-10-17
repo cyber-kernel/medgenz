@@ -12,6 +12,7 @@ import { prisma } from '@/lib/prisma';
 import type { Metadata } from 'next';
 import { isContentEmpty, wrapRichTextTables } from '@/lib/content-utils';
 import ProjectSidebar from '@/components/sections/ProjectSidebar';
+import { withSeoMetadata } from '@/lib/seo-metadata';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -21,10 +22,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   if (!project) return { title: "Project Not Found" };
 
-  return {
+  return withSeoMetadata({
     title: `${project.metaTitle || project.title} | MedGenz Projects`,
     description: project.metaDescription || project.brief?.replace(/<[^>]*>/g, '').slice(0, 160),
-  };
+    keywords: [
+      project.title,
+      ...(project.service ? [project.service] : []),
+      "Hospital Project",
+      "MedGenz",
+    ],
+  }, `/projects/${project.slug}`);
 }
 
 export default async function ProjectDeepDive({ params }: { params: Promise<{ slug: string }> }) {

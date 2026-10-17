@@ -1,10 +1,11 @@
 import React from 'react';
 import { Metadata } from 'next';
 import ClientWrapper from './ClientWrapper';
+import { withSeoMetadata } from '@/lib/seo-metadata';
 
-export const metadata: Metadata = {
-  title: 'Interactive 3D Modular Operation Theatre Studio | MedGenz',
-  description: 'Explore MedGenz 3D Operation Theatre (OT) 3D Studio. Interactive 3D layout planner, surgical equipment catalog, laminar airflow visualization, and medical gas pipeline infrastructure inspection.',
+export const metadata: Metadata = withSeoMetadata({
+  title: '3D Modular OT Planner | MedGenz',
+  description: 'Explore a 3D modular operating theatre planner with surgical equipment, airflow, and medical gas system visualizations.',
   keywords: [
     '3D Operation Theatre',
     '3D OT Configurator',
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
     'Laminar Airflow 3D',
     'Medical Gas Pipeline 3D',
   ],
-};
+}, '/3d-ot');
 
 export default function ThreeDOTPage() {
   return (

@@ -1,11 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle, Activity, ShieldCheck, Zap, Phone, ArrowRight } from "lucide-react";
+import { withSeoMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
-  title: "OT Ceiling Pendants & Anaesthesia Units | MedGenz",
-  description: "Manufacturers of high-load OT Ceiling Pendants. We supply Single-Arm, Double-Arm, and Rigid Anaesthesia pendants with pneumatic brakes for Modular OTs.",
-};
+export const metadata = withSeoMetadata({
+  title: "OT Ceiling Pendants | MedGenz",
+  description: "Explore ceiling-mounted operating theatre pendants for medical gas, power, and equipment support in modular OTs.",
+  keywords: ["OT pendants", "Anaesthesia pendants", "Operating theatre"],
+}, "/services/surgical-pendants");
 
 const technicalSpecs = [
   { label: "Structural Material", value: "High-strength extruded Aluminum alloy with anti-microbial coating" },

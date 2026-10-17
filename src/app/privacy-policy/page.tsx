@@ -1,11 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import { withSeoMetadata } from '@/lib/seo-metadata';
 
-export const metadata = {
-  title: 'Privacy Policy | MedGenz India Private Limited',
-  description: 'Read the official privacy policy of MedGenz India Private Limited.',
-};
+export const metadata = withSeoMetadata({
+  title: 'Privacy Policy | MedGenz',
+  description: 'Read how MedGenz handles personal information submitted through this website.',
+}, '/privacy-policy');
 
 export default function PrivacyPolicyPage() {
   return (

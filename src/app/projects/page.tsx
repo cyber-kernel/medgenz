@@ -5,12 +5,13 @@ import ClientMarquee from "@/components/sections/ClientMarquee";
 import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import { stripHtml } from "@/lib/content-utils";
+import { withSeoMetadata } from "@/lib/seo-metadata";
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = {
-  title: "MedGenz Projects | Landmark Hospital Installations & Case Studies",
-  description: "Explore our successful turnkey hospital infrastructure projects including Modular OTs in Delhi, MGPS networks in UP, and high-purity IVF Labs in Punjab.",
+export const metadata: Metadata = withSeoMetadata({
+  title: "MedGenz Hospital Projects | Case Studies",
+  description: "Explore turnkey hospital infrastructure projects, including modular OTs, medical gas networks, and IVF labs across India.",
   keywords: [
     "Hospital projects",
     "Case studies",
@@ -20,9 +21,6 @@ export const metadata: Metadata = {
     "Hospital construction",
     "Medical equipment installation",
   ],
-  alternates: {
-    canonical: "https://www.medgenz.com/projects",
-  },
   openGraph: {
     type: "website",
     url: "https://www.medgenz.com/projects",
@@ -43,7 +41,7 @@ export const metadata: Metadata = {
     title: "Our Landmark Hospital Projects | MedGenz",
     description: "Successful turnkey hospital infrastructure installations across India.",
   },
-};
+}, "/projects");
 
 export default async function ProjectsPage() {
   const projects = await prisma.project.findMany({

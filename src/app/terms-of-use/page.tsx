@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
+import { withSeoMetadata } from "@/lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: "Terms of Use | MedGenz India Private Limited",
+export const metadata: Metadata = withSeoMetadata({
+  title: "Terms of Use | MedGenz",
   description: "Terms governing use of the MedGenz India Private Limited website.",
-  alternates: {
-    canonical: "https://www.medgenz.com/terms-of-use",
-  },
-};
+}, "/terms-of-use");
 
 export default function TermsOfUsePage() {
   return (

@@ -6,6 +6,13 @@ import ClientMarquee from '@/components/sections/ClientMarquee';
 import ReviewSlider from '@/components/sections/ReviewSlider';
 import ECGCTA from '@/components/sections/ECGCTA';
 import SiteFAQ from '@/components/SiteFAQ';
+import { withSeoMetadata } from '@/lib/seo-metadata';
+
+export const metadata = withSeoMetadata({
+  title: 'Hospital Equipment AMC & CMC | MedGenz',
+  description: 'Compare annual and comprehensive maintenance contracts for hospital equipment, including ICU and operating theatre systems.',
+  keywords: ['Hospital AMC', 'Medical equipment CMC', 'Equipment maintenance'],
+}, '/amc-cmc');
 
 const faqs = [
   {
@@ -40,11 +47,6 @@ const reviews = [
   { name: 'Dr. Shalini Deshpande', role: 'Quality Head', hospital: 'Pune', rating: 5, quote: 'Calibration records and visit summaries are delivered in a format our quality team can use.' },
   { name: 'Dr. Aditya Verma', role: 'Chief Operating Officer', hospital: 'Indore', rating: 4, quote: 'A responsive maintenance partner with clear communication and sensible contract options.' },
 ];
-
-export const metadata = {
-  title: "Medical Equipment AMC & CMC Services | MedGenz",
-  description: "Secure your hospital assets with MedGenz high-fidelity maintenance contracts. Use our interactive calculator to estimate AMC and CMC costs for ICU, OT, and Imaging equipment.",
-};
 
 export default function AMCCMCPage() {
   return (

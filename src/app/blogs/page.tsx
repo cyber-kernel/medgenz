@@ -3,12 +3,13 @@ import Image from "next/image";
 import { ArrowRight, Calendar, User, Search, XCircle, FileText } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import type { Metadata } from "next";
+import { withSeoMetadata } from "@/lib/seo-metadata";
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = {
-  title: "Healthcare Infrastructure Blog | Modular OT & MGPS Insights | MedGenz",
-  description: "Read expert insights and trends on Modular Operation Theatre design, Medical Gas Pipeline Systems, hospital engineering, and healthcare infrastructure from MedGenz experts.",
+export const metadata: Metadata = withSeoMetadata({
+  title: "Hospital Infrastructure Blog | MedGenz",
+  description: "Read MedGenz insights on modular operating theatre design, medical gas systems, hospital engineering, and healthcare infrastructure.",
   keywords: [
     "Healthcare blog",
     "Hospital engineering",
@@ -18,10 +19,7 @@ export const metadata: Metadata = {
     "Hospital infrastructure",
     "Healthcare trends",
   ],
-  alternates: {
-    canonical: "https://www.medgenz.com/blogs",
-  },
-};
+}, "/blogs");
 
 interface BlogListingPageProps {
   searchParams: Promise<{ category?: string; tag?: string }>;

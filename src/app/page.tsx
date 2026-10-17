@@ -8,8 +8,16 @@ import ECGCTA from '@/components/sections/ECGCTA';
 import Testimonials from '@/components/sections/Testimonials';
 import SiteFAQ from '@/components/SiteFAQ';
 import { getFAQSchema, getWebsiteSchema } from '@/lib/structured-data';
+import { withSeoMetadata } from '@/lib/seo-metadata';
 
 const homePageModified = '2026-10-15';
+
+export const metadata = withSeoMetadata({
+  title: 'MedGenz | Modular OTs & Hospital Infrastructure',
+  description:
+    'MedGenz delivers modular operating theatres, medical gas systems, and hospital infrastructure solutions across India.',
+  keywords: ['Modular OT', 'Medical Gas Pipeline', 'Hospital Furniture'],
+}, '/');
 
 const stats = [
   { label: "Projects Done", value: "150+" },

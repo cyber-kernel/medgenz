@@ -2,12 +2,25 @@
 
 **Project**: MedGenz Medical Equipment Manufacturing  
 **Framework**: Next.js 15.1.0  
-**Status**: 🔄 In Progress  
-**Last Updated**: 2026-08-01
+**Status**: Metadata and canonical remediation implemented; Google indexing follow-up pending
+**Last Updated**: 2026-10-17
+
+## Current Implementation Update (2026-10-17)
+
+- Public route metadata is normalized: titles are limited to 59 characters, descriptions to 159 characters, and comma-separated keywords to 99 characters.
+- Canonical URLs now resolve to each page's own URL on `https://www.medgenz.com`; the root homepage canonical is no longer inherited by child pages.
+- Metadata coverage includes static routes and dynamic service, blog, and project details. The contact page now uses a server route wrapper so its metadata is emitted during server rendering.
+- The sitemap lists the public static routes, configured service-product URLs, and published blog and project entries. Static pages omit fabricated `lastmod` dates; database-backed entries use their real `updatedAt` values.
+- Blog detail pages emit `BlogPosting` data with database publication/modification dates and organization authorship. Modular OT product pages include organization authorship, a modification date, and visible links to relevant ISO/WHO references.
+- Production build and TypeScript checks pass. The generated static pages were checked for title, description, keyword, and canonical limits.
+
+Google decides whether and when to index each URL; these changes improve discoverability and canonical signals but cannot guarantee indexing or a particular third-party GEO score. The `keywords` meta tag is retained to satisfy the requested audit limit, although Google Search does not use it for ranking. Recheck deployed URLs in Search Console and request indexing for important sub-service pages if needed.
+
+The remaining sections are the historical baseline audit and implementation notes from 2026-08-01; their checklists are not a current status report.
 
 ---
 
-## Executive Summary
+## Historical Executive Summary
 
 MedGenz has a solid foundation with:
 - ✅ Modern Next.js 15 setup
@@ -110,7 +123,7 @@ However, critical SEO gaps exist that will impact search visibility and AI disco
 
 ---
 
-## Current Status: Pages & Metadata
+## Historical Status Snapshot: Pages & Metadata
 
 | Page | Route | Status | Metadata | Schema |
 |------|-------|--------|----------|--------|
@@ -126,7 +139,7 @@ However, critical SEO gaps exist that will impact search visibility and AI disco
 
 ---
 
-## Improvements Made
+## Historical Improvements Made
 
 *(Improvements are being implemented incrementally)*
 

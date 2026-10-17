@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
+import { withSeoMetadata } from "@/lib/seo-metadata";
 
 // Dynamic import to keep client component separate
 const AboutClient = dynamic(() => import("./client"), {
   loading: () => <div className="min-h-screen" />,
 });
 
-export const metadata: Metadata = {
-  title: "About MedGenz | 12+ Years of Excellence in Hospital Infrastructure",
-  description: "Discover MedGenz's journey as India's premier manufacturer of Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure. ISO 9001 & CE certified.",
+export const metadata: Metadata = withSeoMetadata({
+  title: "About MedGenz | Hospital Infrastructure Experts",
+  description: "Discover MedGenz, an Indian manufacturer of modular operating theatres, medical gas systems, and hospital infrastructure.",
   keywords: [
     "About MedGenz",
     "Hospital manufacturer India",
@@ -16,9 +17,6 @@ export const metadata: Metadata = {
     "MGPS manufacturer",
     "Medical equipment company",
   ],
-  alternates: {
-    canonical: "https://www.medgenz.com/about",
-  },
   openGraph: {
     type: "website",
     url: "https://www.medgenz.com/about",
@@ -40,7 +38,7 @@ export const metadata: Metadata = {
     description:
       "India's premier manufacturer of Modular Operation Theatres, Medical Gas Pipeline Systems, and hospital infrastructure.",
   },
-};
+}, "/about");
 
 export default function AboutPage() {
   return <AboutClient />;

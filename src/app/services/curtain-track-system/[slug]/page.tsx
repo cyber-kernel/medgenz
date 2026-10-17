@@ -7,6 +7,7 @@ import ECGCTA from '@/components/sections/ECGCTA';
 import ClientMarquee from '@/components/sections/ClientMarquee';
 import Certifications from '@/components/sections/Certifications';
 import SiteFAQ from '@/components/SiteFAQ';
+import { withSeoMetadata } from '@/lib/seo-metadata';
 
 interface ConfigItem {
   title: string;
@@ -371,10 +372,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const data = ctsProducts[slug];
   if (!data) return { title: 'Product Not Found' };
-  return {
+  return withSeoMetadata({
     title: `${data.title} | Curtain Track System | MedGenz`,
     description: data.heroDesc,
-  };
+    keywords: [data.title, "Hospital Curtain Track", "Privacy Curtains"],
+  }, `/services/curtain-track-system/${slug}`);
 }
 
 export default async function CTSProductPage({ params }: { params: Promise<{ slug: string }> }) {

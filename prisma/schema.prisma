@@ -92,3 +92,12 @@ model ContactSubmission {
 
   @@index([createdAt])
 }
+
+model IndexNowUrl {
+  url         String   @id
+  submitted   Boolean  @default(false)
+  firstSeenAt DateTime @default(now())
+  submittedAt DateTime?
+
+  @@index([submitted])
+}

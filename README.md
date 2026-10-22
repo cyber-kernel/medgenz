@@ -41,6 +41,12 @@ To host on a VPS (e.g., Ubuntu):
 5. Run using PM2: `pm2 start npm --name "medgenz" -- start`.
 6. Configure Nginx as a reverse proxy to port 3000.
 
+### 4. Automatic IndexNow submissions (Vercel)
+- Set a strong `CRON_SECRET` environment variable in Vercel for the **Production** environment.
+- Deploy the project with the database migration applied. The scheduled `/api/indexnow` check runs daily at 07:00 UTC.
+- On its first run, it records the current sitemap as the baseline without resubmitting existing URLs. Later runs submit only URLs newly added to the sitemap.
+- The IndexNow key must be available at `https://www.medgenz.com/key.txt`. Vercel Cron Jobs run against production deployments, not local development or preview deployments.
+
 ## SEO Ranking Guide (Top 1 in 1 Month)
 
 To rank MedGenz on the top page of Google, follow these steps:

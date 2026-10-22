@@ -47,6 +47,20 @@ const expertise = [
     image: "/images/key-application-images/emergency-ward.webp",
     link: "/services/hospital-furniture",
     icon: Settings
+  },
+  {
+    title: "Nurse Call Systems",
+    desc: "Patient-to-care-team communication systems with bedside call units, emergency alerts, and nurse-station displays.",
+    image: "/images/key-application-images/nurse-call-system.webp",
+    link: "/services/nurse-call-system",
+    icon: Activity
+  },
+  {
+    title: "Hospital Curtain Track Systems",
+    desc: "Hospital privacy curtain tracks, fittings, and layouts for patient wards and clinical spaces.",
+    image: "/images/hospital-curtain-track-system/heavy-duty-aluminum-tracks.webp",
+    link: "/services/curtain-track-system",
+    icon: CheckCircle
   }
 ];
 
@@ -285,7 +299,7 @@ export default function Home() {
             <p className="mt-5 text-slate-500 text-xs md:text-sm max-w-xl mx-auto font-light">Providing a comprehensive range of turnkey healthcare solutions tailored to complex medical requirements.</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 lg:gap-10">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-10">
             {expertise.map((item, i) => (
               <Link href={item.link} key={i} className="group bg-white rounded-[2rem] overflow-hidden border border-slate-100 hover:shadow-xl transition-all duration-500 flex flex-col h-full">
                 <div className="h-48 relative overflow-hidden flex-shrink-0">

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "indexnow": "node submit-indexnow.mjs"
   },
   "dependencies": {
     "@prisma/client": "^6.4.1",

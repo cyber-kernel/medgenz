@@ -210,11 +210,12 @@ export default function Home() {
           width="1535"
           height="590"
           autoPlay
+          controls
           muted
           loop
           playsInline
           preload="metadata"
-          aria-label="MedGenz brand film"
+          aria-label="MedGenz brand film. Use the video controls to play, pause, or adjust the sound."
         />
       </section>
 

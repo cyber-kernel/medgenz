@@ -224,7 +224,7 @@ export default function AboutClient() {
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
 
                   {/* Slide Label */}
-                  <div className="absolute bottom-10 left-10 right-10">
+                  <div className="absolute bottom-6 left-6 right-6 md:bottom-10 md:left-10 md:right-10">
                     <motion.p
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
@@ -241,7 +241,7 @@ export default function AboutClient() {
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
               transition={{ type: 'spring', damping: 15 }}
-              className="absolute -bottom-3 right-4 md:-bottom-5 md:right-6 bg-brand-600 text-white p-2.5 md:p-4 rounded-lg md:rounded-2xl shadow-xl z-20 leading-none"
+              className="absolute top-4 right-4 md:top-auto md:-bottom-5 md:right-6 bg-brand-600 text-white p-2.5 md:p-4 rounded-lg md:rounded-2xl shadow-xl z-20 leading-none"
             >
               <Award className="w-5 h-5 md:w-7 md:h-7 mb-1 text-brand-100" />
 

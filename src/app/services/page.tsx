@@ -164,15 +164,12 @@ export default function ServicesPage() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {serviceCategories.map((cat, i) => (
-              <Link href={`/services/${cat.slug}`} key={i} className="group flex flex-col bg-slate-50 rounded-[2rem] border border-slate-100 overflow-hidden hover:bg-white hover:shadow-2xl transition-all duration-500 h-full">
+              <Link href={`/services/${cat.slug}`} key={i} className="group flex flex-col bg-white rounded-[2rem] border border-slate-100 overflow-hidden hover:shadow-2xl transition-all duration-500 h-full">
                 <div className="relative h-56 md:h-64 overflow-hidden">
                   <Image src={cat.image} alt={cat.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-6 left-8">
-                      <h2 className="text-xl md:text-3xl font-black text-white uppercase tracking-tighter leading-tight">{cat.title}</h2>
-                  </div>
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
+                  <h2 className="text-xl md:text-3xl font-black text-slate-900 uppercase tracking-tighter leading-tight mb-3">{cat.title}</h2>
                   <p className="text-slate-600 text-sm md:text-base leading-relaxed mb-6 flex-grow font-light">{cat.desc}</p>
 
                   <ul className="grid grid-cols-2 gap-y-3 gap-x-5 mb-7">
